@@ -1,21 +1,27 @@
 ---
 name: cbec-qualification-review
-description: Use this skill when the user needs cross-border e-commerce qualification review, seller onboarding review, merchant KYB/KYC document review, product/category admission checks, brand authorization review, certificate/license/document validation, platform qualification checklists, remediation letters, or auditable approve/reject/escalate decisions for platforms such as Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, Walmart Marketplace, eBay, Tmall Global, JD Worldwide, or similar marketplaces.
+description: Use this skill when the user needs cross-border e-commerce product launch review, market-entry readiness, marketplace listing preparation, product feasibility checks, competitor/channel/pricing analysis, packaging or label review, logistics route and budget comparison, platform/category admission checklists, qualification review, seller onboarding review, brand authorization review, certificate/license/document validation, remediation letters, or auditable approve/reject/escalate decisions for platforms such as Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, Walmart Marketplace, eBay, Tmall Global, JD Worldwide, or similar marketplaces.
 metadata:
-  short-description: Cross-border e-commerce qualification review
+  short-description: Cross-border product launch and qualification review
 ---
 
-# Cross-Border E-commerce Qualification Review
+# Cross-Border E-commerce Product Launch Review
 
-Use this skill to turn messy merchant, brand, product, and certificate materials into an auditable qualification decision. The output must be operational: approve, conditionally approve, request more information, reject, or escalate to human review.
+Use this skill to turn a cross-border product idea or messy launch package into an operational launch-readiness view: can it sell, where it may get blocked, what to fix, what to prepare, and whether it can move forward.
 
-This skill is not a generic compliance Q&A skill. It reviews a concrete application package or designs the review rules for such packages.
+This skill is not only for low-frequency compliance review. It supports high-frequency seller workflows before and during launch: product feasibility, competitor and pricing checks, packaging and label readiness, logistics planning, platform admission, qualification review, and applicant-facing remediation.
+
+When the user asks for a final qualification decision, the output must remain auditable: approve, conditionally approve, request more information, reject, or escalate to human review.
 
 ## Core Modes
 
 | Mode | Use when | Output |
 |---|---|---|
-| Case intake | User provides a seller/product/category/application scenario | Scope, missing inputs, first checklist |
+| Launch intake | User provides a product, target market, platform, category, or launch idea | Scope, assumptions, missing inputs, launch-readiness checklist |
+| Product feasibility | User asks whether a product can or should be sold in a market | Opportunity/risk view, obvious blockers, verification plan, next actions |
+| Competitor/pricing review | User provides competitor screenshots, product links, channel info, or pricing questions | Competitor table, channel/price bands, positioning and differentiation notes |
+| Packaging/label readiness | User provides packaging, label text, claims, ingredients/materials, or listing copy | Label/claim risks, localization notes, required changes, evidence needed |
+| Logistics/budget review | User asks about air/sea/rail/warehouse/local delivery routes | Cost/time/risk comparison, route constraints, preparation checklist |
 | Document review | User provides licenses, certificates, reports, labels, authorization letters, screenshots, PDFs, or images | Extracted fields, inconsistencies, red flags, evidence table |
 | Platform/category review | User names a marketplace, market, or product category | Current-rule verification plan and required qualification checklist |
 | Decision memo | User asks whether an application can pass | Decision, reasons, evidence, source URLs, remediation |
@@ -28,11 +34,13 @@ Before issuing a final decision, identify:
 
 - Applicant type: manufacturer, brand owner, distributor, importer, marketplace seller, agent, service provider.
 - Business model: export, import, cross-border bonded, direct mail, marketplace FBA/FBT/FBM, domestic-to-overseas, overseas-to-China.
+- Commercial goal: new product selection, launch readiness, listing approval, pricing, packaging, logistics, blocked review, remediation, or SOP design.
 - Platform and market: marketplace name, destination country/region, store site, warehouse model.
 - Product scope: category, subcategory, HS/code if relevant, regulated attributes, claims, ingredients/materials.
+- Market signals: competitor products, channel examples, target consumer, price band, packaging benchmark, review signals, or known constraints.
 - Brand/IP scope: brand owner, trademark region/class, authorization chain, license territory, validity period.
 - Documents submitted: file name, document type, issuer, holder, number, issue date, expiry date, scope, language.
-- Requested outcome: platform onboarding, category gating, product listing approval, customs/import readiness, service-provider qualification.
+- Requested outcome: launch feasibility, platform onboarding, category gating, product listing approval, customs/import readiness, logistics budget, packaging/label recommendations, pricing guidance, service-provider qualification.
 
 If any blocker is missing, ask only the minimum necessary question. Otherwise proceed with assumptions and flag them.
 
@@ -40,37 +48,43 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
 
 1. **Triage the case**
    - Load `references/audit-workflow.md`.
-   - Classify the case as seller/KYB, brand/IP, product/category, market/import, platform listing, or service-provider review.
+   - Classify the case as product launch, seller/KYB, brand/IP, product/category, market/import, platform listing, logistics/budget, competitor/pricing, packaging/label, or service-provider review.
    - Assign initial risk: low, medium, high, critical.
 
-2. **Build the document inventory**
+2. **Frame the launch question**
+   - If the user asks "can this sell" or "what should I prepare", produce a launch-readiness answer first, not a narrow compliance memo.
+   - Separate commercial assumptions from verified facts: product positioning, price band, competitor signals, target market, logistics route, and platform route.
+   - For current competitor pricing, platform requirements, freight costs, or regulatory facts, verify current sources and cite checked dates.
+
+3. **Build the document inventory**
    - Load `references/document-taxonomy.md` when reviewing documents or creating required-material lists.
    - Extract fields at document level, not just summary level.
    - Check consistency across applicant name, registered address, brand owner, product name, category, territory, validity dates, and issuer.
 
-3. **Map platform, country, and category rules**
+4. **Map platform, country, and category rules**
    - Load `references/platform-market-matrix.md` when a platform, marketplace site, or target country is involved.
    - Load `references/global-country-framework.md` for country/region routing, especially when no country-specific rule pack exists.
    - Check `data/rulepacks/index.json` for available rule packs and combine them per its `composition_order` (global -> platform -> region -> country -> category). If no country pack exists, use `data/rulepacks/global-baseline.json` and verify official sources in real time.
    - Do not rely on memory for current platform rules. Verify current requirements from official platform/regulator sources before definitive conclusions.
 
-4. **Apply decision rules**
+5. **Apply decision rules**
    - Load `references/decision-rules.md`.
    - Convert every issue into a finding with severity, rule basis, evidence, impact, and required action.
    - A single critical blocker can force reject or human escalation even if the score is otherwise high.
 
-5. **Verify evidence and currency**
+6. **Verify evidence and currency**
    - Load `references/verification-playbook.md` whenever making claims about laws, platform rules, registries, or certificate validity.
    - Cite source URL, source tier, checked date, and whether the source directly confirms the point.
    - If the source is stale, indirect, applicant-provided only, or social content, downgrade confidence.
 
-6. **Protect sensitive data**
+7. **Protect sensitive data**
    - Load `references/privacy-security.md` whenever documents include personal data, license numbers, identity documents, contracts, bank info, or contact info.
    - Redact unnecessary sensitive values in user-facing output.
 
-7. **Output the result**
+8. **Output the result**
    - Load `references/report-templates.md`.
-   - Provide a concise executive decision first, then detailed findings, evidence table, missing materials, remediation, and audit log.
+   - For launch-readiness work, provide a practical "can sell / can list / what to fix next" answer first, then competitor/pricing/logistics/packaging notes as relevant.
+   - For qualification decisions, provide a concise executive decision first, then detailed findings, evidence table, missing materials, remediation, and audit log.
 
 ## Decision Statuses
 
@@ -118,6 +132,7 @@ T4 evidence can prove what the applicant submitted, but not necessarily that the
 - Do not treat marketplace rules as stable; require source checking for current decisions.
 - Do not expose full personal identity numbers, bank accounts, private addresses, phone numbers, or emails unless the user explicitly needs a machine-readable internal record.
 - Do not call social media or seller anecdotes authoritative for qualification review.
+- Do not present competitor prices, freight costs, or platform policies as current unless they were checked from current sources.
 - Do not give legal advice as final authority. Phrase legal conclusions as operational review findings requiring official/professional confirmation where appropriate.
 
 ## Script Helper

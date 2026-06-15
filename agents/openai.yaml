@@ -1,3 +1,4 @@
-display_name: CBEC Qualification Review
-short_description: Review seller, brand, product, and certificate qualifications with evidence-backed decisions.
-default_prompt: Review this cross-border e-commerce qualification package and provide an auditable approve, supplement, reject, or escalation decision.
+interface:
+  display_name: "CBEC Product Launch Review"
+  short_description: "Launch readiness for cross-border products"
+  default_prompt: "Use $cbec-qualification-review to evaluate this cross-border product launch package across market fit, competitors, pricing, logistics, platform admission, qualification risks, and remediation tasks."
