@@ -4,6 +4,8 @@
 
 **面向跨境电商卖家、品牌、商品、证书与平台准入材料的可审计资质审核 Agent Skill。**
 
+[English](./README.en.md)
+
 Claude Code / Codex / OpenClaw / Hermes 等支持 Skills 的 agent 均可使用。装进 agent 后，可以用自然语言审核商家入驻、类目准入、品牌授权、产品合规文件、证书有效性和平台补件材料，输出可追溯的通过、补件、拒绝或人工升级结论。
 
 [![Skill](https://img.shields.io/badge/Agent-Skill-orange.svg)](./SKILL.md)
@@ -50,9 +52,9 @@ skill 的最终结论固定为六类，便于系统集成和复核：
 
 ## 整体项目逻辑图
 
-![CBEC Qualification Review project logic diagram](./assets/project-logic-diagram.png)
+![跨境电商资质审核整体项目逻辑图](./assets/project-logic-diagram-zh.png)
 
-这张图用于快速说明“材料进入、规则匹配、来源核验、风险判断、补件/通过/拒绝”的完整链路。图像生成提示词见 [`assets/project-logic-diagram.image2-prompt.md`](./assets/project-logic-diagram.image2-prompt.md)。
+这张图用于快速说明“材料进入、规则匹配、来源核验、风险判断、补件/通过/拒绝”的完整链路。图像生成提示词见 [`assets/project-logic-diagram-zh.image2-prompt.md`](./assets/project-logic-diagram-zh.image2-prompt.md)。
 
 ## 安装
 
