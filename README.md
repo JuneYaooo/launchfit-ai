@@ -54,6 +54,30 @@ skill 的最终结论固定为六类，便于系统集成和复核：
 
 ![跨境电商资质审核整体项目逻辑图](./assets/project-logic-diagram-zh.png)
 
+## 中文效果示意
+
+以下示意图展示中文业务场景下的输出形态：从消费者与竞品信号，到渠道价格、包装标签、配方建议、定价策略和物流预算，都可以被整理成便于运营、审核和补件沟通的结构化页面。
+
+### 消费者与竞品信号
+
+![消费者与竞品信号](./assets/demo-consumer-competitor-signals.png)
+
+### 竞品价格与渠道洞察
+
+![竞品价格与渠道洞察](./assets/demo-competitor-pricing-channels.png)
+
+### 包装、配方与定价建议
+
+![包装、配方与定价建议](./assets/demo-packaging-formula-pricing.png)
+
+### 美国零售货架概念
+
+![美国零售货架概念](./assets/demo-retail-shelf-concept.png)
+
+### 物流对比与预算
+
+![物流对比与预算](./assets/demo-logistics-budget-eu.png)
+
 ## 安装
 
 ### Codex
