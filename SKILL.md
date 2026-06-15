@@ -52,6 +52,7 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
    - Assign initial risk: low, medium, high, critical.
 
 2. **Frame the launch question**
+   - Load `references/launch-readiness-playbook.md` for product feasibility, competitor/pricing, packaging/label, logistics/budget, or seller-facing launch questions.
    - If the user asks "can this sell" or "what should I prepare", produce a launch-readiness answer first, not a narrow compliance memo.
    - Separate commercial assumptions from verified facts: product positioning, price band, competitor signals, target market, logistics route, and platform route.
    - For current competitor pricing, platform requirements, freight costs, or regulatory facts, verify current sources and cite checked dates.
@@ -157,6 +158,7 @@ The script is intentionally dependency-free so it can run in constrained environ
 | File | Load when |
 |---|---|
 | `references/audit-workflow.md` | Any real review or rulebook design |
+| `references/launch-readiness-playbook.md` | Product feasibility, competitor/pricing, packaging/label, logistics/budget, and seller-facing launch-readiness outputs |
 | `references/document-taxonomy.md` | Documents, materials, certificates, labels, authorization chains |
 | `references/platform-market-matrix.md` | Platform, country, category, or marketplace-specific scope |
 | `references/global-country-framework.md` | Any country/region not yet covered by a mature rule pack |

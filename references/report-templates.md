@@ -52,6 +52,52 @@ The JSON contract below is the single source of truth for output field names and
 This review is an operational qualification assessment based on submitted materials and checked sources. It is not legal advice. Platform and regulatory requirements can change; verify official sources before final enforcement or submission.
 ```
 
+## Launch Readiness Markdown Memo
+
+Use this for seller-facing product launch, listing preparation, competitor/pricing, packaging, or logistics questions. Keep the first screen practical and action-oriented.
+
+```markdown
+# Cross-Border Product Launch Review
+
+## Snapshot
+- Product:
+- Target market/platform:
+- Launch view: go | caution | stop | unknown
+- Biggest risk:
+- Next action:
+
+## Top Risks Before Listing
+| Risk | Impact | Owner | Fix |
+|---|---|---|---|
+
+## Competitor / Pricing
+| Signal | What it means | Action |
+|---|---|---|
+
+## Packaging / Label
+| Area | Risk | Suggested change |
+|---|---|---|
+
+## Platform Admission
+| Requirement | Status | Evidence/action |
+|---|---|---|
+
+## Logistics / Budget
+| Route | Fit | Risk | Preparation |
+|---|---|---|---|
+
+## Missing Materials
+| Material | Why needed | Who provides it |
+|---|---|---|
+
+## Assumptions And Verification Needed
+| Item | Current basis | How to verify |
+|---|---|---|
+
+## Disclaimer
+Operational launch-readiness review only; not legal advice. Verify current platform, regulator, customs, certification, and logistics sources before final enforcement, ordering, printing, or shipment.
+```
+
 ## JSON Contract
 
 ```json
@@ -183,4 +229,3 @@ This review is an operational qualification assessment based on submitted materi
 
 请确保材料中的主体名称、品牌、产品范围、销售地区和平台授权范围与本次申请一致。
 ```
-
