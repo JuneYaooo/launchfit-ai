@@ -3,9 +3,9 @@
 Use case: infographic-diagram
 Asset type: README and future frontend overview visual
 Primary request: Create a dense, user-facing project logic diagram for "CBEC Qualification Review", a cross-border e-commerce qualification review Agent Skill.
-Style/medium: polished SaaS product infographic, crisp vector-like raster rendering, high information density, clean operational dashboard feel.
-Composition/framing: 16:9 landscape. Use a left-to-right workflow with six major columns and a thin feedback loop along the bottom. Keep all labels legible.
-Color palette: professional multi-color system, white background, charcoal text, restrained blue/green/orange/red accents. Avoid single-hue purple/blue gradient dominance.
+Style/medium: premium technology product-page infographic, inspired by Apple keynote and Apple product-page minimalism, but with no Apple logo or trademark. White-to-soft-gray background, generous negative space, frosted glass cards, hairline icons, soft shadows, refined typography, crisp vector-like raster rendering. It should feel like a polished high-end B2B SaaS product overview, not a generic operations dashboard screenshot.
+Composition/framing: 16:9 landscape. Large title at top. Use a left-to-right workflow with six premium glassmorphism step cards connected by fine arrows, plus an elegant thin feedback loop along the bottom. Keep only 2-3 key details inside each step card; do not overfill with tables. First read shows the main path; second read reveals source, privacy, freshness, golden cases, and governance support capabilities.
+Color palette: near-white background, graphite text, silver-gray strokes, sparse high-saturation blue, teal, orange, and red accents for status. Restrained, airy, expensive, clean. Avoid single-hue purple/blue gradient dominance and cheap rainbow color blocks.
 Text (verbatim):
 "CBEC Qualification Review"
 "1. Intake"
@@ -25,5 +25,5 @@ Text (verbatim):
 "Golden Cases"
 "Rulepack Governance"
 "Not legal advice - verify official sources before final enforcement"
-Constraints: Make it immediately understandable to non-technical users. Use compact labeled nodes, arrows, small status chips, source-tier badges T1-T5, and a clear distinction between submitted materials and external official verification. Include enough detail to feel useful, but keep the first reading path obvious.
-Avoid: no fictional platform logos, no tiny unreadable text, no decorative mascots, no 3D cartoon style, no dark background, no watermark, no invented calendar dates, no fake case IDs, no fake review IDs, no fake statistics, no arbitrary counts. Use neutral status placeholders like "Checked", "Pending", "Verified", "Needs review" instead of fake numeric data.
+Constraints: Make it immediately understandable to non-technical users. Use compact labeled nodes, fine arrows, small status chips, source-tier badges T1-T5, and a clear distinction between submitted materials and external official verification. Include enough detail to feel useful, but reduce tiny copy to preserve premium clarity. All text must be legible.
+Avoid: no Apple logo or trademark, no fictional platform logos, no tiny unreadable text, no decorative mascots, no 3D cartoon style, no dark background, no watermark, no generic dashboard screenshot look, no cheap gradients, no invented calendar dates, no fake case IDs, no fake review IDs, no fake statistics, no arbitrary counts. Use neutral status placeholders like "Checked", "Pending", "Verified", "Needs review" instead of fake numeric data.
