@@ -7,8 +7,11 @@
 [English](./README.en.md)
 
 [![Skill](https://img.shields.io/badge/Agent-Skill-orange.svg)](./SKILL.md)
+[![Hackathon](https://img.shields.io/badge/International%20Food%20Expo%20Hackathon-2nd%20Place-gold.svg)](#)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![No dependencies](https://img.shields.io/badge/dependencies-none-green.svg)](./scripts/qualification_audit_schema.py)
+
+国际食品展黑客松第二名项目，现已开源。
 
 </div>
 
