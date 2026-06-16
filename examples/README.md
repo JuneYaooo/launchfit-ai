@@ -2,6 +2,47 @@
 
 These examples show what the skill can do without a product UI.
 
+## Offline Launch Readiness MVP
+
+Generate a full launch-readiness report from a local case bundle containing product scope, applicant documents, packaging text, competitor rows, and logistics rows:
+
+```bash
+python3 scripts/qualification_audit_schema.py launch-report \
+  examples/offline-launch-case.json \
+  > /tmp/launchfit-offline-report.json
+```
+
+Validate the generated JSON:
+
+```bash
+python3 scripts/qualification_audit_schema.py validate /tmp/launchfit-offline-report.json
+```
+
+Render the same report as a seller-facing Markdown memo:
+
+```bash
+python3 scripts/qualification_audit_schema.py launch-report-markdown \
+  /tmp/launchfit-offline-report.json \
+  > /tmp/launchfit-offline-report.md
+```
+
+Check the generated report against the offline launch golden case:
+
+```bash
+python3 scripts/qualification_audit_schema.py case-check \
+  cases/golden-offline-launch-readiness.json \
+  /tmp/launchfit-offline-report.json
+```
+
+Expected result:
+
+```text
+OK
+PASS: offline-launch-readiness
+```
+
+Offline bundle facts are useful for intake and routing, but they are not external verification. User-provided documents and screenshots are treated as T4 evidence, competitor rows remain `user_provided` unless marked `current_checked`, and unresolved official checks remain `needs_external_verification`.
+
 ## Amazon US Food Intake Skeleton
 
 Generate a structured review JSON for an Amazon US food/grocery intake:
@@ -54,10 +95,11 @@ PASS: golden-brand-authorization-territory
 PASS: golden-complete-low-risk
 PASS: golden-expired-certificate
 PASS: golden-missing-scope
+PASS: offline-launch-readiness
 PASS: golden-prohibited-category
 PASS: golden-suspected-forged-document
 PASS: golden-unverified-applicant-docs
-OK: 7 golden cases replayed
+OK: 8 golden cases replayed
 ```
 
 ## Target-Market Benchmark Template
@@ -85,7 +127,7 @@ Expected result:
 ```text
 OK: rulepack index valid
 OK: source freshness clean (116 checked source links)
-OK: 7 golden cases replayed
+OK: 8 golden cases replayed
 ```
 
 ## Source Freshness

@@ -10,6 +10,8 @@ Commands:
   checklist --platform PLATFORM --market MARKET --category CATEGORY
   review-skeleton --platform PLATFORM --market MARKET --category CATEGORY
   benchmark-template --market MARKET --category CATEGORY
+  launch-report <bundle-json-file>
+  launch-report-markdown <review-json-file>
   rulepack-new --country-code CODE --country-name NAME
   rulepack-validate <json-file>
   rulepack-index-validate
@@ -21,6 +23,7 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -569,6 +572,811 @@ def benchmark_template(
     }
 
 
+def _as_list(value: Any) -> list[Any]:
+    if isinstance(value, list):
+        return value
+    if value in (None, ""):
+        return []
+    return [value]
+
+
+def _text(value: Any) -> str:
+    return str(value or "").strip()
+
+
+def _joined_text(values: list[Any]) -> str:
+    return ", ".join(_text(value) for value in values if _text(value))
+
+
+def _confidence(value: Any, default: str = "medium") -> str:
+    text = _text(value).lower()
+    return text if text in {"high", "medium", "low"} else default
+
+
+def _risk_source_ids(sources: list[dict[str, Any]]) -> list[str]:
+    return [str(source["source_id"]) for source in sources if source.get("source_id")]
+
+
+def normalize_bundle_source(raw: dict[str, Any], idx: int) -> dict[str, Any]:
+    source_id = _text(raw.get("source_id")) or f"src-offline-{idx:03d}"
+    tier = _text(raw.get("tier")) or "T4"
+    if tier not in ALLOWED_TIERS:
+        tier = "T4"
+    return {
+        "source_id": source_id,
+        "title": _text(raw.get("title")) or f"Offline user-provided source {idx}",
+        "url": _text(raw.get("url")),
+        "tier": tier,
+        "checked_at": _text(raw.get("checked_at")) or today(),
+        "confirms": _text(raw.get("confirms")) or "User-provided offline source; external verification not completed.",
+    }
+
+
+def normalize_bundle_document(raw: dict[str, Any], idx: int) -> dict[str, Any]:
+    doc_id = _text(raw.get("document_id")) or f"doc-offline-{idx:03d}"
+    return {
+        "document_id": doc_id,
+        "document_type": _text(raw.get("document_type")) or "offline document",
+        "file_reference": _text(raw.get("file_reference")) or doc_id,
+        "holder": _text(raw.get("holder")),
+        "issuer": _text(raw.get("issuer")),
+        "number_redacted": _text(raw.get("number_redacted")),
+        "issue_date": _text(raw.get("issue_date")),
+        "expiry_date": _text(raw.get("expiry_date")),
+        "scope": _text(raw.get("scope")),
+        "extraction_confidence": _confidence(raw.get("extraction_confidence")),
+        "privacy_level": _text(raw.get("privacy_level")) or "business_confidential",
+    }
+
+
+def _document_evidence(document: dict[str, Any], raw: dict[str, Any]) -> dict[str, Any]:
+    parts = [
+        f"type={document.get('document_type', '')}",
+        f"holder={document.get('holder', '')}",
+        f"issuer={document.get('issuer', '')}",
+        f"scope={document.get('scope', '')}",
+        f"expiry={document.get('expiry_date', '')}",
+    ]
+    return {
+        "evidence_id": f"ev-{document['document_id']}",
+        "kind": "submitted_document",
+        "reference": document.get("file_reference", ""),
+        "tier": "T4",
+        "checked_at": _text(raw.get("checked_at")) or today(),
+        "extracted_fact": "; ".join(part for part in parts if not part.endswith("=")),
+        "confidence": document.get("extraction_confidence", "medium"),
+    }
+
+
+def build_document_findings(
+    bundle: dict[str, Any],
+    documents: list[dict[str, Any]],
+    source_ids: list[str],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    case = bundle.get("case") if isinstance(bundle.get("case"), dict) else {}
+    raw_docs = [item for item in bundle.get("documents") or [] if isinstance(item, dict)]
+    findings: list[dict[str, Any]] = []
+    missing_materials: list[dict[str, Any]] = []
+    applicant_name = _text(case.get("applicant_name")).lower()
+    destination = _text(case.get("destination_market")).lower()
+    platform = _text(case.get("platform")).lower()
+    category = _text(case.get("product_category")).lower()
+    brand_name = _text(case.get("brand_name")).lower()
+
+    def add_finding(
+        severity: str,
+        requirement: str,
+        submitted: str,
+        issue: str,
+        action: str,
+        acceptable: str,
+        material: str,
+        priority: str,
+    ) -> None:
+        findings.append(
+            {
+                "finding_id": f"OFF-DOC-{len(findings) + 1:03d}",
+                "severity": severity,
+                "surface": "certificate",
+                "requirement": requirement,
+                "submitted_evidence": submitted,
+                "observed_issue": issue,
+                "business_impact": "Platform/category review can be delayed or rejected until the evidence is corrected or externally verified.",
+                "decision_effect": "escalate_human" if severity == "critical" else "request_more_info",
+                "required_action": action,
+                "acceptable_evidence": acceptable,
+                "source_ids": source_ids,
+                "confidence": "high" if severity in {"critical", "high"} else "medium",
+            }
+        )
+        missing_materials.append(
+            {
+                "material": material,
+                "why_required": issue,
+                "acceptable_replacement": acceptable,
+                "owner": "applicant / reviewer",
+                "priority": priority,
+            }
+        )
+
+    for idx, document in enumerate(documents):
+        raw = raw_docs[idx] if idx < len(raw_docs) else {}
+        submitted = f"{document.get('document_type', '')}: {document.get('file_reference', '')}"
+        expiry = parse_date(document.get("expiry_date"))
+        if expiry is not None and expiry < _dt.date.today():
+            add_finding(
+                "high",
+                "Submitted qualification documents must be valid on the review date.",
+                submitted,
+                f"{document.get('document_type')} expired on {document.get('expiry_date')}.",
+                "Provide a renewed certificate/report or official issuer confirmation showing current validity.",
+                "Current certificate/report with holder, issuer, scope, and validity matching this product and market.",
+                f"Renewed {document.get('document_type')}",
+                "P0",
+            )
+        holder = _text(document.get("holder")).lower()
+        if applicant_name and holder and applicant_name not in holder and holder not in applicant_name:
+            add_finding(
+                "high",
+                "Document holder must match the applicant or an explainable authorization chain.",
+                submitted,
+                f"Holder '{document.get('holder')}' does not match applicant '{case.get('applicant_name')}'.",
+                "Provide entity relationship evidence or a corrected document naming the applicant.",
+                "Business registration, authorization chain, or corrected certificate naming the applicant.",
+                "Entity relationship evidence",
+                "P0",
+            )
+        if document.get("extraction_confidence") == "low":
+            add_finding(
+                "medium",
+                "Low-confidence extracted document fields must be rechecked before decision.",
+                submitted,
+                "Document extraction confidence is low.",
+                "Re-upload a clearer document or manually confirm holder, issuer, dates, and scope.",
+                "Clear source file or manual extraction record with reviewer confirmation.",
+                "Clearer document image or confirmed extraction",
+                "P1",
+            )
+        if raw.get("suspected_forgery") is True:
+            add_finding(
+                "critical",
+                "Suspected forged materials require human escalation.",
+                submitted,
+                "The submitted document is marked as suspected forgery in the offline bundle.",
+                "Escalate to human review and verify directly with issuer or registry.",
+                "Issuer or registry confirmation and internal human review notes.",
+                "Issuer verification for suspected forged document",
+                "P0",
+            )
+        document_type = _text(document.get("document_type")).lower()
+        scope_blob = " ".join(
+            _text(raw.get(key)).lower()
+            for key in ("scope", "territory", "platform_scope", "brand_scope", "product_scope")
+        )
+        if "brand authorization" in document_type:
+            if destination and destination not in scope_blob and "us" in destination and "united states" not in scope_blob:
+                add_finding(
+                    "high",
+                    "Brand authorization must cover the target territory.",
+                    submitted,
+                    "Brand authorization does not cover the US target territory.",
+                    "Provide authorization covering the destination market.",
+                    "Brand authorization letter naming the grantee, territory, product scope, validity, and grantor authority.",
+                    "US territory brand authorization",
+                    "P0",
+                )
+            if platform and platform not in scope_blob:
+                add_finding(
+                    "high",
+                    "Brand authorization must cover the target platform or channel.",
+                    submitted,
+                    f"Brand authorization does not mention {case.get('platform')}.",
+                    "Provide authorization covering the marketplace or online channel used for launch.",
+                    "Brand authorization covering the named marketplace or sufficiently broad online sales channel.",
+                    "Platform/channel brand authorization",
+                    "P0",
+                )
+            if brand_name and brand_name not in scope_blob:
+                add_finding(
+                    "medium",
+                    "Brand authorization should identify the reviewed brand.",
+                    submitted,
+                    f"Brand authorization scope does not clearly identify brand '{case.get('brand_name')}'.",
+                    "Provide corrected authorization that identifies the brand and product family.",
+                    "Corrected brand authorization naming the brand and product scope.",
+                    "Brand-specific authorization",
+                    "P1",
+                )
+        if category and document.get("scope") and category not in _text(document.get("scope")).lower():
+            add_finding(
+                "medium",
+                "Document scope should match the reviewed product category.",
+                submitted,
+                f"Document scope does not clearly mention category '{case.get('product_category')}'.",
+                "Confirm the document covers the reviewed product category and SKU.",
+                "Scope page, product annex, model/SKU list, or issuer confirmation.",
+                "Product/category scope evidence",
+                "P1",
+            )
+
+    return findings, missing_materials
+
+
+def build_market_benchmarks(
+    bundle: dict[str, Any],
+    source_ids: list[str],
+) -> tuple[list[dict[str, Any]], dict[str, Any], list[dict[str, Any]]]:
+    case = bundle.get("case") if isinstance(bundle.get("case"), dict) else {}
+    rows: list[dict[str, Any]] = []
+    assumptions: list[dict[str, Any]] = []
+    for idx, raw in enumerate(bundle.get("competitors") or [], start=1):
+        if not isinstance(raw, dict):
+            continue
+        data_basis = _text(raw.get("data_basis")) or "user_provided"
+        if data_basis not in ALLOWED_BENCHMARK_BASIS:
+            data_basis = "user_provided"
+        channel_role = _text(raw.get("channel_role")) or "other"
+        if channel_role not in ALLOWED_CHANNEL_ROLES:
+            channel_role = "other"
+        positioning = _text(raw.get("positioning")) or "unknown"
+        if positioning not in ALLOWED_POSITIONING:
+            positioning = "unknown"
+        rows.append(
+            {
+                "benchmark_id": _text(raw.get("benchmark_id")) or f"BM-{idx:03d}",
+                "product_name": _text(raw.get("product_name")) or f"Unnamed benchmark {idx}",
+                "channel": _text(raw.get("channel")) or "user-provided channel",
+                "channel_role": channel_role,
+                "market": _text(raw.get("market")) or _text(case.get("destination_market")),
+                "pack_size": _text(raw.get("pack_size")),
+                "price": _text(raw.get("price")),
+                "unit_price": _text(raw.get("unit_price")),
+                "positioning": positioning,
+                "visible_claims": [_text(item) for item in _as_list(raw.get("visible_claims")) if _text(item)],
+                "packaging_signals": [_text(item) for item in _as_list(raw.get("packaging_signals")) if _text(item)],
+                "certification_signals": [_text(item) for item in _as_list(raw.get("certification_signals")) if _text(item)],
+                "review_signals": [_text(item) for item in _as_list(raw.get("review_signals")) if _text(item)],
+                "data_basis": data_basis,
+                "source_ids": [sid for sid in _as_list(raw.get("source_ids")) if _text(sid)] or source_ids,
+                "evidence_ids": [],
+                "takeaway": _text(raw.get("takeaway")) or "Use as a directional offline benchmark; verify current price and listing details before final action.",
+            }
+        )
+    if not rows:
+        assumptions.append(
+            {
+                "material": "Target-market benchmark products",
+                "why_required": "Launch readiness needs local price, packaging, channel, and trust-signal references.",
+                "acceptable_replacement": "5-10 current marketplace, retail, DTC, or user-provided benchmark rows with source basis.",
+                "owner": "reviewer / user",
+                "priority": "P1",
+            }
+        )
+    prices = [_text(row.get("unit_price") or row.get("price")) for row in rows if _text(row.get("unit_price") or row.get("price"))]
+    channels = sorted({_text(row.get("channel")) for row in rows if _text(row.get("channel"))})
+    claims = sorted({claim for row in rows for claim in row.get("visible_claims", [])})
+    packaging = sorted({signal for row in rows for signal in row.get("packaging_signals", [])})
+    trust = sorted({signal for row in rows for signal in row.get("certification_signals", [])})
+    reviews = sorted({signal for row in rows for signal in row.get("review_signals", [])})
+    positions = sorted({_text(row.get("positioning")) for row in rows if _text(row.get("positioning")) and row.get("positioning") != "unknown"})
+    summary = {
+        "reference_price_band": "; ".join(prices) if prices else "No price basis supplied; verify current target-market prices.",
+        "channel_map": ", ".join(channels) if channels else "No channel basis supplied.",
+        "packaging_conventions": ", ".join(packaging) if packaging else "No packaging benchmark signals supplied.",
+        "claims_and_proof": ", ".join(claims) if claims else "No competitor claim signals supplied.",
+        "visible_trust_signals": ", ".join(trust) if trust else "No visible certification or trust signals supplied.",
+        "review_themes": ", ".join(reviews) if reviews else "No review signals supplied.",
+        "gap_opportunity": f"Position against observed tiers: {', '.join(positions)}." if positions else "Positioning cannot be assessed until benchmarks are verified.",
+        "copy_avoid_improve": "Copy clear local pack-size and channel cues; avoid unverified regulated claims; improve proof for premium pricing.",
+        "listing_preparation": "Verify current prices, source URLs, label requirements, brand authorization, and food/category documents before ordering, printing, or listing.",
+        "verification_needed": "Competitor rows are offline/user-provided unless marked current_checked; recheck current prices, claims, review counts, and certifications.",
+    }
+    return rows, summary, assumptions
+
+
+REGULATED_CLAIM_TERMS = {
+    "cure",
+    "treat",
+    "treatment",
+    "prevent",
+    "disease",
+    "immune",
+    "medical",
+    "fda approved",
+    "spf",
+    "organic",
+    "antimicrobial",
+    "hypoallergenic",
+    "child safe",
+    "ce",
+    "fcc",
+}
+
+
+def regulated_claim_terms_in_text(text: str) -> list[str]:
+    lowered = text.lower()
+    matches: list[str] = []
+    for term in sorted(REGULATED_CLAIM_TERMS):
+        pattern = r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])"
+        if re.search(pattern, lowered):
+            matches.append(term)
+    return matches
+
+
+def build_packaging_findings(
+    bundle: dict[str, Any],
+    source_ids: list[str],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    packaging = bundle.get("packaging") if isinstance(bundle.get("packaging"), dict) else {}
+    case = bundle.get("case") if isinstance(bundle.get("case"), dict) else {}
+    findings: list[dict[str, Any]] = []
+    missing_materials: list[dict[str, Any]] = []
+    text_blob = " ".join(
+        [
+            _text(packaging.get("front_label")),
+            _text(packaging.get("back_label")),
+            _joined_text(_as_list(packaging.get("claims"))),
+            _joined_text(_as_list(packaging.get("visible_certification_marks"))),
+        ]
+    ).lower()
+    claims = [_text(item) for item in _as_list(packaging.get("claims")) if _text(item)]
+    marks = [_text(item) for item in _as_list(packaging.get("visible_certification_marks")) if _text(item)]
+    warnings = [_text(item) for item in _as_list(packaging.get("warnings")) if _text(item)]
+
+    def add_packaging_finding(severity: str, issue: str, action: str, material: str, priority: str) -> None:
+        findings.append(
+            {
+                "finding_id": f"OFF-PACK-{len(findings) + 1:03d}",
+                "severity": severity,
+                "surface": "product_category",
+                "requirement": "Packaging labels and listing claims must be supportable for the target market and category.",
+                "submitted_evidence": "Offline packaging text supplied by user.",
+                "observed_issue": issue,
+                "business_impact": "Packaging may need revision before printing or platform listing submission.",
+                "decision_effect": "request_more_info",
+                "required_action": action,
+                "acceptable_evidence": "Revised label/listing copy plus substantiation or official confirmation for regulated claims and marks.",
+                "source_ids": source_ids,
+                "confidence": "medium",
+            }
+        )
+        missing_materials.append(
+            {
+                "material": material,
+                "why_required": issue,
+                "acceptable_replacement": "Revised packaging text or substantiation evidence reviewed against current official requirements.",
+                "owner": "applicant / packaging reviewer",
+                "priority": priority,
+            }
+        )
+
+    matched_terms = regulated_claim_terms_in_text(text_blob)
+    if matched_terms:
+        add_packaging_finding(
+            "high" if any(term in {"fda approved", "immune", "cure", "treat", "disease"} for term in matched_terms) else "medium",
+            f"Packaging or listing text includes regulated claim/mark terms: {', '.join(matched_terms)}.",
+            "Remove, revise, or substantiate regulated claims before printing or listing.",
+            "Claim substantiation and revised label/listing copy",
+            "P0",
+        )
+    if marks:
+        add_packaging_finding(
+            "medium",
+            f"Visible certification/regulator marks need evidence: {', '.join(marks)}.",
+            "Match every visible mark to a valid certificate, registration, or allowed-use basis.",
+            "Certification mark support evidence",
+            "P1",
+        )
+    category = _text(case.get("product_category")).lower()
+    ingredient_text = _joined_text(_as_list(packaging.get("ingredients_or_materials"))).lower()
+    if category == "food":
+        allergens = [item for item in ("peanut", "sesame", "soy", "milk", "egg", "wheat", "fish", "shellfish", "tree nut") if item in ingredient_text]
+        if allergens and not warnings:
+            add_packaging_finding(
+                "medium",
+                f"Food ingredients include allergen signals ({', '.join(allergens)}) but warning/allergen statement is missing from the bundle.",
+                "Confirm required allergen declaration and warning language for the target market.",
+                "Allergen declaration review",
+                "P1",
+            )
+    language_list = [_text(item).lower() for item in _as_list(packaging.get("languages"))]
+    if _text(case.get("destination_market")).lower() in {"us", "usa", "united states"} and "english" not in language_list:
+        add_packaging_finding(
+            "medium",
+            "US launch bundle does not show English label language.",
+            "Provide English packaging and listing copy for review.",
+            "English label/listing copy",
+            "P1",
+        )
+    if not claims and not packaging:
+        add_packaging_finding(
+            "medium",
+            "No packaging or claim text was supplied.",
+            "Provide front label, back label, claims, ingredients/materials, warnings, languages, and visible marks.",
+            "Packaging transcription or images",
+            "P1",
+        )
+
+    return findings, missing_materials
+
+
+def build_logistics_findings(bundle: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    rows = [item for item in bundle.get("logistics") or [] if isinstance(item, dict)]
+    findings: list[dict[str, Any]] = []
+    missing_materials: list[dict[str, Any]] = []
+    normalized: list[dict[str, Any]] = []
+    risk_terms = {"battery", "liquid", "aerosol", "food", "cold chain", "dangerous goods", "fragile", "glass", "high value", "leakage"}
+    for idx, row in enumerate(rows, start=1):
+        constraints = [_text(item) for item in _as_list(row.get("constraints")) if _text(item)]
+        risks = [_text(item) for item in _as_list(row.get("risks")) if _text(item)]
+        prep = [_text(item) for item in _as_list(row.get("preparation")) if _text(item)]
+        normalized.append(
+            {
+                "route_id": _text(row.get("route_id")) or f"LOG-{idx:03d}",
+                "route": _text(row.get("route")) or _text(row.get("mode")) or "offline logistics route",
+                "mode": _text(row.get("mode")),
+                "time": _text(row.get("time")),
+                "cost_basis": _text(row.get("cost_basis")) or "not_checked",
+                "best_for": _text(row.get("best_for")),
+                "constraints": constraints,
+                "risks": risks,
+                "preparation": prep,
+                "data_basis": _text(row.get("data_basis")) or "user_provided",
+            }
+        )
+        blob = " ".join(constraints + risks).lower()
+        matched = sorted(term for term in risk_terms if term in blob)
+        if matched:
+            findings.append(
+                {
+                    "finding_id": f"OFF-LOG-{len(findings) + 1:03d}",
+                    "severity": "medium",
+                    "surface": "market_import",
+                    "requirement": "Logistics route must match product constraints, cost basis, and import/warehouse requirements.",
+                    "submitted_evidence": _text(row.get("route")) or f"logistics row {idx}",
+                    "observed_issue": f"Route has category/logistics risk signals: {', '.join(matched)}.",
+                    "business_impact": "Freight, customs, warehouse, damage, or margin assumptions may fail without route confirmation.",
+                    "decision_effect": "request_more_info",
+                    "required_action": "Confirm route constraints with freight forwarder, warehouse, platform prep rules, and import route before inventory commitment.",
+                    "acceptable_evidence": "Current logistics quotation, route constraints, packaging test, warehouse acceptance, and import/customs preparation notes.",
+                    "source_ids": [],
+                    "confidence": "medium",
+                }
+            )
+    if not rows:
+        missing_materials.append(
+            {
+                "material": "Logistics route and budget basis",
+                "why_required": "Launch readiness cannot assess margin and inventory risk without route, cost driver, time, and constraints.",
+                "acceptable_replacement": "Forwarder quotation, 3PL estimate, or user-provided route comparison clearly marked as not externally verified.",
+                "owner": "applicant / logistics reviewer",
+                "priority": "P1",
+            }
+        )
+    return normalized, findings, missing_materials
+
+
+def choose_launch_decision(
+    findings: list[dict[str, Any]],
+    requirements: list[dict[str, Any]],
+    market_benchmarks: list[dict[str, Any]],
+    logistics_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    severities = {finding.get("severity") for finding in findings if isinstance(finding, dict)}
+    requirement_statuses = {req.get("status") for req in requirements if isinstance(req, dict)}
+    if "critical" in severities:
+        status = "escalate_human"
+        risk_level = "critical"
+        risk_score = 90
+        summary = "Human escalation required because a critical blocker was detected in the offline bundle."
+    elif "high" in severities or {"missing", "invalid", "needs_external_verification"}.intersection(requirement_statuses):
+        status = "request_more_info"
+        risk_level = "high"
+        risk_score = 60
+        summary = "Launch readiness is blocked until missing, expired, mismatched, or externally unverified evidence is resolved."
+    elif "medium" in severities or not market_benchmarks or not logistics_rows:
+        status = "conditional_approve"
+        risk_level = "medium"
+        risk_score = 35
+        summary = "Launch may continue only after bounded packaging, benchmark, logistics, and verification actions are completed."
+    else:
+        status = "approve"
+        risk_level = "low"
+        risk_score = 10
+        summary = "Offline bundle shows no material blocker, but current official sources should still be checked before final enforcement."
+    return {
+        "status": status,
+        "risk_level": risk_level,
+        "risk_score": risk_score,
+        "summary": summary,
+        "rationale": [
+            "Offline launch report generated from user-provided bundle data.",
+            "User-provided documents and screenshots are T4 evidence until independently verified.",
+            "Current platform, regulator, registry, competitor price, and logistics facts require source checks before final action.",
+        ],
+    }
+
+
+def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
+    case = bundle.get("case") if isinstance(bundle.get("case"), dict) else {}
+    platform = _text(case.get("platform"))
+    market = _text(case.get("destination_market"))
+    category = _text(case.get("product_category"))
+    report = review_skeleton(
+        platform=platform,
+        market=market,
+        category=category,
+        applicant_name=_text(case.get("applicant_name")),
+        applicant_role=_text(case.get("applicant_role")),
+        business_model=_text(case.get("business_model")),
+        brand_name=_text(case.get("brand_name")),
+        purpose=_text(case.get("review_purpose")) or "launch readiness and qualification intake",
+        case_id=_text(case.get("case_id")),
+        marketplace_site=_text(case.get("marketplace_site")),
+    )
+    report["case"].update(
+        {
+            "case_id": _text(case.get("case_id")) or report["case"]["case_id"],
+            "applicant_name": _text(case.get("applicant_name")),
+            "applicant_role": _text(case.get("applicant_role")),
+            "platform": platform,
+            "marketplace_site": _text(case.get("marketplace_site")) or market,
+            "destination_market": market,
+            "business_model": _text(case.get("business_model")),
+            "product_category": category,
+            "subcategory": _text(case.get("subcategory")),
+            "brand_name": _text(case.get("brand_name")),
+            "review_purpose": _text(case.get("review_purpose")) or "launch readiness and qualification intake",
+            "requested_decision_deadline": _text(case.get("requested_decision_deadline")),
+            "review_date": _text(case.get("review_date")) or today(),
+        }
+    )
+
+    bundle_sources = [
+        normalize_bundle_source(raw, idx)
+        for idx, raw in enumerate(bundle.get("sources") or [], start=1)
+        if isinstance(raw, dict)
+    ]
+    declared_source_ids = {source.get("source_id") for source in report.get("sources", []) if isinstance(source, dict)}
+    for source in bundle_sources:
+        if source["source_id"] not in declared_source_ids:
+            report["sources"].append(source)
+            declared_source_ids.add(source["source_id"])
+    offline_source_ids = _risk_source_ids(bundle_sources)
+
+    raw_docs = [item for item in bundle.get("documents") or [] if isinstance(item, dict)]
+    documents = [normalize_bundle_document(raw, idx) for idx, raw in enumerate(raw_docs, start=1)]
+    report["documents"] = documents
+    for raw, document in zip(raw_docs, documents):
+        report["evidence"].append(_document_evidence(document, raw))
+
+    benchmark_rows, benchmark_summary, benchmark_missing = build_market_benchmarks(bundle, offline_source_ids)
+    report["market_benchmarks"] = benchmark_rows
+    report["market_benchmark_summary"] = benchmark_summary
+
+    document_findings, document_missing = build_document_findings(bundle, documents, offline_source_ids)
+    packaging_findings, packaging_missing = build_packaging_findings(bundle, offline_source_ids)
+    logistics_rows, logistics_findings, logistics_missing = build_logistics_findings(bundle)
+
+    external_requirement = {
+        "requirement_id": "offline-current-source-verification",
+        "surface": "platform_listing",
+        "requirement": "Current platform, regulator, registry, competitor price, and logistics facts must be externally verified before final launch action.",
+        "status": "needs_external_verification",
+        "matched_evidence_ids": [],
+        "source_ids": offline_source_ids,
+        "notes": "Offline bundle facts are useful for intake and routing but do not replace current T1/T2 source checks.",
+    }
+    report["requirements"].append(external_requirement)
+
+    existing_count = len(report["findings"])
+    for idx, finding in enumerate(document_findings + packaging_findings + logistics_findings, start=existing_count + 1):
+        finding["finding_id"] = finding.get("finding_id") or f"OFF-{idx:03d}"
+        report["findings"].append(finding)
+    report["missing_materials"].extend(benchmark_missing + document_missing + packaging_missing + logistics_missing)
+    report["decision"] = choose_launch_decision(
+        report["findings"],
+        report["requirements"],
+        report["market_benchmarks"],
+        logistics_rows,
+    )
+    report["remediation"] = {
+        "applicant_message": build_supplement_message(report["missing_materials"]),
+        "internal_next_steps": [
+            "Verify current official platform and regulator sources before final decision.",
+            "Match submitted documents to holder, brand, product, territory, platform, scope, and validity.",
+            "Recheck competitor prices and logistics quotations from current sources.",
+            "Revise packaging/listing claims before printing or marketplace submission.",
+        ],
+    }
+    report["audit_log"].append(
+        {
+            "timestamp": today(),
+            "actor": "AI reviewer",
+            "action": "generated_offline_launch_report",
+            "details": f"Documents={len(documents)}, benchmarks={len(benchmark_rows)}, logistics_routes={len(logistics_rows)}.",
+        }
+    )
+    report["offline_logistics"] = logistics_rows
+    return report
+
+
+def _md_cell(value: Any) -> str:
+    text = _text(value)
+    return text.replace("\n", "<br>").replace("|", "\\|")
+
+
+def _md_list(values: Any) -> str:
+    items = [_text(item) for item in _as_list(values) if _text(item)]
+    return ", ".join(items)
+
+
+def render_launch_markdown(report: dict[str, Any]) -> str:
+    case = report.get("case") if isinstance(report.get("case"), dict) else {}
+    decision = report.get("decision") if isinstance(report.get("decision"), dict) else {}
+    summary = report.get("market_benchmark_summary") if isinstance(report.get("market_benchmark_summary"), dict) else {}
+    lines: list[str] = [
+        "# Cross-Border Product Launch Review",
+        "",
+        "## Snapshot",
+        f"- Product: {_md_cell(case.get('subcategory') or case.get('product_category'))}",
+        f"- Target market/platform: {_md_cell(case.get('destination_market'))} / {_md_cell(case.get('platform'))}",
+        f"- Launch view: {_md_cell(decision.get('status'))}",
+        f"- Biggest risk: {_md_cell(decision.get('summary'))}",
+        "- Next action: Resolve P0/P1 missing materials and verify current official/source data before ordering, printing, or listing.",
+        "",
+        "## Top Risks Before Listing",
+        "| Risk | Impact | Owner | Fix |",
+        "|---|---|---|---|",
+    ]
+    for finding in (report.get("findings") or [])[:8]:
+        if not isinstance(finding, dict):
+            continue
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    _md_cell(finding.get("observed_issue")),
+                    _md_cell(finding.get("business_impact")),
+                    "applicant / reviewer",
+                    _md_cell(finding.get("required_action")),
+                ]
+            )
+            + " |"
+        )
+    if len(lines) >= 8 and lines[-1] == "|---|---|---|---|":
+        lines.append("| No material risk rows |  |  |  |")
+
+    lines.extend(
+        [
+            "",
+            "## Target-Market Benchmarks",
+            "| Benchmark product | Channel role | Pack/unit price | Positioning | Visible trust signals | What it teaches us |",
+            "|---|---|---|---|---|---|",
+        ]
+    )
+    for row in report.get("market_benchmarks") or []:
+        if not isinstance(row, dict):
+            continue
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    _md_cell(row.get("product_name")),
+                    _md_cell(row.get("channel_role")),
+                    _md_cell(row.get("unit_price") or row.get("price") or row.get("pack_size")),
+                    _md_cell(row.get("positioning")),
+                    _md_cell(_md_list(row.get("certification_signals")) or _md_list(row.get("visible_claims"))),
+                    _md_cell(row.get("takeaway")),
+                ]
+            )
+            + " |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## What The Benchmarks Mean",
+            "| Question | Conclusion | Action |",
+            "|---|---|---|",
+            f"| Reference price band | {_md_cell(summary.get('reference_price_band'))} | Verify current prices and unit economics. |",
+            f"| Channel map | {_md_cell(summary.get('channel_map'))} | Decide which channel sets the launch reference. |",
+            f"| Packaging conventions | {_md_cell(summary.get('packaging_conventions'))} | Match local expectations before printing. |",
+            f"| Claims and proof | {_md_cell(summary.get('claims_and_proof'))} | Remove or substantiate regulated claims. |",
+            f"| Review themes | {_md_cell(summary.get('review_themes'))} | Turn repeated objections into listing proof. |",
+            f"| Gap opportunity | {_md_cell(summary.get('gap_opportunity'))} | Pick copy / avoid / improve actions. |",
+            "",
+            "## Packaging / Label",
+            "| Area | Risk | Suggested change |",
+            "|---|---|---|",
+        ]
+    )
+    packaging_findings = [
+        finding
+        for finding in report.get("findings") or []
+        if isinstance(finding, dict) and finding.get("finding_id", "").startswith("OFF-PACK")
+    ]
+    for finding in packaging_findings:
+        lines.append(
+            f"| Packaging / claims | {_md_cell(finding.get('observed_issue'))} | {_md_cell(finding.get('required_action'))} |"
+        )
+    if not packaging_findings:
+        lines.append("| Packaging / claims | No offline packaging finding generated | Verify current market label rules. |")
+
+    lines.extend(
+        [
+            "",
+            "## Platform Admission",
+            "| Requirement | Status | Evidence/action |",
+            "|---|---|---|",
+        ]
+    )
+    for req in (report.get("requirements") or [])[:10]:
+        if not isinstance(req, dict):
+            continue
+        lines.append(
+            f"| {_md_cell(req.get('requirement'))} | {_md_cell(req.get('status'))} | {_md_cell(req.get('notes'))} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Logistics / Budget",
+            "| Route | Fit | Risk | Preparation |",
+            "|---|---|---|---|",
+        ]
+    )
+    for row in report.get("offline_logistics") or []:
+        if not isinstance(row, dict):
+            continue
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    _md_cell(row.get("route")),
+                    _md_cell(row.get("best_for")),
+                    _md_cell(_md_list(row.get("risks")) or row.get("cost_basis")),
+                    _md_cell(_md_list(row.get("preparation"))),
+                ]
+            )
+            + " |"
+        )
+    if not report.get("offline_logistics"):
+        lines.append("| No logistics route supplied | Unknown | Missing budget basis | Add route, time, cost driver, constraints. |")
+
+    lines.extend(
+        [
+            "",
+            "## Missing Materials",
+            "| Material | Why needed | Who provides it |",
+            "|---|---|---|",
+        ]
+    )
+    for item in report.get("missing_materials") or []:
+        if not isinstance(item, dict):
+            continue
+        lines.append(
+            f"| {_md_cell(item.get('material'))} | {_md_cell(item.get('why_required'))} | {_md_cell(item.get('owner'))} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Assumptions And Verification Needed",
+            "| Item | Current basis | How to verify |",
+            "|---|---|---|",
+            f"| Benchmark data | {_md_cell(summary.get('verification_needed'))} | Recheck live marketplace, retail, DTC, or screenshot source URLs. |",
+            "| Applicant documents | T4 submitted evidence only | Verify issuer, registry, holder, scope, territory, platform, and validity. |",
+            "| Platform/regulator rules | Rulepack routing plus source freshness | Check current official platform and regulator pages before final action. |",
+            "| Logistics costs | User-provided or rough offline quotations | Confirm with forwarder, 3PL, warehouse, and import/customs route. |",
+            "",
+            "## Disclaimer",
+            _md_cell(report.get("disclaimer") or "Operational launch-readiness review only; not legal advice."),
+        ]
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def empty_benchmark_summary() -> dict[str, Any]:
     return {
         "reference_price_band": "",
@@ -715,7 +1523,11 @@ def replay_golden_cases(cases_dir: Path, reviews_dir: Path) -> tuple[list[str], 
             errors.append(f"{case_path}: top-level case JSON must be an object")
             continue
         case_id = str(case.get("case_id") or case_path.stem)
-        review_path = reviews_dir / f"{case_id}.json"
+        review_fixture = case.get("review_fixture")
+        if isinstance(review_fixture, str) and review_fixture.strip():
+            review_path = SKILL_ROOT / review_fixture.strip()
+        else:
+            review_path = reviews_dir / f"{case_id}.json"
         if not review_path.exists():
             errors.append(f"{case_id}: missing produced review fixture {review_path}")
             continue
@@ -1090,6 +1902,28 @@ def cmd_benchmark_template(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_launch_report(args: argparse.Namespace) -> int:
+    bundle = _load_json_object(args.bundle_file, "offline launch bundle")
+    if bundle is None:
+        return 2
+    payload = launch_report_from_bundle(bundle)
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_launch_report_markdown(args: argparse.Namespace) -> int:
+    report = _load_json_object(args.review_file, "review")
+    if report is None:
+        return 2
+    errors = validate_payload(report)
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    print(render_launch_markdown(report), end="")
+    return 0
+
+
 def cmd_validate(args: argparse.Namespace) -> int:
     path = Path(args.file)
     try:
@@ -1261,6 +2095,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_benchmark_template.add_argument("--platform", default="")
     p_benchmark_template.add_argument("--count", type=int, default=8)
     p_benchmark_template.set_defaults(func=cmd_benchmark_template)
+
+    p_launch_report = sub.add_parser("launch-report", help="generate launch-readiness review JSON from an offline case bundle")
+    p_launch_report.add_argument("bundle_file")
+    p_launch_report.set_defaults(func=cmd_launch_report)
+
+    p_launch_report_markdown = sub.add_parser("launch-report-markdown", help="render launch-readiness review JSON as Markdown")
+    p_launch_report_markdown.add_argument("review_file")
+    p_launch_report_markdown.set_defaults(func=cmd_launch_report_markdown)
 
     p_validate = sub.add_parser("validate", help="validate a review JSON file")
     p_validate.add_argument("file")

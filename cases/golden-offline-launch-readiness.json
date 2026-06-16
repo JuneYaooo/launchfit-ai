@@ -1,0 +1,17 @@
+{
+  "case_id": "offline-launch-readiness",
+  "review_fixture": "examples/offline-launch-report.json",
+  "description": "Offline launch-readiness report from a user-provided case bundle should request more information and surface high-risk document/launch blockers.",
+  "expected": {
+    "status_any_of": ["request_more_info"],
+    "min_findings": [
+      {
+        "severity": "high"
+      },
+      {
+        "severity": "medium"
+      }
+    ],
+    "require_requirement_status": ["missing", "needs_external_verification"]
+  }
+}

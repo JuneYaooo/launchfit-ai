@@ -1,0 +1,1800 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "offline-launch-readiness",
+    "applicant_name": "Example Trading Co., Ltd.",
+    "applicant_role": "distributor",
+    "platform": "Amazon",
+    "marketplace_site": "US",
+    "destination_market": "US",
+    "business_model": "marketplace_seller",
+    "product_category": "food",
+    "subcategory": "chili sauce",
+    "brand_name": "Dragon Fire",
+    "review_purpose": "launch readiness and qualification intake",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-17"
+  },
+  "decision": {
+    "status": "request_more_info",
+    "risk_level": "high",
+    "risk_score": 60,
+    "summary": "Launch readiness is blocked until missing, expired, mismatched, or externally unverified evidence is resolved.",
+    "rationale": [
+      "Offline launch report generated from user-provided bundle data.",
+      "User-provided documents and screenshots are T4 evidence until independently verified.",
+      "Current platform, regulator, registry, competitor price, and logistics facts require source checks before final action."
+    ]
+  },
+  "documents": [
+    {
+      "document_id": "doc-haccp-001",
+      "document_type": "HACCP certificate",
+      "file_reference": "uploads/haccp-certificate.pdf",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "Example Certification Body",
+      "number_redacted": "HACCP-****-7788",
+      "issue_date": "2023-01-15",
+      "expiry_date": "2025-01-14",
+      "scope": "Chili sauce manufacturing and packing",
+      "extraction_confidence": "high",
+      "privacy_level": "business_confidential"
+    },
+    {
+      "document_id": "doc-brand-auth-001",
+      "document_type": "brand authorization letter",
+      "file_reference": "uploads/brand-auth.jpg",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "Dragon Fire Foods Ltd.",
+      "number_redacted": "",
+      "issue_date": "2026-01-10",
+      "expiry_date": "2026-12-31",
+      "scope": "Online distribution for Dragon Fire chili products in Southeast Asia",
+      "extraction_confidence": "medium",
+      "privacy_level": "business_confidential"
+    },
+    {
+      "document_id": "doc-label-001",
+      "document_type": "packaging label text",
+      "file_reference": "uploads/label-transcription.txt",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "applicant",
+      "number_redacted": "",
+      "issue_date": "",
+      "expiry_date": "",
+      "scope": "English and Chinese packaging transcription",
+      "extraction_confidence": "medium",
+      "privacy_level": "public"
+    }
+  ],
+  "market_benchmarks": [
+    {
+      "benchmark_id": "BM-001",
+      "product_name": "Fly By Jing Sichuan Chili Crisp",
+      "channel": "Amazon US",
+      "channel_role": "search_marketplace",
+      "market": "US",
+      "pack_size": "6 oz",
+      "price": "USD 12.99",
+      "unit_price": "USD 2.17/oz",
+      "positioning": "premium",
+      "visible_claims": [
+        "Sichuan chili crisp",
+        "all natural"
+      ],
+      "packaging_signals": [
+        "glass jar",
+        "English front label",
+        "bold origin cue"
+      ],
+      "certification_signals": [],
+      "review_signals": [
+        "flavor praise",
+        "price sensitivity"
+      ],
+      "data_basis": "user_provided",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "evidence_ids": [],
+      "takeaway": "Premium chili crisp brands can sustain high unit prices when origin story and flavor proof are clear."
+    },
+    {
+      "benchmark_id": "BM-002",
+      "product_name": "Lao Gan Ma Spicy Chili Crisp",
+      "channel": "Walmart US",
+      "channel_role": "mass_retail",
+      "market": "US",
+      "pack_size": "7.41 oz",
+      "price": "USD 4.98",
+      "unit_price": "USD 0.67/oz",
+      "positioning": "mass",
+      "visible_claims": [
+        "chili oil with crispy bits"
+      ],
+      "packaging_signals": [
+        "legacy red label",
+        "glass jar",
+        "imported Asian pantry cue"
+      ],
+      "certification_signals": [],
+      "review_signals": [
+        "value",
+        "familiarity"
+      ],
+      "data_basis": "user_provided",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "evidence_ids": [],
+      "takeaway": "Mass retail anchor price is much lower than premium DTC/Amazon brands."
+    },
+    {
+      "benchmark_id": "BM-003",
+      "product_name": "Momofuku Chili Crunch",
+      "channel": "DTC",
+      "channel_role": "dtc",
+      "market": "US",
+      "pack_size": "5.5 oz",
+      "price": "USD 12.00",
+      "unit_price": "USD 2.18/oz",
+      "positioning": "premium",
+      "visible_claims": [
+        "crunchy chili oil",
+        "restaurant brand"
+      ],
+      "packaging_signals": [
+        "minimal label",
+        "chef brand cue",
+        "bundle strategy"
+      ],
+      "certification_signals": [],
+      "review_signals": [
+        "brand trust",
+        "bundle purchase"
+      ],
+      "data_basis": "user_provided",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "evidence_ids": [],
+      "takeaway": "Brand trust and bundle strategy matter for premium positioning."
+    }
+  ],
+  "market_benchmark_summary": {
+    "reference_price_band": "USD 2.17/oz; USD 0.67/oz; USD 2.18/oz",
+    "channel_map": "Amazon US, DTC, Walmart US",
+    "packaging_conventions": "English front label, bold origin cue, bundle strategy, chef brand cue, glass jar, imported Asian pantry cue, legacy red label, minimal label",
+    "claims_and_proof": "Sichuan chili crisp, all natural, chili oil with crispy bits, crunchy chili oil, restaurant brand",
+    "visible_trust_signals": "No visible certification or trust signals supplied.",
+    "review_themes": "brand trust, bundle purchase, familiarity, flavor praise, price sensitivity, value",
+    "gap_opportunity": "Position against observed tiers: mass, premium.",
+    "copy_avoid_improve": "Copy clear local pack-size and channel cues; avoid unverified regulated claims; improve proof for premium pricing.",
+    "listing_preparation": "Verify current prices, source URLs, label requirements, brand authorization, and food/category documents before ordering, printing, or listing.",
+    "verification_needed": "Competitor rows are offline/user-provided unless marked current_checked; recheck current prices, claims, review counts, and certifications."
+  },
+  "requirements": [
+    {
+      "requirement_id": "global-seller-eligibility",
+      "surface": "seller",
+      "requirement": "Confirm the applicant is eligible for the selected platform, marketplace site, and seller route.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "global-amazon-restricted-products",
+        "global-tiktok-prohibited-products",
+        "global-temu-terms"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "global-entity-name-match",
+      "surface": "seller",
+      "requirement": "Applicant legal name must match submitted entity documents or have a clear authorization chain.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "global-gleif-search",
+        "global-opencorporates-register"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "global-brand-rights",
+      "surface": "brand_ip",
+      "requirement": "Brand ownership or authorization must cover product scope, territory, marketplace/channel, and review period.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "global-wipo-brand-database",
+        "global-uspto-trademark-search",
+        "global-euipo-search"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "global-category-not-prohibited",
+      "surface": "product_category",
+      "requirement": "Product category must not be prohibited by the platform or destination country.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "global-amazon-restricted-products",
+        "global-tiktok-prohibited-products",
+        "global-eu-safety-gate",
+        "global-cpsc-recalls"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "global-product-compliance-docs",
+      "surface": "certificate",
+      "requirement": "Product compliance documents must match the product name, SKU/model, manufacturing site, certificate scope, and destination market.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "global-eu-ce-marking",
+        "global-fcc-equipment-authorization",
+        "global-fda-start-food-business"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "global-label-claims-language",
+      "surface": "platform_listing",
+      "requirement": "Labels, warnings, language, and claims must be compatible with the destination market and platform listing rules.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "global-fda-labeling-nutrition",
+        "global-eu-ce-marking",
+        "global-tiktok-content-policy"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "global-expiry-monitoring",
+      "surface": "certificate",
+      "requirement": "Expiry dates and renewal obligations for licenses, certificates, and authorizations are recorded.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "global-iso-certification-validity",
+        "global-wipo-brand-database",
+        "global-fcc-equipment-authorization"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "platform-amazon-current-policy-check",
+      "surface": "platform_listing",
+      "requirement": "Verify current Amazon policy pages for seller eligibility, restricted products, category approval, and the exact marketplace site.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "amazon-restricted-products",
+        "amazon-categories-approval",
+        "amazon-grocery-gourmet",
+        "amazon-safety-compliance"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "platform-amazon-fba-product-compliance",
+      "surface": "certificate",
+      "requirement": "For FBA or regulated products, verify packaging, labeling, dangerous goods, test report, and product compliance requirements for the marketplace site.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "amazon-food-beverages-policy",
+        "amazon-safety-compliance",
+        "amazon-compliance-appeal"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "country-US-regulator-routing",
+      "surface": "market_import",
+      "requirement": "Identify the applicable US regulator or registry for the product category and verify current official requirements.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "us-fda-start-food-business",
+        "us-fda-food-facility-registration",
+        "us-cbp-basic-importing",
+        "us-cbp-commercial-food-imports"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "country-US-label-claims",
+      "surface": "platform_listing",
+      "requirement": "Check US label language, warning, origin, nutrition/ingredient, safety, and claims rules for the exact product category.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "us-fda-food-labeling-nutrition",
+        "us-fda-food-allergens"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "category-food-classification-import",
+      "surface": "market_import",
+      "requirement": "Verify food product classification, import route, facility/importer obligations, and destination-market admissibility from official sources.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "food-fda-start-business",
+        "food-fda-facility-registration",
+        "food-cbp-commercial-food-imports"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "category-food-label-claims",
+      "surface": "platform_listing",
+      "requirement": "Check ingredient, allergen, nutrition, language, warning, date marking, origin, and health/nutrition claims for the destination market.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "food-fda-labeling-nutrition",
+        "food-fda-allergens"
+      ],
+      "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+    },
+    {
+      "requirement_id": "offline-current-source-verification",
+      "surface": "platform_listing",
+      "requirement": "Current platform, regulator, registry, competitor price, and logistics facts must be externally verified before final launch action.",
+      "status": "needs_external_verification",
+      "matched_evidence_ids": [],
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "notes": "Offline bundle facts are useful for intake and routing but do not replace current T1/T2 source checks."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "medium",
+      "surface": "seller",
+      "requirement": "Confirm the applicant is eligible for the selected platform, marketplace site, and seller route.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Missing or unsupported seller eligibility prevents approval.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "business registration; tax/payee information where required; platform seller eligibility source",
+      "source_ids": [
+        "global-amazon-restricted-products",
+        "global-tiktok-prohibited-products",
+        "global-temu-terms"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-002",
+      "severity": "high",
+      "surface": "seller",
+      "requirement": "Applicant legal name must match submitted entity documents or have a clear authorization chain.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Major mismatch is high severity and normally requires more information or rejection.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "business license or registration certificate; authorization document if applicant differs from rights holder",
+      "source_ids": [
+        "global-gleif-search",
+        "global-opencorporates-register"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-003",
+      "severity": "medium",
+      "surface": "brand_ip",
+      "requirement": "Brand ownership or authorization must cover product scope, territory, marketplace/channel, and review period.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Missing or out-of-scope authorization is high severity.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "trademark certificate; brand authorization letter; distribution agreement",
+      "source_ids": [
+        "global-wipo-brand-database",
+        "global-uspto-trademark-search",
+        "global-euipo-search"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-004",
+      "severity": "high",
+      "surface": "product_category",
+      "requirement": "Product category must not be prohibited by the platform or destination country.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Confirmed prohibited category is critical and leads to rejection.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "official platform restricted-products source; official regulator/customs source where relevant",
+      "source_ids": [
+        "global-amazon-restricted-products",
+        "global-tiktok-prohibited-products",
+        "global-eu-safety-gate",
+        "global-cpsc-recalls"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-005",
+      "severity": "medium",
+      "surface": "certificate",
+      "requirement": "Product compliance documents must match the product name, SKU/model, manufacturing site, certificate scope, and destination market.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Mismatch or expired evidence is high severity if the category requires certification.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "test report; certificate; declaration of conformity; COA/SDS/label where relevant",
+      "source_ids": [
+        "global-eu-ce-marking",
+        "global-fcc-equipment-authorization",
+        "global-fda-start-food-business"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-006",
+      "severity": "medium",
+      "surface": "platform_listing",
+      "requirement": "Labels, warnings, language, and claims must be compatible with the destination market and platform listing rules.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Unsubstantiated or regulated claims can require rejection or human escalation.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "label artwork; claim substantiation; official label/claim requirements",
+      "source_ids": [
+        "global-fda-labeling-nutrition",
+        "global-eu-ce-marking",
+        "global-tiktok-content-policy"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-007",
+      "severity": "high",
+      "surface": "certificate",
+      "requirement": "Expiry dates and renewal obligations for licenses, certificates, and authorizations are recorded.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Unknown validity of a core document prevents approval until confirmed.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "document inventory with issue/expiry dates",
+      "source_ids": [
+        "global-iso-certification-validity",
+        "global-wipo-brand-database",
+        "global-fcc-equipment-authorization"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-008",
+      "severity": "medium",
+      "surface": "platform_listing",
+      "requirement": "Verify current Amazon policy pages for seller eligibility, restricted products, category approval, and the exact marketplace site.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "official Amazon policy source; category approval screenshot or workflow evidence where available",
+      "source_ids": [
+        "amazon-restricted-products",
+        "amazon-categories-approval",
+        "amazon-grocery-gourmet",
+        "amazon-safety-compliance"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-009",
+      "severity": "medium",
+      "surface": "certificate",
+      "requirement": "For FBA or regulated products, verify packaging, labeling, dangerous goods, test report, and product compliance requirements for the marketplace site.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Missing FBA or product-compliance evidence blocks approval for affected products.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "official Amazon FBA/compliance source; test report or certificate; label/packaging artwork",
+      "source_ids": [
+        "amazon-food-beverages-policy",
+        "amazon-safety-compliance",
+        "amazon-compliance-appeal"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-010",
+      "severity": "medium",
+      "surface": "market_import",
+      "requirement": "Identify the applicable US regulator or registry for the product category and verify current official requirements.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Do not approve regulated US categories until the applicable official source or registry path is verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "official regulator source; registry lookup where available; classification rationale",
+      "source_ids": [
+        "us-fda-start-food-business",
+        "us-fda-food-facility-registration",
+        "us-cbp-basic-importing",
+        "us-cbp-commercial-food-imports"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-011",
+      "severity": "medium",
+      "surface": "platform_listing",
+      "requirement": "Check US label language, warning, origin, nutrition/ingredient, safety, and claims rules for the exact product category.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Unsupported regulated claims or missing required warnings normally require more information or human escalation.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "label artwork; claim substantiation; official labeling or advertising source",
+      "source_ids": [
+        "us-fda-food-labeling-nutrition",
+        "us-fda-food-allergens"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-012",
+      "severity": "medium",
+      "surface": "market_import",
+      "requirement": "Verify food product classification, import route, facility/importer obligations, and destination-market admissibility from official sources.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Cannot approve food cases until destination-market classification and import obligations are verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "official food regulator source; ingredient list; facility/importer evidence where required",
+      "source_ids": [
+        "food-fda-start-business",
+        "food-fda-facility-registration",
+        "food-cbp-commercial-food-imports"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "F-013",
+      "severity": "medium",
+      "surface": "platform_listing",
+      "requirement": "Check ingredient, allergen, nutrition, language, warning, date marking, origin, and health/nutrition claims for the destination market.",
+      "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+      "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+      "business_impact": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+      "acceptable_evidence": "label artwork; claim substantiation; official labeling/claims source",
+      "source_ids": [
+        "food-fda-labeling-nutrition",
+        "food-fda-allergens"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-DOC-001",
+      "severity": "high",
+      "surface": "certificate",
+      "requirement": "Submitted qualification documents must be valid on the review date.",
+      "submitted_evidence": "HACCP certificate: uploads/haccp-certificate.pdf",
+      "observed_issue": "HACCP certificate expired on 2025-01-14.",
+      "business_impact": "Platform/category review can be delayed or rejected until the evidence is corrected or externally verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Provide a renewed certificate/report or official issuer confirmation showing current validity.",
+      "acceptable_evidence": "Current certificate/report with holder, issuer, scope, and validity matching this product and market.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "high"
+    },
+    {
+      "finding_id": "OFF-DOC-002",
+      "severity": "medium",
+      "surface": "certificate",
+      "requirement": "Document scope should match the reviewed product category.",
+      "submitted_evidence": "HACCP certificate: uploads/haccp-certificate.pdf",
+      "observed_issue": "Document scope does not clearly mention category 'food'.",
+      "business_impact": "Platform/category review can be delayed or rejected until the evidence is corrected or externally verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Confirm the document covers the reviewed product category and SKU.",
+      "acceptable_evidence": "Scope page, product annex, model/SKU list, or issuer confirmation.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-DOC-003",
+      "severity": "high",
+      "surface": "certificate",
+      "requirement": "Brand authorization must cover the target territory.",
+      "submitted_evidence": "brand authorization letter: uploads/brand-auth.jpg",
+      "observed_issue": "Brand authorization does not cover the US target territory.",
+      "business_impact": "Platform/category review can be delayed or rejected until the evidence is corrected or externally verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Provide authorization covering the destination market.",
+      "acceptable_evidence": "Brand authorization letter naming the grantee, territory, product scope, validity, and grantor authority.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "high"
+    },
+    {
+      "finding_id": "OFF-DOC-004",
+      "severity": "high",
+      "surface": "certificate",
+      "requirement": "Brand authorization must cover the target platform or channel.",
+      "submitted_evidence": "brand authorization letter: uploads/brand-auth.jpg",
+      "observed_issue": "Brand authorization does not mention Amazon.",
+      "business_impact": "Platform/category review can be delayed or rejected until the evidence is corrected or externally verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Provide authorization covering the marketplace or online channel used for launch.",
+      "acceptable_evidence": "Brand authorization covering the named marketplace or sufficiently broad online sales channel.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "high"
+    },
+    {
+      "finding_id": "OFF-DOC-005",
+      "severity": "medium",
+      "surface": "certificate",
+      "requirement": "Document scope should match the reviewed product category.",
+      "submitted_evidence": "brand authorization letter: uploads/brand-auth.jpg",
+      "observed_issue": "Document scope does not clearly mention category 'food'.",
+      "business_impact": "Platform/category review can be delayed or rejected until the evidence is corrected or externally verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Confirm the document covers the reviewed product category and SKU.",
+      "acceptable_evidence": "Scope page, product annex, model/SKU list, or issuer confirmation.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-DOC-006",
+      "severity": "medium",
+      "surface": "certificate",
+      "requirement": "Document scope should match the reviewed product category.",
+      "submitted_evidence": "packaging label text: uploads/label-transcription.txt",
+      "observed_issue": "Document scope does not clearly mention category 'food'.",
+      "business_impact": "Platform/category review can be delayed or rejected until the evidence is corrected or externally verified.",
+      "decision_effect": "request_more_info",
+      "required_action": "Confirm the document covers the reviewed product category and SKU.",
+      "acceptable_evidence": "Scope page, product annex, model/SKU list, or issuer confirmation.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-PACK-001",
+      "severity": "high",
+      "surface": "product_category",
+      "requirement": "Packaging labels and listing claims must be supportable for the target market and category.",
+      "submitted_evidence": "Offline packaging text supplied by user.",
+      "observed_issue": "Packaging or listing text includes regulated claim/mark terms: fda approved, immune.",
+      "business_impact": "Packaging may need revision before printing or platform listing submission.",
+      "decision_effect": "request_more_info",
+      "required_action": "Remove, revise, or substantiate regulated claims before printing or listing.",
+      "acceptable_evidence": "Revised label/listing copy plus substantiation or official confirmation for regulated claims and marks.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-PACK-002",
+      "severity": "medium",
+      "surface": "product_category",
+      "requirement": "Packaging labels and listing claims must be supportable for the target market and category.",
+      "submitted_evidence": "Offline packaging text supplied by user.",
+      "observed_issue": "Visible certification/regulator marks need evidence: FDA.",
+      "business_impact": "Packaging may need revision before printing or platform listing submission.",
+      "decision_effect": "request_more_info",
+      "required_action": "Match every visible mark to a valid certificate, registration, or allowed-use basis.",
+      "acceptable_evidence": "Revised label/listing copy plus substantiation or official confirmation for regulated claims and marks.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-PACK-003",
+      "severity": "medium",
+      "surface": "product_category",
+      "requirement": "Packaging labels and listing claims must be supportable for the target market and category.",
+      "submitted_evidence": "Offline packaging text supplied by user.",
+      "observed_issue": "Food ingredients include allergen signals (peanut, sesame, soy) but warning/allergen statement is missing from the bundle.",
+      "business_impact": "Packaging may need revision before printing or platform listing submission.",
+      "decision_effect": "request_more_info",
+      "required_action": "Confirm required allergen declaration and warning language for the target market.",
+      "acceptable_evidence": "Revised label/listing copy plus substantiation or official confirmation for regulated claims and marks.",
+      "source_ids": [
+        "src-user-competitor-screenshots"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-LOG-001",
+      "severity": "medium",
+      "surface": "market_import",
+      "requirement": "Logistics route must match product constraints, cost basis, and import/warehouse requirements.",
+      "submitted_evidence": "air freight to US FBA prep center",
+      "observed_issue": "Route has category/logistics risk signals: food, glass, leakage.",
+      "business_impact": "Freight, customs, warehouse, damage, or margin assumptions may fail without route confirmation.",
+      "decision_effect": "request_more_info",
+      "required_action": "Confirm route constraints with freight forwarder, warehouse, platform prep rules, and import route before inventory commitment.",
+      "acceptable_evidence": "Current logistics quotation, route constraints, packaging test, warehouse acceptance, and import/customs preparation notes.",
+      "source_ids": [],
+      "confidence": "medium"
+    },
+    {
+      "finding_id": "OFF-LOG-002",
+      "severity": "medium",
+      "surface": "market_import",
+      "requirement": "Logistics route must match product constraints, cost basis, and import/warehouse requirements.",
+      "submitted_evidence": "sea freight to US 3PL",
+      "observed_issue": "Route has category/logistics risk signals: food.",
+      "business_impact": "Freight, customs, warehouse, damage, or margin assumptions may fail without route confirmation.",
+      "decision_effect": "request_more_info",
+      "required_action": "Confirm route constraints with freight forwarder, warehouse, platform prep rules, and import route before inventory commitment.",
+      "acceptable_evidence": "Current logistics quotation, route constraints, packaging test, warehouse acceptance, and import/customs preparation notes.",
+      "source_ids": [],
+      "confidence": "medium"
+    }
+  ],
+  "missing_materials": [
+    {
+      "material": "business registration; tax/payee information where required; platform seller eligibility source",
+      "why_required": "Missing or unsupported seller eligibility prevents approval.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "business license or registration certificate; authorization document if applicant differs from rights holder",
+      "why_required": "Major mismatch is high severity and normally requires more information or rejection.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P0"
+    },
+    {
+      "material": "trademark certificate; brand authorization letter; distribution agreement",
+      "why_required": "Missing or out-of-scope authorization is high severity.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "official platform restricted-products source; official regulator/customs source where relevant",
+      "why_required": "Confirmed prohibited category is critical and leads to rejection.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P0"
+    },
+    {
+      "material": "test report; certificate; declaration of conformity; COA/SDS/label where relevant",
+      "why_required": "Mismatch or expired evidence is high severity if the category requires certification.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "label artwork; claim substantiation; official label/claim requirements",
+      "why_required": "Unsubstantiated or regulated claims can require rejection or human escalation.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "document inventory with issue/expiry dates",
+      "why_required": "Unknown validity of a core document prevents approval until confirmed.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P0"
+    },
+    {
+      "material": "official Amazon policy source; category approval screenshot or workflow evidence where available",
+      "why_required": "Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "official Amazon FBA/compliance source; test report or certificate; label/packaging artwork",
+      "why_required": "Missing FBA or product-compliance evidence blocks approval for affected products.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "official regulator source; registry lookup where available; classification rationale",
+      "why_required": "Do not approve regulated US categories until the applicable official source or registry path is verified.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "label artwork; claim substantiation; official labeling or advertising source",
+      "why_required": "Unsupported regulated claims or missing required warnings normally require more information or human escalation.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "official food regulator source; ingredient list; facility/importer evidence where required",
+      "why_required": "Cannot approve food cases until destination-market classification and import obligations are verified.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "label artwork; claim substantiation; official labeling/claims source",
+      "why_required": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
+      "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "Renewed HACCP certificate",
+      "why_required": "HACCP certificate expired on 2025-01-14.",
+      "acceptable_replacement": "Current certificate/report with holder, issuer, scope, and validity matching this product and market.",
+      "owner": "applicant / reviewer",
+      "priority": "P0"
+    },
+    {
+      "material": "Product/category scope evidence",
+      "why_required": "Document scope does not clearly mention category 'food'.",
+      "acceptable_replacement": "Scope page, product annex, model/SKU list, or issuer confirmation.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "US territory brand authorization",
+      "why_required": "Brand authorization does not cover the US target territory.",
+      "acceptable_replacement": "Brand authorization letter naming the grantee, territory, product scope, validity, and grantor authority.",
+      "owner": "applicant / reviewer",
+      "priority": "P0"
+    },
+    {
+      "material": "Platform/channel brand authorization",
+      "why_required": "Brand authorization does not mention Amazon.",
+      "acceptable_replacement": "Brand authorization covering the named marketplace or sufficiently broad online sales channel.",
+      "owner": "applicant / reviewer",
+      "priority": "P0"
+    },
+    {
+      "material": "Product/category scope evidence",
+      "why_required": "Document scope does not clearly mention category 'food'.",
+      "acceptable_replacement": "Scope page, product annex, model/SKU list, or issuer confirmation.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "Product/category scope evidence",
+      "why_required": "Document scope does not clearly mention category 'food'.",
+      "acceptable_replacement": "Scope page, product annex, model/SKU list, or issuer confirmation.",
+      "owner": "applicant / reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "Claim substantiation and revised label/listing copy",
+      "why_required": "Packaging or listing text includes regulated claim/mark terms: fda approved, immune.",
+      "acceptable_replacement": "Revised packaging text or substantiation evidence reviewed against current official requirements.",
+      "owner": "applicant / packaging reviewer",
+      "priority": "P0"
+    },
+    {
+      "material": "Certification mark support evidence",
+      "why_required": "Visible certification/regulator marks need evidence: FDA.",
+      "acceptable_replacement": "Revised packaging text or substantiation evidence reviewed against current official requirements.",
+      "owner": "applicant / packaging reviewer",
+      "priority": "P1"
+    },
+    {
+      "material": "Allergen declaration review",
+      "why_required": "Food ingredients include allergen signals (peanut, sesame, soy) but warning/allergen statement is missing from the bundle.",
+      "acceptable_replacement": "Revised packaging text or substantiation evidence reviewed against current official requirements.",
+      "owner": "applicant / packaging reviewer",
+      "priority": "P1"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev-global-amazon-restricted-products",
+      "kind": "official_source",
+      "reference": "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Marketplace restricted product policy must be checked before listing products that may be illegal, unsafe, or otherwise restricted.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-tiktok-prohibited-products",
+      "kind": "official_source",
+      "reference": "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Marketplace prohibited product policy must be checked before listing illegal, unsafe, counterfeit, recalled, or regulated products.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-tiktok-content-policy",
+      "kind": "official_source",
+      "reference": "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Marketplace content policy can restrict false, misleading, inconsistent, illegal, or unauthorized brand/IP claims.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-temu-terms",
+      "kind": "official_source",
+      "reference": "https://www.temu.com/terms-of-use.html",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Marketplace terms require users and sellers to comply with applicable laws and platform rules.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-gleif-search",
+      "kind": "official_source",
+      "reference": "https://search.gleif.org/",
+      "tier": "T2",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "LEI records can support legal entity name and registration verification where the entity has an LEI.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-opencorporates-register",
+      "kind": "other",
+      "reference": "https://opencorporates.com/",
+      "tier": "T3",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Corporate registry aggregation can help route reviewers to legal entity records, but final verification should use the official registry where available.",
+      "confidence": "medium"
+    },
+    {
+      "evidence_id": "ev-global-wipo-brand-database",
+      "kind": "official_source",
+      "reference": "https://branddb.wipo.int/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Trademark owner, status, class, and territory should be checked in official trademark databases when brand rights affect a decision.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-uspto-trademark-search",
+      "kind": "official_source",
+      "reference": "https://www.uspto.gov/trademarks/search",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "U.S. trademark status, owner, class, and goods/services can be checked through USPTO trademark search.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-euipo-search",
+      "kind": "official_source",
+      "reference": "https://euipo.europa.eu/eSearch/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "EU trademark and design records can be checked through EUIPO eSearch plus.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-eu-safety-gate",
+      "kind": "official_source",
+      "reference": "https://ec.europa.eu/safety-gate-alerts/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "EU Safety Gate provides official alerts for dangerous non-food products and supports recall/safety screening.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-cpsc-recalls",
+      "kind": "official_source",
+      "reference": "https://www.cpsc.gov/Recalls",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "CPSC recall records support safety and recall screening for consumer products.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-eu-ce-marking",
+      "kind": "official_source",
+      "reference": "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "CE marking indicates that a product has been assessed to meet EU safety, health, and environmental protection requirements where applicable.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-fcc-equipment-authorization",
+      "kind": "official_source",
+      "reference": "https://www.fcc.gov/oet/ea",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FCC equipment authorization applies to radiofrequency devices before marketing, importation, or operation in the United States.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-fda-start-food-business",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-fda-labeling-nutrition",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-global-iso-certification-validity",
+      "kind": "official_source",
+      "reference": "https://www.iso.org/certification.html",
+      "tier": "T2",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "ISO explains that ISO does not perform certification itself and that certificates should be checked with certification bodies where certification is claimed.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-amazon-restricted-products",
+      "kind": "official_source",
+      "reference": "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Amazon restricts illegal, unsafe, or otherwise restricted products and requires sellers to follow restricted product policy before listing.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-amazon-categories-approval",
+      "kind": "official_source",
+      "reference": "https://sellercentral.amazon.com/gp/help/external/G200333160",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Some Amazon categories and products, including grocery and gourmet foods, can require approval before listing.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-amazon-grocery-gourmet",
+      "kind": "official_source",
+      "reference": "https://sellercentral.amazon.com/gp/help/external/G201511970",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Amazon requires grocery and gourmet food listings to follow Amazon listing standards and category standards.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-amazon-food-beverages-policy",
+      "kind": "official_source",
+      "reference": "https://sellercentral.amazon.com/gp/help/external/G200164550",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Amazon food and beverage policy covers preparation, sealing, packaging, spoilage, melting, expiration, labeling, and food safety expectations.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-amazon-safety-compliance",
+      "kind": "official_source",
+      "reference": "https://sellercentral.amazon.com/help/hub/reference/external/GXMGGPL6LC4CVXHT",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Amazon uses safety, compliance, and product restriction controls to prevent illegal and unsafe products from reaching the store.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-amazon-compliance-appeal",
+      "kind": "official_source",
+      "reference": "https://sellercentral.amazon.com/gp/help/external/GC35Z63FGCUCUWXX",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Amazon provides workflows for submitting compliance information or appeals for food/product safety and restricted product policy issues.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-us-fda-start-food-business",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-us-fda-food-facility-registration",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/registration-food-facilities-and-other-submissions",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA food facility registration can apply to facilities that manufacture, process, pack, or hold food for U.S. consumption.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-us-cbp-basic-importing",
+      "kind": "official_source",
+      "reference": "https://www.cbp.gov/trade/basic-import-export",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "CBP explains importer responsibilities, entry process, admissibility, and compliance obligations for U.S. imports.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-us-cbp-commercial-food-imports",
+      "kind": "official_source",
+      "reference": "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "CBP directs commercial food importers to relevant food import requirements and agency coordination.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-us-fda-food-labeling-nutrition",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-us-fda-food-allergens",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA explains major food allergens and food allergen labeling requirements.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-food-fda-start-business",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-food-fda-facility-registration",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/registration-food-facilities-and-other-submissions",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA food facility registration can apply to facilities that manufacture, process, pack, or hold food for U.S. consumption.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-food-cbp-commercial-food-imports",
+      "kind": "official_source",
+      "reference": "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "CBP directs commercial food importers to relevant food import requirements and agency coordination.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-food-fda-labeling-nutrition",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-food-fda-allergens",
+      "kind": "official_source",
+      "reference": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "FDA explains major food allergens and food allergen labeling requirements.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-doc-haccp-001",
+      "kind": "submitted_document",
+      "reference": "uploads/haccp-certificate.pdf",
+      "tier": "T4",
+      "checked_at": "2026-06-17",
+      "extracted_fact": "type=HACCP certificate; holder=Example Trading Co., Ltd.; issuer=Example Certification Body; scope=Chili sauce manufacturing and packing; expiry=2025-01-14",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-doc-brand-auth-001",
+      "kind": "submitted_document",
+      "reference": "uploads/brand-auth.jpg",
+      "tier": "T4",
+      "checked_at": "2026-06-17",
+      "extracted_fact": "type=brand authorization letter; holder=Example Trading Co., Ltd.; issuer=Dragon Fire Foods Ltd.; scope=Online distribution for Dragon Fire chili products in Southeast Asia; expiry=2026-12-31",
+      "confidence": "medium"
+    },
+    {
+      "evidence_id": "ev-doc-label-001",
+      "kind": "submitted_document",
+      "reference": "uploads/label-transcription.txt",
+      "tier": "T4",
+      "checked_at": "2026-06-17",
+      "extracted_fact": "type=packaging label text; holder=Example Trading Co., Ltd.; issuer=applicant; scope=English and Chinese packaging transcription",
+      "confidence": "medium"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "global-amazon-restricted-products",
+      "title": "Amazon Seller Central: Restricted products",
+      "url": "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace restricted product policy must be checked before listing products that may be illegal, unsafe, or otherwise restricted."
+    },
+    {
+      "source_id": "global-tiktok-prohibited-products",
+      "title": "TikTok Shop Seller Center: Prohibited Products Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace prohibited product policy must be checked before listing illegal, unsafe, counterfeit, recalled, or regulated products."
+    },
+    {
+      "source_id": "global-tiktok-content-policy",
+      "title": "TikTok Shop Seller Center: Content Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace content policy can restrict false, misleading, inconsistent, illegal, or unauthorized brand/IP claims."
+    },
+    {
+      "source_id": "global-temu-terms",
+      "title": "Temu: Terms of Use",
+      "url": "https://www.temu.com/terms-of-use.html",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace terms require users and sellers to comply with applicable laws and platform rules."
+    },
+    {
+      "source_id": "global-gleif-search",
+      "title": "GLEIF: LEI Search",
+      "url": "https://search.gleif.org/",
+      "tier": "T2",
+      "checked_at": "2026-06-16",
+      "confirms": "LEI records can support legal entity name and registration verification where the entity has an LEI."
+    },
+    {
+      "source_id": "global-opencorporates-register",
+      "title": "OpenCorporates: The Open Database Of The Corporate World",
+      "url": "https://opencorporates.com/",
+      "tier": "T3",
+      "checked_at": "2026-06-16",
+      "confirms": "Corporate registry aggregation can help route reviewers to legal entity records, but final verification should use the official registry where available."
+    },
+    {
+      "source_id": "global-wipo-brand-database",
+      "title": "WIPO: Global Brand Database",
+      "url": "https://branddb.wipo.int/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Trademark owner, status, class, and territory should be checked in official trademark databases when brand rights affect a decision."
+    },
+    {
+      "source_id": "global-uspto-trademark-search",
+      "title": "USPTO: Trademark Search",
+      "url": "https://www.uspto.gov/trademarks/search",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "U.S. trademark status, owner, class, and goods/services can be checked through USPTO trademark search."
+    },
+    {
+      "source_id": "global-euipo-search",
+      "title": "EUIPO: eSearch plus",
+      "url": "https://euipo.europa.eu/eSearch/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "EU trademark and design records can be checked through EUIPO eSearch plus."
+    },
+    {
+      "source_id": "global-eu-safety-gate",
+      "title": "European Commission: Safety Gate",
+      "url": "https://ec.europa.eu/safety-gate-alerts/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "EU Safety Gate provides official alerts for dangerous non-food products and supports recall/safety screening."
+    },
+    {
+      "source_id": "global-cpsc-recalls",
+      "title": "CPSC: Recalls",
+      "url": "https://www.cpsc.gov/Recalls",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "CPSC recall records support safety and recall screening for consumer products."
+    },
+    {
+      "source_id": "global-eu-ce-marking",
+      "title": "European Commission: CE marking",
+      "url": "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "CE marking indicates that a product has been assessed to meet EU safety, health, and environmental protection requirements where applicable."
+    },
+    {
+      "source_id": "global-fcc-equipment-authorization",
+      "title": "FCC: Equipment Authorization",
+      "url": "https://www.fcc.gov/oet/ea",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FCC equipment authorization applies to radiofrequency devices before marketing, importation, or operation in the United States."
+    },
+    {
+      "source_id": "global-fda-start-food-business",
+      "title": "FDA: How to Start a Food Business",
+      "url": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities."
+    },
+    {
+      "source_id": "global-fda-labeling-nutrition",
+      "title": "FDA: Food Labeling & Nutrition",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance."
+    },
+    {
+      "source_id": "global-iso-certification-validity",
+      "title": "ISO: Certification",
+      "url": "https://www.iso.org/certification.html",
+      "tier": "T2",
+      "checked_at": "2026-06-16",
+      "confirms": "ISO explains that ISO does not perform certification itself and that certificates should be checked with certification bodies where certification is claimed."
+    },
+    {
+      "source_id": "amazon-restricted-products",
+      "title": "Amazon Seller Central: Restricted products",
+      "url": "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon restricts illegal, unsafe, or otherwise restricted products and requires sellers to follow restricted product policy before listing."
+    },
+    {
+      "source_id": "amazon-categories-approval",
+      "title": "Amazon Seller Central: Categories and products that require approval",
+      "url": "https://sellercentral.amazon.com/gp/help/external/G200333160",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Some Amazon categories and products, including grocery and gourmet foods, can require approval before listing."
+    },
+    {
+      "source_id": "amazon-grocery-gourmet",
+      "title": "Amazon Seller Central: Grocery & gourmet foods",
+      "url": "https://sellercentral.amazon.com/gp/help/external/G201511970",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon requires grocery and gourmet food listings to follow Amazon listing standards and category standards."
+    },
+    {
+      "source_id": "amazon-food-beverages-policy",
+      "title": "Amazon Seller Central: Food and beverages",
+      "url": "https://sellercentral.amazon.com/gp/help/external/G200164550",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon food and beverage policy covers preparation, sealing, packaging, spoilage, melting, expiration, labeling, and food safety expectations."
+    },
+    {
+      "source_id": "amazon-safety-compliance",
+      "title": "Amazon Seller Central: Safety, compliance, and product restrictions",
+      "url": "https://sellercentral.amazon.com/help/hub/reference/external/GXMGGPL6LC4CVXHT",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon uses safety, compliance, and product restriction controls to prevent illegal and unsafe products from reaching the store."
+    },
+    {
+      "source_id": "amazon-compliance-appeal",
+      "title": "Amazon Seller Central: Submit compliance information or an appeal",
+      "url": "https://sellercentral.amazon.com/gp/help/external/GC35Z63FGCUCUWXX",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon provides workflows for submitting compliance information or appeals for food/product safety and restricted product policy issues."
+    },
+    {
+      "source_id": "us-fda-start-food-business",
+      "title": "FDA: How to Start a Food Business",
+      "url": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities."
+    },
+    {
+      "source_id": "us-fda-food-facility-registration",
+      "title": "FDA: Registration of Food Facilities and Other Submissions",
+      "url": "https://www.fda.gov/food/registration-food-facilities-and-other-submissions",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA food facility registration can apply to facilities that manufacture, process, pack, or hold food for U.S. consumption."
+    },
+    {
+      "source_id": "us-cbp-basic-importing",
+      "title": "CBP: Basic Importing and Exporting",
+      "url": "https://www.cbp.gov/trade/basic-import-export",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "CBP explains importer responsibilities, entry process, admissibility, and compliance obligations for U.S. imports."
+    },
+    {
+      "source_id": "us-cbp-commercial-food-imports",
+      "title": "CBP: Commercial Food Imports",
+      "url": "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "CBP directs commercial food importers to relevant food import requirements and agency coordination."
+    },
+    {
+      "source_id": "us-fda-food-labeling-nutrition",
+      "title": "FDA: Food Labeling & Nutrition",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance."
+    },
+    {
+      "source_id": "us-fda-food-allergens",
+      "title": "FDA: Food Allergies",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA explains major food allergens and food allergen labeling requirements."
+    },
+    {
+      "source_id": "food-fda-start-business",
+      "title": "FDA: How to Start a Food Business",
+      "url": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities."
+    },
+    {
+      "source_id": "food-fda-facility-registration",
+      "title": "FDA: Registration of Food Facilities and Other Submissions",
+      "url": "https://www.fda.gov/food/registration-food-facilities-and-other-submissions",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA food facility registration can apply to facilities that manufacture, process, pack, or hold food for U.S. consumption."
+    },
+    {
+      "source_id": "food-cbp-commercial-food-imports",
+      "title": "CBP: Commercial Food Imports",
+      "url": "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "CBP directs commercial food importers to relevant food import requirements and agency coordination."
+    },
+    {
+      "source_id": "food-fda-labeling-nutrition",
+      "title": "FDA: Food Labeling & Nutrition",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance."
+    },
+    {
+      "source_id": "food-fda-allergens",
+      "title": "FDA: Food Allergies",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA explains major food allergens and food allergen labeling requirements."
+    },
+    {
+      "source_id": "src-user-competitor-screenshots",
+      "title": "User-provided competitor screenshots",
+      "url": "",
+      "tier": "T4",
+      "checked_at": "2026-06-17",
+      "confirms": "Screenshots supplied by user for competitor price and packaging signals."
+    }
+  ],
+  "remediation": {
+    "applicant_message": "您好，当前申请暂无法完成审核。请补充以下材料：\n\n1. business registration; tax/payee information where required; platform seller eligibility source\n   - 原因：Missing or unsupported seller eligibility prevents approval.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n2. business license or registration certificate; authorization document if applicant differs from rights holder\n   - 原因：Major mismatch is high severity and normally requires more information or rejection.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n3. trademark certificate; brand authorization letter; distribution agreement\n   - 原因：Missing or out-of-scope authorization is high severity.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n4. official platform restricted-products source; official regulator/customs source where relevant\n   - 原因：Confirmed prohibited category is critical and leads to rejection.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n5. test report; certificate; declaration of conformity; COA/SDS/label where relevant\n   - 原因：Mismatch or expired evidence is high severity if the category requires certification.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n6. label artwork; claim substantiation; official label/claim requirements\n   - 原因：Unsubstantiated or regulated claims can require rejection or human escalation.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n7. document inventory with issue/expiry dates\n   - 原因：Unknown validity of a core document prevents approval until confirmed.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n8. official Amazon policy source; category approval screenshot or workflow evidence where available\n   - 原因：Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n请确保材料中的主体名称、品牌、产品范围、销售地区和平台授权范围与本次申请一致。",
+    "internal_next_steps": [
+      "Verify current official platform and regulator sources before final decision.",
+      "Match submitted documents to holder, brand, product, territory, platform, scope, and validity.",
+      "Recheck competitor prices and logistics quotations from current sources.",
+      "Revise packaging/listing claims before printing or marketplace submission."
+    ]
+  },
+  "privacy": {
+    "redactions_applied": [],
+    "sensitive_data_notes": [
+      "Generated skeleton contains no applicant document numbers. Redact PII and confidential identifiers after document upload."
+    ]
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-amazon-restricted-products from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-tiktok-prohibited-products from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-tiktok-content-policy from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-temu-terms from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-gleif-search from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-opencorporates-register from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-wipo-brand-database from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-uspto-trademark-search from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-euipo-search from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-eu-safety-gate from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-cpsc-recalls from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-eu-ce-marking from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-fcc-equipment-authorization from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-fda-start-food-business from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-fda-labeling-nutrition from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "global-iso-certification-validity from global-baseline"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "amazon-restricted-products from platform-amazon"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "amazon-categories-approval from platform-amazon"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "amazon-grocery-gourmet from platform-amazon"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "amazon-food-beverages-policy from platform-amazon"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "amazon-safety-compliance from platform-amazon"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "amazon-compliance-appeal from platform-amazon"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "us-fda-start-food-business from country-US"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "us-fda-food-facility-registration from country-US"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "us-cbp-basic-importing from country-US"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "us-cbp-commercial-food-imports from country-US"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "us-fda-food-labeling-nutrition from country-US"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "us-fda-food-allergens from country-US"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "food-fda-start-business from category-food"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "food-fda-facility-registration from category-food"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "food-cbp-commercial-food-imports from category-food"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "food-fda-labeling-nutrition from category-food"
+    },
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "loaded_rule_source",
+      "details": "food-fda-allergens from category-food"
+    },
+    {
+      "timestamp": "2026-06-17",
+      "actor": "AI reviewer",
+      "action": "generated_review_skeleton",
+      "details": "Matched packs: global-baseline, platform-amazon, country-US, category-food"
+    },
+    {
+      "timestamp": "2026-06-17",
+      "actor": "AI reviewer",
+      "action": "generated_offline_launch_report",
+      "details": "Documents=3, benchmarks=3, logistics_routes=2."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice.",
+  "offline_logistics": [
+    {
+      "route_id": "log-air-001",
+      "route": "air freight to US FBA prep center",
+      "mode": "air",
+      "time": "7-12 days after pickup",
+      "cost_basis": "user quotation, not independently verified",
+      "best_for": "small launch batch",
+      "constraints": [
+        "glass jar",
+        "food",
+        "oil leakage risk"
+      ],
+      "risks": [
+        "breakage",
+        "leakage",
+        "margin pressure"
+      ],
+      "preparation": [
+        "inner seal test",
+        "carton drop test",
+        "confirm FBA food prep rules"
+      ],
+      "data_basis": "user_provided"
+    },
+    {
+      "route_id": "log-sea-001",
+      "route": "sea freight to US 3PL",
+      "mode": "sea",
+      "time": "30-45 days port-to-warehouse",
+      "cost_basis": "rough forwarder estimate, not independently verified",
+      "best_for": "replenishment after validation",
+      "constraints": [
+        "shelf life",
+        "customs food entry",
+        "inventory cash tie-up"
+      ],
+      "risks": [
+        "slow feedback loop",
+        "customs delay",
+        "storage conditions"
+      ],
+      "preparation": [
+        "verify importer/FDA route",
+        "confirm shelf-life buffer",
+        "book food-capable warehouse"
+      ],
+      "data_basis": "user_provided"
+    }
+  ]
+}

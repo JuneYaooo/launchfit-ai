@@ -1,0 +1,172 @@
+{
+  "bundle_type": "launchfit_offline_case",
+  "case": {
+    "case_id": "offline-launch-readiness",
+    "applicant_name": "Example Trading Co., Ltd.",
+    "applicant_role": "distributor",
+    "platform": "Amazon",
+    "marketplace_site": "US",
+    "destination_market": "US",
+    "business_model": "marketplace_seller",
+    "product_category": "food",
+    "subcategory": "chili sauce",
+    "product_name": "Dragon Fire Chili Crisp",
+    "brand_name": "Dragon Fire",
+    "review_purpose": "launch readiness and qualification intake",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-17"
+  },
+  "documents": [
+    {
+      "document_id": "doc-haccp-001",
+      "document_type": "HACCP certificate",
+      "file_reference": "uploads/haccp-certificate.pdf",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "Example Certification Body",
+      "number_redacted": "HACCP-****-7788",
+      "issue_date": "2023-01-15",
+      "expiry_date": "2025-01-14",
+      "scope": "Chili sauce manufacturing and packing",
+      "territory": "China",
+      "platform_scope": "",
+      "brand_scope": "Dragon Fire",
+      "product_scope": "chili sauce",
+      "extraction_confidence": "high",
+      "privacy_level": "business_confidential",
+      "data_basis": "user_provided"
+    },
+    {
+      "document_id": "doc-brand-auth-001",
+      "document_type": "brand authorization letter",
+      "file_reference": "uploads/brand-auth.jpg",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "Dragon Fire Foods Ltd.",
+      "number_redacted": "",
+      "issue_date": "2026-01-10",
+      "expiry_date": "2026-12-31",
+      "scope": "Online distribution for Dragon Fire chili products in Southeast Asia",
+      "territory": "Singapore, Malaysia, Thailand",
+      "platform_scope": "Shopee, Lazada",
+      "brand_scope": "Dragon Fire",
+      "product_scope": "chili sauce",
+      "extraction_confidence": "medium",
+      "privacy_level": "business_confidential",
+      "data_basis": "user_provided"
+    },
+    {
+      "document_id": "doc-label-001",
+      "document_type": "packaging label text",
+      "file_reference": "uploads/label-transcription.txt",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "applicant",
+      "number_redacted": "",
+      "issue_date": "",
+      "expiry_date": "",
+      "scope": "English and Chinese packaging transcription",
+      "territory": "US",
+      "platform_scope": "Amazon",
+      "brand_scope": "Dragon Fire",
+      "product_scope": "chili crisp",
+      "extraction_confidence": "medium",
+      "privacy_level": "public",
+      "data_basis": "user_provided"
+    }
+  ],
+  "packaging": {
+    "front_label": "Dragon Fire Chili Crisp. All natural. FDA approved facility. Immune boosting spicy crunch.",
+    "back_label": "Ingredients: soybean oil, chili, peanut, sesame, soy sauce, sugar, salt. Net wt 180g. Made in China.",
+    "claims": ["all natural", "FDA approved facility", "immune boosting"],
+    "ingredients_or_materials": ["soybean oil", "chili", "peanut", "sesame", "soy sauce", "sugar", "salt"],
+    "warnings": [],
+    "languages": ["English", "Chinese"],
+    "units": ["g"],
+    "visible_certification_marks": ["FDA"],
+    "data_basis": "user_provided"
+  },
+  "competitors": [
+    {
+      "product_name": "Fly By Jing Sichuan Chili Crisp",
+      "channel": "Amazon US",
+      "channel_role": "search_marketplace",
+      "market": "US",
+      "pack_size": "6 oz",
+      "price": "USD 12.99",
+      "unit_price": "USD 2.17/oz",
+      "positioning": "premium",
+      "visible_claims": ["Sichuan chili crisp", "all natural"],
+      "packaging_signals": ["glass jar", "English front label", "bold origin cue"],
+      "certification_signals": [],
+      "review_signals": ["flavor praise", "price sensitivity"],
+      "data_basis": "user_provided",
+      "takeaway": "Premium chili crisp brands can sustain high unit prices when origin story and flavor proof are clear."
+    },
+    {
+      "product_name": "Lao Gan Ma Spicy Chili Crisp",
+      "channel": "Walmart US",
+      "channel_role": "mass_retail",
+      "market": "US",
+      "pack_size": "7.41 oz",
+      "price": "USD 4.98",
+      "unit_price": "USD 0.67/oz",
+      "positioning": "mass",
+      "visible_claims": ["chili oil with crispy bits"],
+      "packaging_signals": ["legacy red label", "glass jar", "imported Asian pantry cue"],
+      "certification_signals": [],
+      "review_signals": ["value", "familiarity"],
+      "data_basis": "user_provided",
+      "takeaway": "Mass retail anchor price is much lower than premium DTC/Amazon brands."
+    },
+    {
+      "product_name": "Momofuku Chili Crunch",
+      "channel": "DTC",
+      "channel_role": "dtc",
+      "market": "US",
+      "pack_size": "5.5 oz",
+      "price": "USD 12.00",
+      "unit_price": "USD 2.18/oz",
+      "positioning": "premium",
+      "visible_claims": ["crunchy chili oil", "restaurant brand"],
+      "packaging_signals": ["minimal label", "chef brand cue", "bundle strategy"],
+      "certification_signals": [],
+      "review_signals": ["brand trust", "bundle purchase"],
+      "data_basis": "user_provided",
+      "takeaway": "Brand trust and bundle strategy matter for premium positioning."
+    }
+  ],
+  "logistics": [
+    {
+      "route_id": "log-air-001",
+      "route": "air freight to US FBA prep center",
+      "mode": "air",
+      "time": "7-12 days after pickup",
+      "cost_basis": "user quotation, not independently verified",
+      "best_for": "small launch batch",
+      "constraints": ["glass jar", "food", "oil leakage risk"],
+      "risks": ["breakage", "leakage", "margin pressure"],
+      "preparation": ["inner seal test", "carton drop test", "confirm FBA food prep rules"],
+      "data_basis": "user_provided"
+    },
+    {
+      "route_id": "log-sea-001",
+      "route": "sea freight to US 3PL",
+      "mode": "sea",
+      "time": "30-45 days port-to-warehouse",
+      "cost_basis": "rough forwarder estimate, not independently verified",
+      "best_for": "replenishment after validation",
+      "constraints": ["shelf life", "customs food entry", "inventory cash tie-up"],
+      "risks": ["slow feedback loop", "customs delay", "storage conditions"],
+      "preparation": ["verify importer/FDA route", "confirm shelf-life buffer", "book food-capable warehouse"],
+      "data_basis": "user_provided"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "src-user-competitor-screenshots",
+      "title": "User-provided competitor screenshots",
+      "url": "",
+      "tier": "T4",
+      "checked_at": "2026-06-17",
+      "confirms": "Screenshots supplied by user for competitor price and packaging signals."
+    }
+  ]
+}

@@ -19,6 +19,26 @@
 
 出海体检官把“我这个品能不能出海”变成一份可执行的 AI 体检报告。给它一个商品、目标市场、平台、包装标签、证书报告、品牌材料，或几张当地竞品截图，它会先帮你找清楚：目标市场的类似商品怎么卖、怎么包装、怎么定价、靠什么建立信任；再判断哪里能推进，哪里要补件，哪里可能亏钱，哪里必须停下来复核。
 
+## 现在能本地跑什么
+
+这个 repo 现在包含一个不依赖外部服务的离线 MVP：把商品信息、已抽取的证书字段、包装文案、竞品行和物流行整理成一个 case bundle，就能生成结构化 JSON 体检报告和 Markdown 备忘录。
+
+```bash
+python3 scripts/qualification_audit_schema.py launch-report \
+  examples/offline-launch-case.json \
+  > /tmp/launchfit-offline-report.json
+
+python3 scripts/qualification_audit_schema.py validate /tmp/launchfit-offline-report.json
+
+python3 scripts/qualification_audit_schema.py launch-report-markdown \
+  /tmp/launchfit-offline-report.json \
+  > /tmp/launchfit-offline-report.md
+```
+
+离线 MVP 会覆盖 README 里最核心的报告面：目标市场对标、价格/单位价格、包装和宣称风险、物流路线风险、平台准入缺口、过期/错配材料、补件话术和审计记录。
+
+边界也很明确：当前仓库不内置 OCR、实时竞品抓取、证书/商标/企业注册库查询、物流报价 API 或审核 UI。用户提供的截图、证书和报价会被标为 T4 / `user_provided`；需要官方或实时来源确认的事项会保留为 `needs_external_verification`。
+
 ## 它解决的核心问题
 
 - **上架前不确定**：这个品在 Amazon / TikTok Shop / Shopee / Temu / Lazada / AliExpress / Tmall Global 能不能卖？

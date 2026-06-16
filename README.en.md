@@ -19,6 +19,26 @@ The expensive mistake in cross-border commerce is often not choosing the wrong p
 
 LaunchFit AI turns "Can my product go overseas?" into a practical AI checkup report. Give it a product, target market, marketplace, packaging label, certificate report, brand document, or a few local benchmark screenshots. It first shows how similar products in the target market sell, package, price, and build trust; then it tells you what can move forward, what needs remediation, where margin may disappear, and what should stop for human review.
 
+## What Runs Locally Today
+
+This repo now includes a dependency-free offline MVP. Put product scope, extracted document fields, packaging copy, competitor rows, and logistics rows into a case bundle, then generate both a structured JSON checkup report and a Markdown memo.
+
+```bash
+python3 scripts/qualification_audit_schema.py launch-report \
+  examples/offline-launch-case.json \
+  > /tmp/launchfit-offline-report.json
+
+python3 scripts/qualification_audit_schema.py validate /tmp/launchfit-offline-report.json
+
+python3 scripts/qualification_audit_schema.py launch-report-markdown \
+  /tmp/launchfit-offline-report.json \
+  > /tmp/launchfit-offline-report.md
+```
+
+The offline MVP covers the core report surfaces promised below: target-market benchmarks, prices and unit prices, packaging and claim risk, logistics route risk, platform admission gaps, expired or mismatched materials, remediation wording, and audit records.
+
+The boundary is explicit: this repository does not bundle OCR, live competitor scraping, certificate/trademark/company registry lookups, freight quote APIs, or a review UI. User-provided screenshots, certificates, and quotes are labeled T4 / `user_provided`; anything that needs official or current-source confirmation remains `needs_external_verification`.
+
 ## Core Problems It Solves
 
 - **Pre-listing uncertainty**: can this product sell on Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, or Tmall Global?
