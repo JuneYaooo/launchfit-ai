@@ -1,4 +1,4 @@
 interface:
-  display_name: "CBEC Product AI Checkup"
+  display_name: "跨境商品 AI 体检"
   short_description: "AI checkup before cross-border products go live"
-  default_prompt: "Use $cbec-qualification-review to give this cross-border product an AI pre-launch checkup across sellability, marketplace blocks, documents, labels, competitors, pricing, logistics, and remediation tasks."
+  default_prompt: "Use $cross-border-product-ai-checkup to give this cross-border product an AI pre-launch checkup across sellability, target-market benchmarks, marketplace blocks, documents, labels, pricing, logistics, and remediation tasks."

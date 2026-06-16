@@ -60,6 +60,20 @@ PASS: golden-unverified-applicant-docs
 OK: 7 golden cases replayed
 ```
 
+## Target-Market Benchmark Template
+
+Generate a worksheet for collecting comparable products in the target market:
+
+```bash
+python3 scripts/qualification_audit_schema.py benchmark-template \
+  --market US \
+  --category food \
+  --product "chili sauce" \
+  --platform amazon
+```
+
+Use the rows to capture local benchmark products, channel role, pack size, price/unit, claims, packaging signals, visible certifications, review signals, and the takeaway for the launch decision.
+
 Run the full publication gate:
 
 ```bash

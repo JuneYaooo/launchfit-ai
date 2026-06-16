@@ -1,6 +1,6 @@
 # Launch Readiness Playbook
 
-Use this reference when the user asks whether a product can sell, is worth launching, what to prepare before listing, how to price, how to position packaging, or how to choose logistics.
+Use this reference when the user asks whether a product can sell, is worth launching, what similar products in the target market are doing, what to prepare before listing, how to price, how to position packaging, or how to choose logistics.
 
 This is a commercial and operational review layer. It does not replace official platform, regulator, customs, tax, or legal verification.
 
@@ -12,7 +12,7 @@ For seller-facing launch questions, answer in this order:
 2. **Top blockers**: the 3-5 issues most likely to waste inventory, cash, listing time, or review cycles.
 3. **What to fix next**: concrete actions by owner.
 4. **Evidence and assumptions**: separate verified facts from assumptions.
-5. **Deep sections** as relevant: competitor/pricing, packaging/label, platform admission, logistics, qualification gaps.
+5. **Deep sections** as relevant: target-market benchmarking, competitor/pricing, packaging/label, platform admission, logistics, qualification gaps.
 
 Do not start with a legalistic qualification memo unless the user specifically asks for a final approve/reject review.
 
@@ -26,7 +26,8 @@ Map findings to the seller loss they prevent:
 | Margin disappears after shipping | freight mode, warehouse route, compliance cost, test/certification cost, returns and damage risk |
 | Platform rejects documents | holder/name/model/date/scope/territory mismatch, issuer verification, stale or applicant-only evidence |
 | Packaging has to be reprinted | label language, warnings, claims, nutrition/ingredient, certification marks, importer/responsible party |
-| Pricing is guesswork | competitor price band, channel tier, pack size normalization, premium vs mass positioning |
+| Pricing is guesswork | target-market benchmark, competitor price band, channel tier, pack size normalization, premium vs mass positioning |
+| Product feels disconnected from local market | benchmark local claims, packaging language, pack size, certifications, consumer review themes, and channel merchandising |
 | Service providers oversell tasks | distinguish mandatory requirements, useful optional improvements, and unverified advice |
 | Teams cannot act | owner, material, acceptable replacement, priority, next checkpoint |
 
@@ -49,6 +50,43 @@ Use outcome language:
 - `caution`: launch may be viable, but listed blockers must be resolved
 - `stop`: likely prohibited, unprofitable, or blocked unless route changes
 - `unknown`: core facts missing; ask for minimum inputs
+
+## Target-Market Benchmarking
+
+Use this section whenever the user asks "有没有对标", "目标市场类似商品怎么做", "怎么定价/包装/卖点", "值不值得卖", or provides competitor screenshots, marketplace links, retail shelf photos, product names, or rough prices.
+
+Benchmarking is broader than competitor pricing. It should answer:
+
+- Which similar products already educate the market?
+- What pack sizes, flavors/formulas/materials, claims, certifications, and visual language are common?
+- Which channels set the reference price: Amazon, Walmart, Costco, Whole Foods, TikTok Shop, Shopee, Lazada, boutique retail, DTC, or local pharmacy/specialty chains?
+- What review themes or consumer objections appear repeatedly?
+- Which compliance signals are visible on pack or listing: local language, importer/responsible party, nutrition/ingredient panels, warnings, CE/FCC/FDA/organic/halal/dermatology/testing marks, or platform category badges?
+- Where can the user's product win: lower price, premium origin, cleaner formula, better pack size, clearer label, stronger proof, better logistics, or different channel?
+
+When current web/search access or user-provided screenshots are available:
+
+1. Identify 5-10 benchmark products in the target market, not only global famous brands.
+2. Include both direct substitutes and adjacent reference products that shape consumer expectations.
+3. Normalize pack size and unit price when possible.
+4. Separate channel type and channel role: search marketplace, social commerce, mass retail, club store, specialty, pharmacy, DTC, or offline shelf.
+5. Extract packaging and listing patterns: front-label hierarchy, claims, proof points, certifications, warnings, image style, bundle/size strategy, review count/rating signals.
+6. Mark data as `current_checked`, `user_provided`, `assumption`, or `not_checked` so the user knows what is verified.
+
+Output table:
+
+| Benchmark product | Channel | Pack/size | Price/unit | What they emphasize | What it teaches us |
+|---|---|---|---|---|---|
+
+Then summarize:
+
+- **Reference price band**: low / mainstream / premium / specialty.
+- **Packaging conventions**: what local buyers are used to seeing.
+- **Claims and proof**: claims that appear common vs claims that need substantiation.
+- **Gap opportunity**: what the user's product can copy, avoid, or improve.
+- **Listing preparation**: photos, label, bullets, certifications, and materials to prepare before launch.
+
+Do not invent current benchmark products or prices. If browsing is unavailable and the user has not provided screenshots/links, provide a benchmark research plan and ask for or propose the minimum inputs needed.
 
 ## Competitor And Pricing Review
 
@@ -140,6 +178,10 @@ Use this skeleton for seller-facing outputs:
 | Risk | Impact | Owner | Fix |
 |---|---|---|---|
 
+## Target-Market Benchmarks
+| Benchmark | Channel | Pack/price | What it teaches us |
+|---|---|---|---|
+
 ## Competitor / Pricing
 | Signal | What it means | Action |
 |---|---|---|
@@ -164,4 +206,3 @@ Use this skeleton for seller-facing outputs:
 | Item | Current basis | How to verify |
 |---|---|---|
 ```
-

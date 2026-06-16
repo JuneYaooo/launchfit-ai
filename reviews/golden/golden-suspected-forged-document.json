@@ -37,6 +37,7 @@
       "privacy_level": "business_confidential"
     }
   ],
+  "market_benchmarks": [],
   "requirements": [
     {
       "requirement_id": "global-product-compliance-docs",

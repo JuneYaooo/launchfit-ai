@@ -23,6 +23,7 @@
     "rationale": ["A confirmed prohibited or recalled product category is a critical blocker."]
   },
   "documents": [],
+  "market_benchmarks": [],
   "requirements": [
     {
       "requirement_id": "global-category-not-prohibited",

@@ -23,6 +23,7 @@
     "rationale": ["Scope fields are required before mapping platform, market, and category rules."]
   },
   "documents": [],
+  "market_benchmarks": [],
   "requirements": [
     {
       "requirement_id": "intake-scope-required",

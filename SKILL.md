@@ -1,15 +1,15 @@
 ---
-name: cbec-qualification-review
-description: Use this skill when the user wants an AI checkup for a cross-border e-commerce product before launch: whether the product can sell, is worth launching, what may block marketplace listing, what documents or labels are missing, how competitors/pricing/logistics look, and what remediation wording is needed. Covers product feasibility, packaging or label review, platform/category admission, qualification review, brand authorization, certificate/license validation, logistics budget comparison, and auditable approve/request/reject/escalate decisions for platforms such as Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, Tmall Global, JD Worldwide, Walmart Marketplace, eBay, or similar marketplaces.
+name: cross-border-product-ai-checkup
+description: Use this skill when the user wants an AI checkup for a cross-border e-commerce product before launch: whether the product can sell, is worth launching, what similar products in the target market are doing, what may block marketplace listing, what documents or labels are missing, how benchmark/pricing/logistics look, and what remediation wording is needed. Covers target-market benchmarking, product feasibility, packaging or label review, platform/category admission, qualification review, brand authorization, certificate/license validation, logistics budget comparison, and auditable approve/request/reject/escalate decisions for platforms such as Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, Tmall Global, JD Worldwide, Walmart Marketplace, eBay, or similar marketplaces.
 metadata:
-  short-description: AI checkup for cross-border product launches
+  short-description: Cross-border product AI checkup
 ---
 
-# Cross-Border E-commerce Product Launch Review
+# Cross-border Product AI Checkup
 
-Use this skill to turn a cross-border product idea or messy launch package into an operational launch-readiness view: can it sell, where it may get blocked, what to fix, what to prepare, and whether it can move forward.
+Use this skill to turn a cross-border product idea or messy launch package into an AI checkup report: can it sell, where it may get blocked, what to fix, what to prepare, and whether it can move forward.
 
-This skill is not only for low-frequency compliance review. It supports high-frequency seller workflows before and during launch: product feasibility, competitor and pricing checks, packaging and label readiness, logistics planning, platform admission, qualification review, and applicant-facing remediation.
+This skill is not only for low-frequency compliance review. It supports high-frequency seller workflows before and during launch: product feasibility, target-market benchmarking, competitor and pricing checks, packaging and label readiness, logistics planning, platform admission, qualification review, and applicant-facing remediation.
 
 When the user asks for a final qualification decision, the output must remain auditable: approve, conditionally approve, request more information, reject, or escalate to human review.
 
@@ -19,7 +19,8 @@ When the user asks for a final qualification decision, the output must remain au
 |---|---|---|
 | Launch intake | User provides a product, target market, platform, category, or launch idea | Scope, assumptions, missing inputs, launch-readiness checklist |
 | Product feasibility | User asks whether a product can or should be sold in a market | Opportunity/risk view, obvious blockers, verification plan, next actions |
-| Competitor/pricing review | User provides competitor screenshots, product links, channel info, or pricing questions | Competitor table, channel/price bands, positioning and differentiation notes |
+| Target-market benchmarking | User asks how similar products are sold in the destination market, or provides competitor screenshots/links | Benchmark product table, channel/price bands, pack-size normalization, claims, packaging, certifications, review signals, and differentiation notes |
+| Competitor/pricing review | User provides competitor screenshots, product links, channel info, or pricing questions | Competitor table, unit price normalization, channel/price bands, positioning and differentiation notes |
 | Packaging/label readiness | User provides packaging, label text, claims, ingredients/materials, or listing copy | Label/claim risks, localization notes, required changes, evidence needed |
 | Logistics/budget review | User asks about air/sea/rail/warehouse/local delivery routes | Cost/time/risk comparison, route constraints, preparation checklist |
 | Document review | User provides licenses, certificates, reports, labels, authorization letters, screenshots, PDFs, or images | Extracted fields, inconsistencies, red flags, evidence table |
@@ -37,10 +38,10 @@ Before issuing a final decision, identify:
 - Commercial goal: new product selection, launch readiness, listing approval, pricing, packaging, logistics, blocked review, remediation, or SOP design.
 - Platform and market: marketplace name, destination country/region, store site, warehouse model.
 - Product scope: category, subcategory, HS/code if relevant, regulated attributes, claims, ingredients/materials.
-- Market signals: competitor products, channel examples, target consumer, price band, packaging benchmark, review signals, or known constraints.
+- Market signals: benchmark products in the target market, competitor products, channel examples, target consumer, price band, packaging benchmark, review signals, certifications/claims used by local leaders, or known constraints.
 - Brand/IP scope: brand owner, trademark region/class, authorization chain, license territory, validity period.
 - Documents submitted: file name, document type, issuer, holder, number, issue date, expiry date, scope, language.
-- Requested outcome: launch feasibility, platform onboarding, category gating, product listing approval, customs/import readiness, logistics budget, packaging/label recommendations, pricing guidance, service-provider qualification.
+- Requested outcome: launch feasibility, target-market benchmark, platform onboarding, category gating, product listing approval, customs/import readiness, logistics budget, packaging/label recommendations, pricing guidance, service-provider qualification.
 
 If any blocker is missing, ask only the minimum necessary question. Otherwise proceed with assumptions and flag them.
 
@@ -48,14 +49,14 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
 
 1. **Triage the case**
    - Load `references/audit-workflow.md`.
-   - Classify the case as product launch, seller/KYB, brand/IP, product/category, market/import, platform listing, logistics/budget, competitor/pricing, packaging/label, or service-provider review.
+   - Classify the case as product launch, seller/KYB, brand/IP, product/category, market/import, platform listing, logistics/budget, target-market benchmark, competitor/pricing, packaging/label, or service-provider review.
    - Assign initial risk: low, medium, high, critical.
 
 2. **Frame the launch question**
-   - Load `references/launch-readiness-playbook.md` for product feasibility, competitor/pricing, packaging/label, logistics/budget, or seller-facing launch questions.
+   - Load `references/launch-readiness-playbook.md` for product feasibility, target-market benchmarking, competitor/pricing, packaging/label, logistics/budget, or seller-facing launch questions.
    - If the user asks "can this sell" or "what should I prepare", produce a launch-readiness answer first, not a narrow compliance memo.
-   - Separate commercial assumptions from verified facts: product positioning, price band, competitor signals, target market, logistics route, and platform route.
-   - For current competitor pricing, platform requirements, freight costs, or regulatory facts, verify current sources and cite checked dates.
+   - Separate commercial assumptions from verified facts: product positioning, benchmark product signals, price band, competitor signals, target market, logistics route, and platform route.
+   - For current benchmark products, competitor pricing, platform requirements, freight costs, or regulatory facts, verify current sources and cite checked dates.
 
 3. **Build the document inventory**
    - Load `references/document-taxonomy.md` when reviewing documents or creating required-material lists.
@@ -84,7 +85,7 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
 
 8. **Output the result**
    - Load `references/report-templates.md`.
-   - For launch-readiness work, provide a practical "can sell / can list / what to fix next" answer first, then competitor/pricing/logistics/packaging notes as relevant.
+   - For launch-readiness work, provide a practical "can sell / can list / what to fix next" answer first, then target-market benchmark, competitor/pricing/logistics/packaging notes as relevant.
    - For qualification decisions, provide a concise executive decision first, then detailed findings, evidence table, missing materials, remediation, and audit log.
 
 ## Decision Statuses
@@ -133,7 +134,7 @@ T4 evidence can prove what the applicant submitted, but not necessarily that the
 - Do not treat marketplace rules as stable; require source checking for current decisions.
 - Do not expose full personal identity numbers, bank accounts, private addresses, phone numbers, or emails unless the user explicitly needs a machine-readable internal record.
 - Do not call social media or seller anecdotes authoritative for qualification review.
-- Do not present competitor prices, freight costs, or platform policies as current unless they were checked from current sources.
+- Do not present benchmark products, competitor prices, freight costs, or platform policies as current unless they were checked from current sources.
 - Do not give legal advice as final authority. Phrase legal conclusions as operational review findings requiring official/professional confirmation where appropriate.
 
 ## Script Helper
@@ -144,6 +145,7 @@ Use `scripts/qualification_audit_schema.py` to create or validate structured rev
 python3 scripts/qualification_audit_schema.py sample
 python3 scripts/qualification_audit_schema.py checklist --platform amazon --market US --category food
 python3 scripts/qualification_audit_schema.py review-skeleton --platform amazon --market US --category food --applicant-name "Example Trading Co., Ltd." --applicant-role distributor --business-model marketplace_seller --brand-name "Example Brand"
+python3 scripts/qualification_audit_schema.py benchmark-template --market US --category food --product "chili sauce" --platform amazon
 python3 scripts/qualification_audit_schema.py validate path/to/review.json
 python3 scripts/qualification_audit_schema.py case-check cases/golden-expired-certificate.json path/to/review.json
 python3 scripts/qualification_audit_schema.py golden-replay
@@ -154,14 +156,14 @@ python3 scripts/qualification_audit_schema.py rulepack-index-validate
 python3 scripts/qualification_audit_schema.py source-freshness
 ```
 
-The script is intentionally dependency-free so it can run in constrained environments. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. `review-skeleton` creates a JSON-contract-compliant intake review with requirements, attached official sources where available, findings, missing materials, remediation wording, and an audit log; it defaults to `request_more_info` because applicant documents and evidence matching are still required before approval. All indexed rule-pack requirements have source IDs; the deepest source-backed high-frequency routes are Amazon US food, TikTok Shop Malaysia/ASEAN cosmetics, and Temu electronics. `golden-replay` checks all produced review fixtures under `reviews/golden/` against expectations under `cases/`. `quality-gate` runs rulepack validation, source freshness, and golden replay together. Pack maturity is still `seed`, so use sources for intake and routing until more golden cases and real-case replay support promotion to `validated` or `production`.
+The script is intentionally dependency-free so it can run in constrained environments. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. `review-skeleton` creates a JSON-contract-compliant intake review with requirements, attached official sources where available, target-market benchmark slots, findings, missing materials, remediation wording, and an audit log; it defaults to `request_more_info` because applicant documents and evidence matching are still required before approval. `benchmark-template` creates a target-market benchmark worksheet for collecting comparable local products, channels, pack sizes, prices, claims, packaging signals, certifications, review signals, and takeaways. All indexed rule-pack requirements have source IDs; the deepest source-backed high-frequency routes are Amazon US food, TikTok Shop Malaysia/ASEAN cosmetics, and Temu electronics. `golden-replay` checks all produced review fixtures under `reviews/golden/` against expectations under `cases/`. `quality-gate` runs rulepack validation, source freshness, and golden replay together. Pack maturity is still `seed`, so use sources for intake and routing until more golden cases and real-case replay support promotion to `validated` or `production`.
 
 ## Reference Map
 
 | File | Load when |
 |---|---|
 | `references/audit-workflow.md` | Any real review or rulebook design |
-| `references/launch-readiness-playbook.md` | Product feasibility, competitor/pricing, packaging/label, logistics/budget, and seller-facing launch-readiness outputs |
+| `references/launch-readiness-playbook.md` | Product feasibility, target-market benchmarking, competitor/pricing, packaging/label, logistics/budget, and seller-facing launch-readiness outputs |
 | `references/document-taxonomy.md` | Documents, materials, certificates, labels, authorization chains |
 | `references/platform-market-matrix.md` | Platform, country, category, or marketplace-specific scope |
 | `references/global-country-framework.md` | Any country/region not yet covered by a mature rule pack |

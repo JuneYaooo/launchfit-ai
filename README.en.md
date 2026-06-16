@@ -1,15 +1,13 @@
 <div align="center">
 
-# cbec-qualification-review
+# Cross-border Product AI Checkup
 
-**An AI checkup for your cross-border product: decide whether it can sell, is worth launching, and what must be fixed before listing.**
+**An AI checkup for your cross-border product: find the right local benchmarks, then decide whether it can sell, is worth launching, and what must be fixed before listing.**
 
 [中文](./README.md)
 
 [![Skill](https://img.shields.io/badge/Agent-Skill-orange.svg)](./SKILL.md)
 [![Hackathon](https://img.shields.io/badge/International%20Food%20Expo%20Hackathon-2nd%20Place-gold.svg)](#)
-[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
-[![No dependencies](https://img.shields.io/badge/dependencies-none-green.svg)](./scripts/qualification_audit_schema.py)
 
 2nd place project at an International Food Expo hackathon, now open sourced.
 
@@ -19,12 +17,13 @@
 
 The expensive mistake in cross-border commerce is often not choosing the wrong product. It is **stocking the product first, then discovering that the marketplace needs more documents, the authorization does not cover the channel, the label must be reprinted, or the category cannot be sold**.
 
-This project turns "Can my product go overseas?" into a practical AI checkup report. Give it a product, target market, marketplace, packaging label, certificate report, or brand document. It tells you what can move forward, what needs remediation, where margin may disappear, and what should stop for human review.
+This project turns "Can my product go overseas?" into a practical AI checkup report. Give it a product, target market, marketplace, packaging label, certificate report, brand document, or a few local benchmark screenshots. It first shows how similar products in the target market sell, package, price, and build trust; then it tells you what can move forward, what needs remediation, where margin may disappear, and what should stop for human review.
 
 ## Core Problems It Solves
 
 - **Pre-listing uncertainty**: can this product sell on Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, or Tmall Global?
 - **Marketplace review blocks**: is the real gap brand authorization, a test report, a label issue, an expired certificate, or a scope mismatch?
+- **No local benchmark**: how do similar products in the target market price, package, claim, certify, and sell?
 - **Packaging and claims risk**: what needs to change in ingredients, allergens, warnings, marks, responsible party, language, or product claims?
 - **Pricing and logistics without evidence**: who are the competitors, where is the price band, and will freight or warehousing destroy margin?
 - **Inconsistent team review**: reviewers rely on experience, but supplement requests, evidence records, and audit trails are hard to standardize.
@@ -34,10 +33,11 @@ This project turns "Can my product go overseas?" into a practical AI checkup rep
 | Report module | What users get |
 | --- | --- |
 | Launch checkup verdict | go / caution / stop / unknown, so you can decide whether to keep pushing |
+| Target-market benchmark | How similar local products handle price, pack size, packaging, claims, channels, certifications, and review signals |
 | Listing risk map | Where platform, market, category, brand, label, certificate, and logistics risks sit |
 | Qualification gap table | Which document is missing, expired, mismatched, or unverifiable |
 | Packaging and label fixes | What to change in front/back label, ingredients, allergens, warnings, marks, language, and claims |
-| Competitor and price band | Competitor tiers, channel prices, packaging angles, and differentiation opportunities |
+| Price and positioning | Price bands, unit prices, channel tiers, packaging angles, and differentiation opportunities |
 | Logistics budget view | Cost, speed, and risk tradeoffs across air, sea, warehouse, and local delivery |
 | Remediation wording | Clear requests for suppliers, clients, or service providers |
 | Review trail | Decision, evidence, sources, gaps, and next actions for team handoff |
@@ -48,7 +48,7 @@ This project turns "Can my product go overseas?" into a practical AI checkup rep
 
 ![Consumer and competitor signals](./assets/demo-consumer-competitor-signals.png)
 
-### Competitor Pricing And Channel Insight
+### Target-Market Benchmark And Channel Insight
 
 ![Competitor pricing and channels](./assets/demo-competitor-pricing-channels.png)
 

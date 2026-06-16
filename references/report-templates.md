@@ -54,7 +54,7 @@ This review is an operational qualification assessment based on submitted materi
 
 ## Launch Readiness Markdown Memo
 
-Use this for seller-facing product launch, listing preparation, competitor/pricing, packaging, or logistics questions. Keep the first screen practical and action-oriented.
+Use this for seller-facing product launch, listing preparation, target-market benchmarking, competitor/pricing, packaging, or logistics questions. Keep the first screen practical and action-oriented.
 
 ```markdown
 # Cross-Border Product Launch Review
@@ -68,6 +68,10 @@ Use this for seller-facing product launch, listing preparation, competitor/prici
 
 ## Top Risks Before Listing
 | Risk | Impact | Owner | Fix |
+|---|---|---|---|
+
+## Target-Market Benchmarks
+| Benchmark product | Channel | Pack/price | What it teaches us |
 |---|---|---|---|
 
 ## Competitor / Pricing
@@ -138,6 +142,27 @@ Operational launch-readiness review only; not legal advice. Verify current platf
       "scope": "",
       "extraction_confidence": "high|medium|low",
       "privacy_level": "public|business_confidential|pii|highly_sensitive"
+    }
+  ],
+  "market_benchmarks": [
+    {
+      "benchmark_id": "",
+      "product_name": "",
+      "channel": "",
+      "channel_role": "search_marketplace|social_commerce|mass_retail|club_store|specialty|pharmacy|dtc|offline_shelf|other",
+      "market": "",
+      "pack_size": "",
+      "price": "",
+      "unit_price": "",
+      "positioning": "mass|mainstream|premium|specialty|luxury|unknown",
+      "visible_claims": [],
+      "packaging_signals": [],
+      "certification_signals": [],
+      "review_signals": [],
+      "data_basis": "current_checked|user_provided|assumption|not_checked",
+      "source_ids": [],
+      "evidence_ids": [],
+      "takeaway": ""
     }
   ],
   "requirements": [

@@ -9,6 +9,7 @@ Commands:
   quality-gate
   checklist --platform PLATFORM --market MARKET --category CATEGORY
   review-skeleton --platform PLATFORM --market MARKET --category CATEGORY
+  benchmark-template --market MARKET --category CATEGORY
   rulepack-new --country-code CODE --country-name NAME
   rulepack-validate <json-file>
   rulepack-index-validate
@@ -59,6 +60,24 @@ ALLOWED_SURFACES = {
 
 
 ALLOWED_RISK_LEVELS = {"low", "medium", "high", "critical"}
+ALLOWED_BENCHMARK_BASIS = {
+    "current_checked",
+    "user_provided",
+    "assumption",
+    "not_checked",
+}
+ALLOWED_CHANNEL_ROLES = {
+    "search_marketplace",
+    "social_commerce",
+    "mass_retail",
+    "club_store",
+    "specialty",
+    "pharmacy",
+    "dtc",
+    "offline_shelf",
+    "other",
+}
+ALLOWED_POSITIONING = {"mass", "mainstream", "premium", "specialty", "luxury", "unknown"}
 
 DEFINITIVE_STATUSES = {"approve", "conditional_approve", "reject"}
 MATURE_PACKS = {"validated", "production"}
@@ -179,6 +198,7 @@ def sample() -> dict[str, Any]:
             "rationale": ["Required brand and food compliance evidence is incomplete."],
         },
         "documents": [],
+        "market_benchmarks": [],
         "requirements": [],
         "findings": [],
         "missing_materials": [],
@@ -456,6 +476,7 @@ def review_skeleton(
             ],
         },
         "documents": [],
+        "market_benchmarks": [],
         "requirements": requirements,
         "findings": findings,
         "missing_materials": missing_materials,
@@ -478,6 +499,67 @@ def review_skeleton(
         },
         "audit_log": audit_log,
         "disclaimer": "Operational qualification review only; not legal advice.",
+    }
+
+
+def benchmark_template(
+    market: str,
+    category: str,
+    product: str = "",
+    platform: str = "",
+    count: int = 8,
+) -> dict[str, Any]:
+    """Create a target-market benchmark worksheet for seller-facing launch review."""
+    row_count = max(3, min(count, 10))
+    rows: list[dict[str, Any]] = []
+    for idx in range(1, row_count + 1):
+        rows.append(
+            {
+                "benchmark_id": f"BM-{idx:03d}",
+                "product_name": "",
+                "channel": "",
+                "channel_role": "other",
+                "market": market,
+                "pack_size": "",
+                "price": "",
+                "unit_price": "",
+                "positioning": "unknown",
+                "visible_claims": [],
+                "packaging_signals": [],
+                "certification_signals": [],
+                "review_signals": [],
+                "data_basis": "not_checked",
+                "source_ids": [],
+                "evidence_ids": [],
+                "takeaway": "",
+            }
+        )
+    return {
+        "template_type": "target_market_benchmark",
+        "generated_at": today(),
+        "scope": {
+            "product": product,
+            "target_market": market,
+            "platform": platform,
+            "category": category,
+        },
+        "purpose": "Find how similar products in the target market price, package, claim, certify, merchandise, and win buyer trust.",
+        "collection_rules": [
+            "Use 5-10 target-market products, not only global famous brands.",
+            "Include direct substitutes and adjacent products that shape buyer expectations.",
+            "Normalize pack size and unit price when price is available.",
+            "Separate data_basis: current_checked, user_provided, assumption, or not_checked.",
+            "Record visible compliance signals and claims instead of treating competitor copy as proof.",
+        ],
+        "market_benchmarks": rows,
+        "summary_fields": {
+            "reference_price_band": "",
+            "packaging_conventions": "",
+            "common_claims_and_proof": "",
+            "review_themes": "",
+            "gap_opportunity": "",
+            "listing_preparation": "",
+        },
     }
 
 def build_supplement_message(missing_materials: list[dict[str, Any]]) -> str:
@@ -653,7 +735,7 @@ def validate_payload(data: dict[str, Any]) -> list[str]:
         for field in REQUIRED_CASE_FIELDS:
             _require(bool(case.get(field)), f"case.{field} is required for a definitive '{status}' decision", errors)
 
-    for key in ("documents", "requirements", "findings", "missing_materials", "evidence", "sources", "audit_log"):
+    for key in ("documents", "market_benchmarks", "requirements", "findings", "missing_materials", "evidence", "sources", "audit_log"):
         _require(isinstance(data.get(key), list), f"{key} must be a list", errors)
 
     evidence_ids = {
@@ -677,6 +759,22 @@ def validate_payload(data: dict[str, Any]) -> list[str]:
             _require(str(eid) in evidence_ids, f"requirements[{idx}] references missing evidence_id {eid}", errors)
         for sid in req.get("source_ids") or []:
             _require(str(sid) in declared_source_ids, f"requirements[{idx}] references missing source_id {sid}", errors)
+
+    for idx, benchmark in enumerate(data.get("market_benchmarks") or []):
+        if not isinstance(benchmark, dict):
+            errors.append(f"market_benchmarks[{idx}] must be an object")
+            continue
+        _require(bool(benchmark.get("product_name")), f"market_benchmarks[{idx}].product_name is required", errors)
+        _require(bool(benchmark.get("channel")), f"market_benchmarks[{idx}].channel is required", errors)
+        _require(benchmark.get("channel_role") in ALLOWED_CHANNEL_ROLES, f"market_benchmarks[{idx}].channel_role is invalid", errors)
+        _require(benchmark.get("positioning") in ALLOWED_POSITIONING, f"market_benchmarks[{idx}].positioning is invalid", errors)
+        _require(benchmark.get("data_basis") in ALLOWED_BENCHMARK_BASIS, f"market_benchmarks[{idx}].data_basis is invalid", errors)
+        for list_key in ("visible_claims", "packaging_signals", "certification_signals", "review_signals", "source_ids", "evidence_ids"):
+            _require(isinstance(benchmark.get(list_key), list), f"market_benchmarks[{idx}].{list_key} must be a list", errors)
+        for sid in benchmark.get("source_ids") or []:
+            _require(str(sid) in declared_source_ids, f"market_benchmarks[{idx}] references missing source_id {sid}", errors)
+        for eid in benchmark.get("evidence_ids") or []:
+            _require(str(eid) in evidence_ids, f"market_benchmarks[{idx}] references missing evidence_id {eid}", errors)
 
     finding_severities: set[str] = set()
     for idx, finding in enumerate(data.get("findings") or []):
@@ -943,6 +1041,18 @@ def cmd_review_skeleton(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_benchmark_template(args: argparse.Namespace) -> int:
+    payload = benchmark_template(
+        market=args.market,
+        category=args.category,
+        product=args.product or "",
+        platform=args.platform or "",
+        count=args.count,
+    )
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
 def cmd_validate(args: argparse.Namespace) -> int:
     path = Path(args.file)
     try:
@@ -1106,6 +1216,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_review_skeleton.add_argument("--case-id", default="")
     p_review_skeleton.add_argument("--marketplace-site", default="")
     p_review_skeleton.set_defaults(func=cmd_review_skeleton)
+
+    p_benchmark_template = sub.add_parser("benchmark-template", help="print a target-market benchmark worksheet JSON")
+    p_benchmark_template.add_argument("--market", required=True)
+    p_benchmark_template.add_argument("--category", required=True)
+    p_benchmark_template.add_argument("--product", default="")
+    p_benchmark_template.add_argument("--platform", default="")
+    p_benchmark_template.add_argument("--count", type=int, default=8)
+    p_benchmark_template.set_defaults(func=cmd_benchmark_template)
 
     p_validate = sub.add_parser("validate", help="validate a review JSON file")
     p_validate.add_argument("file")
