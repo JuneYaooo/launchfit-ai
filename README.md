@@ -133,3 +133,58 @@ cp -R /path/to/cbec-qualification-review ~/.claude/skills/cbec-qualification-rev
 ```
 
 安装后重启对应 agent，让 skill 元数据重新加载。
+
+## 本地可运行能力
+
+这个仓库不只是提示词文档，也提供可执行的审核辅助脚本：
+
+```bash
+python3 scripts/qualification_audit_schema.py checklist --platform amazon --market US --category food
+```
+
+生成平台/市场/类目检查清单。
+
+```bash
+python3 scripts/qualification_audit_schema.py review-skeleton \
+  --platform amazon \
+  --market US \
+  --category food \
+  --applicant-name "Example Trading Co., Ltd." \
+  --applicant-role distributor \
+  --business-model marketplace_seller \
+  --brand-name "Example Brand" \
+  > /tmp/cbec_review_skeleton.json
+```
+
+生成符合 JSON contract 的结构化评审草稿，包含 scope、requirements、sources、findings、missing materials、补件话术和 audit log。默认结论是 `request_more_info`，因为没有用户提交材料和证据匹配时不能给最终通过。
+
+```bash
+python3 scripts/qualification_audit_schema.py validate /tmp/cbec_review_skeleton.json
+python3 scripts/qualification_audit_schema.py case-check cases/golden-unverified-applicant-docs.json /tmp/cbec_review_skeleton.json
+python3 scripts/qualification_audit_schema.py golden-replay
+python3 scripts/qualification_audit_schema.py source-freshness
+python3 scripts/qualification_audit_schema.py quality-gate
+```
+
+当前已为全量已索引规则补入来源，`source-freshness` 应返回：
+
+```text
+checked_source_links: 116
+unverified_requirements: []
+stale: []
+missing: []
+```
+
+其中三条高频路径已重点补入 T1 官方来源：
+
+- `Amazon + US + food`：Amazon Seller Central、FDA、CBP
+- `TikTok Shop + ASEAN/Malaysia + cosmetics`：TikTok Shop Seller Center、ASEAN、Singapore HSA、Malaysia NPRA
+- `Temu + electronics`：Temu 官方入口/条款/安全召回、FCC、European Commission、CPSC
+
+Shopee、Lazada、AliExpress、Tmall Global、EU、UK、Japan、China import、supplements、household chemicals 也已补入官方或权威来源入口。注意：规则包成熟度仍是 `seed`，来源齐备不等于可以自动给最终通过；进入 `validated/production` 前仍需要更多 golden cases、真实案例回放和人工抽检。
+
+当前也提供 7 个 produced review fixtures，覆盖 approve、request_more_info、reject、escalate_human、expired certificate、territory mismatch、unverified evidence 等关键路径。运行 `golden-replay` 可批量校验。
+
+发布前可直接运行 `quality-gate`，一次性检查规则包索引、来源新鲜度和 golden replay。
+
+更多命令见 [`examples/README.md`](./examples/README.md)。

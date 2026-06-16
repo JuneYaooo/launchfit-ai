@@ -111,3 +111,58 @@ cp -R /path/to/cbec-qualification-review ~/.claude/skills/cbec-qualification-rev
 ```
 
 Restart the corresponding agent after installation so the skill metadata reloads.
+
+## Runnable Local Capabilities
+
+This repository is not only prompt documentation. It includes executable review helpers:
+
+```bash
+python3 scripts/qualification_audit_schema.py checklist --platform amazon --market US --category food
+```
+
+Generate a platform/market/category checklist.
+
+```bash
+python3 scripts/qualification_audit_schema.py review-skeleton \
+  --platform amazon \
+  --market US \
+  --category food \
+  --applicant-name "Example Trading Co., Ltd." \
+  --applicant-role distributor \
+  --business-model marketplace_seller \
+  --brand-name "Example Brand" \
+  > /tmp/cbec_review_skeleton.json
+```
+
+Generate a structured intake review that follows the JSON contract, including scope, requirements, sources, findings, missing materials, remediation wording, and audit log. The default decision is `request_more_info` because a final approval is not allowed before submitted materials are matched to evidence and current sources.
+
+```bash
+python3 scripts/qualification_audit_schema.py validate /tmp/cbec_review_skeleton.json
+python3 scripts/qualification_audit_schema.py case-check cases/golden-unverified-applicant-docs.json /tmp/cbec_review_skeleton.json
+python3 scripts/qualification_audit_schema.py golden-replay
+python3 scripts/qualification_audit_schema.py source-freshness
+python3 scripts/qualification_audit_schema.py quality-gate
+```
+
+All indexed rule-pack requirements now have attached sources. `source-freshness` should return:
+
+```text
+checked_source_links: 116
+unverified_requirements: []
+stale: []
+missing: []
+```
+
+Three high-frequency routes have deeper T1 official source coverage:
+
+- `Amazon + US + food`: Amazon Seller Central, FDA, CBP
+- `TikTok Shop + ASEAN/Malaysia + cosmetics`: TikTok Shop Seller Center, ASEAN, Singapore HSA, Malaysia NPRA
+- `Temu + electronics`: Temu official entry points/terms/safety recall page, FCC, European Commission, CPSC
+
+Shopee, Lazada, AliExpress, Tmall Global, EU, UK, Japan, China import, supplements, and household chemicals also now include official or authoritative source entry points. Note that pack maturity is still `seed`: source coverage does not mean automatic final approval is safe. Promotion to `validated` or `production` still requires more golden cases, real-case replay, and human review sampling.
+
+The repository also includes 7 produced review fixtures covering approve, request_more_info, reject, escalate_human, expired certificate, territory mismatch, and unverified evidence paths. Run `golden-replay` to check them in batch.
+
+Before publishing, run `quality-gate` to check the rulepack index, source freshness, and golden replay in one command.
+
+See [`examples/README.md`](./examples/README.md) for runnable examples.

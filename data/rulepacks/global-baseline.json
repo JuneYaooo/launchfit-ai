@@ -19,6 +19,15 @@
     "customs_tax_days": 180,
     "high_risk_category_days": 30
   },
+  "golden_case_ids": [
+    "golden-complete-low-risk",
+    "golden-expired-certificate",
+    "golden-brand-authorization-territory",
+    "golden-prohibited-category",
+    "golden-suspected-forged-document",
+    "golden-missing-scope",
+    "golden-unverified-applicant-docs"
+  ],
   "requirements": [
     {
       "requirement_id": "global-seller-eligibility",
@@ -34,7 +43,11 @@
         "platform seller eligibility source"
       ],
       "decision_effect": "Missing or unsupported seller eligibility prevents approval.",
-      "source_ids": [],
+      "source_ids": [
+        "global-amazon-restricted-products",
+        "global-tiktok-prohibited-products",
+        "global-temu-terms"
+      ],
       "freshness_days": 90,
       "notes": "Verify official platform policy for the exact marketplace site."
     },
@@ -51,7 +64,10 @@
         "authorization document if applicant differs from rights holder"
       ],
       "decision_effect": "Major mismatch is high severity and normally requires more information or rejection.",
-      "source_ids": [],
+      "source_ids": [
+        "global-gleif-search",
+        "global-opencorporates-register"
+      ],
       "freshness_days": 365,
       "notes": "Use official company registry when available."
     },
@@ -69,7 +85,11 @@
         "distribution agreement"
       ],
       "decision_effect": "Missing or out-of-scope authorization is high severity.",
-      "source_ids": [],
+      "source_ids": [
+        "global-wipo-brand-database",
+        "global-uspto-trademark-search",
+        "global-euipo-search"
+      ],
       "freshness_days": 365,
       "notes": "Trademark territory and class should be checked in the relevant official registry when decision depends on it."
     },
@@ -86,7 +106,12 @@
         "official regulator/customs source where relevant"
       ],
       "decision_effect": "Confirmed prohibited category is critical and leads to rejection.",
-      "source_ids": [],
+      "source_ids": [
+        "global-amazon-restricted-products",
+        "global-tiktok-prohibited-products",
+        "global-eu-safety-gate",
+        "global-cpsc-recalls"
+      ],
       "freshness_days": 90,
       "notes": "If uncertain, escalate human review for high-risk categories."
     },
@@ -105,7 +130,11 @@
         "COA/SDS/label where relevant"
       ],
       "decision_effect": "Mismatch or expired evidence is high severity if the category requires certification.",
-      "source_ids": [],
+      "source_ids": [
+        "global-eu-ce-marking",
+        "global-fcc-equipment-authorization",
+        "global-fda-start-food-business"
+      ],
       "freshness_days": 365,
       "notes": "Exact evidence depends on category and market."
     },
@@ -123,7 +152,11 @@
         "official label/claim requirements"
       ],
       "decision_effect": "Unsubstantiated or regulated claims can require rejection or human escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "global-fda-labeling-nutrition",
+        "global-eu-ce-marking",
+        "global-tiktok-content-policy"
+      ],
       "freshness_days": 180,
       "notes": "Medical, therapeutic, antimicrobial, child-safety, food, supplement, and cosmetic claims require extra caution."
     },
@@ -139,12 +172,161 @@
         "document inventory with issue/expiry dates"
       ],
       "decision_effect": "Unknown validity of a core document prevents approval until confirmed.",
-      "source_ids": [],
+      "source_ids": [
+        "global-iso-certification-validity",
+        "global-wipo-brand-database",
+        "global-fcc-equipment-authorization"
+      ],
       "freshness_days": 365,
       "notes": "Feeds renewal monitoring after the decision."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "global-amazon-restricted-products",
+      "title": "Amazon Seller Central: Restricted products",
+      "url": "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace restricted product policy must be checked before listing products that may be illegal, unsafe, or otherwise restricted."
+    },
+    {
+      "source_id": "global-tiktok-prohibited-products",
+      "title": "TikTok Shop Seller Center: Prohibited Products Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace prohibited product policy must be checked before listing illegal, unsafe, counterfeit, recalled, or regulated products."
+    },
+    {
+      "source_id": "global-tiktok-content-policy",
+      "title": "TikTok Shop Seller Center: Content Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace content policy can restrict false, misleading, inconsistent, illegal, or unauthorized brand/IP claims."
+    },
+    {
+      "source_id": "global-temu-terms",
+      "title": "Temu: Terms of Use",
+      "url": "https://www.temu.com/terms-of-use.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Marketplace terms require users and sellers to comply with applicable laws and platform rules."
+    },
+    {
+      "source_id": "global-gleif-search",
+      "title": "GLEIF: LEI Search",
+      "url": "https://search.gleif.org/",
+      "tier": "T2",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "LEI records can support legal entity name and registration verification where the entity has an LEI."
+    },
+    {
+      "source_id": "global-opencorporates-register",
+      "title": "OpenCorporates: The Open Database Of The Corporate World",
+      "url": "https://opencorporates.com/",
+      "tier": "T3",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Corporate registry aggregation can help route reviewers to legal entity records, but final verification should use the official registry where available."
+    },
+    {
+      "source_id": "global-wipo-brand-database",
+      "title": "WIPO: Global Brand Database",
+      "url": "https://branddb.wipo.int/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Trademark owner, status, class, and territory should be checked in official trademark databases when brand rights affect a decision."
+    },
+    {
+      "source_id": "global-uspto-trademark-search",
+      "title": "USPTO: Trademark Search",
+      "url": "https://www.uspto.gov/trademarks/search",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "U.S. trademark status, owner, class, and goods/services can be checked through USPTO trademark search."
+    },
+    {
+      "source_id": "global-euipo-search",
+      "title": "EUIPO: eSearch plus",
+      "url": "https://euipo.europa.eu/eSearch/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU trademark and design records can be checked through EUIPO eSearch plus."
+    },
+    {
+      "source_id": "global-eu-safety-gate",
+      "title": "European Commission: Safety Gate",
+      "url": "https://ec.europa.eu/safety-gate-alerts/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU Safety Gate provides official alerts for dangerous non-food products and supports recall/safety screening."
+    },
+    {
+      "source_id": "global-cpsc-recalls",
+      "title": "CPSC: Recalls",
+      "url": "https://www.cpsc.gov/Recalls",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CPSC recall records support safety and recall screening for consumer products."
+    },
+    {
+      "source_id": "global-eu-ce-marking",
+      "title": "European Commission: CE marking",
+      "url": "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CE marking indicates that a product has been assessed to meet EU safety, health, and environmental protection requirements where applicable."
+    },
+    {
+      "source_id": "global-fcc-equipment-authorization",
+      "title": "FCC: Equipment Authorization",
+      "url": "https://www.fcc.gov/oet/ea",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FCC equipment authorization applies to radiofrequency devices before marketing, importation, or operation in the United States."
+    },
+    {
+      "source_id": "global-fda-start-food-business",
+      "title": "FDA: How to Start a Food Business",
+      "url": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities."
+    },
+    {
+      "source_id": "global-fda-labeling-nutrition",
+      "title": "FDA: Food Labeling & Nutrition",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance."
+    },
+    {
+      "source_id": "global-iso-certification-validity",
+      "title": "ISO: Certification",
+      "url": "https://www.iso.org/certification.html",
+      "tier": "T2",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "ISO explains that ISO does not perform certification itself and that certificates should be checked with certification bodies where certification is claimed."
+    }
+  ],
   "gaps": [
     "Country-specific regulator map must be verified per case.",
     "Platform-country seller route must be verified per case.",

@@ -30,12 +30,54 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Shopee country-site policy source", "seller route evidence", "category document list where applicable"],
       "decision_effect": "Cannot approve Shopee cases until the exact country-site policy route is verified.",
-      "source_ids": [],
+      "source_ids": [
+        "shopee-ph-terms",
+        "shopee-my-prohibited-items",
+        "shopee-ph-prohibited-listings",
+        "shopee-ph-policy-course"
+      ],
       "freshness_days": 90,
       "notes": "Do not generalize one Shopee country site's rules to another."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "shopee-ph-terms",
+      "title": "Shopee PH Help Center: Shopee Terms of Service",
+      "url": "https://help.shopee.ph/4/article/77272-Shopee-Terms-of-Service",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Shopee terms require sellers to comply with Shopee rules, terms, and prohibited/restricted item policies."
+    },
+    {
+      "source_id": "shopee-my-prohibited-items",
+      "title": "Shopee MY Seller Education Hub: List of Prohibited Items",
+      "url": "https://seller.shopee.com.my/edu/article/614",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Shopee Malaysia prohibited listings are not allowed due to local regulations or Shopee listing policy."
+    },
+    {
+      "source_id": "shopee-ph-prohibited-listings",
+      "title": "Shopee PH Seller Education Hub: What are prohibited listings?",
+      "url": "https://seller.shopee.ph/edu/article/640",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Shopee Philippines prohibited listings are products not allowed due to local regulations or Shopee listing policy."
+    },
+    {
+      "source_id": "shopee-ph-policy-course",
+      "title": "Shopee PH Seller Education Hub: Shopee's Policies",
+      "url": "https://seller.shopee.ph/edu/courseDetail/178",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Shopee country-site seller education provides policy routing for listing limits, listing violations, and seller policy compliance."
+    }
+  ],
   "gaps": [
     "Seed pack: verify current official Shopee policy pages per case before final decisions."
   ]

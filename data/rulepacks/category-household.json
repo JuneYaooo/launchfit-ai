@@ -31,7 +31,12 @@
       "mandatory": "conditional",
       "evidence_expected": ["SDS/MSDS", "official chemical/biocide source", "label artwork", "transport classification where relevant"],
       "decision_effect": "Missing safety data or unclear chemical/biocide route blocks approval for affected products.",
-      "source_ids": [],
+      "source_ids": [
+        "household-osha-hazcom",
+        "household-echa-reach",
+        "household-echa-bpr",
+        "household-epa-pesticides"
+      ],
       "freshness_days": 365,
       "notes": "Disinfectant, antibacterial, pesticide, aerosol, corrosive, flammable, and concentrated products require human review when unclear."
     },
@@ -45,12 +50,62 @@
       "mandatory": "conditional",
       "evidence_expected": ["label artwork", "claim substantiation", "official platform/regulator source"],
       "decision_effect": "Unsupported antimicrobial, pesticide, or disinfection claims require rejection or human escalation unless a lawful route is verified.",
-      "source_ids": [],
+      "source_ids": [
+        "household-osha-hazcom",
+        "household-epa-pesticides",
+        "household-echa-clp"
+      ],
       "freshness_days": 180,
       "notes": "Claims can move a household product into pesticide, biocide, or drug-like regulation depending on market."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "household-osha-hazcom",
+      "title": "OSHA: Hazard Communication",
+      "url": "https://www.osha.gov/hazcom",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Hazard Communication requirements support SDS, hazard classification, labels, and safety information review for chemical products."
+    },
+    {
+      "source_id": "household-echa-reach",
+      "title": "ECHA: REACH Regulation",
+      "url": "https://echa.europa.eu/regulations/reach/understanding-reach",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU REACH rules support review of chemical substance obligations and restrictions for products placed on the EU market."
+    },
+    {
+      "source_id": "household-echa-bpr",
+      "title": "ECHA: Biocidal Products Regulation",
+      "url": "https://echa.europa.eu/regulations/biocidal-products-regulation/understanding-bpr",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU biocidal product rules support review of disinfectant, antimicrobial, and biocidal claims and authorization routes."
+    },
+    {
+      "source_id": "household-echa-clp",
+      "title": "ECHA: CLP Regulation",
+      "url": "https://echa.europa.eu/regulations/clp/understanding-clp",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU CLP rules support review of classification, labelling, and packaging for hazardous chemicals."
+    },
+    {
+      "source_id": "household-epa-pesticides",
+      "title": "EPA: Pesticides",
+      "url": "https://www.epa.gov/pesticides",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EPA pesticide rules support review of pesticide, disinfectant, antimicrobial, and related claims in the United States."
+    }
+  ],
   "gaps": [
     "Seed overlay: verify destination-market chemical/biocide regulator requirements per case."
   ]

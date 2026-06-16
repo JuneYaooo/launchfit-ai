@@ -19,6 +19,11 @@
   "checklist_hints": [
     "Check supplier/manufacturer qualification, product test reports, labeling, and logistics readiness."
   ],
+  "golden_case_ids": [
+    "golden-expired-certificate",
+    "golden-suspected-forged-document",
+    "golden-unverified-applicant-docs"
+  ],
   "requirements": [
     {
       "requirement_id": "platform-temu-supplier-qualification",
@@ -30,7 +35,11 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Temu policy or onboarding source", "business/manufacturer evidence", "service/logistics evidence where required"],
       "decision_effect": "Unsupported supplier qualification blocks approval until clarified.",
-      "source_ids": [],
+      "source_ids": [
+        "temu-seller-center",
+        "temu-terms-of-use",
+        "temu-us-terms"
+      ],
       "freshness_days": 90,
       "notes": "Seed platform requirement; validate against official Temu materials available to the reviewer."
     },
@@ -44,12 +53,52 @@
       "mandatory": "conditional",
       "evidence_expected": ["test report", "certificate", "label artwork", "official Temu or regulator source"],
       "decision_effect": "SKU/model or scope mismatch requires more information and can block approval.",
-      "source_ids": [],
+      "source_ids": [
+        "temu-product-safety-recalls",
+        "temu-terms-of-use"
+      ],
       "freshness_days": 90,
       "notes": "High priority for electronics, batteries, toys, and regulated products."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "temu-seller-center",
+      "title": "Temu Seller Center",
+      "url": "https://seller.temu.com/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Temu provides an official seller center for merchant onboarding and seller operations."
+    },
+    {
+      "source_id": "temu-terms-of-use",
+      "title": "Temu: Terms of Use",
+      "url": "https://www.temu.com/terms-of-use.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Temu terms require users and sellers to comply with applicable laws and platform rules."
+    },
+    {
+      "source_id": "temu-us-terms",
+      "title": "Temu: U.S. Terms of Use",
+      "url": "https://www.temu.com/us-terms-of-use.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Temu U.S. terms describe legal and platform obligations for use of the U.S. service."
+    },
+    {
+      "source_id": "temu-product-safety-recalls",
+      "title": "Temu: Product Safety Recalls",
+      "url": "https://www.temu.com/product-safety-recalls.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Temu maintains an official product safety recalls page, supporting product safety review and post-market monitoring."
+    }
+  ],
   "gaps": [
     "Seed pack: verify current official Temu policy pages per case before final decisions."
   ]

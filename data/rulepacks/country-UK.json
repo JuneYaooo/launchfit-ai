@@ -57,13 +57,55 @@
       "mandatory": "conditional",
       "evidence_expected": ["official UK source", "importer or responsible entity evidence", "platform UK policy"],
       "decision_effect": "Cannot approve until the applicable UK route is verified for regulated or imported products.",
-      "source_ids": [],
+      "source_ids": [
+        "uk-product-safety",
+        "uk-product-marking",
+        "uk-import-goods",
+        "uk-ipo-trademark-search"
+      ],
       "freshness_days": 180,
       "notes": "Seed routing requirement; verify category-specific UK obligations."
     }
   ],
   "golden_case_ids": [],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "uk-product-safety",
+      "title": "GOV.UK: Product safety for businesses",
+      "url": "https://www.gov.uk/guidance/product-safety-for-businesses-a-to-z-of-industry-guidance",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "UK product safety guidance routes businesses to category-specific product safety obligations."
+    },
+    {
+      "source_id": "uk-product-marking",
+      "title": "GOV.UK: Using the UKCA marking",
+      "url": "https://www.gov.uk/guidance/using-the-ukca-marking",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "UKCA marking guidance explains marking obligations for goods placed on the market in Great Britain where applicable."
+    },
+    {
+      "source_id": "uk-import-goods",
+      "title": "GOV.UK: Import goods into the UK",
+      "url": "https://www.gov.uk/import-goods-into-uk",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "UK import guidance covers customs, declarations, duty, VAT, licenses, and other controls for imported goods."
+    },
+    {
+      "source_id": "uk-ipo-trademark-search",
+      "title": "GOV.UK: Search for a trade mark",
+      "url": "https://www.gov.uk/search-for-trademark",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "UK trademark records can be searched to verify trademark ownership, status, class, and territory."
+    }
+  ],
   "gaps": [
     "Add current official UK sources for product safety, food, cosmetics, electronics, toys, and customs/tax routes.",
     "Add golden cases before marking validated."

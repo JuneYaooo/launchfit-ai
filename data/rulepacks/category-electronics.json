@@ -20,6 +20,11 @@
     "Electrical safety, EMC/radio, battery, charger, label, and market conformity evidence are checked.",
     "Model/SKU consistency across test reports, declaration, packaging, and listing is verified."
   ],
+  "golden_case_ids": [
+    "golden-expired-certificate",
+    "golden-suspected-forged-document",
+    "golden-unverified-applicant-docs"
+  ],
   "requirements": [
     {
       "requirement_id": "category-electronics-conformity",
@@ -31,7 +36,13 @@
       "mandatory": "conditional",
       "evidence_expected": ["test report", "certificate or declaration", "official conformity source", "label/marking artwork"],
       "decision_effect": "Missing or mismatched conformity evidence blocks approval for regulated electronics.",
-      "source_ids": [],
+      "source_ids": [
+        "electronics-fcc-equipment-authorization",
+        "electronics-eu-ce-marking",
+        "electronics-eu-radio-equipment",
+        "electronics-eu-battery-regulation",
+        "electronics-cpsc-batteries"
+      ],
       "freshness_days": 365,
       "notes": "Wireless, lithium battery, charger, child-use, and high-voltage products require extra caution."
     },
@@ -45,12 +56,61 @@
       "mandatory": true,
       "evidence_expected": ["test report", "product label", "listing data", "factory/manufacturer evidence"],
       "decision_effect": "Material model/SKU mismatch is high severity and requires correction before approval.",
-      "source_ids": [],
+      "source_ids": [
+        "electronics-fcc-equipment-authorization",
+        "electronics-eu-ce-marking"
+      ],
       "freshness_days": 365,
       "notes": "Do not treat a report for a similar model as sufficient without scope evidence."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "electronics-fcc-equipment-authorization",
+      "title": "FCC: Equipment Authorization",
+      "url": "https://www.fcc.gov/oet/ea",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FCC equipment authorization applies to radiofrequency devices before marketing, importation, or operation in the United States."
+    },
+    {
+      "source_id": "electronics-eu-ce-marking",
+      "title": "European Commission: CE marking",
+      "url": "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CE marking indicates that a product has been assessed to meet EU safety, health, and environmental protection requirements where applicable."
+    },
+    {
+      "source_id": "electronics-eu-radio-equipment",
+      "title": "European Commission: Radio Equipment Directive",
+      "url": "https://single-market-economy.ec.europa.eu/sectors/electrical-and-electronic-engineering-industries-eei/radio-equipment-directive-red_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "The EU Radio Equipment Directive sets requirements for radio equipment placed on the EU market."
+    },
+    {
+      "source_id": "electronics-eu-battery-regulation",
+      "title": "European Commission: Batteries",
+      "url": "https://environment.ec.europa.eu/topics/waste-and-recycling/batteries_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU battery rules cover sustainability, safety, labelling, information, and due-diligence obligations for batteries."
+    },
+    {
+      "source_id": "electronics-cpsc-batteries",
+      "title": "CPSC: Batteries",
+      "url": "https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Batteries",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CPSC provides consumer product safety information for batteries and battery-powered products."
+    }
+  ],
   "gaps": [
     "Seed overlay: verify destination-market conformity scheme (CE/FCC/KC/UKCA etc.) per case."
   ]

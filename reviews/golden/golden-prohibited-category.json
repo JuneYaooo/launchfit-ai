@@ -1,0 +1,92 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "golden-prohibited-category",
+    "applicant_name": "Example Seller LLC",
+    "applicant_role": "marketplace_seller",
+    "platform": "TikTok Shop",
+    "marketplace_site": "US",
+    "destination_market": "United States",
+    "business_model": "marketplace_seller",
+    "product_category": "prohibited product",
+    "subcategory": "recalled consumer product",
+    "brand_name": "Example Brand",
+    "review_purpose": "listing approval review",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-16"
+  },
+  "decision": {
+    "status": "reject",
+    "risk_level": "critical",
+    "risk_score": 60,
+    "summary": "The requested product is confirmed prohibited for the platform/market scope.",
+    "rationale": ["A confirmed prohibited or recalled product category is a critical blocker."]
+  },
+  "documents": [],
+  "requirements": [
+    {
+      "requirement_id": "global-category-not-prohibited",
+      "surface": "product_category",
+      "requirement": "Product category must not be prohibited by the platform or destination country.",
+      "status": "invalid",
+      "matched_evidence_ids": ["ev-policy-001"],
+      "source_ids": ["src-tiktok-prohibited"],
+      "notes": "Official policy confirms the product type is not allowed."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "critical",
+      "surface": "product_category",
+      "requirement": "Not prohibited",
+      "submitted_evidence": "Listing request for recalled/prohibited product type.",
+      "observed_issue": "Official policy confirms the category is prohibited for listing.",
+      "business_impact": "Listing cannot be approved and could trigger platform enforcement.",
+      "decision_effect": "reject",
+      "required_action": "Do not list this product under the requested platform/market route.",
+      "acceptable_evidence": "A different lawful product scope or official policy change.",
+      "source_ids": ["src-tiktok-prohibited"],
+      "confidence": "high"
+    }
+  ],
+  "missing_materials": [],
+  "evidence": [
+    {
+      "evidence_id": "ev-policy-001",
+      "kind": "platform_policy",
+      "reference": "TikTok Shop prohibited products policy",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Policy prohibits illegal, unsafe, counterfeit, recalled, or regulated products in listed prohibited categories.",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "src-tiktok-prohibited",
+      "title": "TikTok Shop Seller Center: Prohibited Products Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "TikTok Shop prohibits illegal, unsafe, counterfeit, recalled, or regulated products that violate laws or platform policies."
+    }
+  ],
+  "remediation": {
+    "applicant_message": "该商品在当前平台/市场路径下属于禁售或不可上架范围，不能继续提交上架。",
+    "internal_next_steps": ["Close case as rejected unless product scope changes."]
+  },
+  "privacy": {
+    "redactions_applied": [],
+    "sensitive_data_notes": []
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "created_golden_fixture",
+      "details": "Prohibited category fixture."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice."
+}

@@ -64,7 +64,11 @@
       "mandatory": "conditional",
       "evidence_expected": ["official EU source", "destination member-state source where relevant", "responsible entity evidence"],
       "decision_effect": "Cannot approve regulated EU product routes until the required EU economic operator path is verified.",
-      "source_ids": [],
+      "source_ids": [
+        "eu-gpsr",
+        "eu-market-surveillance",
+        "eu-eori"
+      ],
       "freshness_days": 365,
       "notes": "Seed routing requirement; verify the exact category and member state."
     },
@@ -78,13 +82,67 @@
       "mandatory": "conditional",
       "evidence_expected": ["declaration of conformity", "test report", "label artwork", "official regulator source"],
       "decision_effect": "Missing conformity basis or label obligations requires more information or human escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "eu-ce-marking",
+        "eu-gpsr",
+        "eu-safety-gate"
+      ],
       "freshness_days": 180,
       "notes": "Do not infer CE eligibility from a logo alone."
     }
   ],
-  "golden_case_ids": [],
-  "sources": [],
+  "golden_case_ids": [
+    "golden-expired-certificate",
+    "golden-suspected-forged-document",
+    "golden-unverified-applicant-docs"
+  ],
+  "sources": [
+    {
+      "source_id": "eu-gpsr",
+      "title": "European Commission: General Product Safety Regulation",
+      "url": "https://commission.europa.eu/business-economy-euro/doing-business-eu/eu-product-safety-and-labelling/product-safety/general-product-safety-regulation_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU product safety rules can require responsible economic operators and product safety information for consumer products."
+    },
+    {
+      "source_id": "eu-market-surveillance",
+      "title": "European Commission: Market surveillance and product compliance",
+      "url": "https://single-market-economy.ec.europa.eu/single-market/goods/building-blocks/market-surveillance_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU market surveillance rules cover product compliance, economic operators, and enforcement for goods in the single market."
+    },
+    {
+      "source_id": "eu-eori",
+      "title": "European Commission: Economic Operators Registration and Identification number",
+      "url": "https://taxation-customs.ec.europa.eu/customs-4/customs-procedures-import-and-export-0/customs-procedures/economic-operators-registration-and-identification-number-eori_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EORI is used to identify economic operators in customs procedures in the EU."
+    },
+    {
+      "source_id": "eu-ce-marking",
+      "title": "European Commission: CE marking",
+      "url": "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CE marking indicates that a product has been assessed to meet EU safety, health, and environmental protection requirements where applicable."
+    },
+    {
+      "source_id": "eu-safety-gate",
+      "title": "European Commission: Safety Gate",
+      "url": "https://ec.europa.eu/safety-gate-alerts/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EU Safety Gate provides official alerts for dangerous non-food products and supports recall/safety screening."
+    }
+  ],
   "gaps": [
     "Add current EU official sources for GPSR/market surveillance, food, cosmetics, chemicals, electronics, and batteries.",
     "Add member-state examples before marking validated.",

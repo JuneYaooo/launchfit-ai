@@ -30,7 +30,11 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Tmall Global policy source", "overseas entity evidence", "brand authorization chain"],
       "decision_effect": "Unsupported entity route or brand authorization prevents approval.",
-      "source_ids": [],
+      "source_ids": [
+        "tmall-global-merchant-entry",
+        "tmall-global-rules",
+        "tmall-global-brand-qualification"
+      ],
       "freshness_days": 90,
       "notes": "Check official platform source for the exact category and merchant type."
     },
@@ -44,12 +48,62 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Tmall Global category source", "Chinese label artwork", "customs/import route evidence"],
       "decision_effect": "Unclear import route, missing Chinese label, or unsupported category materials require more information or escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "tmall-global-rules",
+        "tmall-global-category-qualification",
+        "tmall-global-import-service"
+      ],
       "freshness_days": 90,
       "notes": "Pair with country-CN-import for China-specific regulator/customs checks."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "tmall-global-merchant-entry",
+      "title": "天猫国际招商入驻",
+      "url": "https://pages.tmall.com/wow/seller/act/zhaoshang-tmg",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "天猫国际招商入驻入口用于核验海外主体、店铺类型、招商类目和入驻资质路径。"
+    },
+    {
+      "source_id": "tmall-global-rules",
+      "title": "天猫国际规则",
+      "url": "https://rulechannel.tmall.hk/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "天猫国际规则中心用于核验商家、商品、品牌、类目、交易、违规和平台治理规则。"
+    },
+    {
+      "source_id": "tmall-global-brand-qualification",
+      "title": "天猫国际品牌及资质规则入口",
+      "url": "https://rulechannel.tmall.hk/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "天猫国际品牌、授权链路和资质材料应以规则中心及招商入驻要求为准。"
+    },
+    {
+      "source_id": "tmall-global-category-qualification",
+      "title": "天猫国际类目资质规则入口",
+      "url": "https://rulechannel.tmall.hk/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "天猫国际类目资质、商品准入、标签和材料要求应按规则中心对应类目核验。"
+    },
+    {
+      "source_id": "tmall-global-import-service",
+      "title": "天猫国际跨境进口服务入口",
+      "url": "https://global.tmall.com/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "天猫国际跨境进口业务需要区分跨境零售、保税、直邮和平台商品准入路径。"
+    }
+  ],
   "gaps": [
     "Seed pack: verify current official Tmall Global policy pages per case before final decisions."
   ]

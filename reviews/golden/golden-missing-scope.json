@@ -1,0 +1,81 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "golden-missing-scope",
+    "applicant_name": "Unknown applicant",
+    "applicant_role": "",
+    "platform": "",
+    "marketplace_site": "",
+    "destination_market": "",
+    "business_model": "",
+    "product_category": "",
+    "subcategory": "",
+    "brand_name": "",
+    "review_purpose": "qualification decision request",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-16"
+  },
+  "decision": {
+    "status": "request_more_info",
+    "risk_level": "high",
+    "risk_score": 35,
+    "summary": "Cannot issue a final decision because platform, destination market, and product category are missing.",
+    "rationale": ["Scope fields are required before mapping platform, market, and category rules."]
+  },
+  "documents": [],
+  "requirements": [
+    {
+      "requirement_id": "intake-scope-required",
+      "surface": "platform_listing",
+      "requirement": "Platform, destination market, product category, and review purpose must be provided before final decision.",
+      "status": "missing",
+      "matched_evidence_ids": [],
+      "source_ids": [],
+      "notes": "Ask only for the minimum scope needed to start review."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "high",
+      "surface": "intake",
+      "requirement": "Minimum scope",
+      "submitted_evidence": "Applicant question only.",
+      "observed_issue": "Platform, destination market, and product category are absent.",
+      "business_impact": "Any pass/fail result would be unreliable because rules cannot be routed.",
+      "decision_effect": "request_more_info",
+      "required_action": "Collect platform, destination market, product category, business model, and review purpose.",
+      "acceptable_evidence": "Completed intake fields or equivalent written scope.",
+      "source_ids": [],
+      "confidence": "high"
+    }
+  ],
+  "missing_materials": [
+    {
+      "material": "platform, destination market, product category, business model",
+      "why_required": "Required to select applicable rule packs.",
+      "acceptable_replacement": "Written scope in the request.",
+      "owner": "applicant",
+      "priority": "P0"
+    }
+  ],
+  "evidence": [],
+  "sources": [],
+  "remediation": {
+    "applicant_message": "请补充目标平台、目标国家/地区、商品类目和业务模式后再继续审核。",
+    "internal_next_steps": ["Wait for scope before rule mapping."]
+  },
+  "privacy": {
+    "redactions_applied": [],
+    "sensitive_data_notes": []
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "created_golden_fixture",
+      "details": "Missing scope fixture."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice."
+}

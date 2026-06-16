@@ -30,12 +30,54 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Lazada country-site policy source", "seller route evidence", "brand/category materials where applicable"],
       "decision_effect": "Cannot approve Lazada cases until country-site route and category requirements are verified.",
-      "source_ids": [],
+      "source_ids": [
+        "lazada-seller-center",
+        "lazada-seller-terms",
+        "lazada-prohibited-products",
+        "lazada-ipr-policy"
+      ],
       "freshness_days": 90,
       "notes": "SEA country-site rules and local-language requirements can differ."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "lazada-seller-center",
+      "title": "Lazada Seller Center",
+      "url": "https://sellercenter.lazada.com/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Lazada Seller Center is the official seller operations and policy entry point for Lazada marketplace sellers."
+    },
+    {
+      "source_id": "lazada-seller-terms",
+      "title": "Lazada: Marketplace Seller Terms and Conditions",
+      "url": "https://www.lazada.com/en/terms-of-use/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Lazada terms require sellers and users to comply with platform rules, applicable law, and marketplace obligations."
+    },
+    {
+      "source_id": "lazada-prohibited-products",
+      "title": "Lazada Seller Center: Prohibited and Controlled Products Policy",
+      "url": "https://sellercenter.lazada.com.my/seller/helpcenter/prohibited-and-controlled-products-policy-5378.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Lazada country-site policies can restrict prohibited and controlled products and require category-specific review."
+    },
+    {
+      "source_id": "lazada-ipr-policy",
+      "title": "Lazada: Intellectual Property Rights Policy",
+      "url": "https://www.lazada.com/en/ipr-policy/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Lazada intellectual property policy supports brand/IP authorization and infringement review."
+    }
+  ],
   "gaps": [
     "Seed pack: verify current official Lazada policy pages per case before final decisions."
   ]

@@ -143,15 +143,18 @@ Use `scripts/qualification_audit_schema.py` to create or validate structured rev
 ```bash
 python3 scripts/qualification_audit_schema.py sample
 python3 scripts/qualification_audit_schema.py checklist --platform amazon --market US --category food
+python3 scripts/qualification_audit_schema.py review-skeleton --platform amazon --market US --category food --applicant-name "Example Trading Co., Ltd." --applicant-role distributor --business-model marketplace_seller --brand-name "Example Brand"
 python3 scripts/qualification_audit_schema.py validate path/to/review.json
 python3 scripts/qualification_audit_schema.py case-check cases/golden-expired-certificate.json path/to/review.json
+python3 scripts/qualification_audit_schema.py golden-replay
+python3 scripts/qualification_audit_schema.py quality-gate
 python3 scripts/qualification_audit_schema.py rulepack-new --country-code DE --country-name Germany
 python3 scripts/qualification_audit_schema.py rulepack-validate data/rulepacks/global-baseline.json
 python3 scripts/qualification_audit_schema.py rulepack-index-validate
 python3 scripts/qualification_audit_schema.py source-freshness
 ```
 
-The script is intentionally dependency-free so it can run in constrained environments. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. Golden cases in `cases/` define expected decisions for representative scenarios; use `case-check` to verify a produced review against them. Use `rulepack-index-validate` before publishing rule changes and `source-freshness` to find stale or missing official-source links.
+The script is intentionally dependency-free so it can run in constrained environments. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. `review-skeleton` creates a JSON-contract-compliant intake review with requirements, attached official sources where available, findings, missing materials, remediation wording, and an audit log; it defaults to `request_more_info` because applicant documents and evidence matching are still required before approval. All indexed rule-pack requirements have source IDs; the deepest source-backed high-frequency routes are Amazon US food, TikTok Shop Malaysia/ASEAN cosmetics, and Temu electronics. `golden-replay` checks all produced review fixtures under `reviews/golden/` against expectations under `cases/`. `quality-gate` runs rulepack validation, source freshness, and golden replay together. Pack maturity is still `seed`, so use sources for intake and routing until more golden cases and real-case replay support promotion to `validated` or `production`.
 
 ## Reference Map
 

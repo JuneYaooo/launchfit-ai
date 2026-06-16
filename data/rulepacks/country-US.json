@@ -70,7 +70,12 @@
       "mandatory": "conditional",
       "evidence_expected": ["official regulator source", "registry lookup where available", "classification rationale"],
       "decision_effect": "Do not approve regulated US categories until the applicable official source or registry path is verified.",
-      "source_ids": [],
+      "source_ids": [
+        "us-fda-start-food-business",
+        "us-fda-food-facility-registration",
+        "us-cbp-basic-importing",
+        "us-cbp-commercial-food-imports"
+      ],
       "freshness_days": 365,
       "notes": "Seed routing requirement; not a substitute for current FDA/FCC/CPSC/EPA/USDA/CBP or other official checks."
     },
@@ -84,13 +89,76 @@
       "mandatory": "conditional",
       "evidence_expected": ["label artwork", "claim substantiation", "official labeling or advertising source"],
       "decision_effect": "Unsupported regulated claims or missing required warnings normally require more information or human escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "us-fda-food-labeling-nutrition",
+        "us-fda-food-allergens"
+      ],
       "freshness_days": 180,
       "notes": "High-risk claims include disease treatment, antimicrobial, child safety, organic, environmental, and performance claims."
     }
   ],
-  "golden_case_ids": [],
-  "sources": [],
+  "golden_case_ids": [
+    "golden-complete-low-risk",
+    "golden-brand-authorization-territory",
+    "golden-prohibited-category",
+    "golden-unverified-applicant-docs"
+  ],
+  "sources": [
+    {
+      "source_id": "us-fda-start-food-business",
+      "title": "FDA: How to Start a Food Business",
+      "url": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities."
+    },
+    {
+      "source_id": "us-fda-food-facility-registration",
+      "title": "FDA: Registration of Food Facilities and Other Submissions",
+      "url": "https://www.fda.gov/food/registration-food-facilities-and-other-submissions",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA food facility registration can apply to facilities that manufacture, process, pack, or hold food for U.S. consumption."
+    },
+    {
+      "source_id": "us-cbp-basic-importing",
+      "title": "CBP: Basic Importing and Exporting",
+      "url": "https://www.cbp.gov/trade/basic-import-export",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CBP explains importer responsibilities, entry process, admissibility, and compliance obligations for U.S. imports."
+    },
+    {
+      "source_id": "us-cbp-commercial-food-imports",
+      "title": "CBP: Commercial Food Imports",
+      "url": "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CBP directs commercial food importers to relevant food import requirements and agency coordination."
+    },
+    {
+      "source_id": "us-fda-food-labeling-nutrition",
+      "title": "FDA: Food Labeling & Nutrition",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance."
+    },
+    {
+      "source_id": "us-fda-food-allergens",
+      "title": "FDA: Food Allergies",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA explains major food allergens and food allergen labeling requirements."
+    }
+  ],
   "gaps": [
     "Add current official source IDs for FDA food/cosmetics/supplements routes.",
     "Add current official source IDs for FCC/CPSC/EPA/USDA category paths.",

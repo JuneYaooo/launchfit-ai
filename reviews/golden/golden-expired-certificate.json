@@ -1,0 +1,114 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "golden-expired-certificate",
+    "applicant_name": "Example Electronics Co., Ltd.",
+    "applicant_role": "manufacturer",
+    "platform": "Temu",
+    "marketplace_site": "EU",
+    "destination_market": "European Union",
+    "business_model": "marketplace_seller",
+    "product_category": "electronics",
+    "subcategory": "charger",
+    "brand_name": "Example Tech",
+    "review_purpose": "category qualification review",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-16"
+  },
+  "decision": {
+    "status": "request_more_info",
+    "risk_level": "high",
+    "risk_score": 35,
+    "summary": "Core conformity certificate expired before review date and must be replaced.",
+    "rationale": ["Expired required evidence blocks approval even when other materials are consistent."]
+  },
+  "documents": [
+    {
+      "document_id": "doc-ce-001",
+      "document_type": "certificate",
+      "file_reference": "applicant-upload/ce-certificate.pdf",
+      "holder": "Example Electronics Co., Ltd.",
+      "issuer": "Example Certification Body",
+      "number_redacted": "CE-****-8899",
+      "issue_date": "2023-01-01",
+      "expiry_date": "2025-12-31",
+      "scope": "Model EX-100 charger",
+      "extraction_confidence": "high",
+      "privacy_level": "business_confidential"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "category-electronics-conformity",
+      "surface": "certificate",
+      "requirement": "Destination-market conformity certificate must be current.",
+      "status": "invalid",
+      "matched_evidence_ids": ["ev-doc-ce-001"],
+      "source_ids": ["src-eu-ce"],
+      "notes": "Certificate expired on 2025-12-31; review date is 2026-06-16."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "high",
+      "surface": "certificate",
+      "requirement": "Current conformity evidence",
+      "submitted_evidence": "CE certificate expired 2025-12-31.",
+      "observed_issue": "The core compliance certificate is expired.",
+      "business_impact": "Marketplace and destination-market listing may be blocked until current evidence is provided.",
+      "decision_effect": "request_more_info",
+      "required_action": "Submit a current certificate or declaration and matching test report for the exact model.",
+      "acceptable_evidence": "Current certificate/declaration covering model EX-100 and destination market.",
+      "source_ids": ["src-eu-ce"],
+      "confidence": "high"
+    }
+  ],
+  "missing_materials": [
+    {
+      "material": "current conformity certificate or declaration",
+      "why_required": "The submitted core certificate expired before review date.",
+      "acceptable_replacement": "Renewed certificate/declaration and matching test report.",
+      "owner": "applicant",
+      "priority": "P0"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev-doc-ce-001",
+      "kind": "submitted_document",
+      "reference": "applicant-upload/ce-certificate.pdf",
+      "tier": "T4",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Certificate expiry date is 2025-12-31.",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "src-eu-ce",
+      "title": "European Commission: CE marking",
+      "url": "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Conformity basis must be current and applicable for regulated goods."
+    }
+  ],
+  "remediation": {
+    "applicant_message": "当前证书已过期，请补充覆盖同一型号和目标市场的有效证书或声明及检测报告。",
+    "internal_next_steps": ["Re-check model match after replacement is submitted."]
+  },
+  "privacy": {
+    "redactions_applied": ["certificate number partially redacted"],
+    "sensitive_data_notes": []
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "created_golden_fixture",
+      "details": "Expired certificate fixture."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice."
+}

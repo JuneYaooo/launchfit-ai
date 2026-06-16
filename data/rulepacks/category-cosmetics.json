@@ -32,7 +32,11 @@
       "mandatory": "conditional",
       "evidence_expected": ["official cosmetics regulator source", "INCI ingredient list", "safety assessment or notification evidence where required"],
       "decision_effect": "Cannot approve cosmetics cases until classification and mandatory market entry route are verified.",
-      "source_ids": [],
+      "source_ids": [
+        "cosmetics-asean-directive",
+        "cosmetics-sg-hsa",
+        "cosmetics-my-npra-notification"
+      ],
       "freshness_days": 365,
       "notes": "Sunscreen, whitening, acne, anti-dandruff, hair growth, therapeutic, or SPF claims can change classification."
     },
@@ -46,12 +50,43 @@
       "mandatory": "conditional",
       "evidence_expected": ["label artwork", "claim substantiation", "official platform/regulator source"],
       "decision_effect": "Unsupported medical or functional claims require more information or escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "cosmetics-sg-hsa",
+        "cosmetics-my-npra-notification"
+      ],
       "freshness_days": 180,
       "notes": "Do not rely only on applicant marketing copy for claim classification."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "cosmetics-asean-directive",
+      "title": "ASEAN: Agreement on the ASEAN Harmonised Cosmetic Regulatory Scheme",
+      "url": "https://asean.org/wp-content/uploads/2012/05/Agreement-on-the-ASEAN-Harmonised-Cosmetic-Regulatory-Scheme.pdf",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "ASEAN cosmetic regulation is harmonised through the ASEAN Cosmetic Directive framework, while implementation still depends on member-country authorities."
+    },
+    {
+      "source_id": "cosmetics-sg-hsa",
+      "title": "Singapore HSA: Cosmetic products",
+      "url": "https://www.hsa.gov.sg/cosmetic-products",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Singapore requires cosmetic products to meet safety, quality, claims, ingredient, notification, and responsible-person obligations before supply."
+    },
+    {
+      "source_id": "cosmetics-my-npra-notification",
+      "title": "Malaysia NPRA: Cosmetic Notification",
+      "url": "https://www.npra.gov.my/index.php/en/cosmetic-main-page/cosmetic-notification.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Malaysia requires cosmetic products to be notified to NPRA before manufacture, import, supply, or sale in Malaysia."
+    }
+  ],
   "gaps": [
     "Seed overlay: verify destination-market cosmetics regulator requirements per case."
   ]

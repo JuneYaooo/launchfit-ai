@@ -78,10 +78,12 @@ python3 scripts/qualification_audit_schema.py rulepack-validate data/rulepacks/c
 python3 scripts/qualification_audit_schema.py rulepack-index-validate
 ```
 
-6. Add at least three golden cases under `cases/` before marking the pack `validated` or `production`, and check produced reviews with:
+6. Add at least three golden cases under `cases/` and produced review fixtures under `reviews/golden/` before marking the pack `validated` or `production`, and check produced reviews with:
 
 ```bash
 python3 scripts/qualification_audit_schema.py case-check cases/<case>.json path/to/review.json
+python3 scripts/qualification_audit_schema.py golden-replay
+python3 scripts/qualification_audit_schema.py quality-gate
 ```
 
 7. Check source freshness:
@@ -168,6 +170,7 @@ A pack can be marked `production` only if:
 - no critical requirement is based only on T3/T4/T5
 - freshness windows are defined
 - at least 3 representative golden cases under `cases/` pass `case-check` with expected decisions
+- produced review fixtures exist under `reviews/golden/` and pass `golden-replay`
 - privacy notes exist for documents that include PII/KYB data
 
 `rulepack-validate` enforces core schema and maturity gates for a single pack. `rulepack-index-validate` enforces index consistency and validates every indexed pack. Current source freshness is checked separately with `source-freshness`.

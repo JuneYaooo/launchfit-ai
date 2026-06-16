@@ -1,0 +1,105 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "golden-suspected-forged-document",
+    "applicant_name": "Example Supplier Co., Ltd.",
+    "applicant_role": "manufacturer",
+    "platform": "Temu",
+    "marketplace_site": "EU",
+    "destination_market": "European Union",
+    "business_model": "marketplace_seller",
+    "product_category": "electronics",
+    "subcategory": "wireless charger",
+    "brand_name": "Example Tech",
+    "review_purpose": "certificate validation",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-16"
+  },
+  "decision": {
+    "status": "escalate_human",
+    "risk_level": "critical",
+    "risk_score": 50,
+    "summary": "Submitted certificate shows alteration signals and requires manual verification.",
+    "rationale": ["Suspected document alteration must not be decided automatically."]
+  },
+  "documents": [
+    {
+      "document_id": "doc-cert-flagged",
+      "document_type": "test report",
+      "file_reference": "applicant-upload/test-report-flagged.pdf",
+      "holder": "Example Supplier Co., Ltd.",
+      "issuer": "Example Lab",
+      "number_redacted": "TR-****-3321",
+      "issue_date": "2026-02-01",
+      "expiry_date": "",
+      "scope": "Wireless charger model EX-WC",
+      "extraction_confidence": "low",
+      "privacy_level": "business_confidential"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "global-product-compliance-docs",
+      "surface": "certificate",
+      "requirement": "Product compliance documents must be genuine and externally verifiable.",
+      "status": "needs_external_verification",
+      "matched_evidence_ids": ["ev-doc-flagged"],
+      "source_ids": [],
+      "notes": "Internal visual review found alteration signals; do not disclose fraud language to applicant."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "critical",
+      "surface": "certificate",
+      "requirement": "Document authenticity",
+      "submitted_evidence": "Applicant-provided test report image.",
+      "observed_issue": "Internal review identified inconsistent fonts, seal placement, and signature rendering across certificate pages.",
+      "business_impact": "Potentially altered compliance evidence creates serious enforcement and fraud risk.",
+      "decision_effect": "escalate_human",
+      "required_action": "Escalate for manual issuer verification and retain fraud indicators in internal notes only.",
+      "acceptable_evidence": "Direct issuer verification or replacement report transmitted by accredited issuer.",
+      "source_ids": [],
+      "confidence": "medium"
+    }
+  ],
+  "missing_materials": [
+    {
+      "material": "issuer verification of flagged report",
+      "why_required": "Document authenticity cannot be confirmed automatically.",
+      "acceptable_replacement": "Issuer-confirmed report or direct registry verification.",
+      "owner": "reviewer",
+      "priority": "P0"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev-doc-flagged",
+      "kind": "submitted_document",
+      "reference": "applicant-upload/test-report-flagged.pdf",
+      "tier": "T4",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Submitted report image has low extraction confidence and visual inconsistency signals.",
+      "confidence": "medium"
+    }
+  ],
+  "sources": [],
+  "remediation": {
+    "applicant_message": "该检测报告需要进一步人工核验。请提供由签发机构直接出具或可在线核验的报告文件。",
+    "internal_next_steps": ["Do not disclose fraud suspicion.", "Verify directly with issuer.", "Escalate to human reviewer."]
+  },
+  "privacy": {
+    "redactions_applied": ["report number partially redacted"],
+    "sensitive_data_notes": ["Internal fraud indicators should not be included in applicant-facing text."]
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "created_golden_fixture",
+      "details": "Suspected forged document fixture."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice."
+}

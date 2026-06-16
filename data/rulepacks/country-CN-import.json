@@ -64,7 +64,11 @@
       "mandatory": "conditional",
       "evidence_expected": ["platform route source", "customs/import source", "warehouse or logistics route evidence"],
       "decision_effect": "Cannot approve China import/cross-border cases until the route and applicable official obligations are verified.",
-      "source_ids": [],
+      "source_ids": [
+        "cn-gacc",
+        "cn-customs-enterprise",
+        "cn-cross-border-retail"
+      ],
       "freshness_days": 180,
       "notes": "Seed routing requirement; do not mix cross-border retail and general trade assumptions."
     },
@@ -78,13 +82,72 @@
       "mandatory": "conditional",
       "evidence_expected": ["Chinese label artwork", "official regulator source", "platform category source"],
       "decision_effect": "Unsupported claims, missing label obligations, or unclear category classification requires more information or human escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "cn-samr",
+        "cn-nmpa-cosmetics",
+        "cn-cnipa"
+      ],
       "freshness_days": 180,
       "notes": "High-risk areas include food, supplements, cosmetics, infant/child products, medical, pesticides, and wireless/electronics."
     }
   ],
   "golden_case_ids": [],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "cn-gacc",
+      "title": "General Administration of Customs of China",
+      "url": "http://english.customs.gov.cn/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "China customs/import route and product admissibility should be checked through GACC official sources."
+    },
+    {
+      "source_id": "cn-customs-enterprise",
+      "title": "China Customs: Internet + Customs",
+      "url": "https://online.customs.gov.cn/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "China customs enterprise and declaration services support import route and customs process verification."
+    },
+    {
+      "source_id": "cn-cross-border-retail",
+      "title": "GACC: Cross-border e-commerce retail import information",
+      "url": "http://www.customs.gov.cn/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "China cross-border retail import route should be verified through current customs announcements and official customs rules."
+    },
+    {
+      "source_id": "cn-samr",
+      "title": "State Administration for Market Regulation",
+      "url": "https://www.samr.gov.cn/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "China product quality, labeling, market supervision, and claim issues should be checked through SAMR sources where applicable."
+    },
+    {
+      "source_id": "cn-nmpa-cosmetics",
+      "title": "National Medical Products Administration",
+      "url": "https://www.nmpa.gov.cn/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "China cosmetics, drugs, medical devices, and related registration/notification routes should be checked through NMPA sources where applicable."
+    },
+    {
+      "source_id": "cn-cnipa",
+      "title": "China National Intellectual Property Administration",
+      "url": "https://www.cnipa.gov.cn/",
+      "tier": "T1",
+      "language": "zh",
+      "checked_at": "2026-06-16",
+      "confirms": "China trademark status, owner, class, and territory should be checked through CNIPA sources when brand rights affect a decision."
+    }
+  ],
   "gaps": [
     "Add current official GACC/NMPA/SAMR/CNIPA source IDs.",
     "Add platform-specific Tmall Global and JD Worldwide source IDs before marking validated.",

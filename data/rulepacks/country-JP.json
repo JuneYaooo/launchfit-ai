@@ -57,13 +57,55 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Japan source", "local responsible entity evidence", "Japanese label artwork"],
       "decision_effect": "Cannot approve regulated Japan routes until classification and label obligations are verified.",
-      "source_ids": [],
+      "source_ids": [
+        "jp-mhlw-food-sanitation",
+        "jp-mhlw-pharmaceutical-affairs",
+        "jp-meti-product-safety",
+        "jp-jpo-trademark"
+      ],
       "freshness_days": 365,
       "notes": "Seed routing requirement; use official sources or qualified local review for high-risk categories."
     }
   ],
   "golden_case_ids": [],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "jp-mhlw-food-sanitation",
+      "title": "MHLW: Food Sanitation Act",
+      "url": "https://www.mhlw.go.jp/english/topics/foodsafety/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Japan food safety route should be checked through MHLW food safety and Food Sanitation Act information."
+    },
+    {
+      "source_id": "jp-mhlw-pharmaceutical-affairs",
+      "title": "MHLW: Pharmaceutical and Medical Device Safety Information",
+      "url": "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Japan pharmaceutical, medical device, quasi-drug, and cosmetics routes should be checked through MHLW where classification may apply."
+    },
+    {
+      "source_id": "jp-meti-product-safety",
+      "title": "METI: Product Safety",
+      "url": "https://www.meti.go.jp/english/policy/economy/consumer/product_safety/index.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Japan product safety obligations for consumer products should be checked through METI product safety information."
+    },
+    {
+      "source_id": "jp-jpo-trademark",
+      "title": "Japan Patent Office: Trademark",
+      "url": "https://www.jpo.go.jp/e/system/trademark/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Japan trademark status, owner, class, and territory should be checked through Japan Patent Office trademark resources."
+    }
+  ],
   "gaps": [
     "Add current official Japan sources for food/supplements, cosmetics/quasi-drugs, electronics/wireless, and import/customs.",
     "Add golden cases before marking validated."

@@ -1,0 +1,158 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "golden-complete-low-risk",
+    "applicant_name": "Example Trading Co., Ltd.",
+    "applicant_role": "distributor",
+    "platform": "Amazon",
+    "marketplace_site": "US",
+    "destination_market": "United States",
+    "business_model": "marketplace_seller",
+    "product_category": "food",
+    "subcategory": "sauce",
+    "brand_name": "Example Brand",
+    "review_purpose": "category qualification review",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-16"
+  },
+  "decision": {
+    "status": "approve",
+    "risk_level": "low",
+    "risk_score": 3,
+    "summary": "Submitted materials and current source checks support approval for the reviewed Amazon US food scope.",
+    "rationale": ["Entity, brand authorization, food facility evidence, and labels are matched and externally verified."]
+  },
+  "documents": [
+    {
+      "document_id": "doc-license-001",
+      "document_type": "business registration",
+      "file_reference": "verified/business-registration.pdf",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "Official company registry",
+      "number_redacted": "BR-****-1234",
+      "issue_date": "2024-01-01",
+      "expiry_date": "2027-01-01",
+      "scope": "Trading and distribution",
+      "extraction_confidence": "high",
+      "privacy_level": "business_confidential"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "global-entity-name-match",
+      "surface": "seller",
+      "requirement": "Applicant legal name must match submitted entity documents.",
+      "status": "satisfied",
+      "matched_evidence_ids": ["ev-registry-001"],
+      "source_ids": ["src-registry"],
+      "notes": "Registry name matches applicant."
+    },
+    {
+      "requirement_id": "global-brand-rights",
+      "surface": "brand_ip",
+      "requirement": "Brand authorization must cover product, territory, channel, and review period.",
+      "status": "satisfied",
+      "matched_evidence_ids": ["ev-brand-001"],
+      "source_ids": ["src-wipo"],
+      "notes": "Authorization covers US and Amazon through 2026-12-31."
+    },
+    {
+      "requirement_id": "category-food-classification-import",
+      "surface": "market_import",
+      "requirement": "Food route and facility evidence must be verified.",
+      "status": "satisfied",
+      "matched_evidence_ids": ["ev-fda-001"],
+      "source_ids": ["src-fda"],
+      "notes": "FDA route and submitted facility evidence are current for this review."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "low",
+      "surface": "platform_listing",
+      "requirement": "Expiry monitoring",
+      "submitted_evidence": "Brand authorization valid through 2026-12-31.",
+      "observed_issue": "Renewal reminder should be set before expiry.",
+      "business_impact": "Operational renewal note only.",
+      "decision_effect": "approve_with_note",
+      "required_action": "Set renewal reminder 60 days before expiry.",
+      "acceptable_evidence": "Renewed authorization before expiry.",
+      "source_ids": [],
+      "confidence": "high"
+    }
+  ],
+  "missing_materials": [],
+  "evidence": [
+    {
+      "evidence_id": "ev-registry-001",
+      "kind": "registry",
+      "reference": "Official registry lookup",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Example Trading Co., Ltd. is active and matches applicant name.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-brand-001",
+      "kind": "registry",
+      "reference": "Trademark registry and issuer confirmation",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Brand owner and authorization chain cover US/Amazon.",
+      "confidence": "high"
+    },
+    {
+      "evidence_id": "ev-fda-001",
+      "kind": "regulator",
+      "reference": "FDA food facility route",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Food facility route and labeling basis reviewed.",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "src-registry",
+      "title": "Official company registry",
+      "url": "https://search.gleif.org/",
+      "tier": "T2",
+      "checked_at": "2026-06-16",
+      "confirms": "Entity identity and active status."
+    },
+    {
+      "source_id": "src-wipo",
+      "title": "WIPO Global Brand Database",
+      "url": "https://branddb.wipo.int/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Trademark owner and status."
+    },
+    {
+      "source_id": "src-fda",
+      "title": "FDA Food Labeling & Nutrition",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Food label and category route."
+    }
+  ],
+  "remediation": {
+    "applicant_message": "当前材料支持推进。请在授权到期前完成续期。",
+    "internal_next_steps": ["Set renewal monitor for brand authorization."]
+  },
+  "privacy": {
+    "redactions_applied": ["business registration number partially redacted"],
+    "sensitive_data_notes": ["Business registration retained as confidential evidence."]
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "created_golden_fixture",
+      "details": "Complete low-risk approval fixture."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice."
+}

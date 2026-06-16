@@ -5,7 +5,10 @@ Commands:
   sample
   validate <json-file>
   case-check <case-file> <review-json-file>
+  golden-replay [--cases-dir CASES_DIR] [--reviews-dir REVIEWS_DIR]
+  quality-gate
   checklist --platform PLATFORM --market MARKET --category CATEGORY
+  review-skeleton --platform PLATFORM --market MARKET --category CATEGORY
   rulepack-new --country-code CODE --country-name NAME
   rulepack-validate <json-file>
   rulepack-index-validate
@@ -84,6 +87,14 @@ PACK_MATCH_INPUT = {
     "region": "market",
 }
 
+PACK_COMPOSITION_ORDER = {
+    "global": 0,
+    "platform": 1,
+    "region": 2,
+    "country": 3,
+    "category": 4,
+}
+
 
 def today() -> str:
     return _dt.date.today().isoformat()
@@ -112,6 +123,34 @@ def load_rulepack_index() -> dict[str, Any]:
 
 def load_rulepack(rel_path: str) -> dict[str, Any]:
     return json.loads((SKILL_ROOT / rel_path).read_text(encoding="utf-8"))
+
+
+def matches_pack(pack: dict[str, Any], inputs: dict[str, str]) -> bool:
+    pack_type = pack.get("type")
+    if pack_type == "global":
+        return True
+    input_key = PACK_MATCH_INPUT.get(str(pack_type))
+    if input_key is None:
+        return False
+    keywords = (pack.get("match") or {}).get("keywords", [])
+    target = inputs.get(input_key, "")
+    return bool(target and any(str(keyword).lower() in target for keyword in keywords))
+
+
+def matching_rulepacks(platform: str, market: str, category: str) -> list[dict[str, Any]]:
+    inputs = {
+        "platform": platform.strip().lower(),
+        "market": market.strip().lower(),
+        "category": category.strip().lower(),
+    }
+    packs: list[dict[str, Any]] = []
+    for entry in load_rulepack_index().get("packs", []):
+        pack = load_rulepack(entry["path"])
+        if matches_pack(pack, inputs):
+            pack["_index_entry"] = entry
+            packs.append(pack)
+    packs.sort(key=lambda pack: PACK_COMPOSITION_ORDER.get(str(pack.get("type")), 99))
+    return packs
 
 
 def sample() -> dict[str, Any]:
@@ -179,23 +218,16 @@ def checklist(platform: str, market: str, category: str) -> dict[str, Any]:
     matched_types: set[str] = set()
     matched_combinations: list[dict[str, Any]] = []
 
-    for entry in index.get("packs", []):
-        pack = load_rulepack(entry["path"])
+    for pack in matching_rulepacks(platform, market, category):
         pack_type = pack.get("type")
         if pack_type == "global":
             base_items = [req["requirement"] for req in pack.get("requirements", [])]
             matched_packs.append(pack["pack_id"])
             continue
-        input_key = PACK_MATCH_INPUT.get(pack_type)
-        if input_key is None:
-            continue
-        keywords = (pack.get("match") or {}).get("keywords", [])
-        target = inputs[input_key]
-        if target and any(keyword.lower() in target for keyword in keywords):
-            matched_packs.append(pack["pack_id"])
-            matched_types.add(pack_type)
-            pack_items.extend(pack.get("checklist_hints", []))
-            pack_items.extend(req["requirement"] for req in pack.get("requirements", []))
+        matched_packs.append(pack["pack_id"])
+        matched_types.add(str(pack_type))
+        pack_items.extend(pack.get("checklist_hints", []))
+        pack_items.extend(req["requirement"] for req in pack.get("requirements", []))
 
     for combo in index.get("priority_combinations", []):
         if not isinstance(combo, dict):
@@ -240,6 +272,230 @@ def checklist(platform: str, market: str, category: str) -> dict[str, Any]:
         "note": "Routing checklist only. Verify current official platform and regulator sources before final decision.",
         "items": base_items + PROCESS_CHECKLIST + pack_items,
     }
+
+
+def review_skeleton(
+    platform: str,
+    market: str,
+    category: str,
+    applicant_name: str = "",
+    applicant_role: str = "",
+    business_model: str = "",
+    brand_name: str = "",
+    purpose: str = "launch readiness and qualification intake",
+    case_id: str = "",
+    marketplace_site: str = "",
+) -> dict[str, Any]:
+    packs = matching_rulepacks(platform, market, category)
+    today_text = today()
+    case_id = case_id.strip() or f"intake-{platform.strip().lower() or 'platform'}-{market.strip().lower() or 'market'}-{category.strip().lower() or 'category'}"
+    marketplace_site = marketplace_site.strip() or market.strip()
+
+    sources_by_id: dict[str, dict[str, Any]] = {}
+    requirements_by_id: dict[str, dict[str, Any]] = {}
+    source_pack_by_id: dict[str, str] = {}
+
+    for pack in packs:
+        for source in pack.get("sources", []):
+            if not isinstance(source, dict) or not source.get("source_id"):
+                continue
+            source_id = str(source["source_id"])
+            sources_by_id[source_id] = {
+                "source_id": source_id,
+                "title": str(source.get("title", "")),
+                "url": str(source.get("url", "")),
+                "tier": str(source.get("tier", "T3")),
+                "checked_at": str(source.get("checked_at", today_text)),
+                "confirms": str(source.get("confirms", "")),
+            }
+            source_pack_by_id[source_id] = str(pack.get("pack_id", ""))
+        for req in pack.get("requirements", []):
+            if not isinstance(req, dict) or not req.get("requirement_id"):
+                continue
+            requirements_by_id[str(req["requirement_id"])] = req
+
+    requirements: list[dict[str, Any]] = []
+    findings: list[dict[str, Any]] = []
+    missing_materials: list[dict[str, Any]] = []
+    evidence: list[dict[str, Any]] = []
+    audit_log: list[dict[str, str]] = []
+
+    for source_id, source in sources_by_id.items():
+        evidence.append(
+            {
+                "evidence_id": f"ev-{source_id}",
+                "kind": "official_source" if source.get("tier") in AUTHORITATIVE_TIERS else "other",
+                "reference": source.get("url", ""),
+                "tier": source.get("tier", "T3"),
+                "checked_at": source.get("checked_at", today_text),
+                "extracted_fact": source.get("confirms", ""),
+                "confidence": "high" if source.get("tier") in AUTHORITATIVE_TIERS else "medium",
+            }
+        )
+        audit_log.append(
+            {
+                "timestamp": source.get("checked_at", today_text),
+                "actor": "AI reviewer",
+                "action": "loaded_rule_source",
+                "details": f"{source_id} from {source_pack_by_id.get(source_id, '')}",
+            }
+        )
+
+    missing_scope_fields = []
+    if not platform.strip():
+        missing_scope_fields.append("platform")
+    if not market.strip():
+        missing_scope_fields.append("destination_market")
+    if not category.strip():
+        missing_scope_fields.append("product_category")
+
+    for idx, req in enumerate(requirements_by_id.values(), start=1):
+        source_ids = [str(item) for item in req.get("source_ids", [])]
+        if missing_scope_fields:
+            status = "missing"
+            notes = f"Missing scope fields: {', '.join(missing_scope_fields)}."
+            severity = "high"
+        elif source_ids:
+            status = "missing"
+            notes = "Official source is attached; applicant/product evidence still needs to be matched."
+            severity = "high" if req.get("mandatory") is True else "medium"
+        else:
+            status = "needs_external_verification"
+            notes = "No official source is attached to this rule pack requirement yet."
+            severity = "medium"
+
+        requirements.append(
+            {
+                "requirement_id": str(req.get("requirement_id")),
+                "surface": str(req.get("surface", "platform_listing")),
+                "requirement": str(req.get("requirement", "")),
+                "status": status,
+                "matched_evidence_ids": [],
+                "source_ids": source_ids,
+                "notes": notes,
+            }
+        )
+
+        expected = [str(item) for item in req.get("evidence_expected", [])]
+        if expected:
+            missing_materials.append(
+                {
+                    "material": "; ".join(expected),
+                    "why_required": str(req.get("decision_effect", "Required before final decision.")),
+                    "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+                    "owner": "applicant / reviewer",
+                    "priority": "P0" if req.get("mandatory") is True else "P1",
+                }
+            )
+
+        findings.append(
+            {
+                "finding_id": f"F-{idx:03d}",
+                "severity": severity,
+                "surface": str(req.get("surface", "")),
+                "requirement": str(req.get("requirement", "")),
+                "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+                "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+                "business_impact": str(req.get("decision_effect", "Cannot issue a final qualification decision yet.")),
+                "decision_effect": "request_more_info",
+                "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+                "acceptable_evidence": "; ".join(expected) if expected else "Verified official source and matching applicant evidence.",
+                "source_ids": source_ids,
+                "confidence": "medium" if source_ids else "low",
+            }
+        )
+
+    if missing_scope_fields:
+        risk_level = "high"
+        risk_score = 35
+        summary = f"Cannot start a final review until {', '.join(missing_scope_fields)} is provided."
+    elif not requirements:
+        risk_level = "high"
+        risk_score = 35
+        summary = "No matching rule pack requirements were found; use global intake and verify official sources manually."
+    else:
+        unresolved_high = any(item["severity"] == "high" for item in findings)
+        risk_level = "high" if unresolved_high else "medium"
+        risk_score = 35 if unresolved_high else 25
+        summary = "Intake skeleton generated. Final decision requires submitted documents, evidence matching, and source verification."
+
+    audit_log.append(
+        {
+            "timestamp": today_text,
+            "actor": "AI reviewer",
+            "action": "generated_review_skeleton",
+            "details": f"Matched packs: {', '.join(str(pack.get('pack_id')) for pack in packs) or 'none'}",
+        }
+    )
+
+    return {
+        "review_type": "cross_border_ecommerce_qualification",
+        "case": {
+            "case_id": case_id,
+            "applicant_name": applicant_name,
+            "applicant_role": applicant_role,
+            "platform": platform,
+            "marketplace_site": marketplace_site,
+            "destination_market": market,
+            "business_model": business_model,
+            "product_category": category,
+            "subcategory": "",
+            "brand_name": brand_name,
+            "review_purpose": purpose,
+            "requested_decision_deadline": "",
+            "review_date": today_text,
+        },
+        "decision": {
+            "status": "request_more_info",
+            "risk_level": risk_level,
+            "risk_score": risk_score,
+            "summary": summary,
+            "rationale": [
+                "Generated skeleton is an intake artifact, not a final pass/fail decision.",
+                "T4 applicant documents and current T1/T2 source checks must be matched before approval.",
+            ],
+        },
+        "documents": [],
+        "requirements": requirements,
+        "findings": findings,
+        "missing_materials": missing_materials,
+        "evidence": evidence,
+        "sources": list(sources_by_id.values()),
+        "remediation": {
+            "applicant_message": build_supplement_message(missing_materials),
+            "internal_next_steps": [
+                "Upload and classify applicant documents.",
+                "Extract holder, issuer, number, issue date, expiry date, product scope, territory, and platform/channel coverage.",
+                "Match every mandatory requirement to evidence and current official sources.",
+                "Escalate suspected fraud, conflicting official sources, sanctions/export-control, or legal ambiguity.",
+            ],
+        },
+        "privacy": {
+            "redactions_applied": [],
+            "sensitive_data_notes": [
+                "Generated skeleton contains no applicant document numbers. Redact PII and confidential identifiers after document upload."
+            ],
+        },
+        "audit_log": audit_log,
+        "disclaimer": "Operational qualification review only; not legal advice.",
+    }
+
+def build_supplement_message(missing_materials: list[dict[str, Any]]) -> str:
+    if not missing_materials:
+        return "您好，请先补充平台、目标市场、商品类目和审核目的，以便启动资质审核。"
+    lines = ["您好，当前申请暂无法完成审核。请补充以下材料：", ""]
+    for idx, item in enumerate(missing_materials[:8], start=1):
+        lines.extend(
+            [
+                f"{idx}. {item.get('material', '')}",
+                f"   - 原因：{item.get('why_required', '')}",
+                f"   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。",
+                f"   - 可接受替代：{item.get('acceptable_replacement', '')}",
+                "",
+            ]
+        )
+    lines.append("请确保材料中的主体名称、品牌、产品范围、销售地区和平台授权范围与本次申请一致。")
+    return "\n".join(lines)
 
 
 def _keyword_hit(keywords: Any, target: str) -> bool:
@@ -337,6 +593,43 @@ def check_case(case: dict[str, Any], review: dict[str, Any]) -> list[str]:
             errors.append(f"expected at least one requirement with status '{required_status}'")
 
     return errors
+
+
+def replay_golden_cases(cases_dir: Path, reviews_dir: Path) -> tuple[list[str], list[str]]:
+    passes: list[str] = []
+    errors: list[str] = []
+    case_paths = sorted(cases_dir.glob("*.json"))
+    if not case_paths:
+        errors.append(f"no case files found in {cases_dir}")
+        return passes, errors
+    for case_path in case_paths:
+        try:
+            case = json.loads(case_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            errors.append(f"{case_path}: failed to read case JSON: {exc}")
+            continue
+        if not isinstance(case, dict):
+            errors.append(f"{case_path}: top-level case JSON must be an object")
+            continue
+        case_id = str(case.get("case_id") or case_path.stem)
+        review_path = reviews_dir / f"{case_id}.json"
+        if not review_path.exists():
+            errors.append(f"{case_id}: missing produced review fixture {review_path}")
+            continue
+        try:
+            review = json.loads(review_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            errors.append(f"{case_id}: failed to read review JSON: {exc}")
+            continue
+        if not isinstance(review, dict):
+            errors.append(f"{case_id}: top-level review JSON must be an object")
+            continue
+        case_errors = check_case(case, review)
+        if case_errors:
+            errors.extend(f"{case_id}: {error}" for error in case_errors)
+        else:
+            passes.append(case_id)
+    return passes, errors
 
 
 def _require(condition: bool, message: str, errors: list[str]) -> None:
@@ -633,6 +926,23 @@ def cmd_checklist(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_review_skeleton(args: argparse.Namespace) -> int:
+    payload = review_skeleton(
+        platform=args.platform,
+        market=args.market,
+        category=args.category,
+        applicant_name=args.applicant_name or "",
+        applicant_role=args.applicant_role or "",
+        business_model=args.business_model or "",
+        brand_name=args.brand_name or "",
+        purpose=args.purpose or "launch readiness and qualification intake",
+        case_id=args.case_id or "",
+        marketplace_site=args.marketplace_site or "",
+    )
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
 def cmd_validate(args: argparse.Namespace) -> int:
     path = Path(args.file)
     try:
@@ -676,6 +986,54 @@ def cmd_case_check(args: argparse.Namespace) -> int:
             print(f"FAIL: {error}", file=sys.stderr)
         return 1
     print(f"PASS: {case.get('case_id', args.case_file)}")
+    return 0
+
+
+def cmd_golden_replay(args: argparse.Namespace) -> int:
+    cases_dir = Path(args.cases_dir)
+    reviews_dir = Path(args.reviews_dir)
+    passes, errors = replay_golden_cases(cases_dir, reviews_dir)
+    for case_id in passes:
+        print(f"PASS: {case_id}")
+    if errors:
+        for error in errors:
+            print(f"FAIL: {error}", file=sys.stderr)
+        return 1
+    print(f"OK: {len(passes)} golden cases replayed")
+    return 0
+
+
+def cmd_quality_gate(_: argparse.Namespace) -> int:
+    errors: list[str] = []
+
+    index_errors = validate_rulepack_index()
+    errors.extend(f"rulepack-index: {error}" for error in index_errors)
+
+    try:
+        freshness = source_freshness()
+    except Exception as exc:
+        errors.append(f"source-freshness: {exc}")
+        freshness = None
+    if freshness:
+        for item in freshness.get("missing", []):
+            errors.append(f"source-freshness missing: {item}")
+        for item in freshness.get("stale", []):
+            errors.append(f"source-freshness stale: {item}")
+        for item in freshness.get("unverified_requirements", []):
+            errors.append(f"source-freshness unverified: {item}")
+
+    passes, replay_errors = replay_golden_cases(SKILL_ROOT / "cases", SKILL_ROOT / "reviews" / "golden")
+    errors.extend(f"golden-replay: {error}" for error in replay_errors)
+
+    if errors:
+        for error in errors:
+            print(f"FAIL: {error}", file=sys.stderr)
+        return 1
+
+    checked_links = freshness.get("checked_source_links", 0) if freshness else 0
+    print("OK: rulepack index valid")
+    print(f"OK: source freshness clean ({checked_links} checked source links)")
+    print(f"OK: {len(passes)} golden cases replayed")
     return 0
 
 
@@ -736,6 +1094,19 @@ def build_parser() -> argparse.ArgumentParser:
     p_checklist.add_argument("--category", required=True)
     p_checklist.set_defaults(func=cmd_checklist)
 
+    p_review_skeleton = sub.add_parser("review-skeleton", help="print a structured intake review JSON")
+    p_review_skeleton.add_argument("--platform", required=True)
+    p_review_skeleton.add_argument("--market", required=True)
+    p_review_skeleton.add_argument("--category", required=True)
+    p_review_skeleton.add_argument("--applicant-name", default="")
+    p_review_skeleton.add_argument("--applicant-role", default="")
+    p_review_skeleton.add_argument("--business-model", default="")
+    p_review_skeleton.add_argument("--brand-name", default="")
+    p_review_skeleton.add_argument("--purpose", default="launch readiness and qualification intake")
+    p_review_skeleton.add_argument("--case-id", default="")
+    p_review_skeleton.add_argument("--marketplace-site", default="")
+    p_review_skeleton.set_defaults(func=cmd_review_skeleton)
+
     p_validate = sub.add_parser("validate", help="validate a review JSON file")
     p_validate.add_argument("file")
     p_validate.set_defaults(func=cmd_validate)
@@ -744,6 +1115,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_case_check.add_argument("case_file")
     p_case_check.add_argument("review_file")
     p_case_check.set_defaults(func=cmd_case_check)
+
+    p_golden_replay = sub.add_parser("golden-replay", help="check all golden case fixtures")
+    p_golden_replay.add_argument("--cases-dir", default=str(SKILL_ROOT / "cases"))
+    p_golden_replay.add_argument("--reviews-dir", default=str(SKILL_ROOT / "reviews" / "golden"))
+    p_golden_replay.set_defaults(func=cmd_golden_replay)
+
+    p_quality_gate = sub.add_parser("quality-gate", help="run rulepack, source, and golden replay checks")
+    p_quality_gate.set_defaults(func=cmd_quality_gate)
 
     p_rulepack_new = sub.add_parser("rulepack-new", help="print a country rule pack scaffold")
     p_rulepack_new.add_argument("--country-code", required=True)

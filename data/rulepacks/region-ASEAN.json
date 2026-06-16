@@ -46,13 +46,45 @@
       "mandatory": "conditional",
       "evidence_expected": ["official country regulator source", "official platform country-site source", "local label or responsible entity evidence"],
       "decision_effect": "Cannot approve SEA regional cases from regional assumptions alone; country-specific official verification is required.",
-      "source_ids": [],
+      "source_ids": [
+        "asean-cosmetic-directive",
+        "sg-hsa-cosmetic-products",
+        "my-npra-cosmetic-notification"
+      ],
       "freshness_days": 180,
       "notes": "Seed routing requirement for TikTok Shop, Shopee, Lazada, and similar SEA marketplace cases."
     }
   ],
   "golden_case_ids": [],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "asean-cosmetic-directive",
+      "title": "ASEAN: Agreement on the ASEAN Harmonised Cosmetic Regulatory Scheme",
+      "url": "https://asean.org/wp-content/uploads/2012/05/Agreement-on-the-ASEAN-Harmonised-Cosmetic-Regulatory-Scheme.pdf",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "ASEAN cosmetic regulation is harmonised through the ASEAN Cosmetic Directive framework, while implementation still depends on member-country authorities."
+    },
+    {
+      "source_id": "sg-hsa-cosmetic-products",
+      "title": "Singapore HSA: Cosmetic products",
+      "url": "https://www.hsa.gov.sg/cosmetic-products",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Singapore requires cosmetic products to meet safety, quality, claims, ingredient, notification, and responsible-person obligations before supply."
+    },
+    {
+      "source_id": "my-npra-cosmetic-notification",
+      "title": "Malaysia NPRA: Cosmetic Notification",
+      "url": "https://www.npra.gov.my/index.php/en/cosmetic-main-page/cosmetic-notification.html",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Malaysia requires cosmetic products to be notified to NPRA before manufacture, import, supply, or sale in Malaysia."
+    }
+  ],
   "gaps": [
     "Split into country packs for Singapore, Malaysia, Thailand, Vietnam, Philippines, and Indonesia as usage grows.",
     "Add current official sources and platform site policies before marking validated."

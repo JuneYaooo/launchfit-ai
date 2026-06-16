@@ -31,7 +31,11 @@
       "mandatory": "conditional",
       "evidence_expected": ["official regulator source", "ingredient list with amounts", "GMP/quality evidence where required"],
       "decision_effect": "Unclear classification, restricted ingredients, or missing quality evidence blocks approval until resolved.",
-      "source_ids": [],
+      "source_ids": [
+        "supplements-fda-dietary-supplements",
+        "supplements-fda-cgmp",
+        "supplements-efsa-nutrition-health-claims"
+      ],
       "freshness_days": 365,
       "notes": "Novel ingredients, high-risk actives, and products resembling drugs require human escalation."
     },
@@ -45,12 +49,62 @@
       "mandatory": "conditional",
       "evidence_expected": ["label artwork", "claim substantiation", "official claims/advertising source"],
       "decision_effect": "Disease treatment/prevention claims normally trigger rejection or human escalation unless a lawful route is verified.",
-      "source_ids": [],
+      "source_ids": [
+        "supplements-fda-labeling",
+        "supplements-ftc-health-products",
+        "supplements-efsa-nutrition-health-claims"
+      ],
       "freshness_days": 180,
       "notes": "Claims review must use official market and platform sources."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "supplements-fda-dietary-supplements",
+      "title": "FDA: Dietary Supplements",
+      "url": "https://www.fda.gov/food/dietary-supplements",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA dietary supplement rules cover supplement classification, ingredients, labeling, claims, and safety responsibilities in the United States."
+    },
+    {
+      "source_id": "supplements-fda-cgmp",
+      "title": "FDA: Current Good Manufacturing Practice in Manufacturing, Packaging, Labeling, or Holding Operations for Dietary Supplements",
+      "url": "https://www.fda.gov/food/current-good-manufacturing-practices-cgmps/current-good-manufacturing-practice-manufacturing-packaging-labeling-or-holding-operations-dietary",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA dietary supplement CGMP rules support review of manufacturing quality evidence where U.S. supplement routes apply."
+    },
+    {
+      "source_id": "supplements-fda-labeling",
+      "title": "FDA: Dietary Supplement Labeling Guide",
+      "url": "https://www.fda.gov/food/dietary-supplements/dietary-supplement-labeling-guide",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA dietary supplement labeling guidance supports review of supplement facts, ingredients, disclaimers, and claim labeling."
+    },
+    {
+      "source_id": "supplements-ftc-health-products",
+      "title": "FTC: Health Products Compliance Guidance",
+      "url": "https://www.ftc.gov/business-guidance/resources/health-products-compliance-guidance",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FTC health product advertising guidance supports substantiation review for health-related marketing claims."
+    },
+    {
+      "source_id": "supplements-efsa-nutrition-health-claims",
+      "title": "EFSA: Nutrition and health claims",
+      "url": "https://www.efsa.europa.eu/en/topics/topic/nutrition-and-health-claims",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "EFSA nutrition and health claims information supports review of EU nutrition and health claim routes."
+    }
+  ],
   "gaps": [
     "Seed overlay: verify destination-market supplement classification and regulator requirements per case."
   ]

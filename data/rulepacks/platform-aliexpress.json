@@ -30,12 +30,54 @@
       "mandatory": "conditional",
       "evidence_expected": ["official AliExpress policy source", "brand/IP evidence", "category qualification evidence where applicable"],
       "decision_effect": "Unverified category admission or brand/IP rights prevents approval.",
-      "source_ids": [],
+      "source_ids": [
+        "aliexpress-seller-portal",
+        "aliexpress-terms",
+        "aliexpress-ipr-policy",
+        "aliexpress-transaction-services"
+      ],
       "freshness_days": 90,
       "notes": "Seed platform requirement; attach current official policy source before a final decision."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "aliexpress-seller-portal",
+      "title": "AliExpress Seller Portal",
+      "url": "https://sell.aliexpress.com/",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "AliExpress official seller portal is the entry point for seller onboarding and seller operations."
+    },
+    {
+      "source_id": "aliexpress-terms",
+      "title": "AliExpress: Terms of Use",
+      "url": "https://rulechannel.alibaba.com/icbu?type=detail&ruleId=2041",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "AliExpress terms require users and sellers to comply with platform rules and applicable laws."
+    },
+    {
+      "source_id": "aliexpress-ipr-policy",
+      "title": "AliExpress: Intellectual Property Rights Protection Policy",
+      "url": "https://rulechannel.alibaba.com/icbu?type=detail&ruleId=2054",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "AliExpress intellectual property policy supports brand/IP authorization and infringement review."
+    },
+    {
+      "source_id": "aliexpress-transaction-services",
+      "title": "AliExpress: Transaction Services Agreement",
+      "url": "https://rulechannel.alibaba.com/icbu?type=detail&ruleId=2042",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "AliExpress transaction services agreement supports seller, product, and transaction compliance review."
+    }
+  ],
   "gaps": [
     "Seed pack: verify current official AliExpress policy pages per case before final decisions."
   ]

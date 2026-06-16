@@ -20,6 +20,11 @@
     "Check official seller eligibility, category qualification, product listing, claims/content, and fulfillment requirements.",
     "Separate cross-border seller route from local seller route."
   ],
+  "golden_case_ids": [
+    "golden-prohibited-category",
+    "golden-unverified-applicant-docs",
+    "golden-missing-scope"
+  ],
   "requirements": [
     {
       "requirement_id": "platform-tiktok-seller-route",
@@ -31,7 +36,10 @@
       "mandatory": "conditional",
       "evidence_expected": ["official TikTok Shop policy source", "seller route evidence", "KYB/KYC materials where required"],
       "decision_effect": "Wrong seller route or unsupported eligibility prevents approval.",
-      "source_ids": [],
+      "source_ids": [
+        "tiktok-seller-registration-requirements",
+        "tiktok-global-selling-terms"
+      ],
       "freshness_days": 90,
       "notes": "Seed platform requirement; country-site policies may differ."
     },
@@ -45,12 +53,72 @@
       "mandatory": "conditional",
       "evidence_expected": ["official TikTok Shop policy source", "category qualification evidence", "listing/claim materials"],
       "decision_effect": "Unverified category eligibility or unsupported claims require more information or human escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "tiktok-prohibited-products",
+        "tiktok-restricted-products",
+        "tiktok-beauty-personal-care",
+        "tiktok-content-policy"
+      ],
       "freshness_days": 90,
       "notes": "Especially important for cosmetics, supplements, food, electronics, and household chemicals."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "tiktok-seller-registration-requirements",
+      "title": "TikTok Ads Help Center: Requirements to register as a seller on TikTok Shop",
+      "url": "https://ads.tiktok.com/help/article/requirements-to-register-as-a-seller-on-tiktok-shop?lang=en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "TikTok Shop seller registration can require official business licenses, registrations, or similar documents showing eligibility to sell."
+    },
+    {
+      "source_id": "tiktok-global-selling-terms",
+      "title": "TikTok Shop: Global Selling Seller Terms of Service",
+      "url": "https://seller.tiktokglobalshop.com/university/essay?default_language=zh-CN&knowledge_id=4611080967456529",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "TikTok Shop cross-border sellers must meet platform eligibility and customer order shipping policy requirements."
+    },
+    {
+      "source_id": "tiktok-prohibited-products",
+      "title": "TikTok Shop Seller Center: Prohibited Products Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "TikTok Shop prohibits illegal, unsafe, counterfeit, recalled, or regulated products that violate laws or TikTok Shop policies."
+    },
+    {
+      "source_id": "tiktok-restricted-products",
+      "title": "TikTok Shop Seller Center: Restricted Products Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=3238037484275457&lang=en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "TikTok Shop restricted products can require category-level or product-level qualifications, and TikTok Shop may request documentation."
+    },
+    {
+      "source_id": "tiktok-beauty-personal-care",
+      "title": "TikTok Shop Seller Center: Beauty and Personal Care Products Requirements",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=1789325403522858&lang=en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "TikTok Shop beauty and personal care products must comply with applicable laws and regulations and category requirements."
+    },
+    {
+      "source_id": "tiktok-content-policy",
+      "title": "TikTok Shop Seller Center: Content Policy",
+      "url": "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "TikTok Shop content cannot contain false, misleading, inconsistent, illegal, or unauthorized brand/IP claims."
+    }
+  ],
   "gaps": [
     "Seed pack: verify current official TikTok Shop policy pages per case before final decisions."
   ]

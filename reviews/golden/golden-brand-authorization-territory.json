@@ -1,0 +1,114 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "golden-brand-authorization-territory",
+    "applicant_name": "Example Distributor Ltd.",
+    "applicant_role": "distributor",
+    "platform": "Amazon",
+    "marketplace_site": "US",
+    "destination_market": "United States",
+    "business_model": "marketplace_seller",
+    "product_category": "food",
+    "subcategory": "sauce",
+    "brand_name": "Example Brand",
+    "review_purpose": "brand authorization review",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-16"
+  },
+  "decision": {
+    "status": "request_more_info",
+    "risk_level": "high",
+    "risk_score": 35,
+    "summary": "Brand authorization does not cover the United States or Amazon channel.",
+    "rationale": ["Authorization territory and channel are outside the requested launch scope."]
+  },
+  "documents": [
+    {
+      "document_id": "doc-auth-002",
+      "document_type": "brand authorization letter",
+      "file_reference": "applicant-upload/auth-eu-only.pdf",
+      "holder": "Example Distributor Ltd.",
+      "issuer": "Example Brand Owner",
+      "number_redacted": "",
+      "issue_date": "2026-01-01",
+      "expiry_date": "2026-12-31",
+      "scope": "EU offline retail only",
+      "extraction_confidence": "high",
+      "privacy_level": "business_confidential"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "global-brand-rights",
+      "surface": "brand_ip",
+      "requirement": "Brand authorization must cover target territory and marketplace/channel.",
+      "status": "partial",
+      "matched_evidence_ids": ["ev-doc-auth-002"],
+      "source_ids": ["src-wipo"],
+      "notes": "Authorization exists but excludes US and Amazon."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "high",
+      "surface": "brand_ip",
+      "requirement": "Territory and channel coverage",
+      "submitted_evidence": "Authorization letter for EU offline retail only.",
+      "observed_issue": "The authorization territory excludes the United States and the channel excludes Amazon.",
+      "business_impact": "Listing may be rejected or create unauthorized-sale/IP enforcement risk.",
+      "decision_effect": "request_more_info",
+      "required_action": "Submit brand authorization covering United States and Amazon marketplace sales.",
+      "acceptable_evidence": "Brand-owner authorization naming applicant, product scope, US territory, Amazon channel, and validity period.",
+      "source_ids": ["src-wipo"],
+      "confidence": "high"
+    }
+  ],
+  "missing_materials": [
+    {
+      "material": "US/Amazon brand authorization",
+      "why_required": "Submitted authorization does not cover requested territory/channel.",
+      "acceptable_replacement": "Updated authorization letter or distribution agreement covering US and Amazon.",
+      "owner": "applicant",
+      "priority": "P0"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev-doc-auth-002",
+      "kind": "submitted_document",
+      "reference": "applicant-upload/auth-eu-only.pdf",
+      "tier": "T4",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Authorization scope is EU offline retail only.",
+      "confidence": "high"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "src-wipo",
+      "title": "WIPO Global Brand Database",
+      "url": "https://branddb.wipo.int/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Trademark ownership and territory should be verified when brand rights affect a decision."
+    }
+  ],
+  "remediation": {
+    "applicant_message": "请补充覆盖美国地区和 Amazon 渠道的品牌授权文件。",
+    "internal_next_steps": ["Verify issuer authority after updated authorization is submitted."]
+  },
+  "privacy": {
+    "redactions_applied": [],
+    "sensitive_data_notes": ["Authorization document is business confidential."]
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "created_golden_fixture",
+      "details": "Brand authorization territory fixture."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice."
+}

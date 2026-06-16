@@ -20,6 +20,11 @@
     "Check official category approval, restricted product, brand/IP, and product compliance policy pages.",
     "For FBA, include packaging, labeling, dangerous goods, and warehouse acceptance constraints."
   ],
+  "golden_case_ids": [
+    "golden-complete-low-risk",
+    "golden-brand-authorization-territory",
+    "golden-unverified-applicant-docs"
+  ],
   "requirements": [
     {
       "requirement_id": "platform-amazon-current-policy-check",
@@ -31,7 +36,12 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Amazon policy source", "category approval screenshot or workflow evidence where available"],
       "decision_effect": "Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.",
-      "source_ids": [],
+      "source_ids": [
+        "amazon-restricted-products",
+        "amazon-categories-approval",
+        "amazon-grocery-gourmet",
+        "amazon-safety-compliance"
+      ],
       "freshness_days": 90,
       "notes": "Seed platform requirement; attach checked official Amazon URL before a final decision."
     },
@@ -45,12 +55,71 @@
       "mandatory": "conditional",
       "evidence_expected": ["official Amazon FBA/compliance source", "test report or certificate", "label/packaging artwork"],
       "decision_effect": "Missing FBA or product-compliance evidence blocks approval for affected products.",
-      "source_ids": [],
+      "source_ids": [
+        "amazon-food-beverages-policy",
+        "amazon-safety-compliance",
+        "amazon-compliance-appeal"
+      ],
       "freshness_days": 90,
       "notes": "Use product/category-specific Amazon policy and destination-market regulator sources."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "amazon-restricted-products",
+      "title": "Amazon Seller Central: Restricted products",
+      "url": "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon restricts illegal, unsafe, or otherwise restricted products and requires sellers to follow restricted product policy before listing."
+    },
+    {
+      "source_id": "amazon-categories-approval",
+      "title": "Amazon Seller Central: Categories and products that require approval",
+      "url": "https://sellercentral.amazon.com/gp/help/external/G200333160",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Some Amazon categories and products, including grocery and gourmet foods, can require approval before listing."
+    },
+    {
+      "source_id": "amazon-grocery-gourmet",
+      "title": "Amazon Seller Central: Grocery & gourmet foods",
+      "url": "https://sellercentral.amazon.com/gp/help/external/G201511970",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon requires grocery and gourmet food listings to follow Amazon listing standards and category standards."
+    },
+    {
+      "source_id": "amazon-food-beverages-policy",
+      "title": "Amazon Seller Central: Food and beverages",
+      "url": "https://sellercentral.amazon.com/gp/help/external/G200164550",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon food and beverage policy covers preparation, sealing, packaging, spoilage, melting, expiration, labeling, and food safety expectations."
+    },
+    {
+      "source_id": "amazon-safety-compliance",
+      "title": "Amazon Seller Central: Safety, compliance, and product restrictions",
+      "url": "https://sellercentral.amazon.com/help/hub/reference/external/GXMGGPL6LC4CVXHT",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon uses safety, compliance, and product restriction controls to prevent illegal and unsafe products from reaching the store."
+    },
+    {
+      "source_id": "amazon-compliance-appeal",
+      "title": "Amazon Seller Central: Submit compliance information or an appeal",
+      "url": "https://sellercentral.amazon.com/gp/help/external/GC35Z63FGCUCUWXX",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "Amazon provides workflows for submitting compliance information or appeals for food/product safety and restricted product policy issues."
+    }
+  ],
   "gaps": [
     "Seed pack: verify current official Amazon policy pages per case before final decisions."
   ]

@@ -21,6 +21,11 @@
     "Facility, importer, local representative, or registration requirements are checked for the destination market.",
     "Additives, contaminants, health claims, and restricted ingredients are routed for current regulatory verification."
   ],
+  "golden_case_ids": [
+    "golden-complete-low-risk",
+    "golden-brand-authorization-territory",
+    "golden-unverified-applicant-docs"
+  ],
   "requirements": [
     {
       "requirement_id": "category-food-classification-import",
@@ -32,7 +37,11 @@
       "mandatory": "conditional",
       "evidence_expected": ["official food regulator source", "ingredient list", "facility/importer evidence where required"],
       "decision_effect": "Cannot approve food cases until destination-market classification and import obligations are verified.",
-      "source_ids": [],
+      "source_ids": [
+        "food-fda-start-business",
+        "food-fda-facility-registration",
+        "food-cbp-commercial-food-imports"
+      ],
       "freshness_days": 365,
       "notes": "Seed category requirement; exact obligations vary by market and business model."
     },
@@ -46,12 +55,61 @@
       "mandatory": "conditional",
       "evidence_expected": ["label artwork", "claim substantiation", "official labeling/claims source"],
       "decision_effect": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
-      "source_ids": [],
+      "source_ids": [
+        "food-fda-labeling-nutrition",
+        "food-fda-allergens"
+      ],
       "freshness_days": 180,
       "notes": "Route novel ingredients, special diet claims, infant/child products, and disease claims to human review."
     }
   ],
-  "sources": [],
+  "sources": [
+    {
+      "source_id": "food-fda-start-business",
+      "title": "FDA: How to Start a Food Business",
+      "url": "https://www.fda.gov/food/food-industry/how-start-food-business",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA routes food businesses to applicable facility registration, labeling, import, and food safety responsibilities."
+    },
+    {
+      "source_id": "food-fda-facility-registration",
+      "title": "FDA: Registration of Food Facilities and Other Submissions",
+      "url": "https://www.fda.gov/food/registration-food-facilities-and-other-submissions",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA food facility registration can apply to facilities that manufacture, process, pack, or hold food for U.S. consumption."
+    },
+    {
+      "source_id": "food-cbp-commercial-food-imports",
+      "title": "CBP: Commercial Food Imports",
+      "url": "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "CBP directs commercial food importers to relevant food import requirements and agency coordination."
+    },
+    {
+      "source_id": "food-fda-labeling-nutrition",
+      "title": "FDA: Food Labeling & Nutrition",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA maintains U.S. food labeling and nutrition information, including label requirements and guidance."
+    },
+    {
+      "source_id": "food-fda-allergens",
+      "title": "FDA: Food Allergies",
+      "url": "https://www.fda.gov/food/food-labeling-nutrition/food-allergies",
+      "tier": "T1",
+      "language": "en",
+      "checked_at": "2026-06-16",
+      "confirms": "FDA explains major food allergens and food allergen labeling requirements."
+    }
+  ],
   "gaps": [
     "Seed overlay: verify destination-market food regulator requirements per case."
   ]

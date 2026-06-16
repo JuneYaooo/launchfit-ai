@@ -1,0 +1,114 @@
+{
+  "review_type": "cross_border_ecommerce_qualification",
+  "case": {
+    "case_id": "golden-unverified-applicant-docs",
+    "applicant_name": "Example Trading Co., Ltd.",
+    "applicant_role": "distributor",
+    "platform": "Amazon",
+    "marketplace_site": "US",
+    "destination_market": "United States",
+    "business_model": "marketplace_seller",
+    "product_category": "food",
+    "subcategory": "sauce",
+    "brand_name": "Example Brand",
+    "review_purpose": "category qualification review",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-16"
+  },
+  "decision": {
+    "status": "request_more_info",
+    "risk_level": "medium",
+    "risk_score": 25,
+    "summary": "Applicant documents are present but external truth has not been verified.",
+    "rationale": ["T4 evidence proves submission only; registry and official source checks are still required."]
+  },
+  "documents": [
+    {
+      "document_id": "doc-auth-001",
+      "document_type": "brand authorization letter",
+      "file_reference": "applicant-upload/auth-letter.pdf",
+      "holder": "Example Trading Co., Ltd.",
+      "issuer": "Example Brand Owner",
+      "number_redacted": "",
+      "issue_date": "2026-01-01",
+      "expiry_date": "2026-12-31",
+      "scope": "US marketplace distribution asserted by applicant",
+      "extraction_confidence": "medium",
+      "privacy_level": "business_confidential"
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "global-brand-rights",
+      "surface": "brand_ip",
+      "requirement": "Brand ownership or authorization must be externally verified for territory, channel, and review period.",
+      "status": "needs_external_verification",
+      "matched_evidence_ids": ["ev-doc-auth-001"],
+      "source_ids": ["src-wipo"],
+      "notes": "Applicant letter must be checked against trademark owner and authorization chain."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F-001",
+      "severity": "medium",
+      "surface": "brand_ip",
+      "requirement": "External brand authorization verification",
+      "submitted_evidence": "Applicant-provided authorization letter.",
+      "observed_issue": "Authorization has not been confirmed against trademark owner or registry data.",
+      "business_impact": "Unauthorized sale risk remains unresolved.",
+      "decision_effect": "request_more_info",
+      "required_action": "Verify trademark owner and authorization chain through official registry and issuer confirmation.",
+      "acceptable_evidence": "Official trademark record and issuer-confirmed authorization covering US/Amazon.",
+      "source_ids": ["src-wipo"],
+      "confidence": "medium"
+    }
+  ],
+  "missing_materials": [
+    {
+      "material": "official trademark lookup and issuer confirmation",
+      "why_required": "Applicant-provided documents cannot prove external truth alone.",
+      "acceptable_replacement": "Registry record plus brand-owner confirmation.",
+      "owner": "reviewer",
+      "priority": "P1"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev-doc-auth-001",
+      "kind": "submitted_document",
+      "reference": "applicant-upload/auth-letter.pdf",
+      "tier": "T4",
+      "checked_at": "2026-06-16",
+      "extracted_fact": "Applicant submitted a brand authorization letter.",
+      "confidence": "medium"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "src-wipo",
+      "title": "WIPO Global Brand Database",
+      "url": "https://branddb.wipo.int/",
+      "tier": "T1",
+      "checked_at": "2026-06-16",
+      "confirms": "Trademark ownership and status can be checked in official trademark databases."
+    }
+  ],
+  "remediation": {
+    "applicant_message": "请补充可核验的商标权属证明或品牌方确认授权链路。",
+    "internal_next_steps": ["Check trademark owner.", "Confirm authorization issuer authority."]
+  },
+  "privacy": {
+    "redactions_applied": [],
+    "sensitive_data_notes": ["Authorization documents may be business confidential."]
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-06-16",
+      "actor": "AI reviewer",
+      "action": "created_golden_fixture",
+      "details": "Unverified applicant documents fixture."
+    }
+  ],
+  "disclaimer": "Operational qualification review only; not legal advice."
+}
