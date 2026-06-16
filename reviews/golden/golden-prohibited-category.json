@@ -24,6 +24,18 @@
   },
   "documents": [],
   "market_benchmarks": [],
+  "market_benchmark_summary": {
+    "reference_price_band": "",
+    "channel_map": "",
+    "packaging_conventions": "",
+    "claims_and_proof": "",
+    "visible_trust_signals": "",
+    "review_themes": "",
+    "gap_opportunity": "",
+    "copy_avoid_improve": "",
+    "listing_preparation": "",
+    "verification_needed": ""
+  },
   "requirements": [
     {
       "requirement_id": "global-category-not-prohibited",

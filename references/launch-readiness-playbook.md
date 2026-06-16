@@ -75,16 +75,20 @@ When current web/search access or user-provided screenshots are available:
 
 Output table:
 
-| Benchmark product | Channel | Pack/size | Price/unit | What they emphasize | What it teaches us |
+| Benchmark product | Channel role | Pack/unit price | Positioning | Visible trust signals | What it teaches us |
 |---|---|---|---|---|---|
 
 Then summarize:
 
 - **Reference price band**: low / mainstream / premium / specialty.
+- **Channel map**: which channels set buyer expectations and which channels are only traffic tests.
 - **Packaging conventions**: what local buyers are used to seeing.
 - **Claims and proof**: claims that appear common vs claims that need substantiation.
+- **Visible trust signals**: certifications, local language, responsible party, review count/rating, badges, testing marks, or retail shelf cues.
+- **Review themes**: repeated praise, objections, complaints, use cases, and buying triggers.
 - **Gap opportunity**: what the user's product can copy, avoid, or improve.
 - **Listing preparation**: photos, label, bullets, certifications, and materials to prepare before launch.
+- **Verification needed**: which prices, claims, certifications, or rules need current official/source checks before final action.
 
 Do not invent current benchmark products or prices. If browsing is unavailable and the user has not provided screenshots/links, provide a benchmark research plan and ask for or propose the minimum inputs needed.
 
@@ -179,8 +183,18 @@ Use this skeleton for seller-facing outputs:
 |---|---|---|---|
 
 ## Target-Market Benchmarks
-| Benchmark | Channel | Pack/price | What it teaches us |
-|---|---|---|---|
+| Benchmark product | Channel role | Pack/unit price | Positioning | Visible trust signals | What it teaches us |
+|---|---|---|---|---|---|
+
+## What The Benchmarks Mean
+| Question | Conclusion | Action |
+|---|---|---|
+| Reference price band | Low / mainstream / premium / specialty | ... |
+| Channel map | Which channels set buyer expectations | ... |
+| Packaging conventions | What local buyers are used to seeing | ... |
+| Claims and proof | Which claims are common and which need substantiation | ... |
+| Review themes | Repeated praise, objections, complaints, or usage contexts | ... |
+| Gap opportunity | What we can copy, avoid, or improve | ... |
 
 ## Competitor / Pricing
 | Signal | What it means | Action |

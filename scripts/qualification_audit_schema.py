@@ -199,6 +199,7 @@ def sample() -> dict[str, Any]:
         },
         "documents": [],
         "market_benchmarks": [],
+        "market_benchmark_summary": empty_benchmark_summary(),
         "requirements": [],
         "findings": [],
         "missing_materials": [],
@@ -477,6 +478,7 @@ def review_skeleton(
         },
         "documents": [],
         "market_benchmarks": [],
+        "market_benchmark_summary": empty_benchmark_summary(),
         "requirements": requirements,
         "findings": findings,
         "missing_materials": missing_materials,
@@ -554,12 +556,31 @@ def benchmark_template(
         "market_benchmarks": rows,
         "summary_fields": {
             "reference_price_band": "",
+            "channel_map": "",
             "packaging_conventions": "",
-            "common_claims_and_proof": "",
+            "claims_and_proof": "",
+            "visible_trust_signals": "",
             "review_themes": "",
             "gap_opportunity": "",
+            "copy_avoid_improve": "",
             "listing_preparation": "",
+            "verification_needed": "",
         },
+    }
+
+
+def empty_benchmark_summary() -> dict[str, Any]:
+    return {
+        "reference_price_band": "",
+        "channel_map": "",
+        "packaging_conventions": "",
+        "claims_and_proof": "",
+        "visible_trust_signals": "",
+        "review_themes": "",
+        "gap_opportunity": "",
+        "copy_avoid_improve": "",
+        "listing_preparation": "",
+        "verification_needed": "",
     }
 
 def build_supplement_message(missing_materials: list[dict[str, Any]]) -> str:
@@ -724,6 +745,7 @@ def validate_payload(data: dict[str, Any]) -> list[str]:
     _require(data.get("review_type") == "cross_border_ecommerce_qualification", "review_type must be cross_border_ecommerce_qualification", errors)
     _require(isinstance(data.get("case"), dict), "case must be an object", errors)
     _require(isinstance(data.get("decision"), dict), "decision must be an object", errors)
+    _require(isinstance(data.get("market_benchmark_summary"), dict), "market_benchmark_summary must be an object", errors)
 
     decision = data.get("decision") if isinstance(data.get("decision"), dict) else {}
     status = decision.get("status")
@@ -775,6 +797,21 @@ def validate_payload(data: dict[str, Any]) -> list[str]:
             _require(str(sid) in declared_source_ids, f"market_benchmarks[{idx}] references missing source_id {sid}", errors)
         for eid in benchmark.get("evidence_ids") or []:
             _require(str(eid) in evidence_ids, f"market_benchmarks[{idx}] references missing evidence_id {eid}", errors)
+
+    benchmark_summary = data.get("market_benchmark_summary") if isinstance(data.get("market_benchmark_summary"), dict) else {}
+    for key in (
+        "reference_price_band",
+        "channel_map",
+        "packaging_conventions",
+        "claims_and_proof",
+        "visible_trust_signals",
+        "review_themes",
+        "gap_opportunity",
+        "copy_avoid_improve",
+        "listing_preparation",
+        "verification_needed",
+    ):
+        _require(key in benchmark_summary, f"market_benchmark_summary.{key} is required", errors)
 
     finding_severities: set[str] = set()
     for idx, finding in enumerate(data.get("findings") or []):

@@ -19,7 +19,7 @@ When the user asks for a final qualification decision, the output must remain au
 |---|---|---|
 | Launch intake | User provides a product, target market, platform, category, or launch idea | Scope, assumptions, missing inputs, launch-readiness checklist |
 | Product feasibility | User asks whether a product can or should be sold in a market | Opportunity/risk view, obvious blockers, verification plan, next actions |
-| Target-market benchmarking | User asks how similar products are sold in the destination market, or provides competitor screenshots/links | Benchmark product table, channel/price bands, pack-size normalization, claims, packaging, certifications, review signals, and differentiation notes |
+| Target-market benchmarking | User asks how similar products are sold in the destination market, or provides competitor screenshots/links | Benchmark product table plus summary of price band, channel map, packaging conventions, trust signals, review themes, and copy/avoid/improve actions |
 | Competitor/pricing review | User provides competitor screenshots, product links, channel info, or pricing questions | Competitor table, unit price normalization, channel/price bands, positioning and differentiation notes |
 | Packaging/label readiness | User provides packaging, label text, claims, ingredients/materials, or listing copy | Label/claim risks, localization notes, required changes, evidence needed |
 | Logistics/budget review | User asks about air/sea/rail/warehouse/local delivery routes | Cost/time/risk comparison, route constraints, preparation checklist |
@@ -86,6 +86,7 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
 8. **Output the result**
    - Load `references/report-templates.md`.
    - For launch-readiness work, provide a practical "can sell / can list / what to fix next" answer first, then target-market benchmark, competitor/pricing/logistics/packaging notes as relevant.
+   - For target-market benchmarks, do not stop at a product list. Organize the final answer into benchmark rows, what the market teaches us, what to copy, what to avoid, what to improve, and what must be verified before ordering, printing, or listing.
    - For qualification decisions, provide a concise executive decision first, then detailed findings, evidence table, missing materials, remediation, and audit log.
 
 ## Decision Statuses

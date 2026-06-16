@@ -71,8 +71,18 @@ Use this for seller-facing product launch, listing preparation, target-market be
 |---|---|---|---|
 
 ## Target-Market Benchmarks
-| Benchmark product | Channel | Pack/price | What it teaches us |
-|---|---|---|---|
+| Benchmark product | Channel role | Pack/unit price | Positioning | Visible trust signals | What it teaches us |
+|---|---|---|---|---|---|
+
+## What The Benchmarks Mean
+| Question | Conclusion | Action |
+|---|---|---|
+| Reference price band | Low / mainstream / premium / specialty | ... |
+| Channel map | Which channels set buyer expectations | ... |
+| Packaging conventions | What local buyers are used to seeing | ... |
+| Claims and proof | Which claims are common and which need substantiation | ... |
+| Review themes | Repeated praise, objections, complaints, or usage contexts | ... |
+| Gap opportunity | What we can copy, avoid, or improve | ... |
 
 ## Competitor / Pricing
 | Signal | What it means | Action |
@@ -165,6 +175,18 @@ Operational launch-readiness review only; not legal advice. Verify current platf
       "takeaway": ""
     }
   ],
+  "market_benchmark_summary": {
+    "reference_price_band": "",
+    "channel_map": "",
+    "packaging_conventions": "",
+    "claims_and_proof": "",
+    "visible_trust_signals": "",
+    "review_themes": "",
+    "gap_opportunity": "",
+    "copy_avoid_improve": "",
+    "listing_preparation": "",
+    "verification_needed": ""
+  },
   "requirements": [
     {
       "requirement_id": "",
