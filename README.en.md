@@ -2,7 +2,7 @@
 
 # cbec-qualification-review
 
-**An AI pre-launch checkup for cross-border products: decide whether a product can sell, is worth launching, and what must be fixed before listing.**
+**An AI checkup for your cross-border product: decide whether it can sell, is worth launching, and what must be fixed before listing.**
 
 [中文](./README.md)
 
@@ -19,7 +19,7 @@
 
 The expensive mistake in cross-border commerce is often not choosing the wrong product. It is **stocking the product first, then discovering that the marketplace needs more documents, the authorization does not cover the channel, the label must be reprinted, or the category cannot be sold**.
 
-Give it a product, target market, marketplace, packaging label, certificate report, or brand document. It surfaces what can move forward, what needs remediation, and what should stop for human review.
+This project turns "Can my product go overseas?" into a practical AI checkup report. Give it a product, target market, marketplace, packaging label, certificate report, or brand document. It tells you what can move forward, what needs remediation, where margin may disappear, and what should stop for human review.
 
 ## Core Problems It Solves
 
@@ -29,17 +29,18 @@ Give it a product, target market, marketplace, packaging label, certificate repo
 - **Pricing and logistics without evidence**: who are the competitors, where is the price band, and will freight or warehousing destroy margin?
 - **Inconsistent team review**: reviewers rely on experience, but supplement requests, evidence records, and audit trails are hard to standardize.
 
-## What Users Get
+## What The Checkup Report Looks Like
 
-| What you need to know | What it returns |
+| Report module | What users get |
 | --- | --- |
-| Whether to keep pushing the product | go / caution / stop / unknown, plus the top risks |
-| What is missing before listing | Gaps across marketplace, market, category, brand, label, certificates, and logistics |
-| Why the marketplace is blocking review | Missing, expired, mismatched, or unverifiable documents |
-| Whether packaging needs revision | Label, warning, ingredient, mark, localization, and claim risks |
-| How to price and position | Competitor tiers, channel price bands, packaging angles, and differentiation notes |
-| What to ask suppliers or clients for | Clear remediation wording with material, issuer, format, validity, and scope |
-| How a team can review consistently | Status, evidence, source, finding, decision, and audit records |
+| Launch checkup verdict | go / caution / stop / unknown, so you can decide whether to keep pushing |
+| Listing risk map | Where platform, market, category, brand, label, certificate, and logistics risks sit |
+| Qualification gap table | Which document is missing, expired, mismatched, or unverifiable |
+| Packaging and label fixes | What to change in front/back label, ingredients, allergens, warnings, marks, language, and claims |
+| Competitor and price band | Competitor tiers, channel prices, packaging angles, and differentiation opportunities |
+| Logistics budget view | Cost, speed, and risk tradeoffs across air, sea, warehouse, and local delivery |
+| Remediation wording | Clear requests for suppliers, clients, or service providers |
+| Review trail | Decision, evidence, sources, gaps, and next actions for team handoff |
 
 ## See The Outputs
 
@@ -102,15 +103,3 @@ Review routes connect to official or authoritative source entry points such as A
 | `not_applicable` | The requested review does not apply to the given platform, market, category, or purpose. |
 
 </details>
-
-## Quality Status
-
-The project has source coverage, structured outputs, and replayable examples. Indexed requirements have source entry points, and key paths cover approval, supplement request, rejection, human escalation, expired certificates, territory mismatch, and unverified applicant evidence.
-
-Rule-pack maturity is still `seed`. It is useful for pre-launch checkups, material pre-review, remediation drafting, and internal review support. Final marketplace submission, enforcement decisions, legal conclusions, and high-risk category decisions still require human review and current official confirmation.
-
-## Safety And Scope
-
-This project supports cross-border product launch review, marketplace listing preparation, qualification review, material pre-review, remediation drafting, and internal process design. It does not provide legal advice and does not replace final judgment from marketplaces, regulators, certification bodies, or professional compliance advisors.
-
-When documents contain identity records, bank accounts, personal contact details, contracts, business registration numbers, or other sensitive data, follow [`references/privacy-security.md`](./references/privacy-security.md) for minimization, redaction, and audit records.

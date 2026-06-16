@@ -1,8 +1,8 @@
 ---
 name: cbec-qualification-review
-description: Use this skill when the user needs cross-border e-commerce product launch review, market-entry readiness, marketplace listing preparation, product feasibility checks, competitor/channel/pricing analysis, packaging or label review, logistics route and budget comparison, platform/category admission checklists, qualification review, seller onboarding review, brand authorization review, certificate/license/document validation, remediation letters, or auditable approve/reject/escalate decisions for platforms such as Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, Walmart Marketplace, eBay, Tmall Global, JD Worldwide, or similar marketplaces.
+description: Use this skill when the user wants an AI checkup for a cross-border e-commerce product before launch: whether the product can sell, is worth launching, what may block marketplace listing, what documents or labels are missing, how competitors/pricing/logistics look, and what remediation wording is needed. Covers product feasibility, packaging or label review, platform/category admission, qualification review, brand authorization, certificate/license validation, logistics budget comparison, and auditable approve/request/reject/escalate decisions for platforms such as Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, Tmall Global, JD Worldwide, Walmart Marketplace, eBay, or similar marketplaces.
 metadata:
-  short-description: Cross-border product launch and qualification review
+  short-description: AI checkup for cross-border product launches
 ---
 
 # Cross-Border E-commerce Product Launch Review

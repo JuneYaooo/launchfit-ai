@@ -1,4 +1,4 @@
 interface:
-  display_name: "CBEC Product Launch Review"
-  short_description: "Launch readiness for cross-border products"
-  default_prompt: "Use $cbec-qualification-review to evaluate this cross-border product launch package across market fit, competitors, pricing, logistics, platform admission, qualification risks, and remediation tasks."
+  display_name: "CBEC Product AI Checkup"
+  short_description: "AI checkup before cross-border products go live"
+  default_prompt: "Use $cbec-qualification-review to give this cross-border product an AI pre-launch checkup across sellability, marketplace blocks, documents, labels, competitors, pricing, logistics, and remediation tasks."
