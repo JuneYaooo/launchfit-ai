@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>出海体检官详细说明</title>
+  <style>
+    @page { size: A4; margin: 18mm; }
+    body {
+      color: #172033;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+    h1 { font-size: 30px; margin: 0 0 8px; }
+    h2 { font-size: 20px; margin: 26px 0 10px; color: #1769aa; }
+    h3 { font-size: 16px; margin: 18px 0 8px; }
+    p { margin: 0 0 10px; }
+    .lead { color: #526174; font-size: 15px; margin-bottom: 18px; }
+    .box {
+      border: 1px solid #d9e1ec;
+      border-radius: 6px;
+      padding: 12px 14px;
+      background: #f8fbfd;
+      margin: 12px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 18px;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid #d9e1ec;
+      padding: 8px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #edf4fb; color: #1d4f7a; }
+    ul { margin: 8px 0 14px 22px; padding: 0; }
+    li { margin: 5px 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .small { color: #617086; font-size: 12px; }
+    .status {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #eef7f3;
+      color: #167c62;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <h1>出海体检官：详细说明</h1>
+  <p class="lead">LaunchFit AI 把“商品能不能出海、应该查什么、哪里会卡审”转成可执行的信息搜集、核验和报告流程。它不是离线政策百科，而是一套面向跨境商品上架前决策的结构化审核框架。</p>
+
+  <div class="box">
+    <strong>核心原则：</strong>用户必须提供原产地和一个或多个目标市场。系统按目的地拆分审核路径，先生成最合适的信息渠道和核验任务，再输出风险、缺口和行动建议。
+  </div>
+
+  <h2>1. 输入范围</h2>
+  <table>
+    <tr><th>输入</th><th>说明</th><th>为什么重要</th></tr>
+    <tr><td>原产地</td><td>生产、组装或出口地</td><td>影响出口控制、COO、制造商/出口商文件、标签原产地一致性</td></tr>
+    <tr><td>目标市场</td><td>支持多个国家或区域</td><td>每个市场的监管、进口、标签、平台规则不同，必须拆分审核</td></tr>
+    <tr><td>平台和类目</td><td>Amazon、TikTok Shop、Temu、Lazada、Tmall Global 等</td><td>决定准入、禁限售、类目资质、内容和履约要求</td></tr>
+    <tr><td>商品和包装</td><td>名称、规格、成分/材料、宣称、标签、警示、认证标识</td><td>影响标签重印、功效宣称、认证标识使用和消费者信任</td></tr>
+    <tr><td>证书和授权</td><td>检测报告、证书、品牌授权、商标、企业资料</td><td>用于判断是否过期、错配、授权范围不足或需要外部核验</td></tr>
+    <tr><td>对标和物流</td><td>竞品截图/链接、价格、渠道、物流路线、报价</td><td>用于判断价格带、包装惯例、履约风险和利润压力</td></tr>
+  </table>
+
+  <h2>2. 输出结构</h2>
+  <div class="grid">
+    <div class="box">
+      <h3>market_reviews[]</h3>
+      <p>每个目的地一份独立审核轨道，包含匹配规则包、要求、发现、缺口、渠道和任务。</p>
+    </div>
+    <div class="box">
+      <h3>source_candidates[]</h3>
+      <p>系统建议优先查询的信息渠道，覆盖官方来源、专业来源和用户自有渠道。</p>
+    </div>
+    <div class="box">
+      <h3>research_tasks[]</h3>
+      <p>每个渠道对应的核验任务：查什么、为什么、优先级、证据字段、刷新周期。</p>
+    </div>
+    <div class="box">
+      <h3>report / memo</h3>
+      <p>结构化 JSON 和 Markdown 备忘录，方便服务商、运营、合规和供应商协作。</p>
+    </div>
+  </div>
+
+  <h2>3. 信息渠道设计</h2>
+  <table>
+    <tr><th>渠道类型</th><th>要查什么</th><th>默认层级</th></tr>
+    <tr><td>platform_policy</td><td>卖家路线、禁限售、类目审批、Listing 文案和材料要求</td><td>T1</td></tr>
+    <tr><td>destination_regulator</td><td>产品分类、注册/备案、标签、警示、宣称限制</td><td>T1</td></tr>
+    <tr><td>customs_import</td><td>进口商、入境文件、准入性、税/VAT、进口控制</td><td>T1</td></tr>
+    <tr><td>brand_ip</td><td>商标权利人、类别、地域、状态、有效期、授权链</td><td>T1</td></tr>
+    <tr><td>business_registry</td><td>申请人、制造商、进口商、责任方、证书持有人主体一致性</td><td>T1</td></tr>
+    <tr><td>certification_lab</td><td>签发机构、实验室资质、标准、产品/型号范围、有效期</td><td>T2</td></tr>
+    <tr><td>standards_body</td><td>适用标准、符合性路线、技术文件和标志使用规则</td><td>T2</td></tr>
+    <tr><td>logistics_warehouse</td><td>货运限制、危险品、仓库接收、平台预处理、成本和时效</td><td>T3</td></tr>
+    <tr><td>origin_export_controls</td><td>出口许可、原产地证、制造商/出口商文件、原产地标签一致性</td><td>T1</td></tr>
+    <tr><td>user_search_channels</td><td>用户提供的平台链接、行业数据库、供应商渠道、内部搜索结果</td><td>T4 起</td></tr>
+  </table>
+
+  <h2>4. 证据层级</h2>
+  <table>
+    <tr><th>层级</th><th>来源</th><th>用途</th></tr>
+    <tr><td>T1</td><td>平台官方政策、监管机构、政府/海关/法院/注册数据库</td><td>可支持关键决策</td></tr>
+    <tr><td>T2</td><td>认证机构、认可机构、标准机构、实验室资质查询</td><td>可支持证书和技术路线核验</td></tr>
+    <tr><td>T3</td><td>律所、报关行、合规顾问、行业协会</td><td>用于解释或补充，不替代官方来源</td></tr>
+    <tr><td>T4</td><td>申请人文件、供应商陈述、截图、邮件、合同、用户搜索渠道</td><td>证明“提交了什么”，不能默认证明事实为真</td></tr>
+    <tr><td>T5</td><td>社媒、论坛、非正式视频、不可核验说法</td><td>只能做市场信号，不能做资质依据</td></tr>
+  </table>
+
+  <h2>5. 决策状态</h2>
+  <table>
+    <tr><th>状态</th><th>含义</th></tr>
+    <tr><td><span class="status">approve</span></td><td>当前材料和核验结果支持推进。</td></tr>
+    <tr><td><span class="status">conditional_approve</span></td><td>可推进，但需要完成边界清楚的低/中风险补正。</td></tr>
+    <tr><td><span class="status">request_more_info</span></td><td>关键信息或材料缺失，暂不能判断。</td></tr>
+    <tr><td><span class="status">reject</span></td><td>已确认禁售、严重不合规、无权销售、材料失效且不可补正。</td></tr>
+    <tr><td><span class="status">escalate_human</span></td><td>疑似造假、制裁/出口管制、法律歧义或官方来源冲突。</td></tr>
+  </table>
+
+  <h2>6. 为什么这样更好用</h2>
+  <ul>
+    <li>先问最关键的两个边界：原产地和目标市场。</li>
+    <li>多目的地自动拆分，不把不同司法辖区规则混在一起。</li>
+    <li>先产出“应该查哪里”和“查什么”，再输出结论，避免泛泛建议。</li>
+    <li>允许接入用户自己的搜索渠道，但通过证据层级防止误当官方事实。</li>
+    <li>输出可复核、可交接、可补件的结构，而不是一次性聊天建议。</li>
+  </ul>
+
+  <p class="small">生成时间：2026-06-17。本文档为产品和流程说明，不构成法律意见。最终上架、进口、资质和合规结论需要以当前官方平台、监管、海关、注册库和专业意见为准。</p>
+</body>
+</html>

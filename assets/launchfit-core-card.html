@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>出海体检官核心速览</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #617086;
+      --line: #d9e1ec;
+      --paper: #f7fafc;
+      --blue: #1769aa;
+      --green: #167c62;
+      --amber: #b76716;
+      --red: #b23535;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      width: 1200px;
+      min-height: 1600px;
+      background: #eef3f7;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+    .card {
+      width: 1080px;
+      min-height: 1480px;
+      margin: 60px;
+      padding: 58px 64px 50px;
+      background: #fff;
+      border: 1px solid #d7e0ea;
+      border-radius: 8px;
+      box-shadow: 0 18px 48px rgba(28, 46, 70, .14);
+    }
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 28px;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 34px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .badge-mark {
+      width: 18px;
+      height: 18px;
+      background: var(--blue);
+      border-radius: 3px;
+      box-shadow: 24px 0 0 var(--green), 48px 0 0 var(--amber);
+      margin-right: 48px;
+    }
+    h1 {
+      font-size: 72px;
+      line-height: 1.02;
+      margin: 0 0 22px;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+    .subtitle {
+      font-size: 30px;
+      line-height: 1.42;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0;
+    }
+    .status {
+      min-width: 218px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      background: var(--paper);
+    }
+    .status strong {
+      display: block;
+      font-size: 22px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .status span {
+      display: block;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1.18;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      margin-top: 36px;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      min-height: 210px;
+      background: #fff;
+    }
+    .panel h2 {
+      font-size: 30px;
+      margin: 0 0 18px;
+      color: var(--ink);
+    }
+    .panel ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+    .panel li {
+      position: relative;
+      padding-left: 26px;
+      font-size: 23px;
+      line-height: 1.32;
+      color: #314157;
+    }
+    .panel li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+    .flow {
+      margin-top: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 32px;
+      background: #f9fbfd;
+    }
+    .flow h2 {
+      margin: 0 0 28px;
+      font-size: 34px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .step {
+      min-height: 150px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px 16px;
+    }
+    .step b {
+      display: block;
+      font-size: 18px;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .step span {
+      display: block;
+      font-size: 22px;
+      line-height: 1.22;
+      font-weight: 750;
+    }
+    .matrix {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .channels {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+    }
+    .channels h2, .outputs h2 {
+      margin: 0 0 20px;
+      font-size: 30px;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      font-size: 20px;
+      padding: 9px 13px;
+      border-radius: 6px;
+      background: #edf4fb;
+      color: #264e78;
+      border: 1px solid #c9d9e8;
+      font-weight: 650;
+    }
+    .outputs {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      background: #fbfcf8;
+    }
+    .out {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+    .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      font-size: 17px;
+      line-height: 28px;
+      font-weight: 800;
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-top: 38px;
+      padding-top: 26px;
+      border-top: 2px solid var(--line);
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1.35;
+    }
+    .footer strong {
+      color: var(--ink);
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="topline">
+      <div>
+        <div class="badge"><span class="badge-mark"></span>LaunchFit AI / 出海体检官</div>
+        <h1>出海前，先把市场和风险查清楚</h1>
+        <p class="subtitle">输入原产地和一个或多个目标市场，生成每个市场的信息渠道、核验任务、对标信号、资质缺口和下一步动作。</p>
+      </div>
+      <aside class="status">
+        <strong>核心原则</strong>
+        <span>不假装知道最新政策，先规划最该查的渠道</span>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>用户提供</h2>
+        <ul>
+          <li>原产地：生产、组装或出口地</li>
+          <li>目标市场：支持多个国家/区域</li>
+          <li>平台和类目：Amazon / Temu / TikTok Shop 等</li>
+          <li>商品、包装、证书、授权、竞品和物流资料</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>系统产出</h2>
+        <ul>
+          <li>每个目的地独立 market review</li>
+          <li>source candidates：最该查的信息渠道</li>
+          <li>research tasks：查什么、为什么、证据字段</li>
+          <li>风险清单、补件话术、审计记录</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="flow">
+      <h2>核心流程</h2>
+      <div class="steps">
+        <div class="step"><b>01 Scope</b><span>锁定原产地、目的地、平台、类目</span></div>
+        <div class="step"><b>02 Split</b><span>按目的地拆分市场审核路径</span></div>
+        <div class="step"><b>03 Route</b><span>匹配规则包和权威信息渠道</span></div>
+        <div class="step"><b>04 Verify</b><span>生成核验任务和证据字段</span></div>
+        <div class="step"><b>05 Decide</b><span>输出风险、缺口和下一步动作</span></div>
+      </div>
+    </section>
+
+    <section class="matrix">
+      <div class="channels">
+        <h2>覆盖的信息渠道</h2>
+        <div class="chips">
+          <span class="chip">平台政策</span>
+          <span class="chip">监管机构</span>
+          <span class="chip">海关进口</span>
+          <span class="chip">品牌 / IP</span>
+          <span class="chip">企业注册</span>
+          <span class="chip">认证 / 实验室</span>
+          <span class="chip">标准机构</span>
+          <span class="chip">物流 / 仓储</span>
+          <span class="chip">原产地出口</span>
+          <span class="chip">用户搜索渠道</span>
+        </div>
+      </div>
+      <div class="outputs">
+        <h2>判断不会越界</h2>
+        <div class="out"><span class="num">1</span><span>T1/T2 官方来源支持决策</span></div>
+        <div class="out"><span class="num">2</span><span>T4 用户材料只证明“已提交”</span></div>
+        <div class="out"><span class="num">3</span><span>未核验事实保持 needs_external_verification</span></div>
+        <div class="out"><span class="num">4</span><span>缺材料、过期、错配、疑似造假不放行</span></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span><strong>适合：</strong>跨境卖家、品牌方、合规审核、服务商、运营团队</span>
+      <span>目标：减少备货后才发现资质、标签、授权或渠道不匹配</span>
+    </footer>
+  </main>
+</body>
+</html>
