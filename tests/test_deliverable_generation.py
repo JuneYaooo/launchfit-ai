@@ -75,6 +75,19 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("证据等级", html)
         self.assertNotIn("<h2>Remediation wording</h2>", html)
 
+    def test_detailed_pdf_html_contains_three_engine_full_report(self):
+        html = render_detailed_pdf_html(self.report())
+
+        self.assertIn("Engine 1：准入与合规审核", html)
+        self.assertIn("Engine 2：本地化适配", html)
+        self.assertIn("Engine 3：全链路落地", html)
+        self.assertIn("市场准入概览", html)
+        self.assertIn("包装本地化", html)
+        self.assertIn("渠道与落地路径", html)
+        self.assertIn("成本与时间线", html)
+        self.assertIn("待查证项", html)
+        self.assertIn("三引擎综合建议", html)
+
     def test_real_run_card_is_compact_for_readme_preview(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
         html = render_overview_card_html(report)
@@ -94,7 +107,24 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertNotIn("Confirm the document covers", html)
         self.assertNotIn("Competitor rows are offline", html)
         self.assertNotIn("Marketplace restricted product policy", html)
+        self.assertNotIn("No packaging benchmark signals supplied", html)
+        self.assertNotIn("destination import and customs", html)
         self.assertIn("文件持有人与待确认进口商/经销商不一致", html)
+
+    def test_real_run_detailed_report_keeps_full_olive_oil_review_context(self):
+        report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
+        html = render_detailed_pdf_html(report)
+
+        self.assertIn("Mantova Equilibrato 特级初榨橄榄油 250ml", html)
+        self.assertIn("中国食品进口路径", html)
+        self.assertIn("中文标签", html)
+        self.assertIn("原产地证", html)
+        self.assertIn("进口商/清关", html)
+        self.assertIn("供应链与物流", html)
+        self.assertIn("服务商与责任方", html)
+        self.assertIn("来源候选", html)
+        self.assertIn("核验任务", html)
+        self.assertIn("T1/T2 权威入口", html)
 
 
 if __name__ == "__main__":

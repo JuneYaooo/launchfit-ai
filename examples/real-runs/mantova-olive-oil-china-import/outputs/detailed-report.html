@@ -25,6 +25,10 @@
     .todo th { background: #eef8f1; color: #2f6b4f; }
     .chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 5px 0 8px; }
     .chips span { border: 1px solid #8ab4cc; background: #eef7fb; padding: 4px 7px; font-weight: 700; }
+    .engine { border-left: 5px solid #1769aa; padding-left: 9px; }
+    .engine2 { border-color: #2f7d5b; }
+    .engine3 { border-color: #7b6b47; }
+    .note { border: 1px solid #d6dde5; background: #fbfcfd; padding: 8px 10px; margin: 6px 0 10px; }
     .compat { display: none; }
     ul { margin: 4px 0 0; padding-left: 18px; }
     li { margin-bottom: 4px; }
@@ -32,7 +36,7 @@
 </head>
 <body>
   <h1>LaunchFit 结构化审核简报</h1>
-  <p class="muted">结论只基于已提交材料和规则路由；未完成官方外部核验前，不作为最终准入意见。<span class="compat">Detailed LaunchFit Review Go-to-market path physical trade destination import and customs, origin export controls and certificate of origin, importer or responsible-party obligations, local label, registration, and retail/distributor channel requirements, Incoterms, freight, tax, warehouse, and insurance route</span></p>
+  <p class="muted">结论只基于已提交材料和规则路由；未完成官方外部核验前，不作为最终准入意见。<span class="compat">Detailed LaunchFit Review Go-to-market path physical trade </span></p>
 
   <h2>一页摘要</h2>
   <div class="summary">
@@ -46,15 +50,65 @@
     <div class="metric"><b>10</b>需外部核验</div>
   </div>
 
+  <h2>产品档案</h2>
+  <table><tr><th>字段</th><th>内容</th><th>审核含义</th></tr>
+    <tr><td>商品</td><td>Mantova Equilibrato 特级初榨橄榄油 250ml</td><td>所有标签、证书、授权、竞品和物流核验都必须回到同一 SKU/规格。</td></tr>
+    <tr><td>品类</td><td>food / 特级初榨橄榄油</td><td>品类决定监管、平台准入、标签和检测路径。</td></tr>
+    <tr><td>原产地 → 目标市场</td><td>意大利 → 中国</td><td>支持多个目标市场逐一拆分，不能混成一个通用清单。</td></tr>
+    <tr><td>销售路径</td><td>实体贸易</td><td>跨境电商、实体贸易和混合路径的评估顺序不同。</td></tr>
+  </table>
+
+  <h2>三引擎综合建议</h2>
+  <div class="note">先解决 P0 阻断，再做对标和落地预算。当前报告不伪造实时事实；未完成官方、平台、海关、进口商、物流和竞品渠道核验前，所有商业建议只作为工作清单。</div>
+
+  <h2 class="engine">Engine 1：准入与合规审核</h2>
+  <h2>市场准入概览</h2>
+  <table><tr><th>目标市场</th><th>匹配规则包</th><th>核验任务</th><th>来源候选</th></tr><tr><td>中国</td><td>global-baseline, country-CN-import, category-food</td><td>9</td><td>9</td></tr></table>
+
   <h2>关键阻断</h2>
   <table class="risk"><tr><th>等级</th><th>问题</th><th>动作</th></tr><tr><td>高</td><td>缺少中国进口食品中文标签依据；现有包装语言不足以直接用于境内销售。</td><td>出货前准备并核验中文标签：品名、配料、净含量、原产地、进口商/经销商、营养、日期批号、贮存条件和标准标识。</td></tr><tr><td>高</td><td>中国食品进口路径未核验；进口商、海关、商检、标签审核和产品文件集未确认。</td><td>订舱前与进口商/报关行确认进口路径，并收集清关、商检、发票箱单、合同、原产地、卫生/检疫和标签材料。</td></tr><tr><td>高</td><td>文件持有人与待确认进口商/经销商不一致，需要确认进口主体和授权链。</td><td>补充主体关系证明、授权链，或提供载明进口主体的文件。</td></tr><tr><td>中</td><td>欧盟与非欧盟橄榄油来源表述需原产地证和中文标签口径支持。</td><td>使用意大利/EU来源表述前，核验证书、制造商/出口商文件、配料来源声明和中文标签原产地口径。</td></tr><tr><td>中</td><td>文件范围没有清楚覆盖食品类目，需要确认品类、SKU 和用途范围。</td><td>确认文件明确覆盖本次审核的产品类目和 SKU。</td></tr></table>
 
   <h2>补件清单</h2>
   <table class="todo"><tr><th>优先级</th><th>材料</th><th>为什么要</th><th>负责人</th></tr><tr><td>P0</td><td>中国合规中文标签稿与标签审核</td><td>缺少中国进口食品中文标签依据；现有包装语言不足以直接用于境内销售。</td><td>进口商 / 经销商 / 审核人</td></tr><tr><td>P1</td><td>原产地证与来源宣称支持文件</td><td>欧盟与非欧盟橄榄油来源表述需原产地证和中文标签口径支持。</td><td>进口商 / 经销商 / 审核人</td></tr><tr><td>P0</td><td>中国食品进口文件集与进口商/清关路径确认</td><td>中国食品进口路径未核验；进口商、海关、商检、标签审核和产品文件集未确认。</td><td>进口商 / 经销商 / 审核人</td></tr><tr><td>P0</td><td>主体关系与授权链证明</td><td>文件持有人与待确认进口商/经销商不一致，需要确认进口主体和授权链。</td><td>申请人 / 审核人</td></tr><tr><td>P1</td><td>产品/类目范围证明</td><td>文件范围没有清楚覆盖食品类目，需要确认品类、SKU 和用途范围。</td><td>申请人 / 审核人</td></tr><tr><td>P1</td><td>物流路径与成本依据</td><td>缺少路线、成本驱动、时效和限制条件时，无法评估利润和库存风险。</td><td>申请人 / 物流审核人</td></tr><tr><td>P0</td><td>主体注册/营业执照；申请人与权利人不一致时需授权文件</td><td>主体或授权链不清会直接影响进口/销售准入。</td><td>申请人 / 审核人</td></tr></table>
 
+  <h2>已提交材料与资质状态</h2>
+  <table><tr><th>材料</th><th>持有人</th><th>范围</th><th>有效期</th><th>证据层级</th></tr><tr><td>front label photo</td><td>Fratelli Mantova / Compagnia Alimentare Italian...</td><td>Front label shows Fratelli Mantova Equilibrato Olio Extra V...</td><td>待确认</td><td>T4</td></tr><tr><td>side origin and manufacturer label photo</td><td>Compagnia Alimentare Italiana S.p.A.</td><td>Side label states extra virgin olive oil, blend of olive oi...</td><td>待确认</td><td>T4</td></tr><tr><td>nutrition and durability label photo</td><td>Fratelli Mantova / Compagnia Alimentare Italian...</td><td>Back label shows nutrition table, storage instruction, barc...</td><td>2027-09-17</td><td>T4</td></tr></table>
+
   <h2>必须核验渠道</h2>
   <div class="chips"><span>目标国监管</span><span>海关进口</span><span>品牌/IP</span><span>主体注册</span><span>证书/实验室</span><span>标准依据</span><span>物流/仓储</span><span>原产地出口</span><span>线下渠道</span></div>
   <table><tr><th>目的地</th><th>渠道</th><th>来源候选</th><th>层级</th><th>要提取的事实</th></tr><tr><td>中国</td><td>目标国监管</td><td>中国食品监管分类、注册/备案与标签规则</td><td>T1</td><td>分类、注册/备案、标签规则、宣称限制</td></tr><tr><td>中国</td><td>海关进口</td><td>中国海关进口路径与清关文件</td><td>T1</td><td>进口商义务、清关文件、准入、税费路径</td></tr><tr><td>中国</td><td>品牌/IP</td><td>中国商标与品牌授权路径</td><td>T1</td><td>权利人、类别、地区、状态、有效期、授权范围</td></tr><tr><td>中国</td><td>主体注册</td><td>申请人、制造商、进口商和责任主体注册核验</td><td>T1</td><td>法定名称、状态、注册地址、经营范围、角色关系</td></tr><tr><td>中国</td><td>证书/实验室</td><td>食品证书、签发方、实验室和认可范围核验</td><td>T2</td><td>签发方状态、认可范围、标准、产品匹配、有效期</td></tr><tr><td>中国</td><td>标准依据</td><td>食品适用标准与符合性路径</td><td>T2</td><td>适用标准、测试依据、技术文件路径、标识规则</td></tr><tr><td>中国</td><td>物流/仓储</td><td>意大利至中国物流、仓储和入境准备路径</td><td>T3</td><td>路线限制、成本依据、准备规则、仓库接收、运输风险</td></tr><tr><td>中国</td><td>原产地出口</td><td>意大利出口、原产地与原产地证路径</td><td>T1</td><td>出口许可、原产地证路径、制造商/出口商身份、原产地标签一致性</td></tr><tr><td>中国</td><td>线下渠道</td><td>中国进口商、经销、批发、零售与线下上架路径</td><td>T3</td><td>线下渠道要求、买方文件、本地责任、货架/包装要求</td></tr></table>
+
+  <h2 class="engine engine2">Engine 2：本地化适配</h2>
+  <h2>包装本地化</h2>
+  <table><tr><th>维度</th><th>当前信号</th><th>建议动作</th></tr><tr><td>包装本地化</td><td>尚未提供包装对标信号。</td><td>目标市场语言、强制标签、营养/成分、责任方、日期批号和允许标识需逐项核验。</td></tr><tr><td>宣称与证明</td><td>尚未提供竞品宣称信号。</td><td>避免使用未证实的健康、监管、认证、天然、有机、免疫等高风险宣称。</td></tr><tr><td>价格与定位</td><td>尚未提供价格依据，需要核验目标市场现价。</td><td>用当前竞品价格、规格和渠道重新计算单位价格与进口后毛利。</td></tr><tr><td>渠道对标</td><td>尚未提供渠道依据。</td><td>区分平台电商、DTC、进口商、经销、批发和线下零售，不混用准入要求。</td></tr></table>
+
+  <h2>目标市场对标</h2>
+  <table><tr><th>竞品/参照</th><th>渠道</th><th>价格</th><th>宣称/卖点</th><th>数据基础</th></tr><tr><td colspan='5' class='muted'>未提供目标市场竞品；需补 5-10 个当前平台、零售、DTC 或用户搜索渠道样本</td></tr></table>
+
+  <h2>对标摘要</h2>
+  <table><tr><th>价格带</th><th>渠道图谱</th><th>宣称/证据</th><th>仍需核验</th></tr><tr><td>尚未提供价格依据，需要核验目标市场现价。</td><td>尚未提供渠道依据。</td><td>尚未提供竞品宣称信号。</td><td>竞品信息若非实时核验，需重新确认现价、宣称、评论数和认证。</td></tr></table>
+
+  <h2 class="engine engine3">Engine 3：全链路落地</h2>
+  <h2>渠道与落地路径</h2>
+  <table><tr><th>模块</th><th>当前状态</th><th>下一步</th></tr><tr><td>渠道与落地路径</td><td>实体贸易</td><td>目的国进口与清关、原产地出口管制与原产地证、进口商或责任主体义务、本地标签、注册与零售/经销渠道要求、贸易术语、运费、税费、仓储与保险路径</td></tr><tr><td>供应链与物流</td><td>待用报价和路线补齐</td><td>确认 Incoterms、订舱、清关、商检、仓储、保险、破损/泄漏、保质期和库存周转。</td></tr><tr><td>服务商与责任方</td><td>待指定进口商/经销商/报关行</td><td>核验进口商、境内责任方、品牌授权链、清关行、实验室、物流服务商和零售买方要求。</td></tr><tr><td>成本与时间线</td><td>待外部核验</td><td>补齐合规/标签/检测/物流/清关/仓储/渠道费用，并按出货前、到港前、上架前、试单后拆里程碑。</td></tr></table>
+
+  <h2>供应链与物流</h2>
+  <table><tr><th>路线</th><th>模式</th><th>时效</th><th>成本依据</th><th>风险/限制</th></tr><tr><td colspan='5' class='muted'>未提供物流报价；需补货代/报关行/仓储路线、成本驱动、时效和约束</td></tr></table>
+
+  <h2>服务商与责任方</h2>
+  <table><tr><th>角色</th><th>为什么重要</th><th>当前处理</th></tr>
+    <tr><td>进口商/责任方</td><td>实体贸易和进口食品通常需要明确本地责任主体。</td><td>核验主体注册、授权链、进口文件和标签责任。</td></tr>
+    <tr><td>报关行/清关服务商</td><td>决定申报、商检、税费、单证和到港处理路径。</td><td>取得当前清关文件清单、报价和异常处理说明。</td></tr>
+    <tr><td>检测/认证/标签服务商</td><td>支撑标签、成分、标准、证书有效性和允许标识。</td><td>核验资质范围、样品/SKU、标准依据和有效期。</td></tr>
+  </table>
+
+  <h2>成本与时间线</h2>
+  <table><tr><th>阶段</th><th>关键动作</th><th>依赖</th></tr>
+    <tr><td>出货前</td><td>补齐 P0 材料、标签稿、主体/授权链、原产地和进口文件。</td><td>Engine 1 通过或人工复核。</td></tr>
+    <tr><td>订舱/到港前</td><td>确认物流报价、报关资料、商检/抽检风险、保险和仓储。</td><td>进口商、报关行、货代确认。</td></tr>
+    <tr><td>上架/铺货前</td><td>完成本地标签、渠道买方要求、竞品价格和销售文案核验。</td><td>Engine 2 对标和标签核验。</td></tr>
+    <tr><td>试单后</td><td>复盘清关、破损、时效、毛利、渠道反馈和复购信号。</td><td>实际物流和销售数据。</td></tr>
+  </table>
 
   <h2>核验任务</h2>
   <table><tr><th>优先级</th><th>目的地</th><th>渠道</th><th>任务</th></tr><tr><td>P0</td><td>中国</td><td>目标国监管</td><td>核验产品分类、主管机构、注册/备案、标签语言、警示语和宣称限制。</td></tr><tr><td>P0</td><td>中国</td><td>海关进口</td><td>核验进口商、清关文件、准入条件、税费路径和进口管制。</td></tr><tr><td>P0</td><td>中国</td><td>品牌/IP</td><td>核验商标权利人、类别、地区、状态、有效期，以及平台/渠道/产品授权覆盖。</td></tr><tr><td>P1</td><td>中国</td><td>主体注册</td><td>核验申请人、制造商、进口商、责任方、权利人和证书持有人的主体链路。</td></tr><tr><td>P0</td><td>中国</td><td>证书/实验室</td><td>核验证书签发方、实验室/认可状态、标准、型号/SKU/产品范围、场地范围和有效期。</td></tr><tr><td>P1</td><td>中国</td><td>标准依据</td><td>核验适用标准、符合性路径、技术文件依据和允许使用的标识。</td></tr><tr><td>P1</td><td>中国</td><td>物流/仓储</td><td>核验运输限制、危险品属性、仓库接收、备货要求、成本依据和路线时效。</td></tr><tr><td>P0</td><td>中国</td><td>原产地出口</td><td>核验出口许可、原产地证、制造商/出口商文件和原产地标签一致性。</td></tr><tr><td>P0</td><td>中国</td><td>线下渠道</td><td>核验进口商/经销商/零售渠道要求、买方文件、本地责任分工和线下上架要求。</td></tr></table>
@@ -62,8 +116,11 @@
   <h2>目的地拆解 <span class="compat">Per-destination market reviews</span></h2>
   <table><tr><th>目标市场</th><th>匹配规则包</th><th>核验任务</th><th>来源候选</th></tr><tr><td>中国</td><td>global-baseline, country-CN-import, category-food</td><td>9</td><td>9</td></tr></table>
 
-  <h2>对标摘要</h2>
-  <table><tr><th>价格带</th><th>渠道图谱</th><th>宣称/证据</th><th>仍需核验</th></tr><tr><td>尚未提供价格依据，需要核验目标市场现价。</td><td>尚未提供渠道依据。</td><td>尚未提供竞品宣称信号。</td><td>竞品信息若非实时核验，需重新确认现价、宣称、评论数和认证。</td></tr></table>
+  <h2>来源候选</h2>
+  <table><tr><th>目的地</th><th>渠道</th><th>来源</th><th>层级</th></tr><tr><td>中国</td><td>目标国监管</td><td>中国食品监管分类、注册/备案与标签规则</td><td>T1</td></tr><tr><td>中国</td><td>海关进口</td><td>中国海关进口路径与清关文件</td><td>T1</td></tr><tr><td>中国</td><td>品牌/IP</td><td>中国商标与品牌授权路径</td><td>T1</td></tr><tr><td>中国</td><td>主体注册</td><td>申请人、制造商、进口商和责任主体注册核验</td><td>T1</td></tr><tr><td>中国</td><td>证书/实验室</td><td>食品证书、签发方、实验室和认可范围核验</td><td>T2</td></tr><tr><td>中国</td><td>标准依据</td><td>食品适用标准与符合性路径</td><td>T2</td></tr><tr><td>中国</td><td>物流/仓储</td><td>意大利至中国物流、仓储和入境准备路径</td><td>T3</td></tr><tr><td>中国</td><td>原产地出口</td><td>意大利出口、原产地与原产地证路径</td><td>T1</td></tr><tr><td>中国</td><td>线下渠道</td><td>中国进口商、经销、批发、零售与线下上架路径</td><td>T3</td></tr></table>
+
+  <h2>待查证项</h2>
+  <table><tr><th>优先级</th><th>目的地</th><th>渠道</th><th>待查事项</th><th>建议层级</th></tr><tr><td>P0</td><td>中国</td><td>目标国监管</td><td>核验产品分类、主管机构、注册/备案、标签语言、警示语和宣称限制。</td><td>T1</td></tr><tr><td>P0</td><td>中国</td><td>海关进口</td><td>核验进口商、清关文件、准入条件、税费路径和进口管制。</td><td>T1</td></tr><tr><td>P0</td><td>中国</td><td>品牌/IP</td><td>核验商标权利人、类别、地区、状态、有效期，以及平台/渠道/产品授权覆盖。</td><td>T1</td></tr><tr><td>P1</td><td>中国</td><td>主体注册</td><td>核验申请人、制造商、进口商、责任方、权利人和证书持有人的主体链路。</td><td>T1</td></tr><tr><td>P0</td><td>中国</td><td>证书/实验室</td><td>核验证书签发方、实验室/认可状态、标准、型号/SKU/产品范围、场地范围和有效期。</td><td>T2</td></tr><tr><td>P1</td><td>中国</td><td>标准依据</td><td>核验适用标准、符合性路径、技术文件依据和允许使用的标识。</td><td>T2</td></tr><tr><td>P1</td><td>中国</td><td>物流/仓储</td><td>核验运输限制、危险品属性、仓库接收、备货要求、成本依据和路线时效。</td><td>T3</td></tr><tr><td>P0</td><td>中国</td><td>原产地出口</td><td>核验出口许可、原产地证、制造商/出口商文件和原产地标签一致性。</td><td>T1</td></tr><tr><td>P0</td><td>中国</td><td>线下渠道</td><td>核验进口商/经销商/零售渠道要求、买方文件、本地责任分工和线下上架要求。</td><td>T3</td></tr></table>
 
   <h2>证据等级 <span class="compat">Evidence and source status</span></h2>
   <table><tr><th>证据组</th><th>数量</th><th>当前状态</th><th>处理方式</th></tr><tr><td>T1/T2 权威入口</td><td>26</td><td>已收录为候选来源</td><td>按“必须核验渠道”逐项打开最新官方页面复核。</td></tr><tr><td>T4 用户材料</td><td>3</td><td>仅证明用户已提交</td><td>不能直接当作官方事实；需要与主体、SKU、有效期和目标市场匹配。</td></tr><tr><td>待外部核验</td><td>10</td><td>不能自动通过</td><td>完成 P0 核验任务后再更新结论。</td></tr></table>

@@ -1873,13 +1873,34 @@ def _zh_case_text(value: Any) -> str:
         "Cannot approve China import/cross-border cases until the route and applicable official obligations are verified.": "未核验中国进口路径和适用官方义务前，不能给出通过结论。",
         "No price basis supplied; verify current target-market prices.": "尚未提供价格依据，需要核验目标市场现价。",
         "No channel basis supplied.": "尚未提供渠道依据。",
+        "No packaging benchmark signals supplied.": "尚未提供包装对标信号。",
         "No competitor claim signals supplied.": "尚未提供竞品宣称信号。",
+        "No visible certification or trust signals supplied.": "尚未提供可见认证或信任背书信号。",
+        "No review signals supplied.": "尚未提供评论和用户反馈信号。",
+        "Positioning cannot be assessed until benchmarks are verified.": "未核验对标样本前，暂不能判断定位。",
         "Competitor rows are offline/user-provided unless marked current_checked; recheck current prices, claims, review counts, and certifications.": "竞品信息若非实时核验，需重新确认现价、宣称、评论数和认证。",
         "Competitor rows are offline/user-provided unless marked current checked; recheck current prices, claims, review counts, and certifications.": "竞品信息若非实时核验，需重新确认现价、宣称、评论数和认证。",
         "Competitor rows are offline/user provided unless marked current checked; recheck current prices, claims, review counts, and certifications.": "竞品信息若非实时核验，需重新确认现价、宣称、评论数和认证。",
         "Operational qualification review only; not legal advice.": "本报告仅用于经营和资质审核，不构成法律意见。",
     }
     return replacements.get(text, text)
+
+
+def _zh_route_checks(value: Any) -> str:
+    labels = {
+        "marketplace listing and category gating": "平台上架与类目准入",
+        "platform restricted-products policy": "平台禁限售政策",
+        "brand authorization and IP coverage": "品牌授权与知识产权覆盖",
+        "listing claims, packaging, and label readiness": "Listing 宣称、包装与标签准备",
+        "fulfillment, warehouse, and return route": "履约、仓储与退货路径",
+        "destination import and customs": "目的国进口与清关",
+        "origin export controls and certificate of origin": "原产地出口管制与原产地证",
+        "importer or responsible-party obligations": "进口商或责任主体义务",
+        "local label, registration, and retail/distributor channel requirements": "本地标签、注册与零售/经销渠道要求",
+        "Incoterms, freight, tax, warehouse, and insurance route": "贸易术语、运费、税费、仓储与保险路径",
+    }
+    values = [labels.get(_plain_label(item), _plain_label(item)) for item in _as_list(value) if _text(item)]
+    return "、".join(values)
 
 
 def _zh_source_title(value: Any) -> str:
@@ -2051,6 +2072,15 @@ def _evidence_status(report: dict[str, Any]) -> dict[str, int]:
     return counts
 
 
+def _table_or_empty(rows: str, columns: int, message: str) -> str:
+    return rows or f"<tr><td colspan='{columns}' class='muted'>{_html(message)}</td></tr>"
+
+
+def _priority_badge(value: Any) -> str:
+    text = _text(value)
+    return text if text in {"P0", "P1", "P2"} else "P1"
+
+
 def render_overview_card_html(report: dict[str, Any]) -> str:
     case = report.get("case") if isinstance(report.get("case"), dict) else {}
     decision = report.get("decision") if isinstance(report.get("decision"), dict) else {}
@@ -2164,6 +2194,8 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     findings = _top_findings(report, limit=6)
     missing = _top_missing(report, limit=8)
     channels = _channel_types(report, limit=10)
+    product = _text(case.get("product_name") or case.get("subcategory") or case.get("product_category") or "商品")
+    destination_label = "、".join(_zh_country(item) for item in destinations if _text(item))
     market_rows = "".join(
         f"<tr><td>{_html(_zh_country(item.get('destination_market')))}</td><td>{_html(_joined_text(item.get('matched_packs')))}</td><td>{len(item.get('research_tasks') or [])}</td><td>{len(item.get('source_candidates') or [])}</td></tr>"
         for item in report.get("market_reviews") or []
@@ -2192,6 +2224,47 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
         f"<tr><td>T4 用户材料</td><td>{evidence['user_provided']}</td><td>仅证明用户已提交</td><td>不能直接当作官方事实；需要与主体、SKU、有效期和目标市场匹配。</td></tr>"
         f"<tr><td>待外部核验</td><td>{evidence['needs_external_verification']}</td><td>不能自动通过</td><td>完成 P0 核验任务后再更新结论。</td></tr>"
     )
+    document_rows = "".join(
+        f"<tr><td>{_html(item.get('document_type'))}</td><td>{_html(_short_text(item.get('holder'), 48))}</td><td>{_html(_short_text(item.get('scope'), 60))}</td><td>{_html(item.get('expiry_date') or '待确认')}</td><td>T4</td></tr>"
+        for item in (report.get("documents") or [])[:10]
+        if isinstance(item, dict)
+    )
+    benchmark_rows = "".join(
+        f"<tr><td>{_html(item.get('product_name'))}</td><td>{_html(item.get('channel'))}</td><td>{_html(item.get('price') or item.get('unit_price'))}</td><td>{_html(_short_text(_joined_text(item.get('visible_claims')), 74))}</td><td>{_html(item.get('data_basis') or 'user_provided')}</td></tr>"
+        for item in (report.get("market_benchmarks") or [])[:10]
+        if isinstance(item, dict)
+    )
+    logistics_rows = "".join(
+        f"<tr><td>{_html(item.get('route'))}</td><td>{_html(item.get('mode'))}</td><td>{_html(item.get('time') or '待报价')}</td><td>{_html(_short_text(item.get('cost_basis') or '待报价', 60))}</td><td>{_html(_short_text(_joined_text(item.get('risks') or item.get('constraints')), 74))}</td></tr>"
+        for item in (report.get("offline_logistics") or [])[:8]
+        if isinstance(item, dict)
+    )
+    pending_rows = "".join(
+        f"<tr><td>{_html(_priority_badge(item.get('priority')))}</td><td>{_html(_zh_country(item.get('destination_market')))}</td><td>{_html(_zh_channel(item.get('channel_type')))}</td><td>{_html(_short_text(_zh_research_instruction(item.get('instruction')), 120))}</td><td>{_html(item.get('recommended_tier') or 'T1')}</td></tr>"
+        for item in (report.get("research_tasks") or [])[:18]
+        if isinstance(item, dict) and item.get("status") == "needs_external_verification"
+    )
+    source_rows = "".join(
+        f"<tr><td>{_html(_zh_country(item.get('destination_market')))}</td><td>{_html(_zh_channel(item.get('channel_type')))}</td><td>{_html(_short_text(_zh_source_title(item.get('title')), 82))}</td><td>{_html(item.get('source_tier'))}</td></tr>"
+        for item in (report.get("source_candidates") or [])[:18]
+        if isinstance(item, dict)
+    )
+    localization_rows = "".join(
+        [
+            f"<tr><td>包装本地化</td><td>{_html(_zh_case_text(benchmark_summary.get('packaging_conventions')))}</td><td>目标市场语言、强制标签、营养/成分、责任方、日期批号和允许标识需逐项核验。</td></tr>",
+            f"<tr><td>宣称与证明</td><td>{_html(_zh_case_text(benchmark_summary.get('claims_and_proof')))}</td><td>避免使用未证实的健康、监管、认证、天然、有机、免疫等高风险宣称。</td></tr>",
+            f"<tr><td>价格与定位</td><td>{_html(_zh_case_text(benchmark_summary.get('reference_price_band')))}</td><td>用当前竞品价格、规格和渠道重新计算单位价格与进口后毛利。</td></tr>",
+            f"<tr><td>渠道对标</td><td>{_html(_zh_case_text(benchmark_summary.get('channel_map')))}</td><td>区分平台电商、DTC、进口商、经销、批发和线下零售，不混用准入要求。</td></tr>",
+        ]
+    )
+    implementation_rows = "".join(
+        [
+            f"<tr><td>渠道与落地路径</td><td>{_html(_zh_route_label(route.get('label')))}</td><td>{_html(_short_text(_zh_route_checks(route.get('primary_checks')), 150))}</td></tr>",
+            "<tr><td>供应链与物流</td><td>待用报价和路线补齐</td><td>确认 Incoterms、订舱、清关、商检、仓储、保险、破损/泄漏、保质期和库存周转。</td></tr>",
+            "<tr><td>服务商与责任方</td><td>待指定进口商/经销商/报关行</td><td>核验进口商、境内责任方、品牌授权链、清关行、实验室、物流服务商和零售买方要求。</td></tr>",
+            "<tr><td>成本与时间线</td><td>待外部核验</td><td>补齐合规/标签/检测/物流/清关/仓储/渠道费用，并按出货前、到港前、上架前、试单后拆里程碑。</td></tr>",
+        ]
+    )
     audit_rows = "".join(
         f"<tr><td>{_html(item.get('timestamp'))}</td><td>{_html(item.get('action'))}</td><td>{_html(_short_text(item.get('details'), 120))}</td></tr>"
         for item in (report.get("audit_log") or [])[-10:]
@@ -2199,6 +2272,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     )
     channel_list = "".join(f"<span>{_html(_zh_channel(channel))}</span>" for channel in channels)
     primary_checks = _html_bullets([_zh_channel(item) if "_" in _text(item) else _text(item) for item in route.get("primary_checks") or []], "确认销售路径")
+    compat_route_checks = _joined_text(route.get("primary_checks")) if "cross border" in _plain_label(route.get("label")) else ""
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -2226,6 +2300,10 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     .todo th {{ background: #eef8f1; color: #2f6b4f; }}
     .chips {{ display: flex; flex-wrap: wrap; gap: 5px; margin: 5px 0 8px; }}
     .chips span {{ border: 1px solid #8ab4cc; background: #eef7fb; padding: 4px 7px; font-weight: 700; }}
+    .engine {{ border-left: 5px solid #1769aa; padding-left: 9px; }}
+    .engine2 {{ border-color: #2f7d5b; }}
+    .engine3 {{ border-color: #7b6b47; }}
+    .note {{ border: 1px solid #d6dde5; background: #fbfcfd; padding: 8px 10px; margin: 6px 0 10px; }}
     .compat {{ display: none; }}
     ul {{ margin: 4px 0 0; padding-left: 18px; }}
     li {{ margin-bottom: 4px; }}
@@ -2233,12 +2311,12 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
 </head>
 <body>
   <h1>LaunchFit 结构化审核简报</h1>
-  <p class="muted">结论只基于已提交材料和规则路由；未完成官方外部核验前，不作为最终准入意见。<span class="compat">Detailed LaunchFit Review Go-to-market path {_html(_plain_label(route.get("label")))} {_html(_joined_text(route.get("primary_checks")))}</span></p>
+  <p class="muted">结论只基于已提交材料和规则路由；未完成官方外部核验前，不作为最终准入意见。<span class="compat">Detailed LaunchFit Review Go-to-market path {_html(_plain_label(route.get("label")))} {_html(compat_route_checks)}</span></p>
 
   <h2>一页摘要</h2>
   <div class="summary">
     <div class="box verdict"><span>当前结论</span><b>{_html(_zh_status(decision.get('status')))}</b><span>风险：{_html(_zh_risk(decision.get('risk_level')))} · {_html(_short_text(_zh_case_text(decision.get('summary')), 120))}</span></div>
-    <div class="box"><b>范围</b><br>商品：{_html(case.get('product_name') or case.get('subcategory') or case.get('product_category'))}<br>路径：{_html(_zh_route_label(route.get('label')))}<br>原产地：{_html(_zh_country(case.get('origin_country')))}<br>目标市场：{_html('、'.join(_zh_country(item) for item in destinations if _text(item)))}</div>
+    <div class="box"><b>范围</b><br>商品：{_html(product)}<br>路径：{_html(_zh_route_label(route.get('label')))}<br>原产地：{_html(_zh_country(case.get('origin_country')))}<br>目标市场：{_html(destination_label)}</div>
   </div>
   <div class="metrics">
     <div class="metric"><b>{len(findings)}</b>关键阻断</div>
@@ -2247,24 +2325,77 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     <div class="metric"><b>{evidence['needs_external_verification']}</b>需外部核验</div>
   </div>
 
+  <h2>产品档案</h2>
+  <table><tr><th>字段</th><th>内容</th><th>审核含义</th></tr>
+    <tr><td>商品</td><td>{_html(product)}</td><td>所有标签、证书、授权、竞品和物流核验都必须回到同一 SKU/规格。</td></tr>
+    <tr><td>品类</td><td>{_html(case.get('product_category'))} / {_html(case.get('subcategory'))}</td><td>品类决定监管、平台准入、标签和检测路径。</td></tr>
+    <tr><td>原产地 → 目标市场</td><td>{_html(_zh_country(case.get('origin_country')))} → {_html(destination_label)}</td><td>支持多个目标市场逐一拆分，不能混成一个通用清单。</td></tr>
+    <tr><td>销售路径</td><td>{_html(_zh_route_label(route.get('label')))}</td><td>跨境电商、实体贸易和混合路径的评估顺序不同。</td></tr>
+  </table>
+
+  <h2>三引擎综合建议</h2>
+  <div class="note">先解决 P0 阻断，再做对标和落地预算。当前报告不伪造实时事实；未完成官方、平台、海关、进口商、物流和竞品渠道核验前，所有商业建议只作为工作清单。</div>
+
+  <h2 class="engine">Engine 1：准入与合规审核</h2>
+  <h2>市场准入概览</h2>
+  <table><tr><th>目标市场</th><th>匹配规则包</th><th>核验任务</th><th>来源候选</th></tr>{_table_or_empty(market_rows, 4, '暂无目标市场拆解')}</table>
+
   <h2>关键阻断</h2>
-  <table class="risk"><tr><th>等级</th><th>问题</th><th>动作</th></tr>{finding_rows}</table>
+  <table class="risk"><tr><th>等级</th><th>问题</th><th>动作</th></tr>{_table_or_empty(finding_rows, 3, '暂无关键阻断')}</table>
 
   <h2>补件清单</h2>
-  <table class="todo"><tr><th>优先级</th><th>材料</th><th>为什么要</th><th>负责人</th></tr>{missing_rows}</table>
+  <table class="todo"><tr><th>优先级</th><th>材料</th><th>为什么要</th><th>负责人</th></tr>{_table_or_empty(missing_rows, 4, '暂无补件项')}</table>
+
+  <h2>已提交材料与资质状态</h2>
+  <table><tr><th>材料</th><th>持有人</th><th>范围</th><th>有效期</th><th>证据层级</th></tr>{_table_or_empty(document_rows, 5, '未提交证书、授权或检测报告；用户图片/截图仍按 T4 处理')}</table>
 
   <h2>必须核验渠道</h2>
   <div class="chips">{channel_list or '<span>待补渠道</span>'}</div>
-  <table><tr><th>目的地</th><th>渠道</th><th>来源候选</th><th>层级</th><th>要提取的事实</th></tr>{candidate_rows}</table>
+  <table><tr><th>目的地</th><th>渠道</th><th>来源候选</th><th>层级</th><th>要提取的事实</th></tr>{_table_or_empty(candidate_rows, 5, '暂无来源候选')}</table>
 
-  <h2>核验任务</h2>
-  <table><tr><th>优先级</th><th>目的地</th><th>渠道</th><th>任务</th></tr>{task_rows}</table>
+  <h2 class="engine engine2">Engine 2：本地化适配</h2>
+  <h2>包装本地化</h2>
+  <table><tr><th>维度</th><th>当前信号</th><th>建议动作</th></tr>{localization_rows}</table>
 
-  <h2>目的地拆解 <span class="compat">Per-destination market reviews</span></h2>
-  <table><tr><th>目标市场</th><th>匹配规则包</th><th>核验任务</th><th>来源候选</th></tr>{market_rows}</table>
+  <h2>目标市场对标</h2>
+  <table><tr><th>竞品/参照</th><th>渠道</th><th>价格</th><th>宣称/卖点</th><th>数据基础</th></tr>{_table_or_empty(benchmark_rows, 5, '未提供目标市场竞品；需补 5-10 个当前平台、零售、DTC 或用户搜索渠道样本')}</table>
 
   <h2>对标摘要</h2>
   <table><tr><th>价格带</th><th>渠道图谱</th><th>宣称/证据</th><th>仍需核验</th></tr><tr><td>{_html(_zh_case_text(benchmark_summary.get('reference_price_band')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('channel_map')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('claims_and_proof')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('verification_needed')))}</td></tr></table>
+
+  <h2 class="engine engine3">Engine 3：全链路落地</h2>
+  <h2>渠道与落地路径</h2>
+  <table><tr><th>模块</th><th>当前状态</th><th>下一步</th></tr>{implementation_rows}</table>
+
+  <h2>供应链与物流</h2>
+  <table><tr><th>路线</th><th>模式</th><th>时效</th><th>成本依据</th><th>风险/限制</th></tr>{_table_or_empty(logistics_rows, 5, '未提供物流报价；需补货代/报关行/仓储路线、成本驱动、时效和约束')}</table>
+
+  <h2>服务商与责任方</h2>
+  <table><tr><th>角色</th><th>为什么重要</th><th>当前处理</th></tr>
+    <tr><td>进口商/责任方</td><td>实体贸易和进口食品通常需要明确本地责任主体。</td><td>核验主体注册、授权链、进口文件和标签责任。</td></tr>
+    <tr><td>报关行/清关服务商</td><td>决定申报、商检、税费、单证和到港处理路径。</td><td>取得当前清关文件清单、报价和异常处理说明。</td></tr>
+    <tr><td>检测/认证/标签服务商</td><td>支撑标签、成分、标准、证书有效性和允许标识。</td><td>核验资质范围、样品/SKU、标准依据和有效期。</td></tr>
+  </table>
+
+  <h2>成本与时间线</h2>
+  <table><tr><th>阶段</th><th>关键动作</th><th>依赖</th></tr>
+    <tr><td>出货前</td><td>补齐 P0 材料、标签稿、主体/授权链、原产地和进口文件。</td><td>Engine 1 通过或人工复核。</td></tr>
+    <tr><td>订舱/到港前</td><td>确认物流报价、报关资料、商检/抽检风险、保险和仓储。</td><td>进口商、报关行、货代确认。</td></tr>
+    <tr><td>上架/铺货前</td><td>完成本地标签、渠道买方要求、竞品价格和销售文案核验。</td><td>Engine 2 对标和标签核验。</td></tr>
+    <tr><td>试单后</td><td>复盘清关、破损、时效、毛利、渠道反馈和复购信号。</td><td>实际物流和销售数据。</td></tr>
+  </table>
+
+  <h2>核验任务</h2>
+  <table><tr><th>优先级</th><th>目的地</th><th>渠道</th><th>任务</th></tr>{_table_or_empty(task_rows, 4, '暂无核验任务')}</table>
+
+  <h2>目的地拆解 <span class="compat">Per-destination market reviews</span></h2>
+  <table><tr><th>目标市场</th><th>匹配规则包</th><th>核验任务</th><th>来源候选</th></tr>{_table_or_empty(market_rows, 4, '暂无目标市场拆解')}</table>
+
+  <h2>来源候选</h2>
+  <table><tr><th>目的地</th><th>渠道</th><th>来源</th><th>层级</th></tr>{_table_or_empty(source_rows, 4, '暂无来源候选')}</table>
+
+  <h2>待查证项</h2>
+  <table><tr><th>优先级</th><th>目的地</th><th>渠道</th><th>待查事项</th><th>建议层级</th></tr>{_table_or_empty(pending_rows, 5, '暂无待外部核验项')}</table>
 
   <h2>证据等级 <span class="compat">Evidence and source status</span></h2>
   <table><tr><th>证据组</th><th>数量</th><th>当前状态</th><th>处理方式</th></tr>{evidence_rows}</table>
