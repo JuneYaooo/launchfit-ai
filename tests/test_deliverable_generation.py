@@ -116,6 +116,24 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("包装/标签信号", html)
         self.assertIn("评论/口碑信号", html)
 
+    def test_real_run_contains_agent_found_china_benchmark_rows(self):
+        report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
+        html = render_detailed_pdf_html(report)
+
+        self.assertGreaterEqual(len(report["market_benchmarks"]), 8)
+        self.assertNotIn("暂无可分析竞品样本", html)
+        self.assertIn("欧丽薇兰 Olivoila 特级初榨橄榄油 250ml", html)
+        self.assertIn("伯爵 BORGES 特级初榨橄榄油 250ml", html)
+        self.assertIn("晟麦 sanmark 特级初榨橄榄油 250ml", html)
+        self.assertIn("约¥0.109-0.128/ml", html)
+        self.assertIn("已实时核验", html)
+        self.assertIn("京东自营", html)
+        self.assertIn("保真橄榄油", html)
+        self.assertIn("对标来源与核验边界", html)
+        self.assertIn("https://search.jd.com", html)
+        self.assertIn("商业市场信号", html)
+        self.assertIn("2026-06-18", html)
+
     def test_real_run_card_is_compact_for_readme_preview(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
         html = render_overview_card_html(report)

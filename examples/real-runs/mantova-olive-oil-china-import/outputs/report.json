@@ -73,15 +73,417 @@
       "privacy_level": "public"
     }
   ],
-  "market_benchmarks": [],
+  "market_benchmarks": [
+    {
+      "benchmark_id": "BM-001",
+      "product_name": "欧丽薇兰 Olivoila 特级初榨橄榄油 250ml",
+      "channel": "京东搜索 / 京东自营",
+      "channel_role": "search_marketplace",
+      "market": "China",
+      "pack_size": "250ml",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "mainstream",
+      "visible_claims": [
+        "特级初榨",
+        "压榨",
+        "原油进口",
+        "100%纯橄榄油",
+        "健康炒菜",
+        "凉拌"
+      ],
+      "packaging_signals": [
+        "250ml小瓶",
+        "红标",
+        "玻璃瓶",
+        "厨房日用规格",
+        "多瓶/整箱规格"
+      ],
+      "certification_signals": [
+        "京东自营",
+        "保真橄榄油",
+        "1000000+评价入口"
+      ],
+      "review_signals": [
+        "高评论量",
+        "大众家庭烹饪",
+        "小瓶试用",
+        "礼赠/团购规格"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-olive-oil-250ml"
+      ],
+      "evidence_ids": [],
+      "takeaway": "欧丽薇兰是中国线上橄榄油的强势大众锚点；Mantova 250ml 若进入中国，需要用中文背标、进口主体和原产地口径与其对齐，但不能只靠意大利风格包装定价。"
+    },
+    {
+      "benchmark_id": "BM-002",
+      "product_name": "伯爵 BORGES 特级初榨橄榄油 250ml",
+      "channel": "京东搜索 / 京东商品聚合",
+      "channel_role": "search_marketplace",
+      "market": "China",
+      "pack_size": "250ml",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "mainstream",
+      "visible_claims": [
+        "特级初榨",
+        "西班牙原瓶进口",
+        "油醋汁基底",
+        "炒菜",
+        "凉拌",
+        "烘焙"
+      ],
+      "packaging_signals": [
+        "250ml单瓶",
+        "125ml/250ml小规格",
+        "西班牙进口标识",
+        "瓶装"
+      ],
+      "certification_signals": [
+        "京东商品聚合",
+        "部分 SKU 标注保真橄榄油"
+      ],
+      "review_signals": [
+        "小瓶低门槛",
+        "进口品牌认知",
+        "多规格覆盖"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand"
+      ],
+      "evidence_ids": [],
+      "takeaway": "BORGES 是 Mantova 的直接进口品牌对标；250ml 小规格更接近 Mantova 当前包装，但需要进一步核价和确认是否有中文标签/进口商展示。"
+    },
+    {
+      "benchmark_id": "BM-003",
+      "product_name": "晟麦 sanmark 特级初榨橄榄油 250ml",
+      "channel": "京东 / 天猫价格线索",
+      "channel_role": "search_marketplace",
+      "market": "China",
+      "pack_size": "250ml",
+      "price": "¥27.36-¥32",
+      "unit_price": "约¥0.109-0.128/ml",
+      "positioning": "mainstream",
+      "visible_claims": [
+        "特级初榨",
+        "西班牙进口",
+        "冷榨",
+        "0反式",
+        "凉拌",
+        "健身",
+        "轻食"
+      ],
+      "packaging_signals": [
+        "250ml小瓶",
+        "玻璃瓶",
+        "轻食/健身场景",
+        "喷雾装延展"
+      ],
+      "certification_signals": [
+        "京东自营相关品牌入口",
+        "10000+评价入口"
+      ],
+      "review_signals": [
+        "轻食",
+        "健身",
+        "冷榨",
+        "小规格试用"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml"
+      ],
+      "evidence_ids": [],
+      "takeaway": "晟麦把 250ml 规格与轻食、健身、0反式绑定，说明 Mantova 若做 250ml 小瓶，不能只讲产地，也要明确使用场景和中文卖点。"
+    },
+    {
+      "benchmark_id": "BM-004",
+      "product_name": "贝蒂斯 BETIS 特级初榨橄榄油 250ml",
+      "channel": "京东搜索 / 京东自营",
+      "channel_role": "search_marketplace",
+      "market": "China",
+      "pack_size": "250ml",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "mainstream",
+      "visible_claims": [
+        "特级初榨",
+        "西班牙原装进口",
+        "冷榨",
+        "健康炒菜",
+        "囤货装"
+      ],
+      "packaging_signals": [
+        "250ml罐装",
+        "250ml*2/3/4/6/12组合",
+        "礼盒/企业福利规格"
+      ],
+      "certification_signals": [
+        "京东自营",
+        "保真橄榄油",
+        "50000+评价入口"
+      ],
+      "review_signals": [
+        "囤货",
+        "礼盒",
+        "企业福利",
+        "多瓶组合"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand"
+      ],
+      "evidence_ids": [],
+      "takeaway": "贝蒂斯显示中国市场对 250ml 小瓶有组合装和礼赠需求；Mantova 可评估 250ml 单瓶试用、双瓶礼盒或整箱经销，而不是只按单瓶进口。"
+    },
+    {
+      "benchmark_id": "BM-005",
+      "product_name": "贝蒂斯 BETIS 特级初榨橄榄油 750ml",
+      "channel": "苏宁 / 百度购物价格线索",
+      "channel_role": "mass_retail",
+      "market": "China",
+      "pack_size": "750ml",
+      "price": "¥188-188.40",
+      "unit_price": "约¥0.251/ml",
+      "positioning": "premium",
+      "visible_claims": [
+        "特级初榨",
+        "西班牙原装进口",
+        "物理冷榨",
+        "送礼"
+      ],
+      "packaging_signals": [
+        "750ml瓶",
+        "套盒包装",
+        "礼赠/团购"
+      ],
+      "certification_signals": [
+        "平台商品页",
+        "百度购物价格线索"
+      ],
+      "review_signals": [
+        "送礼",
+        "高客单",
+        "进口礼盒"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices"
+      ],
+      "evidence_ids": [],
+      "takeaway": "750ml 礼盒价格显著高于 250ml 小瓶价格带，可作为 Mantova 后续礼盒/团购线的高端参照，但不能直接替代 250ml 单瓶定价。"
+    },
+    {
+      "benchmark_id": "BM-006",
+      "product_name": "蓓琳娜 BELLINA 特级初榨橄榄油 500ml / 1L",
+      "channel": "京东搜索 / 京东自营",
+      "channel_role": "mass_retail",
+      "market": "China",
+      "pack_size": "500ml / 1L / 1L*2礼盒",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "mainstream",
+      "visible_claims": [
+        "特级初榨",
+        "欧洲原装进口",
+        "100%",
+        "炒菜",
+        "凉拌",
+        "轻食"
+      ],
+      "packaging_signals": [
+        "500ml入门瓶",
+        "1L家庭装",
+        "1L*2礼盒",
+        "京仓/商仓"
+      ],
+      "certification_signals": [
+        "京东自营",
+        "保真橄榄油",
+        "1000000+评价入口"
+      ],
+      "review_signals": [
+        "家庭装",
+        "轻食",
+        "礼盒",
+        "高评论量"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-bellina"
+      ],
+      "evidence_ids": [],
+      "takeaway": "BELLINA 证明主流进口橄榄油在中国常用 500ml/1L 家庭装承接复购；Mantova 250ml 更适合试用、礼赠或高端小瓶，而非家庭主力装。"
+    },
+    {
+      "benchmark_id": "BM-007",
+      "product_name": "爷爷的农场 特级初榨橄榄油 500ml",
+      "channel": "京东自营 / 进口食用油搜索",
+      "channel_role": "mass_retail",
+      "market": "China",
+      "pack_size": "500ml",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "premium",
+      "visible_claims": [
+        "特级初榨",
+        "西班牙原装进口",
+        "热炒",
+        "宝宝/儿童",
+        "营养添加油"
+      ],
+      "packaging_signals": [
+        "500ml瓶",
+        "母婴/辅食语境",
+        "儿童营养场景"
+      ],
+      "certification_signals": [
+        "京东自营",
+        "保真橄榄油",
+        "1000000+评价入口"
+      ],
+      "review_signals": [
+        "母婴",
+        "儿童",
+        "热炒",
+        "高信任"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil"
+      ],
+      "evidence_ids": [],
+      "takeaway": "母婴/儿童食用油是中国橄榄油的重要细分场景；Mantova 若不做儿童/辅食定位，应避免借用这类高敏感宣称。"
+    },
+    {
+      "benchmark_id": "BM-008",
+      "product_name": "Olis Bargalló 百谷纳 特级初榨橄榄油 750ml / 3L",
+      "channel": "京东自营 / 进口食用油搜索",
+      "channel_role": "mass_retail",
+      "market": "China",
+      "pack_size": "750ml / 3L",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "mainstream",
+      "visible_claims": [
+        "特级初榨",
+        "西班牙原装原瓶进口",
+        "瓶装/3L装"
+      ],
+      "packaging_signals": [
+        "750ml瓶",
+        "3L家庭/囤货装",
+        "西班牙原装原瓶"
+      ],
+      "certification_signals": [
+        "京东自营",
+        "保真橄榄油",
+        "50000+评价入口"
+      ],
+      "review_signals": [
+        "家庭用油",
+        "囤货",
+        "进口信任"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-3l-olive-oil"
+      ],
+      "evidence_ids": [],
+      "takeaway": "百谷纳代表西班牙原装原瓶+大容量家庭用油路线；Mantova 250ml 要避免与大容量单位价直接硬拼。"
+    },
+    {
+      "benchmark_id": "BM-009",
+      "product_name": "1号会员店 特级初榨橄榄油 1L",
+      "channel": "京东自营 / 会员店",
+      "channel_role": "club_store",
+      "market": "China",
+      "pack_size": "1L",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "mainstream",
+      "visible_claims": [
+        "特级初榨",
+        "0反式",
+        "西班牙进口原油",
+        "食用油"
+      ],
+      "packaging_signals": [
+        "1L家庭装",
+        "会员店渠道",
+        "大规格高周转"
+      ],
+      "certification_signals": [
+        "京东自营",
+        "保真橄榄油",
+        "100000+评价入口"
+      ],
+      "review_signals": [
+        "会员店",
+        "家庭复购",
+        "单位价敏感"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-evoo-price"
+      ],
+      "evidence_ids": [],
+      "takeaway": "会员店路线强调高周转和单位价；Mantova 如果做进口分销，需要单独核算是否进入会员店/仓储渠道，而不是只做精品小瓶。"
+    },
+    {
+      "benchmark_id": "BM-010",
+      "product_name": "Member's Mark 特级初榨橄榄油 3L",
+      "channel": "京东 / 会员仓储型商品",
+      "channel_role": "club_store",
+      "market": "China",
+      "pack_size": "3L",
+      "price": "待动态核价",
+      "unit_price": "",
+      "positioning": "mass",
+      "visible_claims": [
+        "特级初榨",
+        "3L",
+        "会员仓储"
+      ],
+      "packaging_signals": [
+        "3L桶装",
+        "大容量",
+        "仓储会员渠道"
+      ],
+      "certification_signals": [
+        "20000+评价入口"
+      ],
+      "review_signals": [
+        "大容量",
+        "家庭囤货",
+        "单位价锚点"
+      ],
+      "data_basis": "current_checked",
+      "source_ids": [
+        "src-agent-jd-evoo-price"
+      ],
+      "evidence_ids": [],
+      "takeaway": "Member's Mark 是大容量价格锚；Mantova 小瓶若要高价，需要用产地、风味、礼赠和进口文件证明差异，不能与 3L 装比单位价。"
+    }
+  ],
   "market_benchmark_summary": {
-    "reference_price_band": "No price basis supplied; verify current target-market prices.",
-    "channel_map": "No channel basis supplied.",
-    "packaging_conventions": "No packaging benchmark signals supplied.",
-    "claims_and_proof": "No competitor claim signals supplied.",
-    "visible_trust_signals": "No visible certification or trust signals supplied.",
-    "review_themes": "No review signals supplied.",
-    "gap_opportunity": "Positioning cannot be assessed until benchmarks are verified.",
+    "reference_price_band": "待动态核价; 待动态核价; 约¥0.109-0.128/ml; 待动态核价; 约¥0.251/ml; 待动态核价; 待动态核价; 待动态核价; 待动态核价; 待动态核价",
+    "channel_map": "京东 / 会员仓储型商品, 京东 / 天猫价格线索, 京东搜索 / 京东商品聚合, 京东搜索 / 京东自营, 京东自营 / 会员店, 京东自营 / 进口食用油搜索, 苏宁 / 百度购物价格线索",
+    "packaging_conventions": "125ml/250ml小规格, 1L*2礼盒, 1L家庭装, 250ml*2/3/4/6/12组合, 250ml单瓶, 250ml小瓶, 250ml罐装, 3L家庭/囤货装, 3L桶装, 500ml入门瓶, 500ml瓶, 750ml瓶, 京仓/商仓, 仓储会员渠道, 会员店渠道, 儿童营养场景, 厨房日用规格, 喷雾装延展, 多瓶/整箱规格, 大容量, 大规格高周转, 套盒包装, 母婴/辅食语境, 玻璃瓶, 瓶装, 礼盒/企业福利规格, 礼赠/团购, 红标, 西班牙原装原瓶, 西班牙进口标识, 轻食/健身场景",
+    "claims_and_proof": "0反式, 100%, 100%纯橄榄油, 3L, 会员仓储, 健康炒菜, 健身, 冷榨, 凉拌, 压榨, 原油进口, 囤货装, 宝宝/儿童, 欧洲原装进口, 油醋汁基底, 炒菜, 烘焙, 热炒, 物理冷榨, 特级初榨, 瓶装/3L装, 营养添加油, 西班牙原瓶进口, 西班牙原装原瓶进口, 西班牙原装进口, 西班牙进口, 西班牙进口原油, 轻食, 送礼, 食用油",
+    "visible_trust_signals": "10000+评价入口, 100000+评价入口, 1000000+评价入口, 20000+评价入口, 50000+评价入口, 京东商品聚合, 京东自营, 京东自营相关品牌入口, 保真橄榄油, 平台商品页, 百度购物价格线索, 部分 SKU 标注保真橄榄油",
+    "review_themes": "企业福利, 会员店, 健身, 儿童, 冷榨, 单位价敏感, 单位价锚点, 囤货, 多瓶组合, 多规格覆盖, 大众家庭烹饪, 大容量, 家庭囤货, 家庭复购, 家庭用油, 家庭装, 小瓶低门槛, 小瓶试用, 小规格试用, 母婴, 热炒, 礼盒, 礼赠/团购规格, 轻食, 进口信任, 进口品牌认知, 进口礼盒, 送礼, 高信任, 高客单, 高评论量",
+    "gap_opportunity": "Position against observed tiers: mainstream, mass, premium.",
     "copy_avoid_improve": "Copy clear local pack-size and channel cues; avoid unverified regulated claims; improve proof for premium pricing.",
     "listing_preparation": "Verify current prices, source URLs, label requirements, brand authorization, and food/category documents before ordering, printing, or listing.",
     "verification_needed": "Competitor rows are offline/user-provided unless marked current_checked; recheck current prices, claims, review counts, and certifications."
@@ -238,7 +640,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "notes": "Offline bundle facts are useful for intake and routing but do not replace current T1/T2 source checks."
     }
@@ -455,7 +872,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "medium"
     },
@@ -473,7 +905,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "medium"
     },
@@ -491,7 +938,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "medium"
     },
@@ -509,7 +971,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "high"
     },
@@ -527,7 +1004,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "medium"
     },
@@ -545,7 +1037,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "high"
     },
@@ -563,7 +1070,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "medium"
     },
@@ -581,7 +1103,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "high"
     },
@@ -599,7 +1136,22 @@
       "source_ids": [
         "src-user-front-label-photo",
         "src-user-side-origin-photo",
-        "src-user-back-label-photo"
+        "src-user-back-label-photo",
+        "src-agent-jd-olive-oil-250ml",
+        "src-agent-jd-olivoila-250ml",
+        "src-agent-jd-borges-250ml",
+        "src-agent-jd-borges-brand",
+        "src-agent-jd-sanmark-250ml",
+        "src-agent-smzdm-sanmark-250ml",
+        "src-agent-jd-betis-250ml",
+        "src-agent-jd-betis-brand",
+        "src-agent-suning-betis-750ml",
+        "src-agent-baidu-betis-prices",
+        "src-agent-jd-bellina",
+        "src-agent-jd-imported-oil",
+        "src-agent-jd-nutrition-oil",
+        "src-agent-jd-3l-olive-oil",
+        "src-agent-jd-evoo-price"
       ],
       "confidence": "medium"
     }
@@ -680,13 +1232,6 @@
       "why_required": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
       "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
       "owner": "applicant / reviewer",
-      "priority": "P1"
-    },
-    {
-      "material": "Target-market benchmark products",
-      "why_required": "Launch readiness needs local price, packaging, channel, and trust-signal references.",
-      "acceptable_replacement": "5-10 current marketplace, retail, DTC, or user-provided benchmark rows with source basis.",
-      "owner": "reviewer / user",
       "priority": "P1"
     },
     {
@@ -1272,6 +1817,126 @@
       "tier": "T4",
       "checked_at": "2026-06-17",
       "confirms": "Visible nutrition, storage, barcode, recycling marks, and best-before text from user-provided photo."
+    },
+    {
+      "source_id": "src-agent-jd-olive-oil-250ml",
+      "title": "Agent search: JD China 250ml extra virgin olive oil search surface",
+      "url": "https://search.jd.com/Search?keyword=%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9250ml",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Commercial marketplace search surface for China 250ml extra virgin olive oil benchmarks; market signal only, not regulatory proof."
+    },
+    {
+      "source_id": "src-agent-jd-olivoila-250ml",
+      "title": "Agent search: Olivoila extra virgin olive oil 250ml China listing signals",
+      "url": "https://search.jd.com/Search?keyword=%E6%AC%A7%E4%B8%BD%E8%96%87%E5%85%B0%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20250ml",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for Olivoila 250ml: mainstream small-bottle benchmark, JD/self-operated trust cues, high review-count entry."
+    },
+    {
+      "source_id": "src-agent-jd-borges-250ml",
+      "title": "Agent search: BORGES extra virgin olive oil 250ml China listing signals",
+      "url": "https://search.jd.com/Search?keyword=BORGES%20%E4%BC%AF%E7%88%B5%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20250ml",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for BORGES 250ml imported olive oil in China."
+    },
+    {
+      "source_id": "src-agent-jd-borges-brand",
+      "title": "Agent search: BORGES China brand and multi-size olive oil signals",
+      "url": "https://search.jd.com/Search?keyword=BORGES%20%E4%BC%AF%E7%88%B5%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for BORGES multi-size imported olive oil in China."
+    },
+    {
+      "source_id": "src-agent-jd-sanmark-250ml",
+      "title": "Agent search: sanmark extra virgin olive oil 250ml China listing signals",
+      "url": "https://search.jd.com/Search?keyword=%E6%99%9F%E9%BA%A6%20sanmark%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20250ml",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for sanmark 250ml extra virgin olive oil."
+    },
+    {
+      "source_id": "src-agent-smzdm-sanmark-250ml",
+      "title": "Agent search: sanmark 250ml price snapshot from public shopping/deal result",
+      "url": "https://search.smzdm.com/?c=faxian&s=%E6%99%9F%E9%BA%A6%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20250ml",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Public shopping/deal search result used as a directional price snapshot; live marketplace price still needs final recheck."
+    },
+    {
+      "source_id": "src-agent-jd-betis-250ml",
+      "title": "Agent search: BETIS extra virgin olive oil 250ml China listing signals",
+      "url": "https://search.jd.com/Search?keyword=%E8%B4%9D%E8%92%82%E6%96%AF%20BETIS%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20250ml",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for BETIS 250ml and multi-pack imported olive oil."
+    },
+    {
+      "source_id": "src-agent-jd-betis-brand",
+      "title": "Agent search: BETIS China imported olive oil brand signals",
+      "url": "https://search.jd.com/Search?keyword=%E8%B4%9D%E8%92%82%E6%96%AF%20BETIS%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for BETIS imported olive oil in China."
+    },
+    {
+      "source_id": "src-agent-suning-betis-750ml",
+      "title": "Agent search: BETIS 750ml commercial price signal",
+      "url": "https://search.suning.com/%E8%B4%9D%E8%92%82%E6%96%AF%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20750ml/",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Commercial retail search result used as a directional BETIS 750ml price and gift-pack signal."
+    },
+    {
+      "source_id": "src-agent-baidu-betis-prices",
+      "title": "Agent search: BETIS public shopping price snippets",
+      "url": "https://www.baidu.com/s?wd=%E8%B4%9D%E8%92%82%E6%96%AF%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20750ml%20188",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Public shopping snippets used only as directional price evidence; final retail price must be rechecked on the seller page."
+    },
+    {
+      "source_id": "src-agent-jd-bellina",
+      "title": "Agent search: BELLINA extra virgin olive oil China listing signals",
+      "url": "https://search.jd.com/Search?keyword=%E8%93%93%E7%90%B3%E5%A8%9C%20BELLINA%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for BELLINA imported olive oil in China."
+    },
+    {
+      "source_id": "src-agent-jd-imported-oil",
+      "title": "Agent search: JD imported extra virgin olive oil category signals",
+      "url": "https://search.jd.com/Search?keyword=%E8%BF%9B%E5%8F%A3%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%20%E6%A9%84%E6%A6%84%E6%B2%B9",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial category search surface covering imported extra virgin olive oil brands, pack sizes, and trust cues."
+    },
+    {
+      "source_id": "src-agent-jd-nutrition-oil",
+      "title": "Agent search: nutrition and children's olive oil positioning signals",
+      "url": "https://search.jd.com/Search?keyword=%E7%88%B7%E7%88%B7%E7%9A%84%E5%86%9C%E5%9C%BA%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for children's/nutrition-oriented imported olive oil positioning."
+    },
+    {
+      "source_id": "src-agent-jd-3l-olive-oil",
+      "title": "Agent search: large-pack imported olive oil signals",
+      "url": "https://search.jd.com/Search?keyword=Olis%20Bargallo%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%203L",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for large-pack imported olive oil price and pack-size anchors."
+    },
+    {
+      "source_id": "src-agent-jd-evoo-price",
+      "title": "Agent search: JD extra virgin olive oil price and club-store anchors",
+      "url": "https://search.jd.com/Search?keyword=%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%201L%203L%20%E4%BC%9A%E5%91%98%E5%BA%97",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "Agent-found commercial listing/search signals for 1L/3L club-store and large-pack extra virgin olive oil anchors."
     }
   ],
   "remediation": {
@@ -1463,7 +2128,7 @@
       "timestamp": "2026-06-18",
       "actor": "AI reviewer",
       "action": "generated_offline_launch_report",
-      "details": "Origin=Italy, destinations=1, documents=3, benchmarks=0, logistics_routes=0."
+      "details": "Origin=Italy, destinations=1, documents=3, benchmarks=10, logistics_routes=0."
     }
   ],
   "disclaimer": "Operational qualification review only; not legal advice.",

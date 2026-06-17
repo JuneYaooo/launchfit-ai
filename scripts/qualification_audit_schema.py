@@ -2104,7 +2104,8 @@ def _zh_data_basis(value: Any) -> str:
         "assumption": "假设/待核验",
         "not_checked": "未核验",
     }
-    return labels.get(_plain_label(value), _plain_label(value) or "未核验")
+    key = _plain_label(value).replace(" ", "_")
+    return labels.get(key, _plain_label(value) or "未核验")
 
 
 def _zh_positioning(value: Any) -> str:
@@ -2171,6 +2172,33 @@ def _benchmark_analysis_matrix_rows(report: dict[str, Any]) -> str:
             f"<td>{_html(_short_text(_joined_text(item.get('certification_signals')), 72) or '待补')}</td>"
             f"<td>{_html(_short_text(_joined_text(item.get('review_signals')), 72) or '待补')}</td>"
             f"<td>{_html(_short_text(_zh_case_text(item.get('takeaway')), 100))}</td>"
+            "</tr>"
+        )
+    return "".join(rows)
+
+
+def _benchmark_source_rows(report: dict[str, Any]) -> str:
+    benchmark_source_ids = {
+        _text(source_id)
+        for item in (report.get("market_benchmarks") or [])
+        if isinstance(item, dict)
+        for source_id in _as_list(item.get("source_ids"))
+        if _text(source_id)
+    }
+    rows: list[str] = []
+    for source in report.get("sources") or []:
+        if not isinstance(source, dict):
+            continue
+        source_id = _text(source.get("source_id"))
+        if source_id not in benchmark_source_ids and not source_id.startswith("src-agent-"):
+            continue
+        rows.append(
+            "<tr>"
+            f"<td>{_html(_short_text(_zh_source_title(source.get('title')), 70))}</td>"
+            f"<td>{_html(_short_text(source.get('url'), 96))}</td>"
+            f"<td>{_html(source.get('tier'))}</td>"
+            f"<td>{_html(source.get('checked_at'))}</td>"
+            f"<td>{_html(_short_text(_zh_case_text(source.get('confirms')), 110))}<br><span class='muted'>商业市场信号；不能替代官方、进口、标签或平台最终核验。</span></td>"
             "</tr>"
         )
     return "".join(rows)
@@ -2325,12 +2353,13 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
         if isinstance(item, dict)
     )
     benchmark_rows = "".join(
-        f"<tr><td>{_html(item.get('product_name'))}</td><td>{_html(item.get('channel'))}</td><td>{_html(item.get('price') or item.get('unit_price'))}</td><td>{_html(_short_text(_joined_text(item.get('visible_claims')), 74))}</td><td>{_html(item.get('data_basis') or 'user_provided')}</td></tr>"
+        f"<tr><td>{_html(item.get('product_name'))}</td><td>{_html(item.get('channel'))}</td><td>{_html(item.get('price') or item.get('unit_price'))}</td><td>{_html(_short_text(_joined_text(item.get('visible_claims')), 74))}</td><td>{_html(_zh_data_basis(item.get('data_basis')))}</td></tr>"
         for item in (report.get("market_benchmarks") or [])[:10]
         if isinstance(item, dict)
     )
     benchmark_matrix_rows = _benchmark_analysis_matrix_rows(report)
     benchmark_plan_rows = _benchmark_research_plan_rows(route, destinations, case)
+    benchmark_source_rows = _benchmark_source_rows(report)
     logistics_rows = "".join(
         f"<tr><td>{_html(item.get('route'))}</td><td>{_html(item.get('mode'))}</td><td>{_html(item.get('time') or '待报价')}</td><td>{_html(_short_text(item.get('cost_basis') or '待报价', 60))}</td><td>{_html(_short_text(_joined_text(item.get('risks') or item.get('constraints')), 74))}</td></tr>"
         for item in (report.get("offline_logistics") or [])[:8]
@@ -2463,6 +2492,9 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
 
   <h2>对标分析矩阵</h2>
   <table><tr><th>样本</th><th>渠道</th><th>价格/规格/单位价</th><th>包装/标签信号</th><th>宣称/卖点</th><th>信任/认证信号</th><th>评论/口碑信号</th><th>启发</th></tr>{_table_or_empty(benchmark_matrix_rows, 8, '暂无可分析竞品样本；请按上方“对标调研设计”补齐当前样本')}</table>
+
+  <h2>对标来源与核验边界</h2>
+  <table><tr><th>来源</th><th>URL</th><th>层级</th><th>检查日期</th><th>可用边界</th></tr>{_table_or_empty(benchmark_source_rows, 5, '暂无 agent 主动检索的对标来源')}</table>
 
   <h2>对标摘要</h2>
   <table><tr><th>价格带</th><th>渠道图谱</th><th>包装惯例</th><th>宣称/证据</th><th>信任/认证</th><th>评论主题</th><th>Copy / Avoid / Improve</th><th>仍需核验</th></tr><tr><td>{_html(_zh_case_text(benchmark_summary.get('reference_price_band')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('channel_map')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('packaging_conventions')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('claims_and_proof')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('visible_trust_signals')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('review_themes')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('copy_avoid_improve')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('verification_needed')))}</td></tr></table>

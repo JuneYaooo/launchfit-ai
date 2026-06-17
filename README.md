@@ -82,7 +82,7 @@
 - 商品：Fratelli Mantova Equilibrato Extra Virgin Olive Oil 250ml
 - 目标：从意大利进口到中国
 - 销售路径：`physical_trade`
-- 输入依据：3 张商品实拍图，属于 T4；没有伪装成官方核验或自动 OCR 结果
+- 输入依据：3 张商品实拍图，属于 T4；同时由 agent 主动检索公开商业渠道，补入 10 条中国市场橄榄油对标样本。对标只作为市场信号，不伪装成监管、进口或标签核验结果。
 - 产物：[输入 bundle](./examples/real-runs/mantova-olive-oil-china-import/input-bundle.json)、[结构化报告 JSON](./examples/real-runs/mantova-olive-oil-china-import/outputs/report.json)、[详细 PDF](./examples/real-runs/mantova-olive-oil-china-import/outputs/detailed-report.pdf)
 
 核心速览卡片：

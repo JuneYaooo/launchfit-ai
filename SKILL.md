@@ -23,6 +23,8 @@ The useful outcome is not generic advice. The useful outcome is a next-action pa
 4. **Market evidence plan:** where to get current information and benchmark signals for each destination.
 5. **Actions:** who must provide which material, which source to check, and what evidence field to capture.
 
+Target-market benchmarking is an agent responsibility. The agent 主动检索 marketplace, retail, DTC, social, distributor, and public shopping surfaces before asking for user screenshots. 用户提供的搜索渠道只能作为补充 evidence or a preferred route to check; do not treat it as a prerequisite, and 不能把找对标的责任推给用户.
+
 If the user has not provided origin country and destination markets, ask for exactly those two missing inputs first. If they gave only one destination, continue with one. If they gave multiple destinations, split the work by destination.
 
 If the sales path is unclear, ask whether the user is doing cross-border ecommerce, physical export/import trade, or both. If the user cannot answer yet, set `go_to_market_model` to `unknown` and make route confirmation a P0 task.
@@ -35,9 +37,10 @@ Follow this loop for every real case:
 2. **Classify route** before benchmarking: ecommerce checks platform/category/listing/fulfillment first; physical trade checks export/import/customs/responsible party/distributor channel first; hybrid runs both tracks separately.
 3. **Run admission-risk screen before market benchmarking:** identify prohibited/restricted product, mandatory documents, registration, label, claim, authorization, logistics, or route blockers.
 4. **Route each destination** through rule packs and source candidates. Never merge `US, EU` into one market.
-5. **Generate research tasks** before conclusions: platform policy when relevant, destination regulator, customs/import, brand/IP, business registry, certification/lab, standards, logistics/warehouse, origin/export, offline/retail/distributor channels when relevant, and user search channels.
-6. **Separate facts by source tier:** T1/T2 can support decisions; T4 user material can only show what was submitted unless externally verified.
-7. **Give the seller next actions first:** launch view, go-to-market path, blockers, research tasks, missing materials, then deeper evidence tables.
+5. **Generate research tasks** before conclusions: platform policy when relevant, destination regulator, customs/import, brand/IP, business registry, certification/lab, standards, logistics/warehouse, origin/export, offline/retail/distributor channels when relevant, agent-found benchmark channels, and user search channels.
+6. **Actively gather benchmark rows:** for each destination, look for direct competitors, imported substitutes, local substitutes, platform best sellers, offline shelf references, DTC/social examples, and large-pack/unit-price anchors. Record product, channel, pack size, price/unit price if visible, positioning, packaging signals, claims, trust signals, review themes, source URL, checked date, and data basis.
+7. **Separate facts by source tier:** T1/T2 can support decisions; T4 user material and commercial listing/search signals can only support market evidence unless externally verified.
+8. **Give the seller next actions first:** launch view, go-to-market path, blockers, research tasks, missing materials, then deeper evidence tables.
 
 ## Final Deliverables
 
