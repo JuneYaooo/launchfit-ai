@@ -21,7 +21,7 @@ LaunchFit AI turns "Can my product go overseas?" into a practical AI checkup rep
 
 ## What Runs Locally Today
 
-This repo now includes a dependency-free lightweight Skill execution layer. Start with a benchmark worksheet, then put product scope, extracted document fields, packaging copy, benchmark rows, and logistics rows into a case bundle to generate both a structured JSON checkup report and a Markdown memo.
+This repo now includes a dependency-free lightweight Skill execution layer. Start with a benchmark worksheet, then put product scope, origin country, one or more destination markets, extracted document fields, packaging copy, benchmark rows, and logistics rows into a case bundle to generate both a structured JSON checkup report and a Markdown memo.
 
 ```bash
 python3 scripts/qualification_audit_schema.py benchmark-validate examples/benchmark-worksheet.json
@@ -40,11 +40,11 @@ python3 scripts/qualification_audit_schema.py launch-report-markdown \
   > /tmp/launchfit-offline-report.md
 ```
 
-The offline MVP covers the core report surfaces promised below: target-market benchmarks, prices and unit prices, packaging and claim risk, logistics route risk, platform admission gaps, expired or mismatched materials, remediation wording, and audit records.
+The local execution layer covers the core report surfaces promised below: target-market benchmarks, prices and unit prices, packaging and claim risk, logistics route risk, platform admission gaps, expired or mismatched materials, remediation wording, and audit records. More importantly, it splits the review by origin country and destination markets, then generates the best information channels and verification tasks for each market: platform policy, regulator, customs/import, brand/IP, company registry, certification/lab, standards, logistics/warehouse, and origin/export controls.
 
 Benchmarking is the core workflow: worksheets cover direct competitors, substitutes, adjacent references, category leaders, local niche brands, platform best sellers, offline retail shelf products, and DTC/social commerce products. The summary turns those rows into price bands, channel maps, packaging conventions, claims/proof, review signals, and copy / avoid / improve actions.
 
-The boundary is explicit: this repository does not require OCR, live competitor scraping, certificate/trademark/company registry lookups, freight quote APIs, or a review UI. Those capabilities are enhancement inputs. User-provided screenshots, certificates, and quotes are labeled T4 / `user_provided`; anything that needs official or current-source confirmation remains `needs_external_verification`.
+The boundary is explicit: this repository does not require OCR, live competitor scraping, certificate/trademark/company registry lookups, freight quote APIs, or a review UI. Those capabilities, plus user-provided search channels, platform links, supplier channels, and industry databases, should feed the same `user_search_channels`, `source_candidates`, `research_tasks`, and `external_checks` structures. User-provided screenshots, certificates, and quotes are labeled T4 / `user_provided`; anything that needs official or current-source confirmation remains `needs_external_verification`.
 
 ## Core Problems It Solves
 

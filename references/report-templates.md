@@ -121,9 +121,11 @@ Operational launch-readiness review only; not legal advice. Verify current platf
     "case_id": "",
     "applicant_name": "",
     "applicant_role": "",
+    "origin_country": "",
     "platform": "",
     "marketplace_site": "",
     "destination_market": "",
+    "destination_markets": [],
     "business_model": "",
     "product_category": "",
     "subcategory": "",
@@ -187,6 +189,53 @@ Operational launch-readiness review only; not legal advice. Verify current platf
     "listing_preparation": "",
     "verification_needed": ""
   },
+  "market_reviews": [
+    {
+      "destination_market": "",
+      "origin_country": "",
+      "matched_packs": [],
+      "decision": {},
+      "requirements": [],
+      "findings": [],
+      "missing_materials": [],
+      "source_candidates": [],
+      "research_tasks": []
+    }
+  ],
+  "source_candidates": [
+    {
+      "source_candidate_id": "",
+      "origin_country": "",
+      "destination_market": "",
+      "channel_type": "platform_policy|destination_regulator|customs_import|brand_ip|business_registry|certification_lab|standards_body|logistics_warehouse|origin_export_controls",
+      "title": "",
+      "why": "",
+      "source_tier": "T1|T2|T3|T4|T5",
+      "access_method": "",
+      "suggested_queries": [],
+      "candidate_urls": [],
+      "expected_facts": [],
+      "freshness_days": 0
+    }
+  ],
+  "research_tasks": [
+    {
+      "research_task_id": "",
+      "task_key": "",
+      "priority": "P0|P1|P2",
+      "channel_type": "",
+      "source_candidate_ids": [],
+      "origin_country": "",
+      "destination_market": "",
+      "platform": "",
+      "category": "",
+      "instruction": "",
+      "recommended_tier": "T1|T2|T3|T4|T5",
+      "freshness_days": 0,
+      "evidence_fields": [],
+      "status": "needs_external_verification|completed|not_applicable"
+    }
+  ],
   "requirements": [
     {
       "requirement_id": "",

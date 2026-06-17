@@ -44,6 +44,7 @@ from launchfit.benchmarking import (
     validate_benchmark_worksheet,
 )
 from launchfit.bundles import bundle_template as offline_bundle_template
+from launchfit.bundles import normalize_destination_markets
 from launchfit.bundles import validate_case_bundle
 from launchfit.coverage import coverage_report
 
@@ -107,8 +108,10 @@ AUTHORITATIVE_TIERS = {"T1", "T2"}
 
 REQUIRED_CASE_FIELDS = (
     "applicant_name",
+    "origin_country",
     "platform",
     "destination_market",
+    "destination_markets",
     "product_category",
     "review_purpose",
 )
@@ -201,9 +204,11 @@ def sample() -> dict[str, Any]:
             "case_id": "case-demo-001",
             "applicant_name": "Example Trading Co., Ltd.",
             "applicant_role": "distributor",
+            "origin_country": "China",
             "platform": "Amazon",
             "marketplace_site": "US",
             "destination_market": "United States",
+            "destination_markets": ["United States"],
             "business_model": "marketplace seller",
             "product_category": "food",
             "subcategory": "sauce",
@@ -614,6 +619,301 @@ def _confidence(value: Any, default: str = "medium") -> str:
 
 def _risk_source_ids(sources: list[dict[str, Any]]) -> list[str]:
     return [str(source["source_id"]) for source in sources if source.get("source_id")]
+
+
+def source_candidates_for_market(
+    platform: str,
+    origin_country: str,
+    destination_market: str,
+    category: str,
+    user_search_channels: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    pack_sources: list[dict[str, Any]] = []
+    for pack in matching_rulepacks(platform, destination_market, category):
+        pack_sources.extend(source for source in pack.get("sources", []) if isinstance(source, dict))
+
+    def source_urls(*needles: str) -> list[str]:
+        urls: list[str] = []
+        lowered = [needle.lower() for needle in needles]
+        for source in pack_sources:
+            blob = " ".join(
+                [
+                    _text(source.get("source_id")),
+                    _text(source.get("title")),
+                    _text(source.get("confirms")),
+                ]
+            ).lower()
+            if any(needle in blob for needle in lowered) and _text(source.get("url")):
+                url = _text(source.get("url"))
+                if url not in urls:
+                    urls.append(url)
+        return urls[:4]
+
+    base = [
+        {
+            "channel_type": "platform_policy",
+            "title": f"{platform or 'Marketplace'} official seller and category policy",
+            "why": "Marketplace rules decide seller eligibility, restricted products, category gating, listing copy, and document submission.",
+            "source_tier": "T1",
+            "access_method": "official policy page, seller center, or authenticated seller workflow",
+            "suggested_queries": [
+                f"{platform} {destination_market} {category} seller requirements official",
+                f"{platform} restricted products {category} official policy",
+            ],
+            "candidate_urls": source_urls("amazon", "tiktok", "temu", "shopee", "lazada", "aliexpress", "tmall"),
+            "expected_facts": ["seller route", "category approval", "restricted products", "document requirements"],
+            "freshness_days": 90,
+        },
+        {
+            "channel_type": "destination_regulator",
+            "title": f"{destination_market} product regulator for {category}",
+            "why": "Destination regulators define admissibility, product safety, labeling, claims, notification, registration, and responsible entity duties.",
+            "source_tier": "T1",
+            "access_method": "official regulator site or registry",
+            "suggested_queries": [
+                f"{destination_market} {category} import registration labeling official regulator",
+                f"{destination_market} {category} product safety claims official",
+            ],
+            "candidate_urls": source_urls("fda", "cpsc", "fcc", "commission", "hsa", "npra", "mhlw", "meti", "nmpa", "samr"),
+            "expected_facts": ["classification", "required registrations", "label rules", "claims limits"],
+            "freshness_days": 180,
+        },
+        {
+            "channel_type": "customs_import",
+            "title": f"{destination_market} customs and import route",
+            "why": "Customs sources clarify importer of record, entry documents, admissibility, taxes, and import controls.",
+            "source_tier": "T1",
+            "access_method": "customs authority or government trade portal",
+            "suggested_queries": [
+                f"{destination_market} customs import {category} official",
+                f"{destination_market} importer of record {category} official",
+            ],
+            "candidate_urls": source_urls("customs", "cbp", "gacc", "import"),
+            "expected_facts": ["importer obligations", "customs documents", "admissibility", "tax/VAT route"],
+            "freshness_days": 180,
+        },
+        {
+            "channel_type": "brand_ip",
+            "title": f"{destination_market} trademark and brand authorization route",
+            "why": "Brand rights must cover territory, class, product scope, grantee, platform/channel, and validity period.",
+            "source_tier": "T1",
+            "access_method": "official trademark registry plus authorization chain review",
+            "suggested_queries": [
+                f"{destination_market} trademark search official",
+                f"{platform} brand authorization {destination_market} official",
+            ],
+            "candidate_urls": source_urls("trademark", "wipo", "uspto", "euipo", "brand"),
+            "expected_facts": ["owner", "class", "territory", "status", "expiry", "authorization scope"],
+            "freshness_days": 365,
+        },
+        {
+            "channel_type": "business_registry",
+            "title": "Applicant, manufacturer, importer, and responsible-party registry checks",
+            "why": "Entity names and roles must match documents, platform account, importer, rights holder, and certification holder.",
+            "source_tier": "T1",
+            "access_method": "official company registry, tax registry, or recognized LEI/company lookup",
+            "suggested_queries": [
+                f"{origin_country} company registry official",
+                f"{destination_market} company registry importer official",
+            ],
+            "candidate_urls": source_urls("registry", "gleif", "company", "business"),
+            "expected_facts": ["legal name", "status", "registered address", "business scope", "role relationship"],
+            "freshness_days": 365,
+        },
+        {
+            "channel_type": "certification_lab",
+            "title": f"Certificate, issuer, lab, and accreditation checks for {category}",
+            "why": "Certificates and reports need issuer validity, lab accreditation, product/model scope, site scope, standard, and expiry checks.",
+            "source_tier": "T2",
+            "access_method": "issuer lookup, accreditation body, certification body registry, or lab scope search",
+            "suggested_queries": [
+                f"{category} certificate verify issuer accreditation",
+                f"{origin_country} lab accreditation scope {category}",
+            ],
+            "candidate_urls": source_urls("accreditation", "certificate", "lab", "standard", "iso", "haccp", "halal", "organic"),
+            "expected_facts": ["issuer status", "accreditation scope", "standard", "product match", "expiry"],
+            "freshness_days": 365,
+        },
+        {
+            "channel_type": "standards_body",
+            "title": f"Applicable standards and conformity route for {category}",
+            "why": "Standards identify the correct test basis and conformity documents for regulated product families.",
+            "source_tier": "T2",
+            "access_method": "official standards body or regulator-referenced standards page",
+            "suggested_queries": [
+                f"{destination_market} {category} standard conformity official",
+                f"{destination_market} {category} labeling standard official",
+            ],
+            "candidate_urls": source_urls("standard", "ce", "fcc", "ukca", "safety"),
+            "expected_facts": ["applicable standard", "test basis", "technical file route", "label mark rules"],
+            "freshness_days": 365,
+        },
+        {
+            "channel_type": "logistics_warehouse",
+            "title": f"{origin_country} to {destination_market} logistics, warehouse, and platform prep route",
+            "why": "Freight, dangerous goods, warehouse acceptance, packaging tests, shelf-life, and local delivery affect launch viability.",
+            "source_tier": "T3",
+            "access_method": "forwarder quote, 3PL/warehouse rules, carrier dangerous-goods rules, platform fulfillment policy",
+            "suggested_queries": [
+                f"{platform} fulfillment prep {category} {destination_market} official",
+                f"{origin_country} to {destination_market} freight {category} dangerous goods requirements",
+            ],
+            "candidate_urls": source_urls("fulfillment", "fba", "warehouse", "dangerous", "logistics"),
+            "expected_facts": ["route constraints", "cost basis", "prep rules", "warehouse acceptance", "transit risk"],
+            "freshness_days": 30,
+        },
+        {
+            "channel_type": "origin_export_controls",
+            "title": f"{origin_country} export, origin, and COO route",
+            "why": "Origin-side checks clarify export controls, certificate of origin, manufacturer/exporter documents, and origin labeling consistency.",
+            "source_tier": "T1",
+            "access_method": "origin customs/export authority, trade portal, chamber of commerce, or exporter registry",
+            "suggested_queries": [
+                f"{origin_country} export {category} certificate of origin official",
+                f"{origin_country} export controls {category} official",
+            ],
+            "candidate_urls": source_urls("export", "origin", "customs", "certificate of origin"),
+            "expected_facts": ["export permissions", "COO route", "manufacturer/exporter identity", "origin label consistency"],
+            "freshness_days": 180,
+        },
+    ]
+    candidates: list[dict[str, Any]] = []
+    for idx, item in enumerate(base, start=1):
+        candidates.append(
+            {
+                "source_candidate_id": f"SC-{destination_market.upper().replace(' ', '-')}-{idx:03d}",
+                "origin_country": origin_country,
+                "destination_market": destination_market,
+                **item,
+            }
+        )
+    for idx, raw in enumerate(user_search_channels or [], start=1):
+        if not isinstance(raw, dict):
+            continue
+        applies_to = [_text(item).lower() for item in _as_list(raw.get("applies_to_markets")) if _text(item)]
+        if applies_to and destination_market.lower() not in applies_to:
+            continue
+        channel_id = _text(raw.get("channel_id")) or f"USER-SC-{destination_market.upper().replace(' ', '-')}-{idx:03d}"
+        candidates.append(
+            {
+                "source_candidate_id": channel_id,
+                "origin_country": origin_country,
+                "destination_market": destination_market,
+                "channel_type": _text(raw.get("channel_type")) or "user_search_channel",
+                "title": _text(raw.get("title")) or f"User-provided search channel {idx}",
+                "why": _text(raw.get("why")) or "User-provided channel can add current market, platform, competitor, supplier, logistics, or registry signals.",
+                "source_tier": _text(raw.get("source_tier")) or "T4",
+                "access_method": _text(raw.get("access_method")) or "user-provided search channel",
+                "suggested_queries": [_text(item) for item in _as_list(raw.get("suggested_queries")) if _text(item)],
+                "candidate_urls": [_text(raw.get("url"))] if _text(raw.get("url")) else [_text(item) for item in _as_list(raw.get("candidate_urls")) if _text(item)],
+                "expected_facts": [_text(item) for item in _as_list(raw.get("expected_facts")) if _text(item)] or ["current market signal", "source URL", "checked date"],
+                "freshness_days": raw.get("freshness_days") if isinstance(raw.get("freshness_days"), int) else 30,
+            }
+        )
+    return candidates
+
+
+def research_tasks_for_market(
+    platform: str,
+    origin_country: str,
+    destination_market: str,
+    category: str,
+    source_candidates: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    task_specs = [
+        ("verify-platform-category-policy", "platform_policy", "Verify platform seller route, restricted product status, category approval, listing-copy limits, and required documents.", "P0"),
+        ("verify-destination-regulator-route", "destination_regulator", "Verify product classification, regulator, registration/notification, label language, warnings, and claim limits.", "P0"),
+        ("verify-destination-import-route", "customs_import", "Verify importer of record, customs documents, admissibility, tax/VAT route, and import controls.", "P0"),
+        ("verify-brand-ip-territory", "brand_ip", "Verify trademark owner, class, territory, status, expiry, and authorization coverage for platform/channel/product.", "P0"),
+        ("verify-entity-chain", "business_registry", "Verify applicant, manufacturer, importer, responsible party, rights holder, and certificate holder identity chain.", "P1"),
+        ("verify-certificate-issuer-scope", "certification_lab", "Verify issuer/lab/accreditation status, standard, model/SKU/product scope, site scope, and expiry.", "P0"),
+        ("verify-standards-route", "standards_body", "Verify applicable standards, conformity route, technical-file basis, and allowed marks.", "P1"),
+        ("verify-logistics-route", "logistics_warehouse", "Verify freight constraints, dangerous goods, warehouse acceptance, platform prep, cost basis, and route timing.", "P1"),
+        ("verify-origin-export-route", "origin_export_controls", "Verify export permissions, certificate of origin, manufacturer/exporter documents, and origin label consistency.", "P0"),
+    ]
+    candidate_by_type = {candidate["channel_type"]: candidate for candidate in source_candidates}
+    tasks: list[dict[str, Any]] = []
+    for idx, (task_key, channel_type, instruction, priority) in enumerate(task_specs, start=1):
+        candidate = candidate_by_type.get(channel_type, {})
+        tasks.append(
+            {
+                "research_task_id": f"RT-{destination_market.upper().replace(' ', '-')}-{idx:03d}",
+                "task_key": task_key,
+                "priority": priority,
+                "channel_type": channel_type,
+                "source_candidate_ids": [candidate["source_candidate_id"]] if candidate else [],
+                "origin_country": origin_country,
+                "destination_market": destination_market,
+                "platform": platform,
+                "category": category,
+                "instruction": instruction,
+                "recommended_tier": candidate.get("source_tier", "T1"),
+                "freshness_days": candidate.get("freshness_days", 180),
+                "evidence_fields": candidate.get("expected_facts", []),
+                "status": "needs_external_verification",
+            }
+        )
+    standard_types = {channel_type for _, channel_type, _, _ in task_specs}
+    for candidate in source_candidates:
+        if candidate.get("channel_type") in standard_types:
+            continue
+        tasks.append(
+            {
+                "research_task_id": f"RT-{destination_market.upper().replace(' ', '-')}-{len(tasks) + 1:03d}",
+                "task_key": "verify-user-search-channel",
+                "priority": "P1",
+                "channel_type": candidate.get("channel_type", "user_search_channel"),
+                "source_candidate_ids": [candidate.get("source_candidate_id")],
+                "origin_country": origin_country,
+                "destination_market": destination_market,
+                "platform": platform,
+                "category": category,
+                "instruction": f"Use user-provided channel '{candidate.get('title')}' to collect current signals, then record URL, checked date, extracted facts, confidence, and whether the source directly confirms the claim.",
+                "recommended_tier": candidate.get("source_tier", "T4"),
+                "freshness_days": candidate.get("freshness_days", 30),
+                "evidence_fields": candidate.get("expected_facts", []),
+                "status": "needs_external_verification",
+            }
+        )
+    return tasks
+
+
+def build_market_review(
+    platform: str,
+    origin_country: str,
+    destination_market: str,
+    category: str,
+    case: dict[str, Any],
+    user_search_channels: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    skeleton = review_skeleton(
+        platform=platform,
+        market=destination_market,
+        category=category,
+        applicant_name=_text(case.get("applicant_name")),
+        applicant_role=_text(case.get("applicant_role")),
+        business_model=_text(case.get("business_model")),
+        brand_name=_text(case.get("brand_name")),
+        purpose=_text(case.get("review_purpose")) or "launch readiness and qualification intake",
+        case_id=f"{_text(case.get('case_id')) or 'case'}-{destination_market.lower().replace(' ', '-')}",
+        marketplace_site=destination_market,
+    )
+    candidates = source_candidates_for_market(platform, origin_country, destination_market, category, user_search_channels)
+    tasks = research_tasks_for_market(platform, origin_country, destination_market, category, candidates)
+    return {
+        "destination_market": destination_market,
+        "origin_country": origin_country,
+        "matched_packs": [
+            str(pack.get("pack_id"))
+            for pack in matching_rulepacks(platform, destination_market, category)
+        ],
+        "decision": skeleton.get("decision", {}),
+        "requirements": skeleton.get("requirements", []),
+        "findings": skeleton.get("findings", []),
+        "missing_materials": skeleton.get("missing_materials", []),
+        "source_candidates": candidates,
+        "research_tasks": tasks,
+    }
 
 
 def normalize_bundle_source(raw: dict[str, Any], idx: int) -> dict[str, Any]:
@@ -1122,7 +1422,9 @@ def choose_launch_decision(
 def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     case = bundle.get("case") if isinstance(bundle.get("case"), dict) else {}
     platform = _text(case.get("platform"))
-    market = _text(case.get("destination_market"))
+    origin_country = _text(case.get("origin_country"))
+    destination_markets = normalize_destination_markets(case, allow_legacy=True)
+    market = destination_markets[0] if destination_markets else _text(case.get("destination_market"))
     category = _text(case.get("product_category"))
     report = review_skeleton(
         platform=platform,
@@ -1141,9 +1443,11 @@ def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
             "case_id": _text(case.get("case_id")) or report["case"]["case_id"],
             "applicant_name": _text(case.get("applicant_name")),
             "applicant_role": _text(case.get("applicant_role")),
+            "origin_country": origin_country,
             "platform": platform,
             "marketplace_site": _text(case.get("marketplace_site")) or market,
             "destination_market": market,
+            "destination_markets": destination_markets or ([market] if market else []),
             "business_model": _text(case.get("business_model")),
             "product_category": category,
             "subcategory": _text(case.get("subcategory")),
@@ -1183,13 +1487,35 @@ def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     external_requirement = {
         "requirement_id": "offline-current-source-verification",
         "surface": "platform_listing",
-        "requirement": "Current platform, regulator, registry, competitor price, and logistics facts must be externally verified before final launch action.",
+        "requirement": "Current platform, regulator, registry, competitor price, logistics, origin/export, and destination/import facts must be externally verified before final launch action.",
         "status": "needs_external_verification",
         "matched_evidence_ids": [],
         "source_ids": offline_source_ids,
         "notes": "Offline bundle facts are useful for intake and routing but do not replace current T1/T2 source checks.",
     }
     report["requirements"].append(external_requirement)
+    market_reviews = [
+        build_market_review(
+            platform,
+            origin_country,
+            destination,
+            category,
+            report["case"],
+            [item for item in bundle.get("user_search_channels") or [] if isinstance(item, dict)],
+        )
+        for destination in (destination_markets or ([market] if market else []))
+    ]
+    report["market_reviews"] = market_reviews
+    report["source_candidates"] = [
+        candidate
+        for market_review in market_reviews
+        for candidate in market_review.get("source_candidates", [])
+    ]
+    report["research_tasks"] = [
+        task
+        for market_review in market_reviews
+        for task in market_review.get("research_tasks", [])
+    ]
 
     existing_count = len(report["findings"])
     for idx, finding in enumerate(document_findings + packaging_findings + logistics_findings, start=existing_count + 1):
@@ -1206,6 +1532,7 @@ def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
         "applicant_message": build_supplement_message(report["missing_materials"]),
         "internal_next_steps": [
             "Verify current official platform and regulator sources before final decision.",
+            "Complete origin/export and destination/import research tasks for every destination market.",
             "Match submitted documents to holder, brand, product, territory, platform, scope, and validity.",
             "Recheck competitor prices and logistics quotations from current sources.",
             "Revise packaging/listing claims before printing or marketplace submission.",
@@ -1216,7 +1543,7 @@ def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
             "timestamp": today(),
             "actor": "AI reviewer",
             "action": "generated_offline_launch_report",
-            "details": f"Documents={len(documents)}, benchmarks={len(benchmark_rows)}, logistics_routes={len(logistics_rows)}.",
+            "details": f"Origin={origin_country or 'missing'}, destinations={len(market_reviews)}, documents={len(documents)}, benchmarks={len(benchmark_rows)}, logistics_routes={len(logistics_rows)}.",
         }
     )
     report["offline_logistics"] = logistics_rows
@@ -1242,10 +1569,11 @@ def render_launch_markdown(report: dict[str, Any]) -> str:
         "",
         "## Snapshot",
         f"- Product: {_md_cell(case.get('subcategory') or case.get('product_category'))}",
-        f"- Target market/platform: {_md_cell(case.get('destination_market'))} / {_md_cell(case.get('platform'))}",
+        f"- Origin: {_md_cell(case.get('origin_country'))}",
+        f"- Target markets/platform: {_md_cell(_md_list(case.get('destination_markets')) or case.get('destination_market'))} / {_md_cell(case.get('platform'))}",
         f"- Launch view: {_md_cell(decision.get('status'))}",
         f"- Biggest risk: {_md_cell(decision.get('summary'))}",
-        "- Next action: Resolve P0/P1 missing materials and verify current official/source data before ordering, printing, or listing.",
+        "- Next action: Complete P0/P1 research tasks, resolve missing materials, and verify current official/source data before ordering, printing, or listing.",
         "",
         "## Top Risks Before Listing",
         "| Risk | Impact | Owner | Fix |",
@@ -1369,6 +1697,66 @@ def render_launch_markdown(report: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Research Routing",
+            "| Destination | Channel | Why it matters | What to verify |",
+            "|---|---|---|---|",
+        ]
+    )
+    candidate_count = 0
+    for market_review in report.get("market_reviews") or []:
+        if not isinstance(market_review, dict):
+            continue
+        destination = market_review.get("destination_market")
+        for candidate in (market_review.get("source_candidates") or [])[:5]:
+            if not isinstance(candidate, dict):
+                continue
+            candidate_count += 1
+            lines.append(
+                "| "
+                + " | ".join(
+                    [
+                        _md_cell(destination),
+                        _md_cell(candidate.get("channel_type")),
+                        _md_cell(candidate.get("why")),
+                        _md_cell(_md_list(candidate.get("expected_facts"))),
+                    ]
+                )
+                + " |"
+            )
+    if candidate_count == 0:
+        lines.append("| No destination routing generated | Unknown | Missing origin/destination scope | Add origin_country and destination_markets. |")
+
+    lines.extend(
+        [
+            "",
+            "## Research Tasks",
+            "| Priority | Destination | Task | Evidence fields |",
+            "|---|---|---|---|",
+        ]
+    )
+    task_count = 0
+    for task in (report.get("research_tasks") or [])[:12]:
+        if not isinstance(task, dict):
+            continue
+        task_count += 1
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    _md_cell(task.get("priority")),
+                    _md_cell(task.get("destination_market")),
+                    _md_cell(task.get("instruction")),
+                    _md_cell(_md_list(task.get("evidence_fields"))),
+                ]
+            )
+            + " |"
+        )
+    if task_count == 0:
+        lines.append("| P0 | Unknown | Generate market research tasks from origin and destination scope. | origin_country, destination_markets |")
+
+    lines.extend(
+        [
+            "",
             "## Missing Materials",
             "| Material | Why needed | Who provides it |",
             "|---|---|---|",
@@ -1390,6 +1778,7 @@ def render_launch_markdown(report: dict[str, Any]) -> str:
             f"| Benchmark data | {_md_cell(summary.get('verification_needed'))} | Recheck live marketplace, retail, DTC, or screenshot source URLs. |",
             "| Applicant documents | T4 submitted evidence only | Verify issuer, registry, holder, scope, territory, platform, and validity. |",
             "| Platform/regulator rules | Rulepack routing plus source freshness | Check current official platform and regulator pages before final action. |",
+            "| Origin and destination routes | Generated research tasks | Check official origin/export, destination/import, regulator, customs, and platform channels for every destination. |",
             "| Logistics costs | User-provided or rough offline quotations | Confirm with forwarder, 3PL, warehouse, and import/customs route. |",
             "",
             "## Disclaimer",
@@ -1994,6 +2383,8 @@ def cmd_bundle_template(args: argparse.Namespace) -> int:
         market=args.market,
         category=args.category,
         product=args.product or "",
+        origin_country=args.origin_country or "",
+        destination_markets=args.destination_market or [args.market],
     )
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
@@ -2058,6 +2449,13 @@ def cmd_launch_report(args: argparse.Namespace) -> int:
     bundle = _load_json_object(args.bundle_file, "offline launch bundle")
     if bundle is None:
         return 2
+    bundle_errors, bundle_warnings = validate_case_bundle(bundle)
+    for warning in bundle_warnings:
+        print(f"WARNING: {warning}", file=sys.stderr)
+    if bundle_errors:
+        for error in bundle_errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
     payload = launch_report_from_bundle(bundle)
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
@@ -2298,6 +2696,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_bundle_template.add_argument("--market", required=True)
     p_bundle_template.add_argument("--category", required=True)
     p_bundle_template.add_argument("--product", default="")
+    p_bundle_template.add_argument("--origin-country", default="")
+    p_bundle_template.add_argument("--destination-market", action="append")
     p_bundle_template.set_defaults(func=cmd_bundle_template)
 
     p_bundle_validate = sub.add_parser("bundle-validate", help="validate an offline launch case bundle JSON file")

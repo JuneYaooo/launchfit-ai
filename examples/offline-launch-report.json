@@ -13,7 +13,12 @@
     "brand_name": "Dragon Fire",
     "review_purpose": "launch readiness and qualification intake",
     "requested_decision_deadline": "",
-    "review_date": "2026-06-17"
+    "review_date": "2026-06-17",
+    "origin_country": "China",
+    "destination_markets": [
+      "US",
+      "EU"
+    ]
   },
   "decision": {
     "status": "request_more_info",
@@ -346,7 +351,7 @@
     {
       "requirement_id": "offline-current-source-verification",
       "surface": "platform_listing",
-      "requirement": "Current platform, regulator, registry, competitor price, and logistics facts must be externally verified before final launch action.",
+      "requirement": "Current platform, regulator, registry, competitor price, logistics, origin/export, and destination/import facts must be externally verified before final launch action.",
       "status": "needs_external_verification",
       "matched_evidence_ids": [],
       "source_ids": [
@@ -1523,6 +1528,7 @@
     "applicant_message": "您好，当前申请暂无法完成审核。请补充以下材料：\n\n1. business registration; tax/payee information where required; platform seller eligibility source\n   - 原因：Missing or unsupported seller eligibility prevents approval.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n2. business license or registration certificate; authorization document if applicant differs from rights holder\n   - 原因：Major mismatch is high severity and normally requires more information or rejection.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n3. trademark certificate; brand authorization letter; distribution agreement\n   - 原因：Missing or out-of-scope authorization is high severity.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n4. official platform restricted-products source; official regulator/customs source where relevant\n   - 原因：Confirmed prohibited category is critical and leads to rejection.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n5. test report; certificate; declaration of conformity; COA/SDS/label where relevant\n   - 原因：Mismatch or expired evidence is high severity if the category requires certification.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n6. label artwork; claim substantiation; official label/claim requirements\n   - 原因：Unsubstantiated or regulated claims can require rejection or human escalation.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n7. document inventory with issue/expiry dates\n   - 原因：Unknown validity of a core document prevents approval until confirmed.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n8. official Amazon policy source; category approval screenshot or workflow evidence where available\n   - 原因：Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.\n   - 要求：材料需覆盖本次平台、目标市场、产品范围、主体名称和有效期。\n   - 可接受替代：Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.\n\n请确保材料中的主体名称、品牌、产品范围、销售地区和平台授权范围与本次申请一致。",
     "internal_next_steps": [
       "Verify current official platform and regulator sources before final decision.",
+      "Complete origin/export and destination/import research tasks for every destination market.",
       "Match submitted documents to holder, brand, product, territory, platform, scope, and validity.",
       "Recheck competitor prices and logistics quotations from current sources.",
       "Revise packaging/listing claims before printing or marketplace submission."
@@ -1743,10 +1749,2964 @@
       "timestamp": "2026-06-17",
       "actor": "AI reviewer",
       "action": "generated_offline_launch_report",
-      "details": "Documents=3, benchmarks=3, logistics_routes=2."
+      "details": "Origin=China, destinations=2, documents=3, benchmarks=3, logistics_routes=2."
     }
   ],
   "disclaimer": "Operational qualification review only; not legal advice.",
+  "market_reviews": [
+    {
+      "destination_market": "US",
+      "origin_country": "China",
+      "matched_packs": [
+        "global-baseline",
+        "platform-amazon",
+        "country-US",
+        "category-food"
+      ],
+      "decision": {
+        "status": "request_more_info",
+        "risk_level": "high",
+        "risk_score": 35,
+        "summary": "Intake skeleton generated. Final decision requires submitted documents, evidence matching, and source verification.",
+        "rationale": [
+          "Generated skeleton is an intake artifact, not a final pass/fail decision.",
+          "T4 applicant documents and current T1/T2 source checks must be matched before approval."
+        ]
+      },
+      "requirements": [
+        {
+          "requirement_id": "global-seller-eligibility",
+          "surface": "seller",
+          "requirement": "Confirm the applicant is eligible for the selected platform, marketplace site, and seller route.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-temu-terms"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-entity-name-match",
+          "surface": "seller",
+          "requirement": "Applicant legal name must match submitted entity documents or have a clear authorization chain.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-gleif-search",
+            "global-opencorporates-register"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-brand-rights",
+          "surface": "brand_ip",
+          "requirement": "Brand ownership or authorization must cover product scope, territory, marketplace/channel, and review period.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-wipo-brand-database",
+            "global-uspto-trademark-search",
+            "global-euipo-search"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-category-not-prohibited",
+          "surface": "product_category",
+          "requirement": "Product category must not be prohibited by the platform or destination country.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-eu-safety-gate",
+            "global-cpsc-recalls"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-product-compliance-docs",
+          "surface": "certificate",
+          "requirement": "Product compliance documents must match the product name, SKU/model, manufacturing site, certificate scope, and destination market.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-eu-ce-marking",
+            "global-fcc-equipment-authorization",
+            "global-fda-start-food-business"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-label-claims-language",
+          "surface": "platform_listing",
+          "requirement": "Labels, warnings, language, and claims must be compatible with the destination market and platform listing rules.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-fda-labeling-nutrition",
+            "global-eu-ce-marking",
+            "global-tiktok-content-policy"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-expiry-monitoring",
+          "surface": "certificate",
+          "requirement": "Expiry dates and renewal obligations for licenses, certificates, and authorizations are recorded.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-iso-certification-validity",
+            "global-wipo-brand-database",
+            "global-fcc-equipment-authorization"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "platform-amazon-current-policy-check",
+          "surface": "platform_listing",
+          "requirement": "Verify current Amazon policy pages for seller eligibility, restricted products, category approval, and the exact marketplace site.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "amazon-restricted-products",
+            "amazon-categories-approval",
+            "amazon-grocery-gourmet",
+            "amazon-safety-compliance"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "platform-amazon-fba-product-compliance",
+          "surface": "certificate",
+          "requirement": "For FBA or regulated products, verify packaging, labeling, dangerous goods, test report, and product compliance requirements for the marketplace site.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "amazon-food-beverages-policy",
+            "amazon-safety-compliance",
+            "amazon-compliance-appeal"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "country-US-regulator-routing",
+          "surface": "market_import",
+          "requirement": "Identify the applicable US regulator or registry for the product category and verify current official requirements.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "us-fda-start-food-business",
+            "us-fda-food-facility-registration",
+            "us-cbp-basic-importing",
+            "us-cbp-commercial-food-imports"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "country-US-label-claims",
+          "surface": "platform_listing",
+          "requirement": "Check US label language, warning, origin, nutrition/ingredient, safety, and claims rules for the exact product category.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "us-fda-food-labeling-nutrition",
+            "us-fda-food-allergens"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "category-food-classification-import",
+          "surface": "market_import",
+          "requirement": "Verify food product classification, import route, facility/importer obligations, and destination-market admissibility from official sources.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "food-fda-start-business",
+            "food-fda-facility-registration",
+            "food-cbp-commercial-food-imports"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "category-food-label-claims",
+          "surface": "platform_listing",
+          "requirement": "Check ingredient, allergen, nutrition, language, warning, date marking, origin, and health/nutrition claims for the destination market.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "food-fda-labeling-nutrition",
+            "food-fda-allergens"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "F-001",
+          "severity": "medium",
+          "surface": "seller",
+          "requirement": "Confirm the applicant is eligible for the selected platform, marketplace site, and seller route.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing or unsupported seller eligibility prevents approval.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "business registration; tax/payee information where required; platform seller eligibility source",
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-temu-terms"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-002",
+          "severity": "high",
+          "surface": "seller",
+          "requirement": "Applicant legal name must match submitted entity documents or have a clear authorization chain.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Major mismatch is high severity and normally requires more information or rejection.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "business license or registration certificate; authorization document if applicant differs from rights holder",
+          "source_ids": [
+            "global-gleif-search",
+            "global-opencorporates-register"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-003",
+          "severity": "medium",
+          "surface": "brand_ip",
+          "requirement": "Brand ownership or authorization must cover product scope, territory, marketplace/channel, and review period.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing or out-of-scope authorization is high severity.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "trademark certificate; brand authorization letter; distribution agreement",
+          "source_ids": [
+            "global-wipo-brand-database",
+            "global-uspto-trademark-search",
+            "global-euipo-search"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-004",
+          "severity": "high",
+          "surface": "product_category",
+          "requirement": "Product category must not be prohibited by the platform or destination country.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Confirmed prohibited category is critical and leads to rejection.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official platform restricted-products source; official regulator/customs source where relevant",
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-eu-safety-gate",
+            "global-cpsc-recalls"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-005",
+          "severity": "medium",
+          "surface": "certificate",
+          "requirement": "Product compliance documents must match the product name, SKU/model, manufacturing site, certificate scope, and destination market.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Mismatch or expired evidence is high severity if the category requires certification.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "test report; certificate; declaration of conformity; COA/SDS/label where relevant",
+          "source_ids": [
+            "global-eu-ce-marking",
+            "global-fcc-equipment-authorization",
+            "global-fda-start-food-business"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-006",
+          "severity": "medium",
+          "surface": "platform_listing",
+          "requirement": "Labels, warnings, language, and claims must be compatible with the destination market and platform listing rules.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Unsubstantiated or regulated claims can require rejection or human escalation.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "label artwork; claim substantiation; official label/claim requirements",
+          "source_ids": [
+            "global-fda-labeling-nutrition",
+            "global-eu-ce-marking",
+            "global-tiktok-content-policy"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-007",
+          "severity": "high",
+          "surface": "certificate",
+          "requirement": "Expiry dates and renewal obligations for licenses, certificates, and authorizations are recorded.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Unknown validity of a core document prevents approval until confirmed.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "document inventory with issue/expiry dates",
+          "source_ids": [
+            "global-iso-certification-validity",
+            "global-wipo-brand-database",
+            "global-fcc-equipment-authorization"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-008",
+          "severity": "medium",
+          "surface": "platform_listing",
+          "requirement": "Verify current Amazon policy pages for seller eligibility, restricted products, category approval, and the exact marketplace site.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official Amazon policy source; category approval screenshot or workflow evidence where available",
+          "source_ids": [
+            "amazon-restricted-products",
+            "amazon-categories-approval",
+            "amazon-grocery-gourmet",
+            "amazon-safety-compliance"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-009",
+          "severity": "medium",
+          "surface": "certificate",
+          "requirement": "For FBA or regulated products, verify packaging, labeling, dangerous goods, test report, and product compliance requirements for the marketplace site.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing FBA or product-compliance evidence blocks approval for affected products.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official Amazon FBA/compliance source; test report or certificate; label/packaging artwork",
+          "source_ids": [
+            "amazon-food-beverages-policy",
+            "amazon-safety-compliance",
+            "amazon-compliance-appeal"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-010",
+          "severity": "medium",
+          "surface": "market_import",
+          "requirement": "Identify the applicable US regulator or registry for the product category and verify current official requirements.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Do not approve regulated US categories until the applicable official source or registry path is verified.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official regulator source; registry lookup where available; classification rationale",
+          "source_ids": [
+            "us-fda-start-food-business",
+            "us-fda-food-facility-registration",
+            "us-cbp-basic-importing",
+            "us-cbp-commercial-food-imports"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-011",
+          "severity": "medium",
+          "surface": "platform_listing",
+          "requirement": "Check US label language, warning, origin, nutrition/ingredient, safety, and claims rules for the exact product category.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Unsupported regulated claims or missing required warnings normally require more information or human escalation.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "label artwork; claim substantiation; official labeling or advertising source",
+          "source_ids": [
+            "us-fda-food-labeling-nutrition",
+            "us-fda-food-allergens"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-012",
+          "severity": "medium",
+          "surface": "market_import",
+          "requirement": "Verify food product classification, import route, facility/importer obligations, and destination-market admissibility from official sources.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Cannot approve food cases until destination-market classification and import obligations are verified.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official food regulator source; ingredient list; facility/importer evidence where required",
+          "source_ids": [
+            "food-fda-start-business",
+            "food-fda-facility-registration",
+            "food-cbp-commercial-food-imports"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-013",
+          "severity": "medium",
+          "surface": "platform_listing",
+          "requirement": "Check ingredient, allergen, nutrition, language, warning, date marking, origin, and health/nutrition claims for the destination market.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "label artwork; claim substantiation; official labeling/claims source",
+          "source_ids": [
+            "food-fda-labeling-nutrition",
+            "food-fda-allergens"
+          ],
+          "confidence": "medium"
+        }
+      ],
+      "missing_materials": [
+        {
+          "material": "business registration; tax/payee information where required; platform seller eligibility source",
+          "why_required": "Missing or unsupported seller eligibility prevents approval.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "business license or registration certificate; authorization document if applicant differs from rights holder",
+          "why_required": "Major mismatch is high severity and normally requires more information or rejection.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P0"
+        },
+        {
+          "material": "trademark certificate; brand authorization letter; distribution agreement",
+          "why_required": "Missing or out-of-scope authorization is high severity.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official platform restricted-products source; official regulator/customs source where relevant",
+          "why_required": "Confirmed prohibited category is critical and leads to rejection.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P0"
+        },
+        {
+          "material": "test report; certificate; declaration of conformity; COA/SDS/label where relevant",
+          "why_required": "Mismatch or expired evidence is high severity if the category requires certification.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "label artwork; claim substantiation; official label/claim requirements",
+          "why_required": "Unsubstantiated or regulated claims can require rejection or human escalation.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "document inventory with issue/expiry dates",
+          "why_required": "Unknown validity of a core document prevents approval until confirmed.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P0"
+        },
+        {
+          "material": "official Amazon policy source; category approval screenshot or workflow evidence where available",
+          "why_required": "Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official Amazon FBA/compliance source; test report or certificate; label/packaging artwork",
+          "why_required": "Missing FBA or product-compliance evidence blocks approval for affected products.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official regulator source; registry lookup where available; classification rationale",
+          "why_required": "Do not approve regulated US categories until the applicable official source or registry path is verified.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "label artwork; claim substantiation; official labeling or advertising source",
+          "why_required": "Unsupported regulated claims or missing required warnings normally require more information or human escalation.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official food regulator source; ingredient list; facility/importer evidence where required",
+          "why_required": "Cannot approve food cases until destination-market classification and import obligations are verified.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "label artwork; claim substantiation; official labeling/claims source",
+          "why_required": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        }
+      ],
+      "source_candidates": [
+        {
+          "source_candidate_id": "SC-US-001",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "platform_policy",
+          "title": "Amazon official seller and category policy",
+          "why": "Marketplace rules decide seller eligibility, restricted products, category gating, listing copy, and document submission.",
+          "source_tier": "T1",
+          "access_method": "official policy page, seller center, or authenticated seller workflow",
+          "suggested_queries": [
+            "Amazon US food seller requirements official",
+            "Amazon restricted products food official policy"
+          ],
+          "candidate_urls": [
+            "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+            "https://www.temu.com/terms-of-use.html"
+          ],
+          "expected_facts": [
+            "seller route",
+            "category approval",
+            "restricted products",
+            "document requirements"
+          ],
+          "freshness_days": 90
+        },
+        {
+          "source_candidate_id": "SC-US-002",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "destination_regulator",
+          "title": "US product regulator for food",
+          "why": "Destination regulators define admissibility, product safety, labeling, claims, notification, registration, and responsible entity duties.",
+          "source_tier": "T1",
+          "access_method": "official regulator site or registry",
+          "suggested_queries": [
+            "US food import registration labeling official regulator",
+            "US food product safety claims official"
+          ],
+          "candidate_urls": [
+            "https://ec.europa.eu/safety-gate-alerts/",
+            "https://www.cpsc.gov/Recalls",
+            "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+            "https://www.fcc.gov/oet/ea"
+          ],
+          "expected_facts": [
+            "classification",
+            "required registrations",
+            "label rules",
+            "claims limits"
+          ],
+          "freshness_days": 180
+        },
+        {
+          "source_candidate_id": "SC-US-003",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "customs_import",
+          "title": "US customs and import route",
+          "why": "Customs sources clarify importer of record, entry documents, admissibility, taxes, and import controls.",
+          "source_tier": "T1",
+          "access_method": "customs authority or government trade portal",
+          "suggested_queries": [
+            "US customs import food official",
+            "US importer of record food official"
+          ],
+          "candidate_urls": [
+            "https://www.fcc.gov/oet/ea",
+            "https://www.fda.gov/food/food-industry/how-start-food-business",
+            "https://www.cbp.gov/trade/basic-import-export",
+            "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports"
+          ],
+          "expected_facts": [
+            "importer obligations",
+            "customs documents",
+            "admissibility",
+            "tax/VAT route"
+          ],
+          "freshness_days": 180
+        },
+        {
+          "source_candidate_id": "SC-US-004",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "brand_ip",
+          "title": "US trademark and brand authorization route",
+          "why": "Brand rights must cover territory, class, product scope, grantee, platform/channel, and validity period.",
+          "source_tier": "T1",
+          "access_method": "official trademark registry plus authorization chain review",
+          "suggested_queries": [
+            "US trademark search official",
+            "Amazon brand authorization US official"
+          ],
+          "candidate_urls": [
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+            "https://branddb.wipo.int/",
+            "https://www.uspto.gov/trademarks/search",
+            "https://euipo.europa.eu/eSearch/"
+          ],
+          "expected_facts": [
+            "owner",
+            "class",
+            "territory",
+            "status",
+            "expiry",
+            "authorization scope"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-US-005",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "business_registry",
+          "title": "Applicant, manufacturer, importer, and responsible-party registry checks",
+          "why": "Entity names and roles must match documents, platform account, importer, rights holder, and certification holder.",
+          "source_tier": "T1",
+          "access_method": "official company registry, tax registry, or recognized LEI/company lookup",
+          "suggested_queries": [
+            "China company registry official",
+            "US company registry importer official"
+          ],
+          "candidate_urls": [
+            "https://search.gleif.org/",
+            "https://opencorporates.com/",
+            "https://www.fda.gov/food/food-industry/how-start-food-business"
+          ],
+          "expected_facts": [
+            "legal name",
+            "status",
+            "registered address",
+            "business scope",
+            "role relationship"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-US-006",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "certification_lab",
+          "title": "Certificate, issuer, lab, and accreditation checks for food",
+          "why": "Certificates and reports need issuer validity, lab accreditation, product/model scope, site scope, standard, and expiry checks.",
+          "source_tier": "T2",
+          "access_method": "issuer lookup, accreditation body, certification body registry, or lab scope search",
+          "suggested_queries": [
+            "food certificate verify issuer accreditation",
+            "China lab accreditation scope food"
+          ],
+          "candidate_urls": [
+            "https://opencorporates.com/",
+            "https://www.fda.gov/food/food-industry/how-start-food-business",
+            "https://www.fda.gov/food/food-labeling-nutrition",
+            "https://www.iso.org/certification.html"
+          ],
+          "expected_facts": [
+            "issuer status",
+            "accreditation scope",
+            "standard",
+            "product match",
+            "expiry"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-US-007",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "standards_body",
+          "title": "Applicable standards and conformity route for food",
+          "why": "Standards identify the correct test basis and conformity documents for regulated product families.",
+          "source_tier": "T2",
+          "access_method": "official standards body or regulator-referenced standards page",
+          "suggested_queries": [
+            "US food standard conformity official",
+            "US food labeling standard official"
+          ],
+          "candidate_urls": [
+            "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+            "https://www.temu.com/terms-of-use.html"
+          ],
+          "expected_facts": [
+            "applicable standard",
+            "test basis",
+            "technical file route",
+            "label mark rules"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-US-008",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "logistics_warehouse",
+          "title": "China to US logistics, warehouse, and platform prep route",
+          "why": "Freight, dangerous goods, warehouse acceptance, packaging tests, shelf-life, and local delivery affect launch viability.",
+          "source_tier": "T3",
+          "access_method": "forwarder quote, 3PL/warehouse rules, carrier dangerous-goods rules, platform fulfillment policy",
+          "suggested_queries": [
+            "Amazon fulfillment prep food US official",
+            "China to US freight food dangerous goods requirements"
+          ],
+          "candidate_urls": [
+            "https://ec.europa.eu/safety-gate-alerts/"
+          ],
+          "expected_facts": [
+            "route constraints",
+            "cost basis",
+            "prep rules",
+            "warehouse acceptance",
+            "transit risk"
+          ],
+          "freshness_days": 30
+        },
+        {
+          "source_candidate_id": "SC-US-009",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "origin_export_controls",
+          "title": "China export, origin, and COO route",
+          "why": "Origin-side checks clarify export controls, certificate of origin, manufacturer/exporter documents, and origin labeling consistency.",
+          "source_tier": "T1",
+          "access_method": "origin customs/export authority, trade portal, chamber of commerce, or exporter registry",
+          "suggested_queries": [
+            "China export food certificate of origin official",
+            "China export controls food official"
+          ],
+          "candidate_urls": [
+            "https://www.cbp.gov/trade/basic-import-export"
+          ],
+          "expected_facts": [
+            "export permissions",
+            "COO route",
+            "manufacturer/exporter identity",
+            "origin label consistency"
+          ],
+          "freshness_days": 180
+        },
+        {
+          "source_candidate_id": "user-amazon-us-chili-crisp-search",
+          "origin_country": "China",
+          "destination_market": "US",
+          "channel_type": "marketplace_search",
+          "title": "User-provided Amazon US chili crisp search",
+          "why": "User-provided channel can add current market, platform, competitor, supplier, logistics, or registry signals.",
+          "source_tier": "T4",
+          "access_method": "user-provided marketplace search URL",
+          "suggested_queries": [],
+          "candidate_urls": [
+            "https://www.amazon.com/s?k=chili+crisp"
+          ],
+          "expected_facts": [
+            "current price",
+            "review count",
+            "listing claims",
+            "visible trust signals"
+          ],
+          "freshness_days": 7
+        }
+      ],
+      "research_tasks": [
+        {
+          "research_task_id": "RT-US-001",
+          "task_key": "verify-platform-category-policy",
+          "priority": "P0",
+          "channel_type": "platform_policy",
+          "source_candidate_ids": [
+            "SC-US-001"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify platform seller route, restricted product status, category approval, listing-copy limits, and required documents.",
+          "recommended_tier": "T1",
+          "freshness_days": 90,
+          "evidence_fields": [
+            "seller route",
+            "category approval",
+            "restricted products",
+            "document requirements"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-002",
+          "task_key": "verify-destination-regulator-route",
+          "priority": "P0",
+          "channel_type": "destination_regulator",
+          "source_candidate_ids": [
+            "SC-US-002"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify product classification, regulator, registration/notification, label language, warnings, and claim limits.",
+          "recommended_tier": "T1",
+          "freshness_days": 180,
+          "evidence_fields": [
+            "classification",
+            "required registrations",
+            "label rules",
+            "claims limits"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-003",
+          "task_key": "verify-destination-import-route",
+          "priority": "P0",
+          "channel_type": "customs_import",
+          "source_candidate_ids": [
+            "SC-US-003"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify importer of record, customs documents, admissibility, tax/VAT route, and import controls.",
+          "recommended_tier": "T1",
+          "freshness_days": 180,
+          "evidence_fields": [
+            "importer obligations",
+            "customs documents",
+            "admissibility",
+            "tax/VAT route"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-004",
+          "task_key": "verify-brand-ip-territory",
+          "priority": "P0",
+          "channel_type": "brand_ip",
+          "source_candidate_ids": [
+            "SC-US-004"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify trademark owner, class, territory, status, expiry, and authorization coverage for platform/channel/product.",
+          "recommended_tier": "T1",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "owner",
+            "class",
+            "territory",
+            "status",
+            "expiry",
+            "authorization scope"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-005",
+          "task_key": "verify-entity-chain",
+          "priority": "P1",
+          "channel_type": "business_registry",
+          "source_candidate_ids": [
+            "SC-US-005"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify applicant, manufacturer, importer, responsible party, rights holder, and certificate holder identity chain.",
+          "recommended_tier": "T1",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "legal name",
+            "status",
+            "registered address",
+            "business scope",
+            "role relationship"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-006",
+          "task_key": "verify-certificate-issuer-scope",
+          "priority": "P0",
+          "channel_type": "certification_lab",
+          "source_candidate_ids": [
+            "SC-US-006"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify issuer/lab/accreditation status, standard, model/SKU/product scope, site scope, and expiry.",
+          "recommended_tier": "T2",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "issuer status",
+            "accreditation scope",
+            "standard",
+            "product match",
+            "expiry"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-007",
+          "task_key": "verify-standards-route",
+          "priority": "P1",
+          "channel_type": "standards_body",
+          "source_candidate_ids": [
+            "SC-US-007"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify applicable standards, conformity route, technical-file basis, and allowed marks.",
+          "recommended_tier": "T2",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "applicable standard",
+            "test basis",
+            "technical file route",
+            "label mark rules"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-008",
+          "task_key": "verify-logistics-route",
+          "priority": "P1",
+          "channel_type": "logistics_warehouse",
+          "source_candidate_ids": [
+            "SC-US-008"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify freight constraints, dangerous goods, warehouse acceptance, platform prep, cost basis, and route timing.",
+          "recommended_tier": "T3",
+          "freshness_days": 30,
+          "evidence_fields": [
+            "route constraints",
+            "cost basis",
+            "prep rules",
+            "warehouse acceptance",
+            "transit risk"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-009",
+          "task_key": "verify-origin-export-route",
+          "priority": "P0",
+          "channel_type": "origin_export_controls",
+          "source_candidate_ids": [
+            "SC-US-009"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify export permissions, certificate of origin, manufacturer/exporter documents, and origin label consistency.",
+          "recommended_tier": "T1",
+          "freshness_days": 180,
+          "evidence_fields": [
+            "export permissions",
+            "COO route",
+            "manufacturer/exporter identity",
+            "origin label consistency"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-US-010",
+          "task_key": "verify-user-search-channel",
+          "priority": "P1",
+          "channel_type": "marketplace_search",
+          "source_candidate_ids": [
+            "user-amazon-us-chili-crisp-search"
+          ],
+          "origin_country": "China",
+          "destination_market": "US",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Use user-provided channel 'User-provided Amazon US chili crisp search' to collect current signals, then record URL, checked date, extracted facts, confidence, and whether the source directly confirms the claim.",
+          "recommended_tier": "T4",
+          "freshness_days": 7,
+          "evidence_fields": [
+            "current price",
+            "review count",
+            "listing claims",
+            "visible trust signals"
+          ],
+          "status": "needs_external_verification"
+        }
+      ]
+    },
+    {
+      "destination_market": "EU",
+      "origin_country": "China",
+      "matched_packs": [
+        "global-baseline",
+        "platform-amazon",
+        "region-EU",
+        "category-food"
+      ],
+      "decision": {
+        "status": "request_more_info",
+        "risk_level": "high",
+        "risk_score": 35,
+        "summary": "Intake skeleton generated. Final decision requires submitted documents, evidence matching, and source verification.",
+        "rationale": [
+          "Generated skeleton is an intake artifact, not a final pass/fail decision.",
+          "T4 applicant documents and current T1/T2 source checks must be matched before approval."
+        ]
+      },
+      "requirements": [
+        {
+          "requirement_id": "global-seller-eligibility",
+          "surface": "seller",
+          "requirement": "Confirm the applicant is eligible for the selected platform, marketplace site, and seller route.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-temu-terms"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-entity-name-match",
+          "surface": "seller",
+          "requirement": "Applicant legal name must match submitted entity documents or have a clear authorization chain.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-gleif-search",
+            "global-opencorporates-register"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-brand-rights",
+          "surface": "brand_ip",
+          "requirement": "Brand ownership or authorization must cover product scope, territory, marketplace/channel, and review period.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-wipo-brand-database",
+            "global-uspto-trademark-search",
+            "global-euipo-search"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-category-not-prohibited",
+          "surface": "product_category",
+          "requirement": "Product category must not be prohibited by the platform or destination country.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-eu-safety-gate",
+            "global-cpsc-recalls"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-product-compliance-docs",
+          "surface": "certificate",
+          "requirement": "Product compliance documents must match the product name, SKU/model, manufacturing site, certificate scope, and destination market.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-eu-ce-marking",
+            "global-fcc-equipment-authorization",
+            "global-fda-start-food-business"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-label-claims-language",
+          "surface": "platform_listing",
+          "requirement": "Labels, warnings, language, and claims must be compatible with the destination market and platform listing rules.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-fda-labeling-nutrition",
+            "global-eu-ce-marking",
+            "global-tiktok-content-policy"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "global-expiry-monitoring",
+          "surface": "certificate",
+          "requirement": "Expiry dates and renewal obligations for licenses, certificates, and authorizations are recorded.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "global-iso-certification-validity",
+            "global-wipo-brand-database",
+            "global-fcc-equipment-authorization"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "platform-amazon-current-policy-check",
+          "surface": "platform_listing",
+          "requirement": "Verify current Amazon policy pages for seller eligibility, restricted products, category approval, and the exact marketplace site.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "amazon-restricted-products",
+            "amazon-categories-approval",
+            "amazon-grocery-gourmet",
+            "amazon-safety-compliance"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "platform-amazon-fba-product-compliance",
+          "surface": "certificate",
+          "requirement": "For FBA or regulated products, verify packaging, labeling, dangerous goods, test report, and product compliance requirements for the marketplace site.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "amazon-food-beverages-policy",
+            "amazon-safety-compliance",
+            "amazon-compliance-appeal"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "region-EU-economic-operator",
+          "surface": "market_import",
+          "requirement": "Determine whether the EU route needs an importer, responsible person, authorized representative, or other economic operator.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "eu-gpsr",
+            "eu-market-surveillance",
+            "eu-eori"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "region-EU-conformity-labeling",
+          "surface": "certificate",
+          "requirement": "For regulated goods, verify conformity assessment, label language, warnings, CE/other marks, and claims against current EU and member-state sources.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "eu-ce-marking",
+            "eu-gpsr",
+            "eu-safety-gate"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "category-food-classification-import",
+          "surface": "market_import",
+          "requirement": "Verify food product classification, import route, facility/importer obligations, and destination-market admissibility from official sources.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "food-fda-start-business",
+            "food-fda-facility-registration",
+            "food-cbp-commercial-food-imports"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        },
+        {
+          "requirement_id": "category-food-label-claims",
+          "surface": "platform_listing",
+          "requirement": "Check ingredient, allergen, nutrition, language, warning, date marking, origin, and health/nutrition claims for the destination market.",
+          "status": "missing",
+          "matched_evidence_ids": [],
+          "source_ids": [
+            "food-fda-labeling-nutrition",
+            "food-fda-allergens"
+          ],
+          "notes": "Official source is attached; applicant/product evidence still needs to be matched."
+        }
+      ],
+      "findings": [
+        {
+          "finding_id": "F-001",
+          "severity": "medium",
+          "surface": "seller",
+          "requirement": "Confirm the applicant is eligible for the selected platform, marketplace site, and seller route.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing or unsupported seller eligibility prevents approval.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "business registration; tax/payee information where required; platform seller eligibility source",
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-temu-terms"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-002",
+          "severity": "high",
+          "surface": "seller",
+          "requirement": "Applicant legal name must match submitted entity documents or have a clear authorization chain.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Major mismatch is high severity and normally requires more information or rejection.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "business license or registration certificate; authorization document if applicant differs from rights holder",
+          "source_ids": [
+            "global-gleif-search",
+            "global-opencorporates-register"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-003",
+          "severity": "medium",
+          "surface": "brand_ip",
+          "requirement": "Brand ownership or authorization must cover product scope, territory, marketplace/channel, and review period.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing or out-of-scope authorization is high severity.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "trademark certificate; brand authorization letter; distribution agreement",
+          "source_ids": [
+            "global-wipo-brand-database",
+            "global-uspto-trademark-search",
+            "global-euipo-search"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-004",
+          "severity": "high",
+          "surface": "product_category",
+          "requirement": "Product category must not be prohibited by the platform or destination country.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Confirmed prohibited category is critical and leads to rejection.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official platform restricted-products source; official regulator/customs source where relevant",
+          "source_ids": [
+            "global-amazon-restricted-products",
+            "global-tiktok-prohibited-products",
+            "global-eu-safety-gate",
+            "global-cpsc-recalls"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-005",
+          "severity": "medium",
+          "surface": "certificate",
+          "requirement": "Product compliance documents must match the product name, SKU/model, manufacturing site, certificate scope, and destination market.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Mismatch or expired evidence is high severity if the category requires certification.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "test report; certificate; declaration of conformity; COA/SDS/label where relevant",
+          "source_ids": [
+            "global-eu-ce-marking",
+            "global-fcc-equipment-authorization",
+            "global-fda-start-food-business"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-006",
+          "severity": "medium",
+          "surface": "platform_listing",
+          "requirement": "Labels, warnings, language, and claims must be compatible with the destination market and platform listing rules.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Unsubstantiated or regulated claims can require rejection or human escalation.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "label artwork; claim substantiation; official label/claim requirements",
+          "source_ids": [
+            "global-fda-labeling-nutrition",
+            "global-eu-ce-marking",
+            "global-tiktok-content-policy"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-007",
+          "severity": "high",
+          "surface": "certificate",
+          "requirement": "Expiry dates and renewal obligations for licenses, certificates, and authorizations are recorded.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Unknown validity of a core document prevents approval until confirmed.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "document inventory with issue/expiry dates",
+          "source_ids": [
+            "global-iso-certification-validity",
+            "global-wipo-brand-database",
+            "global-fcc-equipment-authorization"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-008",
+          "severity": "medium",
+          "surface": "platform_listing",
+          "requirement": "Verify current Amazon policy pages for seller eligibility, restricted products, category approval, and the exact marketplace site.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official Amazon policy source; category approval screenshot or workflow evidence where available",
+          "source_ids": [
+            "amazon-restricted-products",
+            "amazon-categories-approval",
+            "amazon-grocery-gourmet",
+            "amazon-safety-compliance"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-009",
+          "severity": "medium",
+          "surface": "certificate",
+          "requirement": "For FBA or regulated products, verify packaging, labeling, dangerous goods, test report, and product compliance requirements for the marketplace site.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing FBA or product-compliance evidence blocks approval for affected products.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official Amazon FBA/compliance source; test report or certificate; label/packaging artwork",
+          "source_ids": [
+            "amazon-food-beverages-policy",
+            "amazon-safety-compliance",
+            "amazon-compliance-appeal"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-010",
+          "severity": "medium",
+          "surface": "market_import",
+          "requirement": "Determine whether the EU route needs an importer, responsible person, authorized representative, or other economic operator.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Cannot approve regulated EU product routes until the required EU economic operator path is verified.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official EU source; destination member-state source where relevant; responsible entity evidence",
+          "source_ids": [
+            "eu-gpsr",
+            "eu-market-surveillance",
+            "eu-eori"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-011",
+          "severity": "medium",
+          "surface": "certificate",
+          "requirement": "For regulated goods, verify conformity assessment, label language, warnings, CE/other marks, and claims against current EU and member-state sources.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing conformity basis or label obligations requires more information or human escalation.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "declaration of conformity; test report; label artwork; official regulator source",
+          "source_ids": [
+            "eu-ce-marking",
+            "eu-gpsr",
+            "eu-safety-gate"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-012",
+          "severity": "medium",
+          "surface": "market_import",
+          "requirement": "Verify food product classification, import route, facility/importer obligations, and destination-market admissibility from official sources.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Cannot approve food cases until destination-market classification and import obligations are verified.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "official food regulator source; ingredient list; facility/importer evidence where required",
+          "source_ids": [
+            "food-fda-start-business",
+            "food-fda-facility-registration",
+            "food-cbp-commercial-food-imports"
+          ],
+          "confidence": "medium"
+        },
+        {
+          "finding_id": "F-013",
+          "severity": "medium",
+          "surface": "platform_listing",
+          "requirement": "Check ingredient, allergen, nutrition, language, warning, date marking, origin, and health/nutrition claims for the destination market.",
+          "submitted_evidence": "No applicant evidence supplied in this generated intake skeleton.",
+          "observed_issue": "Requirement is not yet matched to submitted applicant/product evidence.",
+          "business_impact": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
+          "decision_effect": "request_more_info",
+          "required_action": "Collect matching applicant evidence and verify current official sources before approval.",
+          "acceptable_evidence": "label artwork; claim substantiation; official labeling/claims source",
+          "source_ids": [
+            "food-fda-labeling-nutrition",
+            "food-fda-allergens"
+          ],
+          "confidence": "medium"
+        }
+      ],
+      "missing_materials": [
+        {
+          "material": "business registration; tax/payee information where required; platform seller eligibility source",
+          "why_required": "Missing or unsupported seller eligibility prevents approval.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "business license or registration certificate; authorization document if applicant differs from rights holder",
+          "why_required": "Major mismatch is high severity and normally requires more information or rejection.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P0"
+        },
+        {
+          "material": "trademark certificate; brand authorization letter; distribution agreement",
+          "why_required": "Missing or out-of-scope authorization is high severity.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official platform restricted-products source; official regulator/customs source where relevant",
+          "why_required": "Confirmed prohibited category is critical and leads to rejection.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P0"
+        },
+        {
+          "material": "test report; certificate; declaration of conformity; COA/SDS/label where relevant",
+          "why_required": "Mismatch or expired evidence is high severity if the category requires certification.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "label artwork; claim substantiation; official label/claim requirements",
+          "why_required": "Unsubstantiated or regulated claims can require rejection or human escalation.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "document inventory with issue/expiry dates",
+          "why_required": "Unknown validity of a core document prevents approval until confirmed.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P0"
+        },
+        {
+          "material": "official Amazon policy source; category approval screenshot or workflow evidence where available",
+          "why_required": "Do not approve Amazon cases from memory or applicant screenshots alone when policy eligibility affects the decision.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official Amazon FBA/compliance source; test report or certificate; label/packaging artwork",
+          "why_required": "Missing FBA or product-compliance evidence blocks approval for affected products.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official EU source; destination member-state source where relevant; responsible entity evidence",
+          "why_required": "Cannot approve regulated EU product routes until the required EU economic operator path is verified.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "declaration of conformity; test report; label artwork; official regulator source",
+          "why_required": "Missing conformity basis or label obligations requires more information or human escalation.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "official food regulator source; ingredient list; facility/importer evidence where required",
+          "why_required": "Cannot approve food cases until destination-market classification and import obligations are verified.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        },
+        {
+          "material": "label artwork; claim substantiation; official labeling/claims source",
+          "why_required": "Missing label obligations or unsupported regulated claims require more information or human escalation.",
+          "acceptable_replacement": "Official registry/source confirmation or applicant document matching the exact platform, market, product, holder, scope, and validity period.",
+          "owner": "applicant / reviewer",
+          "priority": "P1"
+        }
+      ],
+      "source_candidates": [
+        {
+          "source_candidate_id": "SC-EU-001",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "platform_policy",
+          "title": "Amazon official seller and category policy",
+          "why": "Marketplace rules decide seller eligibility, restricted products, category gating, listing copy, and document submission.",
+          "source_tier": "T1",
+          "access_method": "official policy page, seller center, or authenticated seller workflow",
+          "suggested_queries": [
+            "Amazon EU food seller requirements official",
+            "Amazon restricted products food official policy"
+          ],
+          "candidate_urls": [
+            "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+            "https://www.temu.com/terms-of-use.html"
+          ],
+          "expected_facts": [
+            "seller route",
+            "category approval",
+            "restricted products",
+            "document requirements"
+          ],
+          "freshness_days": 90
+        },
+        {
+          "source_candidate_id": "SC-EU-002",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "destination_regulator",
+          "title": "EU product regulator for food",
+          "why": "Destination regulators define admissibility, product safety, labeling, claims, notification, registration, and responsible entity duties.",
+          "source_tier": "T1",
+          "access_method": "official regulator site or registry",
+          "suggested_queries": [
+            "EU food import registration labeling official regulator",
+            "EU food product safety claims official"
+          ],
+          "candidate_urls": [
+            "https://ec.europa.eu/safety-gate-alerts/",
+            "https://www.cpsc.gov/Recalls",
+            "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+            "https://www.fcc.gov/oet/ea"
+          ],
+          "expected_facts": [
+            "classification",
+            "required registrations",
+            "label rules",
+            "claims limits"
+          ],
+          "freshness_days": 180
+        },
+        {
+          "source_candidate_id": "SC-EU-003",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "customs_import",
+          "title": "EU customs and import route",
+          "why": "Customs sources clarify importer of record, entry documents, admissibility, taxes, and import controls.",
+          "source_tier": "T1",
+          "access_method": "customs authority or government trade portal",
+          "suggested_queries": [
+            "EU customs import food official",
+            "EU importer of record food official"
+          ],
+          "candidate_urls": [
+            "https://www.fcc.gov/oet/ea",
+            "https://www.fda.gov/food/food-industry/how-start-food-business",
+            "https://taxation-customs.ec.europa.eu/customs-4/customs-procedures-import-and-export-0/customs-procedures/economic-operators-registration-and-identification-number-eori_en",
+            "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports"
+          ],
+          "expected_facts": [
+            "importer obligations",
+            "customs documents",
+            "admissibility",
+            "tax/VAT route"
+          ],
+          "freshness_days": 180
+        },
+        {
+          "source_candidate_id": "SC-EU-004",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "brand_ip",
+          "title": "EU trademark and brand authorization route",
+          "why": "Brand rights must cover territory, class, product scope, grantee, platform/channel, and validity period.",
+          "source_tier": "T1",
+          "access_method": "official trademark registry plus authorization chain review",
+          "suggested_queries": [
+            "EU trademark search official",
+            "Amazon brand authorization EU official"
+          ],
+          "candidate_urls": [
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+            "https://branddb.wipo.int/",
+            "https://www.uspto.gov/trademarks/search",
+            "https://euipo.europa.eu/eSearch/"
+          ],
+          "expected_facts": [
+            "owner",
+            "class",
+            "territory",
+            "status",
+            "expiry",
+            "authorization scope"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-EU-005",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "business_registry",
+          "title": "Applicant, manufacturer, importer, and responsible-party registry checks",
+          "why": "Entity names and roles must match documents, platform account, importer, rights holder, and certification holder.",
+          "source_tier": "T1",
+          "access_method": "official company registry, tax registry, or recognized LEI/company lookup",
+          "suggested_queries": [
+            "China company registry official",
+            "EU company registry importer official"
+          ],
+          "candidate_urls": [
+            "https://search.gleif.org/",
+            "https://opencorporates.com/",
+            "https://www.fda.gov/food/food-industry/how-start-food-business"
+          ],
+          "expected_facts": [
+            "legal name",
+            "status",
+            "registered address",
+            "business scope",
+            "role relationship"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-EU-006",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "certification_lab",
+          "title": "Certificate, issuer, lab, and accreditation checks for food",
+          "why": "Certificates and reports need issuer validity, lab accreditation, product/model scope, site scope, standard, and expiry checks.",
+          "source_tier": "T2",
+          "access_method": "issuer lookup, accreditation body, certification body registry, or lab scope search",
+          "suggested_queries": [
+            "food certificate verify issuer accreditation",
+            "China lab accreditation scope food"
+          ],
+          "candidate_urls": [
+            "https://opencorporates.com/",
+            "https://www.fda.gov/food/food-industry/how-start-food-business",
+            "https://www.fda.gov/food/food-labeling-nutrition",
+            "https://www.iso.org/certification.html"
+          ],
+          "expected_facts": [
+            "issuer status",
+            "accreditation scope",
+            "standard",
+            "product match",
+            "expiry"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-EU-007",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "standards_body",
+          "title": "Applicable standards and conformity route for food",
+          "why": "Standards identify the correct test basis and conformity documents for regulated product families.",
+          "source_tier": "T2",
+          "access_method": "official standards body or regulator-referenced standards page",
+          "suggested_queries": [
+            "EU food standard conformity official",
+            "EU food labeling standard official"
+          ],
+          "candidate_urls": [
+            "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+            "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+            "https://www.temu.com/terms-of-use.html"
+          ],
+          "expected_facts": [
+            "applicable standard",
+            "test basis",
+            "technical file route",
+            "label mark rules"
+          ],
+          "freshness_days": 365
+        },
+        {
+          "source_candidate_id": "SC-EU-008",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "logistics_warehouse",
+          "title": "China to EU logistics, warehouse, and platform prep route",
+          "why": "Freight, dangerous goods, warehouse acceptance, packaging tests, shelf-life, and local delivery affect launch viability.",
+          "source_tier": "T3",
+          "access_method": "forwarder quote, 3PL/warehouse rules, carrier dangerous-goods rules, platform fulfillment policy",
+          "suggested_queries": [
+            "Amazon fulfillment prep food EU official",
+            "China to EU freight food dangerous goods requirements"
+          ],
+          "candidate_urls": [
+            "https://ec.europa.eu/safety-gate-alerts/"
+          ],
+          "expected_facts": [
+            "route constraints",
+            "cost basis",
+            "prep rules",
+            "warehouse acceptance",
+            "transit risk"
+          ],
+          "freshness_days": 30
+        },
+        {
+          "source_candidate_id": "SC-EU-009",
+          "origin_country": "China",
+          "destination_market": "EU",
+          "channel_type": "origin_export_controls",
+          "title": "China export, origin, and COO route",
+          "why": "Origin-side checks clarify export controls, certificate of origin, manufacturer/exporter documents, and origin labeling consistency.",
+          "source_tier": "T1",
+          "access_method": "origin customs/export authority, trade portal, chamber of commerce, or exporter registry",
+          "suggested_queries": [
+            "China export food certificate of origin official",
+            "China export controls food official"
+          ],
+          "candidate_urls": [
+            "https://taxation-customs.ec.europa.eu/customs-4/customs-procedures-import-and-export-0/customs-procedures/economic-operators-registration-and-identification-number-eori_en"
+          ],
+          "expected_facts": [
+            "export permissions",
+            "COO route",
+            "manufacturer/exporter identity",
+            "origin label consistency"
+          ],
+          "freshness_days": 180
+        }
+      ],
+      "research_tasks": [
+        {
+          "research_task_id": "RT-EU-001",
+          "task_key": "verify-platform-category-policy",
+          "priority": "P0",
+          "channel_type": "platform_policy",
+          "source_candidate_ids": [
+            "SC-EU-001"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify platform seller route, restricted product status, category approval, listing-copy limits, and required documents.",
+          "recommended_tier": "T1",
+          "freshness_days": 90,
+          "evidence_fields": [
+            "seller route",
+            "category approval",
+            "restricted products",
+            "document requirements"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-002",
+          "task_key": "verify-destination-regulator-route",
+          "priority": "P0",
+          "channel_type": "destination_regulator",
+          "source_candidate_ids": [
+            "SC-EU-002"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify product classification, regulator, registration/notification, label language, warnings, and claim limits.",
+          "recommended_tier": "T1",
+          "freshness_days": 180,
+          "evidence_fields": [
+            "classification",
+            "required registrations",
+            "label rules",
+            "claims limits"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-003",
+          "task_key": "verify-destination-import-route",
+          "priority": "P0",
+          "channel_type": "customs_import",
+          "source_candidate_ids": [
+            "SC-EU-003"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify importer of record, customs documents, admissibility, tax/VAT route, and import controls.",
+          "recommended_tier": "T1",
+          "freshness_days": 180,
+          "evidence_fields": [
+            "importer obligations",
+            "customs documents",
+            "admissibility",
+            "tax/VAT route"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-004",
+          "task_key": "verify-brand-ip-territory",
+          "priority": "P0",
+          "channel_type": "brand_ip",
+          "source_candidate_ids": [
+            "SC-EU-004"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify trademark owner, class, territory, status, expiry, and authorization coverage for platform/channel/product.",
+          "recommended_tier": "T1",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "owner",
+            "class",
+            "territory",
+            "status",
+            "expiry",
+            "authorization scope"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-005",
+          "task_key": "verify-entity-chain",
+          "priority": "P1",
+          "channel_type": "business_registry",
+          "source_candidate_ids": [
+            "SC-EU-005"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify applicant, manufacturer, importer, responsible party, rights holder, and certificate holder identity chain.",
+          "recommended_tier": "T1",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "legal name",
+            "status",
+            "registered address",
+            "business scope",
+            "role relationship"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-006",
+          "task_key": "verify-certificate-issuer-scope",
+          "priority": "P0",
+          "channel_type": "certification_lab",
+          "source_candidate_ids": [
+            "SC-EU-006"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify issuer/lab/accreditation status, standard, model/SKU/product scope, site scope, and expiry.",
+          "recommended_tier": "T2",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "issuer status",
+            "accreditation scope",
+            "standard",
+            "product match",
+            "expiry"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-007",
+          "task_key": "verify-standards-route",
+          "priority": "P1",
+          "channel_type": "standards_body",
+          "source_candidate_ids": [
+            "SC-EU-007"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify applicable standards, conformity route, technical-file basis, and allowed marks.",
+          "recommended_tier": "T2",
+          "freshness_days": 365,
+          "evidence_fields": [
+            "applicable standard",
+            "test basis",
+            "technical file route",
+            "label mark rules"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-008",
+          "task_key": "verify-logistics-route",
+          "priority": "P1",
+          "channel_type": "logistics_warehouse",
+          "source_candidate_ids": [
+            "SC-EU-008"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify freight constraints, dangerous goods, warehouse acceptance, platform prep, cost basis, and route timing.",
+          "recommended_tier": "T3",
+          "freshness_days": 30,
+          "evidence_fields": [
+            "route constraints",
+            "cost basis",
+            "prep rules",
+            "warehouse acceptance",
+            "transit risk"
+          ],
+          "status": "needs_external_verification"
+        },
+        {
+          "research_task_id": "RT-EU-009",
+          "task_key": "verify-origin-export-route",
+          "priority": "P0",
+          "channel_type": "origin_export_controls",
+          "source_candidate_ids": [
+            "SC-EU-009"
+          ],
+          "origin_country": "China",
+          "destination_market": "EU",
+          "platform": "Amazon",
+          "category": "food",
+          "instruction": "Verify export permissions, certificate of origin, manufacturer/exporter documents, and origin label consistency.",
+          "recommended_tier": "T1",
+          "freshness_days": 180,
+          "evidence_fields": [
+            "export permissions",
+            "COO route",
+            "manufacturer/exporter identity",
+            "origin label consistency"
+          ],
+          "status": "needs_external_verification"
+        }
+      ]
+    }
+  ],
+  "source_candidates": [
+    {
+      "source_candidate_id": "SC-US-001",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "platform_policy",
+      "title": "Amazon official seller and category policy",
+      "why": "Marketplace rules decide seller eligibility, restricted products, category gating, listing copy, and document submission.",
+      "source_tier": "T1",
+      "access_method": "official policy page, seller center, or authenticated seller workflow",
+      "suggested_queries": [
+        "Amazon US food seller requirements official",
+        "Amazon restricted products food official policy"
+      ],
+      "candidate_urls": [
+        "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+        "https://www.temu.com/terms-of-use.html"
+      ],
+      "expected_facts": [
+        "seller route",
+        "category approval",
+        "restricted products",
+        "document requirements"
+      ],
+      "freshness_days": 90
+    },
+    {
+      "source_candidate_id": "SC-US-002",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "destination_regulator",
+      "title": "US product regulator for food",
+      "why": "Destination regulators define admissibility, product safety, labeling, claims, notification, registration, and responsible entity duties.",
+      "source_tier": "T1",
+      "access_method": "official regulator site or registry",
+      "suggested_queries": [
+        "US food import registration labeling official regulator",
+        "US food product safety claims official"
+      ],
+      "candidate_urls": [
+        "https://ec.europa.eu/safety-gate-alerts/",
+        "https://www.cpsc.gov/Recalls",
+        "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+        "https://www.fcc.gov/oet/ea"
+      ],
+      "expected_facts": [
+        "classification",
+        "required registrations",
+        "label rules",
+        "claims limits"
+      ],
+      "freshness_days": 180
+    },
+    {
+      "source_candidate_id": "SC-US-003",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "customs_import",
+      "title": "US customs and import route",
+      "why": "Customs sources clarify importer of record, entry documents, admissibility, taxes, and import controls.",
+      "source_tier": "T1",
+      "access_method": "customs authority or government trade portal",
+      "suggested_queries": [
+        "US customs import food official",
+        "US importer of record food official"
+      ],
+      "candidate_urls": [
+        "https://www.fcc.gov/oet/ea",
+        "https://www.fda.gov/food/food-industry/how-start-food-business",
+        "https://www.cbp.gov/trade/basic-import-export",
+        "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports"
+      ],
+      "expected_facts": [
+        "importer obligations",
+        "customs documents",
+        "admissibility",
+        "tax/VAT route"
+      ],
+      "freshness_days": 180
+    },
+    {
+      "source_candidate_id": "SC-US-004",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "brand_ip",
+      "title": "US trademark and brand authorization route",
+      "why": "Brand rights must cover territory, class, product scope, grantee, platform/channel, and validity period.",
+      "source_tier": "T1",
+      "access_method": "official trademark registry plus authorization chain review",
+      "suggested_queries": [
+        "US trademark search official",
+        "Amazon brand authorization US official"
+      ],
+      "candidate_urls": [
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+        "https://branddb.wipo.int/",
+        "https://www.uspto.gov/trademarks/search",
+        "https://euipo.europa.eu/eSearch/"
+      ],
+      "expected_facts": [
+        "owner",
+        "class",
+        "territory",
+        "status",
+        "expiry",
+        "authorization scope"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-US-005",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "business_registry",
+      "title": "Applicant, manufacturer, importer, and responsible-party registry checks",
+      "why": "Entity names and roles must match documents, platform account, importer, rights holder, and certification holder.",
+      "source_tier": "T1",
+      "access_method": "official company registry, tax registry, or recognized LEI/company lookup",
+      "suggested_queries": [
+        "China company registry official",
+        "US company registry importer official"
+      ],
+      "candidate_urls": [
+        "https://search.gleif.org/",
+        "https://opencorporates.com/",
+        "https://www.fda.gov/food/food-industry/how-start-food-business"
+      ],
+      "expected_facts": [
+        "legal name",
+        "status",
+        "registered address",
+        "business scope",
+        "role relationship"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-US-006",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "certification_lab",
+      "title": "Certificate, issuer, lab, and accreditation checks for food",
+      "why": "Certificates and reports need issuer validity, lab accreditation, product/model scope, site scope, standard, and expiry checks.",
+      "source_tier": "T2",
+      "access_method": "issuer lookup, accreditation body, certification body registry, or lab scope search",
+      "suggested_queries": [
+        "food certificate verify issuer accreditation",
+        "China lab accreditation scope food"
+      ],
+      "candidate_urls": [
+        "https://opencorporates.com/",
+        "https://www.fda.gov/food/food-industry/how-start-food-business",
+        "https://www.fda.gov/food/food-labeling-nutrition",
+        "https://www.iso.org/certification.html"
+      ],
+      "expected_facts": [
+        "issuer status",
+        "accreditation scope",
+        "standard",
+        "product match",
+        "expiry"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-US-007",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "standards_body",
+      "title": "Applicable standards and conformity route for food",
+      "why": "Standards identify the correct test basis and conformity documents for regulated product families.",
+      "source_tier": "T2",
+      "access_method": "official standards body or regulator-referenced standards page",
+      "suggested_queries": [
+        "US food standard conformity official",
+        "US food labeling standard official"
+      ],
+      "candidate_urls": [
+        "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+        "https://www.temu.com/terms-of-use.html"
+      ],
+      "expected_facts": [
+        "applicable standard",
+        "test basis",
+        "technical file route",
+        "label mark rules"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-US-008",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "logistics_warehouse",
+      "title": "China to US logistics, warehouse, and platform prep route",
+      "why": "Freight, dangerous goods, warehouse acceptance, packaging tests, shelf-life, and local delivery affect launch viability.",
+      "source_tier": "T3",
+      "access_method": "forwarder quote, 3PL/warehouse rules, carrier dangerous-goods rules, platform fulfillment policy",
+      "suggested_queries": [
+        "Amazon fulfillment prep food US official",
+        "China to US freight food dangerous goods requirements"
+      ],
+      "candidate_urls": [
+        "https://ec.europa.eu/safety-gate-alerts/"
+      ],
+      "expected_facts": [
+        "route constraints",
+        "cost basis",
+        "prep rules",
+        "warehouse acceptance",
+        "transit risk"
+      ],
+      "freshness_days": 30
+    },
+    {
+      "source_candidate_id": "SC-US-009",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "origin_export_controls",
+      "title": "China export, origin, and COO route",
+      "why": "Origin-side checks clarify export controls, certificate of origin, manufacturer/exporter documents, and origin labeling consistency.",
+      "source_tier": "T1",
+      "access_method": "origin customs/export authority, trade portal, chamber of commerce, or exporter registry",
+      "suggested_queries": [
+        "China export food certificate of origin official",
+        "China export controls food official"
+      ],
+      "candidate_urls": [
+        "https://www.cbp.gov/trade/basic-import-export"
+      ],
+      "expected_facts": [
+        "export permissions",
+        "COO route",
+        "manufacturer/exporter identity",
+        "origin label consistency"
+      ],
+      "freshness_days": 180
+    },
+    {
+      "source_candidate_id": "user-amazon-us-chili-crisp-search",
+      "origin_country": "China",
+      "destination_market": "US",
+      "channel_type": "marketplace_search",
+      "title": "User-provided Amazon US chili crisp search",
+      "why": "User-provided channel can add current market, platform, competitor, supplier, logistics, or registry signals.",
+      "source_tier": "T4",
+      "access_method": "user-provided marketplace search URL",
+      "suggested_queries": [],
+      "candidate_urls": [
+        "https://www.amazon.com/s?k=chili+crisp"
+      ],
+      "expected_facts": [
+        "current price",
+        "review count",
+        "listing claims",
+        "visible trust signals"
+      ],
+      "freshness_days": 7
+    },
+    {
+      "source_candidate_id": "SC-EU-001",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "platform_policy",
+      "title": "Amazon official seller and category policy",
+      "why": "Marketplace rules decide seller eligibility, restricted products, category gating, listing copy, and document submission.",
+      "source_tier": "T1",
+      "access_method": "official policy page, seller center, or authenticated seller workflow",
+      "suggested_queries": [
+        "Amazon EU food seller requirements official",
+        "Amazon restricted products food official policy"
+      ],
+      "candidate_urls": [
+        "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+        "https://www.temu.com/terms-of-use.html"
+      ],
+      "expected_facts": [
+        "seller route",
+        "category approval",
+        "restricted products",
+        "document requirements"
+      ],
+      "freshness_days": 90
+    },
+    {
+      "source_candidate_id": "SC-EU-002",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "destination_regulator",
+      "title": "EU product regulator for food",
+      "why": "Destination regulators define admissibility, product safety, labeling, claims, notification, registration, and responsible entity duties.",
+      "source_tier": "T1",
+      "access_method": "official regulator site or registry",
+      "suggested_queries": [
+        "EU food import registration labeling official regulator",
+        "EU food product safety claims official"
+      ],
+      "candidate_urls": [
+        "https://ec.europa.eu/safety-gate-alerts/",
+        "https://www.cpsc.gov/Recalls",
+        "https://single-market-economy.ec.europa.eu/single-market/ce-marking_en",
+        "https://www.fcc.gov/oet/ea"
+      ],
+      "expected_facts": [
+        "classification",
+        "required registrations",
+        "label rules",
+        "claims limits"
+      ],
+      "freshness_days": 180
+    },
+    {
+      "source_candidate_id": "SC-EU-003",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "customs_import",
+      "title": "EU customs and import route",
+      "why": "Customs sources clarify importer of record, entry documents, admissibility, taxes, and import controls.",
+      "source_tier": "T1",
+      "access_method": "customs authority or government trade portal",
+      "suggested_queries": [
+        "EU customs import food official",
+        "EU importer of record food official"
+      ],
+      "candidate_urls": [
+        "https://www.fcc.gov/oet/ea",
+        "https://www.fda.gov/food/food-industry/how-start-food-business",
+        "https://taxation-customs.ec.europa.eu/customs-4/customs-procedures-import-and-export-0/customs-procedures/economic-operators-registration-and-identification-number-eori_en",
+        "https://www.cbp.gov/trade/basic-import-export/importing-car-car/commercial-food-imports"
+      ],
+      "expected_facts": [
+        "importer obligations",
+        "customs documents",
+        "admissibility",
+        "tax/VAT route"
+      ],
+      "freshness_days": 180
+    },
+    {
+      "source_candidate_id": "SC-EU-004",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "brand_ip",
+      "title": "EU trademark and brand authorization route",
+      "why": "Brand rights must cover territory, class, product scope, grantee, platform/channel, and validity period.",
+      "source_tier": "T1",
+      "access_method": "official trademark registry plus authorization chain review",
+      "suggested_queries": [
+        "EU trademark search official",
+        "Amazon brand authorization EU official"
+      ],
+      "candidate_urls": [
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+        "https://branddb.wipo.int/",
+        "https://www.uspto.gov/trademarks/search",
+        "https://euipo.europa.eu/eSearch/"
+      ],
+      "expected_facts": [
+        "owner",
+        "class",
+        "territory",
+        "status",
+        "expiry",
+        "authorization scope"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-EU-005",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "business_registry",
+      "title": "Applicant, manufacturer, importer, and responsible-party registry checks",
+      "why": "Entity names and roles must match documents, platform account, importer, rights holder, and certification holder.",
+      "source_tier": "T1",
+      "access_method": "official company registry, tax registry, or recognized LEI/company lookup",
+      "suggested_queries": [
+        "China company registry official",
+        "EU company registry importer official"
+      ],
+      "candidate_urls": [
+        "https://search.gleif.org/",
+        "https://opencorporates.com/",
+        "https://www.fda.gov/food/food-industry/how-start-food-business"
+      ],
+      "expected_facts": [
+        "legal name",
+        "status",
+        "registered address",
+        "business scope",
+        "role relationship"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-EU-006",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "certification_lab",
+      "title": "Certificate, issuer, lab, and accreditation checks for food",
+      "why": "Certificates and reports need issuer validity, lab accreditation, product/model scope, site scope, standard, and expiry checks.",
+      "source_tier": "T2",
+      "access_method": "issuer lookup, accreditation body, certification body registry, or lab scope search",
+      "suggested_queries": [
+        "food certificate verify issuer accreditation",
+        "China lab accreditation scope food"
+      ],
+      "candidate_urls": [
+        "https://opencorporates.com/",
+        "https://www.fda.gov/food/food-industry/how-start-food-business",
+        "https://www.fda.gov/food/food-labeling-nutrition",
+        "https://www.iso.org/certification.html"
+      ],
+      "expected_facts": [
+        "issuer status",
+        "accreditation scope",
+        "standard",
+        "product match",
+        "expiry"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-EU-007",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "standards_body",
+      "title": "Applicable standards and conformity route for food",
+      "why": "Standards identify the correct test basis and conformity documents for regulated product families.",
+      "source_tier": "T2",
+      "access_method": "official standards body or regulator-referenced standards page",
+      "suggested_queries": [
+        "EU food standard conformity official",
+        "EU food labeling standard official"
+      ],
+      "candidate_urls": [
+        "https://sellercentral.amazon.com/help/hub/reference/external/G200164330",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=1399532709988097&lang=en",
+        "https://seller-us.tiktok.com/university/essay?knowledge_id=6837891779151617&lang=en",
+        "https://www.temu.com/terms-of-use.html"
+      ],
+      "expected_facts": [
+        "applicable standard",
+        "test basis",
+        "technical file route",
+        "label mark rules"
+      ],
+      "freshness_days": 365
+    },
+    {
+      "source_candidate_id": "SC-EU-008",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "logistics_warehouse",
+      "title": "China to EU logistics, warehouse, and platform prep route",
+      "why": "Freight, dangerous goods, warehouse acceptance, packaging tests, shelf-life, and local delivery affect launch viability.",
+      "source_tier": "T3",
+      "access_method": "forwarder quote, 3PL/warehouse rules, carrier dangerous-goods rules, platform fulfillment policy",
+      "suggested_queries": [
+        "Amazon fulfillment prep food EU official",
+        "China to EU freight food dangerous goods requirements"
+      ],
+      "candidate_urls": [
+        "https://ec.europa.eu/safety-gate-alerts/"
+      ],
+      "expected_facts": [
+        "route constraints",
+        "cost basis",
+        "prep rules",
+        "warehouse acceptance",
+        "transit risk"
+      ],
+      "freshness_days": 30
+    },
+    {
+      "source_candidate_id": "SC-EU-009",
+      "origin_country": "China",
+      "destination_market": "EU",
+      "channel_type": "origin_export_controls",
+      "title": "China export, origin, and COO route",
+      "why": "Origin-side checks clarify export controls, certificate of origin, manufacturer/exporter documents, and origin labeling consistency.",
+      "source_tier": "T1",
+      "access_method": "origin customs/export authority, trade portal, chamber of commerce, or exporter registry",
+      "suggested_queries": [
+        "China export food certificate of origin official",
+        "China export controls food official"
+      ],
+      "candidate_urls": [
+        "https://taxation-customs.ec.europa.eu/customs-4/customs-procedures-import-and-export-0/customs-procedures/economic-operators-registration-and-identification-number-eori_en"
+      ],
+      "expected_facts": [
+        "export permissions",
+        "COO route",
+        "manufacturer/exporter identity",
+        "origin label consistency"
+      ],
+      "freshness_days": 180
+    }
+  ],
+  "research_tasks": [
+    {
+      "research_task_id": "RT-US-001",
+      "task_key": "verify-platform-category-policy",
+      "priority": "P0",
+      "channel_type": "platform_policy",
+      "source_candidate_ids": [
+        "SC-US-001"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify platform seller route, restricted product status, category approval, listing-copy limits, and required documents.",
+      "recommended_tier": "T1",
+      "freshness_days": 90,
+      "evidence_fields": [
+        "seller route",
+        "category approval",
+        "restricted products",
+        "document requirements"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-002",
+      "task_key": "verify-destination-regulator-route",
+      "priority": "P0",
+      "channel_type": "destination_regulator",
+      "source_candidate_ids": [
+        "SC-US-002"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify product classification, regulator, registration/notification, label language, warnings, and claim limits.",
+      "recommended_tier": "T1",
+      "freshness_days": 180,
+      "evidence_fields": [
+        "classification",
+        "required registrations",
+        "label rules",
+        "claims limits"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-003",
+      "task_key": "verify-destination-import-route",
+      "priority": "P0",
+      "channel_type": "customs_import",
+      "source_candidate_ids": [
+        "SC-US-003"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify importer of record, customs documents, admissibility, tax/VAT route, and import controls.",
+      "recommended_tier": "T1",
+      "freshness_days": 180,
+      "evidence_fields": [
+        "importer obligations",
+        "customs documents",
+        "admissibility",
+        "tax/VAT route"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-004",
+      "task_key": "verify-brand-ip-territory",
+      "priority": "P0",
+      "channel_type": "brand_ip",
+      "source_candidate_ids": [
+        "SC-US-004"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify trademark owner, class, territory, status, expiry, and authorization coverage for platform/channel/product.",
+      "recommended_tier": "T1",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "owner",
+        "class",
+        "territory",
+        "status",
+        "expiry",
+        "authorization scope"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-005",
+      "task_key": "verify-entity-chain",
+      "priority": "P1",
+      "channel_type": "business_registry",
+      "source_candidate_ids": [
+        "SC-US-005"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify applicant, manufacturer, importer, responsible party, rights holder, and certificate holder identity chain.",
+      "recommended_tier": "T1",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "legal name",
+        "status",
+        "registered address",
+        "business scope",
+        "role relationship"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-006",
+      "task_key": "verify-certificate-issuer-scope",
+      "priority": "P0",
+      "channel_type": "certification_lab",
+      "source_candidate_ids": [
+        "SC-US-006"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify issuer/lab/accreditation status, standard, model/SKU/product scope, site scope, and expiry.",
+      "recommended_tier": "T2",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "issuer status",
+        "accreditation scope",
+        "standard",
+        "product match",
+        "expiry"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-007",
+      "task_key": "verify-standards-route",
+      "priority": "P1",
+      "channel_type": "standards_body",
+      "source_candidate_ids": [
+        "SC-US-007"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify applicable standards, conformity route, technical-file basis, and allowed marks.",
+      "recommended_tier": "T2",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "applicable standard",
+        "test basis",
+        "technical file route",
+        "label mark rules"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-008",
+      "task_key": "verify-logistics-route",
+      "priority": "P1",
+      "channel_type": "logistics_warehouse",
+      "source_candidate_ids": [
+        "SC-US-008"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify freight constraints, dangerous goods, warehouse acceptance, platform prep, cost basis, and route timing.",
+      "recommended_tier": "T3",
+      "freshness_days": 30,
+      "evidence_fields": [
+        "route constraints",
+        "cost basis",
+        "prep rules",
+        "warehouse acceptance",
+        "transit risk"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-009",
+      "task_key": "verify-origin-export-route",
+      "priority": "P0",
+      "channel_type": "origin_export_controls",
+      "source_candidate_ids": [
+        "SC-US-009"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify export permissions, certificate of origin, manufacturer/exporter documents, and origin label consistency.",
+      "recommended_tier": "T1",
+      "freshness_days": 180,
+      "evidence_fields": [
+        "export permissions",
+        "COO route",
+        "manufacturer/exporter identity",
+        "origin label consistency"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-US-010",
+      "task_key": "verify-user-search-channel",
+      "priority": "P1",
+      "channel_type": "marketplace_search",
+      "source_candidate_ids": [
+        "user-amazon-us-chili-crisp-search"
+      ],
+      "origin_country": "China",
+      "destination_market": "US",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Use user-provided channel 'User-provided Amazon US chili crisp search' to collect current signals, then record URL, checked date, extracted facts, confidence, and whether the source directly confirms the claim.",
+      "recommended_tier": "T4",
+      "freshness_days": 7,
+      "evidence_fields": [
+        "current price",
+        "review count",
+        "listing claims",
+        "visible trust signals"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-001",
+      "task_key": "verify-platform-category-policy",
+      "priority": "P0",
+      "channel_type": "platform_policy",
+      "source_candidate_ids": [
+        "SC-EU-001"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify platform seller route, restricted product status, category approval, listing-copy limits, and required documents.",
+      "recommended_tier": "T1",
+      "freshness_days": 90,
+      "evidence_fields": [
+        "seller route",
+        "category approval",
+        "restricted products",
+        "document requirements"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-002",
+      "task_key": "verify-destination-regulator-route",
+      "priority": "P0",
+      "channel_type": "destination_regulator",
+      "source_candidate_ids": [
+        "SC-EU-002"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify product classification, regulator, registration/notification, label language, warnings, and claim limits.",
+      "recommended_tier": "T1",
+      "freshness_days": 180,
+      "evidence_fields": [
+        "classification",
+        "required registrations",
+        "label rules",
+        "claims limits"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-003",
+      "task_key": "verify-destination-import-route",
+      "priority": "P0",
+      "channel_type": "customs_import",
+      "source_candidate_ids": [
+        "SC-EU-003"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify importer of record, customs documents, admissibility, tax/VAT route, and import controls.",
+      "recommended_tier": "T1",
+      "freshness_days": 180,
+      "evidence_fields": [
+        "importer obligations",
+        "customs documents",
+        "admissibility",
+        "tax/VAT route"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-004",
+      "task_key": "verify-brand-ip-territory",
+      "priority": "P0",
+      "channel_type": "brand_ip",
+      "source_candidate_ids": [
+        "SC-EU-004"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify trademark owner, class, territory, status, expiry, and authorization coverage for platform/channel/product.",
+      "recommended_tier": "T1",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "owner",
+        "class",
+        "territory",
+        "status",
+        "expiry",
+        "authorization scope"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-005",
+      "task_key": "verify-entity-chain",
+      "priority": "P1",
+      "channel_type": "business_registry",
+      "source_candidate_ids": [
+        "SC-EU-005"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify applicant, manufacturer, importer, responsible party, rights holder, and certificate holder identity chain.",
+      "recommended_tier": "T1",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "legal name",
+        "status",
+        "registered address",
+        "business scope",
+        "role relationship"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-006",
+      "task_key": "verify-certificate-issuer-scope",
+      "priority": "P0",
+      "channel_type": "certification_lab",
+      "source_candidate_ids": [
+        "SC-EU-006"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify issuer/lab/accreditation status, standard, model/SKU/product scope, site scope, and expiry.",
+      "recommended_tier": "T2",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "issuer status",
+        "accreditation scope",
+        "standard",
+        "product match",
+        "expiry"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-007",
+      "task_key": "verify-standards-route",
+      "priority": "P1",
+      "channel_type": "standards_body",
+      "source_candidate_ids": [
+        "SC-EU-007"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify applicable standards, conformity route, technical-file basis, and allowed marks.",
+      "recommended_tier": "T2",
+      "freshness_days": 365,
+      "evidence_fields": [
+        "applicable standard",
+        "test basis",
+        "technical file route",
+        "label mark rules"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-008",
+      "task_key": "verify-logistics-route",
+      "priority": "P1",
+      "channel_type": "logistics_warehouse",
+      "source_candidate_ids": [
+        "SC-EU-008"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify freight constraints, dangerous goods, warehouse acceptance, platform prep, cost basis, and route timing.",
+      "recommended_tier": "T3",
+      "freshness_days": 30,
+      "evidence_fields": [
+        "route constraints",
+        "cost basis",
+        "prep rules",
+        "warehouse acceptance",
+        "transit risk"
+      ],
+      "status": "needs_external_verification"
+    },
+    {
+      "research_task_id": "RT-EU-009",
+      "task_key": "verify-origin-export-route",
+      "priority": "P0",
+      "channel_type": "origin_export_controls",
+      "source_candidate_ids": [
+        "SC-EU-009"
+      ],
+      "origin_country": "China",
+      "destination_market": "EU",
+      "platform": "Amazon",
+      "category": "food",
+      "instruction": "Verify export permissions, certificate of origin, manufacturer/exporter documents, and origin label consistency.",
+      "recommended_tier": "T1",
+      "freshness_days": 180,
+      "evidence_fields": [
+        "export permissions",
+        "COO route",
+        "manufacturer/exporter identity",
+        "origin label consistency"
+      ],
+      "status": "needs_external_verification"
+    }
+  ],
   "offline_logistics": [
     {
       "route_id": "log-air-001",

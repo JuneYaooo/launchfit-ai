@@ -21,7 +21,7 @@
 
 ## 现在能本地跑什么
 
-这个 repo 现在包含一个不依赖外部服务的轻量 Skill 执行层：先把对标商品整理成 benchmark worksheet，再把商品信息、已抽取的证书字段、包装文案、对标行和物流行整理成 case bundle，就能生成结构化 JSON 体检报告和 Markdown 备忘录。
+这个 repo 现在包含一个不依赖外部服务的轻量 Skill 执行层：先把对标商品整理成 benchmark worksheet，再把商品信息、原产地、一个或多个目标市场、已抽取的证书字段、包装文案、对标行和物流行整理成 case bundle，就能生成结构化 JSON 体检报告和 Markdown 备忘录。
 
 ```bash
 python3 scripts/qualification_audit_schema.py benchmark-validate examples/benchmark-worksheet.json
@@ -40,11 +40,11 @@ python3 scripts/qualification_audit_schema.py launch-report-markdown \
   > /tmp/launchfit-offline-report.md
 ```
 
-离线 MVP 会覆盖 README 里最核心的报告面：目标市场对标、价格/单位价格、包装和宣称风险、物流路线风险、平台准入缺口、过期/错配材料、补件话术和审计记录。
+本地执行层会覆盖 README 里最核心的报告面：目标市场对标、价格/单位价格、包装和宣称风险、物流路线风险、平台准入缺口、过期/错配材料、补件话术和审计记录。更关键的是，它会按“原产地 + 多个目标市场”拆分出每个市场最应该查的信息渠道和核验任务，包括平台政策、监管机构、海关进口、品牌/IP、企业注册、认证/实验室、标准、物流仓储和原产地出口控制。
 
 对标是核心：worksheet 支持直接竞品、替代品、相邻参考品、类目头部、本地小众品牌、平台爆品、线下货架和 DTC/社媒品牌，并汇总价格带、渠道地图、包装惯例、claims/proof、评论信号和 copy / avoid / improve 动作。
 
-边界也很明确：当前仓库不强依赖 OCR、实时竞品抓取、证书/商标/企业注册库查询、物流报价 API 或审核 UI。这些能力是增强输入；用户提供的截图、证书和报价会被标为 T4 / `user_provided`；需要官方或实时来源确认的事项会保留为 `needs_external_verification`。
+边界也很明确：当前仓库不强依赖 OCR、实时竞品抓取、证书/商标/企业注册库查询、物流报价 API 或审核 UI。这些能力、以及用户已有的搜索渠道 / 平台链接 / 供应商渠道 / 行业数据库，都应接入同一套 `user_search_channels`、`source_candidates`、`research_tasks` 和 `external_checks` 结构；用户提供的截图、证书和报价会被标为 T4 / `user_provided`；需要官方或实时来源确认的事项会保留为 `needs_external_verification`。
 
 ## 它解决的核心问题
 

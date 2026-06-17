@@ -25,6 +25,9 @@ python3 scripts/qualification_audit_schema.py bundle-template \
   --market US \
   --category food \
   --product "chili sauce" \
+  --origin-country China \
+  --destination-market US \
+  --destination-market EU \
   > /tmp/launchfit-bundle-template.json
 
 python3 scripts/qualification_audit_schema.py bundle-validate \
@@ -33,7 +36,7 @@ python3 scripts/qualification_audit_schema.py bundle-validate \
 
 ## Offline Launch Readiness MVP
 
-Generate a full launch-readiness report from a local case bundle containing product scope, applicant documents, packaging text, competitor rows, and logistics rows:
+Generate a full launch-readiness report from a case bundle containing product scope, origin country, one or more destination markets, applicant documents, packaging text, competitor rows, and logistics rows:
 
 ```bash
 python3 scripts/qualification_audit_schema.py launch-report \
@@ -70,7 +73,7 @@ OK
 PASS: offline-launch-readiness
 ```
 
-Offline bundle facts are useful for intake and routing, but they are not external verification. User-provided documents and screenshots are treated as T4 evidence, competitor rows remain `user_provided` unless marked `current_checked`, and unresolved official checks remain `needs_external_verification`.
+Bundle facts are useful for intake and routing, but they are not external verification. User-provided documents and screenshots are treated as T4 evidence, competitor rows remain `user_provided` unless marked `current_checked`, and unresolved official checks remain `needs_external_verification`. The report also emits `market_reviews`, `source_candidates`, and `research_tasks` so live search, registry APIs, browser checks, or human review can fill the same evidence model for each destination market.
 
 ## Amazon US Food Intake Skeleton
 

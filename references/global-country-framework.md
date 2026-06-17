@@ -6,7 +6,7 @@ This framework makes the skill usable for any destination country or region, eve
 
 Never block usage just because a country rule pack is missing. Use the global baseline workflow:
 
-1. Identify country/region, platform, category, business model, and applicant role.
+1. Identify origin country/region, destination country/region, platform, category, business model, and applicant role.
 2. Load `data/rulepacks/index.json` and check whether a country/region pack exists.
 3. If a mature pack exists, use it as the starting checklist.
 4. If no mature pack exists, use `data/rulepacks/global-baseline.json`.
@@ -15,12 +15,13 @@ Never block usage just because a country rule pack is missing. Use the global ba
 
 ## Jurisdiction Layers
 
-For any country, route the review through these layers:
+For any origin/destination pair, route the review through these layers:
 
 | Layer | What to check |
 |---|---|
 | Marketplace site | Platform seller eligibility, category gating, restricted product policy |
 | Destination country | Import permissions, product safety, labeling, claims, local representative/importer |
+| Origin country | Export permissions, certificate of origin, exporter/manufacturer evidence, origin-label consistency |
 | Regional bloc | EU/EEA, GCC, ASEAN, Mercosur, EAEU, UK, AU/NZ, or other regional rules where applicable |
 | Product regulator | Food, cosmetics, supplements, electronics, chemicals, toys, medical, pesticides, textiles |
 | Customs/tax | Importer of record, customs docs, VAT/GST, EORI/IOSS/VAT ID, bonded/direct mail route |
@@ -32,6 +33,7 @@ For any country, route the review through these layers:
 When no specific rule pack exists, start with:
 
 - Seller/entity eligibility for the platform and marketplace site.
+- Product origin country, exporter/manufacturer role, and certificate-of-origin route.
 - Local or cross-border seller route eligibility.
 - Business registration and tax/payee requirements.
 - Importer of record or local responsible entity need.

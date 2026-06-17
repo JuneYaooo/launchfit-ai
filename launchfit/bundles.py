@@ -34,16 +34,49 @@ def _valid_date(value: Any) -> bool:
         return False
 
 
-def bundle_template(platform: str, market: str, category: str, product: str = "") -> dict[str, Any]:
+def normalize_destination_markets(case: dict[str, Any], allow_legacy: bool = True) -> list[str]:
+    raw = case.get("destination_markets")
+    values: list[Any]
+    if isinstance(raw, list):
+        values = raw
+    elif raw in (None, "") and allow_legacy:
+        values = [case.get("destination_market")]
+    else:
+        values = []
+    destinations: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        text = _text(value)
+        if not text:
+            continue
+        key = text.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        destinations.append(text)
+    return destinations
+
+
+def bundle_template(
+    platform: str,
+    market: str,
+    category: str,
+    product: str = "",
+    origin_country: str = "",
+    destination_markets: list[str] | None = None,
+) -> dict[str, Any]:
+    destinations = destination_markets if destination_markets is not None else [market]
     return {
         "bundle_type": "launchfit_offline_case",
         "case": {
             "case_id": "",
             "applicant_name": "",
             "applicant_role": "",
+            "origin_country": origin_country,
             "platform": platform,
             "marketplace_site": market,
             "destination_market": market,
+            "destination_markets": destinations,
             "business_model": "",
             "product_category": category,
             "subcategory": product,
@@ -67,6 +100,7 @@ def bundle_template(platform: str, market: str, category: str, product: str = ""
         },
         "benchmarks": [],
         "logistics": [],
+        "user_search_channels": [],
         "sources": [],
         "external_checks": [],
     }
@@ -88,9 +122,12 @@ def validate_case_bundle(data: dict[str, Any]) -> tuple[list[str], list[str]]:
     if not isinstance(case, dict):
         errors.append("case must be an object")
         case = {}
-    for field in ("platform", "destination_market", "product_category", "review_purpose"):
+    for field in ("origin_country", "platform", "product_category", "review_purpose"):
         if not _text(case.get(field)):
             errors.append(f"case.{field} is required")
+    destination_markets = normalize_destination_markets(case, allow_legacy=False)
+    if not destination_markets:
+        errors.append("case.destination_markets must be a non-empty list")
     if not (_text(case.get("product_name")) or _text(case.get("subcategory"))):
         errors.append("case.product_name or case.subcategory is required")
     if not _valid_date(case.get("review_date")):
@@ -128,7 +165,7 @@ def validate_case_bundle(data: dict[str, Any]) -> tuple[list[str], list[str]]:
             "worksheet_type": "launchfit_benchmark_worksheet",
             "scope": {
                 "product": case.get("product_name") or case.get("subcategory", ""),
-                "target_market": case.get("destination_market", ""),
+                "target_market": destination_markets[0] if destination_markets else case.get("destination_market", ""),
                 "platform": case.get("platform", ""),
                 "category": case.get("product_category", ""),
             },
@@ -152,6 +189,20 @@ def validate_case_bundle(data: dict[str, Any]) -> tuple[list[str], list[str]]:
             errors.append(f"logistics[{idx}].cost_basis or logistics[{idx}].data_basis is required")
     if not logistics:
         warnings.append("logistics is empty; logistics budget and route risks will be incomplete")
+
+    user_search_channels = data.get("user_search_channels", [])
+    if user_search_channels not in (None, []) and not isinstance(user_search_channels, list):
+        errors.append("user_search_channels must be a list when provided")
+    if isinstance(user_search_channels, list):
+        for idx, channel in enumerate(user_search_channels):
+            if not isinstance(channel, dict):
+                errors.append(f"user_search_channels[{idx}] must be an object")
+                continue
+            if not _text(channel.get("title")):
+                errors.append(f"user_search_channels[{idx}].title is required")
+            applies_to = channel.get("applies_to_markets", [])
+            if applies_to not in (None, []) and not isinstance(applies_to, list):
+                errors.append(f"user_search_channels[{idx}].applies_to_markets must be a list when provided")
 
     sources = data.get("sources")
     if not isinstance(sources, list):

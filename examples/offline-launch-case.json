@@ -4,9 +4,11 @@
     "case_id": "offline-launch-readiness",
     "applicant_name": "Example Trading Co., Ltd.",
     "applicant_role": "distributor",
+    "origin_country": "China",
     "platform": "Amazon",
     "marketplace_site": "US",
     "destination_market": "US",
+    "destination_markets": ["US", "EU"],
     "business_model": "marketplace_seller",
     "product_category": "food",
     "subcategory": "chili sauce",
@@ -157,6 +159,18 @@
       "risks": ["slow feedback loop", "customs delay", "storage conditions"],
       "preparation": ["verify importer/FDA route", "confirm shelf-life buffer", "book food-capable warehouse"],
       "data_basis": "user_provided"
+    }
+  ],
+  "user_search_channels": [
+    {
+      "channel_id": "user-amazon-us-chili-crisp-search",
+      "channel_type": "marketplace_search",
+      "title": "User-provided Amazon US chili crisp search",
+      "url": "https://www.amazon.com/s?k=chili+crisp",
+      "access_method": "user-provided marketplace search URL",
+      "applies_to_markets": ["US"],
+      "expected_facts": ["current price", "review count", "listing claims", "visible trust signals"],
+      "freshness_days": 7
     }
   ],
   "sources": [

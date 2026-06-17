@@ -21,9 +21,11 @@ Collect or infer:
 - `case_id`
 - `applicant_name`
 - `applicant_role`
+- `origin_country`
 - `platform`
 - `marketplace_site`
 - `destination_market`
+- `destination_markets`
 - `business_model`
 - `product_category`
 - `subcategory`
@@ -32,7 +34,7 @@ Collect or infer:
 - `submitted_documents`
 - `requested_decision_deadline`
 
-If `platform`, `market`, `category`, or `review_purpose` is absent, treat the review as incomplete and produce an intake checklist rather than a final decision.
+If `origin_country`, `platform`, `destination_markets`, `category`, or `review_purpose` is absent, treat the review as incomplete and produce an intake checklist rather than a final decision. If more than one destination is provided, create destination-specific review tracks rather than combining rules into one market.
 
 ## Review Stages
 
@@ -126,4 +128,3 @@ Every final review should include:
 - source/freshness table
 - privacy redaction note
 - disclaimer and escalation note
-

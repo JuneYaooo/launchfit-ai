@@ -23,8 +23,8 @@ Add these entities if building on an existing app:
 
 ```text
 ReviewCase
-  id, user_id, applicant_name, applicant_role, platform, marketplace_site,
-  destination_market, business_model, product_category, subcategory,
+  id, user_id, applicant_name, applicant_role, origin_country, platform, marketplace_site,
+  destination_market, destination_markets_json, business_model, product_category, subcategory,
   brand_name, review_purpose, status, risk_level, risk_score,
   created_at, updated_at, decided_at
 
