@@ -26,6 +26,7 @@ Collect or infer:
 - `marketplace_site`
 - `destination_market`
 - `destination_markets`
+- `go_to_market_model` (`cross_border_ecommerce`, `physical_trade`, `hybrid`, or `unknown`)
 - `business_model`
 - `product_category`
 - `subcategory`
@@ -34,13 +35,22 @@ Collect or infer:
 - `submitted_documents`
 - `requested_decision_deadline`
 
-If `origin_country`, `platform`, `destination_markets`, `category`, or `review_purpose` is absent, treat the review as incomplete and produce an intake checklist rather than a final decision. If more than one destination is provided, create destination-specific review tracks rather than combining rules into one market.
+If `origin_country`, `destination_markets`, `go_to_market_model`, `category`, or `review_purpose` is absent, treat the review as incomplete and produce an intake checklist rather than a final decision. If `go_to_market_model` is `cross_border_ecommerce` or `hybrid`, platform is a required P0 scope field. If `go_to_market_model` is `physical_trade`, platform can be empty, but importer/distributor/offline channel and customs route become P0 scope fields. If more than one destination is provided, create destination-specific review tracks rather than combining rules into one market.
 
 ## Review Stages
 
-### 1. Intake normalization
+### 1. Intake normalization and route split
 
 Normalize applicant, brand, product, platform, market, and document names. Convert translated names into a canonical table and preserve originals.
+
+Classify the sales route before benchmarking:
+
+| `go_to_market_model` | Primary route | P0 checks |
+|---|---|---|
+| `cross_border_ecommerce` | Marketplace or social-commerce launch | Platform/category admission, listing claims, brand/IP, fulfillment and warehouse rules |
+| `physical_trade` | Export/import, importer, distributor, retail, wholesale, or offline shelf | Origin export, destination import/customs, importer/responsible party, local registration/label, Incoterms and logistics |
+| `hybrid` | Ecommerce plus physical import/distribution | Run ecommerce and physical-trade checks separately, then merge blockers |
+| `unknown` | User has not clarified route | Ask route question or make route confirmation a P0 research task |
 
 ### 2. Document inventory
 

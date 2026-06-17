@@ -15,6 +15,7 @@ Launch view: go | caution | stop | unknown
 
 Origin:
 Destinations:
+Go-to-market path:
 Platform/category:
 
 Top blockers:
@@ -192,6 +193,7 @@ Operational launch-readiness review only; not legal advice. Verify current platf
     "marketplace_site": "",
     "destination_market": "",
     "destination_markets": [],
+    "go_to_market_model": "cross_border_ecommerce|physical_trade|hybrid|unknown",
     "business_model": "",
     "product_category": "",
     "subcategory": "",
@@ -206,6 +208,12 @@ Operational launch-readiness review only; not legal advice. Verify current platf
     "risk_score": 0,
     "summary": "",
     "rationale": []
+  },
+  "go_to_market_route": {
+    "model": "cross_border_ecommerce|physical_trade|hybrid|unknown",
+    "label": "",
+    "primary_checks": [],
+    "benchmark_focus": []
   },
   "documents": [
     {

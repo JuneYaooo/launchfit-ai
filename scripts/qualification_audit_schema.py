@@ -50,6 +50,7 @@ from launchfit.benchmarking import (
     validate_benchmark_worksheet,
 )
 from launchfit.bundles import bundle_template as offline_bundle_template
+from launchfit.bundles import normalize_go_to_market_model
 from launchfit.bundles import normalize_destination_markets
 from launchfit.bundles import validate_case_bundle
 from launchfit.coverage import coverage_report
@@ -107,6 +108,7 @@ ALLOWED_CHANNEL_ROLES = {
     "other",
 }
 ALLOWED_POSITIONING = {"mass", "mainstream", "premium", "specialty", "luxury", "unknown"}
+ALLOWED_GO_TO_MARKET_MODELS = {"cross_border_ecommerce", "physical_trade", "hybrid", "unknown"}
 
 DEFINITIVE_STATUSES = {"approve", "conditional_approve", "reject"}
 MATURE_PACKS = {"validated", "production"}
@@ -115,9 +117,9 @@ AUTHORITATIVE_TIERS = {"T1", "T2"}
 REQUIRED_CASE_FIELDS = (
     "applicant_name",
     "origin_country",
-    "platform",
     "destination_market",
     "destination_markets",
+    "go_to_market_model",
     "product_category",
     "review_purpose",
 )
@@ -215,6 +217,7 @@ def sample() -> dict[str, Any]:
             "marketplace_site": "US",
             "destination_market": "United States",
             "destination_markets": ["United States"],
+            "go_to_market_model": "cross_border_ecommerce",
             "business_model": "marketplace seller",
             "product_category": "food",
             "subcategory": "sauce",
@@ -633,6 +636,7 @@ def source_candidates_for_market(
     destination_market: str,
     category: str,
     user_search_channels: list[dict[str, Any]] | None = None,
+    go_to_market_model: str = "unknown",
 ) -> list[dict[str, Any]]:
     pack_sources: list[dict[str, Any]] = []
     for pack in matching_rulepacks(platform, destination_market, category):
@@ -783,6 +787,25 @@ def source_candidates_for_market(
             "freshness_days": 180,
         },
     ]
+    if go_to_market_model == "physical_trade":
+        base = [item for item in base if item["channel_type"] != "platform_policy"]
+    if go_to_market_model in {"physical_trade", "hybrid", "unknown"}:
+        base.append(
+            {
+                "channel_type": "offline_channel",
+                "title": f"{destination_market} importer, distributor, wholesale, retail, and offline shelf route",
+                "why": "Physical trade needs a buyer/channel route, local responsibility split, shelf expectations, and offline admission constraints beyond marketplace rules.",
+                "source_tier": "T3",
+                "access_method": "importer/distributor brief, retail buyer checklist, trade association, wholesale marketplace, shelf audit, or user-provided channel",
+                "suggested_queries": [
+                    f"{destination_market} {category} importer distributor requirements",
+                    f"{destination_market} {category} retail shelf imported product requirements",
+                ],
+                "candidate_urls": source_urls("retail", "distributor", "wholesale", "importer", "trade"),
+                "expected_facts": ["offline channel requirements", "buyer documentation", "local responsibility", "shelf/packaging expectations"],
+                "freshness_days": 90,
+            }
+        )
     candidates: list[dict[str, Any]] = []
     for idx, item in enumerate(base, start=1):
         candidates.append(
@@ -825,9 +848,12 @@ def research_tasks_for_market(
     destination_market: str,
     category: str,
     source_candidates: list[dict[str, Any]],
+    go_to_market_model: str = "unknown",
 ) -> list[dict[str, Any]]:
-    task_specs = [
-        ("verify-platform-category-policy", "platform_policy", "Verify platform seller route, restricted product status, category approval, listing-copy limits, and required documents.", "P0"),
+    task_specs = []
+    if go_to_market_model != "physical_trade":
+        task_specs.append(("verify-platform-category-policy", "platform_policy", "Verify platform seller route, restricted product status, category approval, listing-copy limits, and required documents.", "P0"))
+    task_specs.extend([
         ("verify-destination-regulator-route", "destination_regulator", "Verify product classification, regulator, registration/notification, label language, warnings, and claim limits.", "P0"),
         ("verify-destination-import-route", "customs_import", "Verify importer of record, customs documents, admissibility, tax/VAT route, and import controls.", "P0"),
         ("verify-brand-ip-territory", "brand_ip", "Verify trademark owner, class, territory, status, expiry, and authorization coverage for platform/channel/product.", "P0"),
@@ -836,7 +862,9 @@ def research_tasks_for_market(
         ("verify-standards-route", "standards_body", "Verify applicable standards, conformity route, technical-file basis, and allowed marks.", "P1"),
         ("verify-logistics-route", "logistics_warehouse", "Verify freight constraints, dangerous goods, warehouse acceptance, platform prep, cost basis, and route timing.", "P1"),
         ("verify-origin-export-route", "origin_export_controls", "Verify export permissions, certificate of origin, manufacturer/exporter documents, and origin label consistency.", "P0"),
-    ]
+    ])
+    if go_to_market_model in {"physical_trade", "hybrid", "unknown"}:
+        task_specs.append(("verify-offline-channel-route", "offline_channel", "Verify importer/distributor/retail channel requirements, buyer documents, local responsibility split, and offline shelf expectations.", "P0" if go_to_market_model == "physical_trade" else "P1"))
     candidate_by_type = {candidate["channel_type"]: candidate for candidate in source_candidates}
     tasks: list[dict[str, Any]] = []
     for idx, (task_key, channel_type, instruction, priority) in enumerate(task_specs, start=1):
@@ -904,8 +932,9 @@ def build_market_review(
         case_id=f"{_text(case.get('case_id')) or 'case'}-{destination_market.lower().replace(' ', '-')}",
         marketplace_site=destination_market,
     )
-    candidates = source_candidates_for_market(platform, origin_country, destination_market, category, user_search_channels)
-    tasks = research_tasks_for_market(platform, origin_country, destination_market, category, candidates)
+    go_to_market_model = normalize_go_to_market_model(case)
+    candidates = source_candidates_for_market(platform, origin_country, destination_market, category, user_search_channels, go_to_market_model)
+    tasks = research_tasks_for_market(platform, origin_country, destination_market, category, candidates, go_to_market_model)
     return {
         "destination_market": destination_market,
         "origin_country": origin_country,
@@ -1425,10 +1454,89 @@ def choose_launch_decision(
     }
 
 
+def go_to_market_route_profile(model: str) -> dict[str, Any]:
+    profiles = {
+        "cross_border_ecommerce": {
+            "model": "cross_border_ecommerce",
+            "label": "cross border ecommerce",
+            "primary_checks": [
+                "marketplace listing and category gating",
+                "platform restricted-products policy",
+                "brand authorization and IP coverage",
+                "listing claims, packaging, and label readiness",
+                "fulfillment, warehouse, and return route",
+            ],
+            "benchmark_focus": [
+                "marketplace search results",
+                "platform best sellers",
+                "listing copy and claims",
+                "visible trust signals",
+                "review themes and price bands",
+            ],
+        },
+        "physical_trade": {
+            "model": "physical_trade",
+            "label": "physical trade",
+            "primary_checks": [
+                "destination import and customs",
+                "origin export controls and certificate of origin",
+                "importer or responsible-party obligations",
+                "local label, registration, and retail/distributor channel requirements",
+                "Incoterms, freight, tax, warehouse, and insurance route",
+            ],
+            "benchmark_focus": [
+                "local retail shelf and distributor channels",
+                "imported substitute products",
+                "wholesale and landed-cost references",
+                "packaging language and responsibility marks",
+                "certification signals visible in offline channels",
+            ],
+        },
+        "hybrid": {
+            "model": "hybrid",
+            "label": "hybrid ecommerce and physical trade",
+            "primary_checks": [
+                "marketplace listing and category gating",
+                "destination import and customs",
+                "brand authorization and IP coverage",
+                "local importer, responsible party, warehouse, and fulfillment obligations",
+                "listing, packaging, label, and offline channel readiness",
+            ],
+            "benchmark_focus": [
+                "marketplace best sellers",
+                "offline retail shelf references",
+                "DTC/social commerce examples",
+                "landed cost and unit price bands",
+                "online and offline packaging conventions",
+            ],
+        },
+        "unknown": {
+            "model": "unknown",
+            "label": "unknown route",
+            "primary_checks": [
+                "confirm whether the route is cross-border ecommerce, physical trade, or hybrid",
+                "destination import and customs",
+                "marketplace or offline channel admission",
+                "brand authorization and product qualification",
+                "packaging, claims, logistics, and landed-cost basis",
+            ],
+            "benchmark_focus": [
+                "candidate online channels",
+                "candidate offline channels",
+                "local substitute products",
+                "price and packaging references",
+                "signals that clarify the actual sales route",
+            ],
+        },
+    }
+    return profiles.get(model, profiles["unknown"])
+
+
 def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     case = bundle.get("case") if isinstance(bundle.get("case"), dict) else {}
     platform = _text(case.get("platform"))
     origin_country = _text(case.get("origin_country"))
+    go_to_market_model = normalize_go_to_market_model(case)
     destination_markets = normalize_destination_markets(case, allow_legacy=True)
     market = destination_markets[0] if destination_markets else _text(case.get("destination_market"))
     category = _text(case.get("product_category"))
@@ -1454,6 +1562,7 @@ def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
             "marketplace_site": _text(case.get("marketplace_site")) or market,
             "destination_market": market,
             "destination_markets": destination_markets or ([market] if market else []),
+            "go_to_market_model": go_to_market_model,
             "business_model": _text(case.get("business_model")),
             "product_category": category,
             "subcategory": _text(case.get("subcategory")),
@@ -1552,6 +1661,7 @@ def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
             "details": f"Origin={origin_country or 'missing'}, destinations={len(market_reviews)}, documents={len(documents)}, benchmarks={len(benchmark_rows)}, logistics_routes={len(logistics_rows)}.",
         }
     )
+    report["go_to_market_route"] = go_to_market_route_profile(go_to_market_model)
     report["offline_logistics"] = logistics_rows
     return report
 
@@ -1624,6 +1734,7 @@ def _evidence_status(report: dict[str, Any]) -> dict[str, int]:
 def render_overview_card_html(report: dict[str, Any]) -> str:
     case = report.get("case") if isinstance(report.get("case"), dict) else {}
     decision = report.get("decision") if isinstance(report.get("decision"), dict) else {}
+    route = report.get("go_to_market_route") if isinstance(report.get("go_to_market_route"), dict) else go_to_market_route_profile(_text(case.get("go_to_market_model")) or "unknown")
     destinations = _as_list(case.get("destination_markets")) or _as_list(case.get("destination_market"))
     findings = _top_findings(report)
     missing = _top_missing(report)
@@ -1643,7 +1754,7 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
     .eyebrow {{ color: #1769aa; font-weight: 800; font-size: 24px; margin-bottom: 18px; }}
     h1 {{ font-size: 60px; line-height: 1.05; margin: 0 0 18px; }}
     .summary {{ color: #617086; font-size: 28px; line-height: 1.35; margin-bottom: 28px; max-width: 900px; }}
-    .meta {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 34px; }}
+    .meta {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0 34px; }}
     .meta > div, .panel {{ border: 1px solid #d9e1ec; border-radius: 8px; padding: 20px; background: #fbfdff; }}
     .label {{ color: #617086; font-size: 17px; font-weight: 750; margin-bottom: 8px; text-transform: uppercase; }}
     .value {{ font-size: 26px; font-weight: 800; line-height: 1.2; }}
@@ -1664,6 +1775,7 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
     <div class="summary">{_html(decision.get("summary") or "Launch readiness depends on completing the research tasks and resolving missing materials.")}</div>
     <section class="meta">
       <div><div class="label">Launch view</div><div class="value status">{_display_label(decision.get("status"))}</div></div>
+      <div><div class="label">Go-to-market path</div><div class="value">{_html(route.get("label"))}</div></div>
       <div><div class="label">Origin</div><div class="value">{_html(case.get("origin_country"))}</div></div>
       <div><div class="label">Destinations</div><div class="value">{_html(_joined_text(destinations))}</div></div>
     </section>
@@ -1683,6 +1795,7 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
 def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     case = report.get("case") if isinstance(report.get("case"), dict) else {}
     decision = report.get("decision") if isinstance(report.get("decision"), dict) else {}
+    route = report.get("go_to_market_route") if isinstance(report.get("go_to_market_route"), dict) else go_to_market_route_profile(_text(case.get("go_to_market_model")) or "unknown")
     benchmark_summary = report.get("market_benchmark_summary") if isinstance(report.get("market_benchmark_summary"), dict) else {}
     market_rows = "".join(
         f"<tr><td>{_html(item.get('destination_market'))}</td><td>{_html(_joined_text(item.get('matched_packs')))}</td><td>{len(item.get('research_tasks') or [])}</td><td>{len(item.get('source_candidates') or [])}</td></tr>"
@@ -1740,7 +1853,9 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
   <h1>Detailed LaunchFit Review</h1>
   <div class="box"><strong>Decision:</strong> {_display_label(decision.get('status'))} · {_display_label(decision.get('risk_level'))} · {_html(decision.get('summary'))}</div>
   <h2>Scope</h2>
-  <table><tr><th>Product</th><th>Origin</th><th>Destinations</th><th>Platform</th><th>Category</th><th>Applicant</th></tr><tr><td>{_html(case.get('subcategory') or case.get('product_category'))}</td><td>{_html(case.get('origin_country'))}</td><td>{_html(_joined_text(_as_list(case.get('destination_markets')) or _as_list(case.get('destination_market'))))}</td><td>{_html(case.get('platform'))}</td><td>{_html(case.get('product_category'))}</td><td>{_html(case.get('applicant_name'))}</td></tr></table>
+  <table><tr><th>Product</th><th>Go-to-market path</th><th>Origin</th><th>Destinations</th><th>Platform</th><th>Category</th><th>Applicant</th></tr><tr><td>{_html(case.get('subcategory') or case.get('product_category'))}</td><td>{_html(route.get('label'))}</td><td>{_html(case.get('origin_country'))}</td><td>{_html(_joined_text(_as_list(case.get('destination_markets')) or _as_list(case.get('destination_market'))))}</td><td>{_html(case.get('platform'))}</td><td>{_html(case.get('product_category'))}</td><td>{_html(case.get('applicant_name'))}</td></tr></table>
+  <h2>Go-to-market path</h2>
+  <table><tr><th>Primary checks</th><th>Benchmark focus</th></tr><tr><td>{_html('; '.join(route.get('primary_checks') or []))}</td><td>{_html('; '.join(route.get('benchmark_focus') or []))}</td></tr></table>
   <h2>Per-destination market reviews</h2>
   <table><tr><th>Destination</th><th>Matched packs</th><th>Research tasks</th><th>Source candidates</th></tr>{market_rows}</table>
   <h2>Benchmark summary</h2>
@@ -1835,6 +1950,7 @@ def _write_html_or_export(output_file: str, html_text: str, mode: str) -> int:
 def render_launch_markdown(report: dict[str, Any]) -> str:
     case = report.get("case") if isinstance(report.get("case"), dict) else {}
     decision = report.get("decision") if isinstance(report.get("decision"), dict) else {}
+    route = report.get("go_to_market_route") if isinstance(report.get("go_to_market_route"), dict) else go_to_market_route_profile(_text(case.get("go_to_market_model")) or "unknown")
     summary = report.get("market_benchmark_summary") if isinstance(report.get("market_benchmark_summary"), dict) else {}
     lines: list[str] = [
         "# Cross-Border Product Launch Review",
@@ -1842,6 +1958,7 @@ def render_launch_markdown(report: dict[str, Any]) -> str:
         "## Snapshot",
         f"- Product: {_md_cell(case.get('subcategory') or case.get('product_category'))}",
         f"- Origin: {_md_cell(case.get('origin_country'))}",
+        f"- Go-to-market path: {_md_cell(route.get('label'))}",
         f"- Target markets/platform: {_md_cell(_md_list(case.get('destination_markets')) or case.get('destination_market'))} / {_md_cell(case.get('platform'))}",
         f"- Launch view: {_md_cell(decision.get('status'))}",
         f"- Biggest risk: {_md_cell(decision.get('summary'))}",
@@ -2286,9 +2403,13 @@ def validate_payload(data: dict[str, Any]) -> list[str]:
     _require(decision.get("risk_level") in ALLOWED_RISK_LEVELS, f"decision.risk_level must be one of {sorted(ALLOWED_RISK_LEVELS)}", errors)
 
     case = data.get("case") if isinstance(data.get("case"), dict) else {}
+    if case.get("go_to_market_model") and case.get("go_to_market_model") not in ALLOWED_GO_TO_MARKET_MODELS:
+        errors.append(f"case.go_to_market_model must be one of {sorted(ALLOWED_GO_TO_MARKET_MODELS)}")
     if status in DEFINITIVE_STATUSES:
         for field in REQUIRED_CASE_FIELDS:
             _require(bool(case.get(field)), f"case.{field} is required for a definitive '{status}' decision", errors)
+        if case.get("go_to_market_model") in {"cross_border_ecommerce", "hybrid"}:
+            _require(bool(case.get("platform")), f"case.platform is required for a definitive '{status}' decision", errors)
 
     for key in ("documents", "market_benchmarks", "requirements", "findings", "missing_materials", "evidence", "sources", "audit_log"):
         _require(isinstance(data.get(key), list), f"{key} must be a list", errors)
@@ -2657,6 +2778,7 @@ def cmd_bundle_template(args: argparse.Namespace) -> int:
         product=args.product or "",
         origin_country=args.origin_country or "",
         destination_markets=args.destination_market or [args.market],
+        go_to_market_model=args.go_to_market_model,
     )
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
@@ -2988,12 +3110,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_benchmark_summarize.set_defaults(func=cmd_benchmark_summarize)
 
     p_bundle_template = sub.add_parser("bundle-template", help="print an offline launch case bundle template")
-    p_bundle_template.add_argument("--platform", required=True)
+    p_bundle_template.add_argument("--platform", default="")
     p_bundle_template.add_argument("--market", required=True)
     p_bundle_template.add_argument("--category", required=True)
     p_bundle_template.add_argument("--product", default="")
     p_bundle_template.add_argument("--origin-country", default="")
     p_bundle_template.add_argument("--destination-market", action="append")
+    p_bundle_template.add_argument(
+        "--go-to-market-model",
+        choices=sorted(ALLOWED_GO_TO_MARKET_MODELS),
+        default="unknown",
+    )
     p_bundle_template.set_defaults(func=cmd_bundle_template)
 
     p_bundle_validate = sub.add_parser("bundle-validate", help="validate an offline launch case bundle JSON file")

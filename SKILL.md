@@ -17,22 +17,27 @@ When the user asks for a final qualification decision, the output must remain au
 
 The useful outcome is not generic advice. The useful outcome is a next-action package:
 
-1. **Scope:** origin country, destination markets, platform, category, product, applicant role, business model.
-2. **Market evidence plan:** where to get current information for each destination.
-3. **Risk map:** what can block listing, import, label, brand/IP, logistics, or margin.
-4. **Actions:** who must provide which material, which source to check, and what evidence field to capture.
+1. **Scope:** origin country, destination markets, go-to-market model, platform/offline channel, category, product, applicant role, business model.
+2. **Route split:** decide whether this is `cross_border_ecommerce`, `physical_trade`, `hybrid`, or still `unknown`.
+3. **Admission-risk screen:** what can block platform listing, import, export, label, brand/IP, logistics, or margin.
+4. **Market evidence plan:** where to get current information and benchmark signals for each destination.
+5. **Actions:** who must provide which material, which source to check, and what evidence field to capture.
 
 If the user has not provided origin country and destination markets, ask for exactly those two missing inputs first. If they gave only one destination, continue with one. If they gave multiple destinations, split the work by destination.
+
+If the sales path is unclear, ask whether the user is doing cross-border ecommerce, physical export/import trade, or both. If the user cannot answer yet, set `go_to_market_model` to `unknown` and make route confirmation a P0 task.
 
 ## Operating Loop
 
 Follow this loop for every real case:
 
-1. **Lock scope** before analysis: `origin_country`, `destination_markets[]`, platform, category, product, applicant role, business model.
-2. **Route each destination** through rule packs and source candidates. Never merge `US, EU` into one market.
-3. **Generate research tasks** before conclusions: platform policy, destination regulator, customs/import, brand/IP, business registry, certification/lab, standards, logistics/warehouse, origin/export, and user search channels.
-4. **Separate facts by source tier:** T1/T2 can support decisions; T4 user material can only show what was submitted unless externally verified.
-5. **Give the seller next actions first:** launch view, blockers, research tasks, missing materials, then deeper evidence tables.
+1. **Lock scope** before analysis: `origin_country`, `destination_markets[]`, `go_to_market_model`, platform/offline channel, category, product, applicant role, business model.
+2. **Classify route** before benchmarking: ecommerce checks platform/category/listing/fulfillment first; physical trade checks export/import/customs/responsible party/distributor channel first; hybrid runs both tracks separately.
+3. **Run admission-risk screen before market benchmarking:** identify prohibited/restricted product, mandatory documents, registration, label, claim, authorization, logistics, or route blockers.
+4. **Route each destination** through rule packs and source candidates. Never merge `US, EU` into one market.
+5. **Generate research tasks** before conclusions: platform policy when relevant, destination regulator, customs/import, brand/IP, business registry, certification/lab, standards, logistics/warehouse, origin/export, offline/retail/distributor channels when relevant, and user search channels.
+6. **Separate facts by source tier:** T1/T2 can support decisions; T4 user material can only show what was submitted unless externally verified.
+7. **Give the seller next actions first:** launch view, go-to-market path, blockers, research tasks, missing materials, then deeper evidence tables.
 
 ## Final Deliverables
 
@@ -56,7 +61,10 @@ Use the chat response to summarize the deliverables and next actions. Do not mak
 
 - No origin country → no final decision.
 - No destination market → no final decision.
+- Unknown go-to-market model → no final pass decision; confirm whether the path is cross-border ecommerce, physical trade, or hybrid.
 - Multiple destinations → one `market_review` per destination.
+- Cross-border ecommerce → platform/category/listing/fulfillment checks are P0.
+- Physical trade → origin export, destination import/customs, importer/responsible-party, Incoterms/logistics, and offline channel checks are P0.
 - Current platform, regulator, registry, competitor price, logistics, or legal facts → verify current sources or mark `needs_external_verification`.
 - User-provided screenshots, documents, platform links, supplier channels, search URLs, and industry databases → record as `user_search_channels`, T4 evidence, or `external_checks`; do not treat them as authoritative by default.
 - Any missing, expired, mismatched, out-of-scope, forged-looking, or applicant-only core evidence → no pass decision.
@@ -67,6 +75,7 @@ Use the chat response to summarize the deliverables and next actions. Do not mak
 |---|---|---|
 | Launch intake | User provides a product, target market, platform, category, or launch idea | Scope, assumptions, missing inputs, launch-readiness checklist |
 | Product feasibility | User asks whether a product can or should be sold in a market | Opportunity/risk view, obvious blockers, verification plan, next actions |
+| Go-to-market route triage | User has not clarified whether this is cross-border ecommerce, physical trade, or hybrid | Route classification, P0 checks by route, assumptions to confirm |
 | Target-market benchmarking | User asks how similar products are sold in the destination market, or provides competitor screenshots/links | Benchmark product table plus summary of price band, channel map, packaging conventions, trust signals, review themes, and copy/avoid/improve actions |
 | Competitor/pricing review | User provides competitor screenshots, product links, channel info, or pricing questions | Competitor table, unit price normalization, channel/price bands, positioning and differentiation notes |
 | Packaging/label readiness | User provides packaging, label text, claims, ingredients/materials, or listing copy | Label/claim risks, localization notes, required changes, evidence needed |
@@ -82,9 +91,10 @@ Use the chat response to summarize the deliverables and next actions. Do not mak
 Before issuing a final decision, identify:
 
 - Applicant type: manufacturer, brand owner, distributor, importer, marketplace seller, agent, service provider.
+- Go-to-market model: `cross_border_ecommerce`, `physical_trade`, `hybrid`, or `unknown`.
 - Business model: export, import, cross-border bonded, direct mail, marketplace FBA/FBT/FBM, domestic-to-overseas, overseas-to-China.
 - Commercial goal: new product selection, launch readiness, listing approval, pricing, packaging, logistics, blocked review, remediation, or SOP design.
-- Platform and market: marketplace name, destination country/region, store site, warehouse model.
+- Platform/channel and market: marketplace name when ecommerce is involved; importer, distributor, retail, wholesale, or offline channel when physical trade is involved; destination country/region, store site, warehouse model.
 - Origin and destinations: product origin country/region plus one or more destination countries/regions. If multiple destinations are provided, split the review by destination instead of merging rules into one market string.
 - Product scope: category, subcategory, HS/code if relevant, regulated attributes, claims, ingredients/materials.
 - Market signals: benchmark products in the target market, competitor products, channel examples, target consumer, price band, packaging benchmark, review signals, certifications/claims used by local leaders, or known constraints.
@@ -99,12 +109,14 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
 1. **Triage the case**
    - Load `references/audit-workflow.md`.
    - Classify the case as product launch, seller/KYB, brand/IP, product/category, market/import, platform listing, logistics/budget, target-market benchmark, competitor/pricing, packaging/label, or service-provider review.
+   - Classify `go_to_market_model` before benchmarking: `cross_border_ecommerce`, `physical_trade`, `hybrid`, or `unknown`.
    - Assign initial risk: low, medium, high, critical.
 
 2. **Frame the launch question**
    - Load `references/launch-readiness-playbook.md` for product feasibility, target-market benchmarking, competitor/pricing, packaging/label, logistics/budget, or seller-facing launch questions.
    - If the user asks "can this sell" or "what should I prepare", produce a launch-readiness answer first, not a narrow compliance memo.
-   - Separate commercial assumptions from verified facts: product positioning, benchmark product signals, price band, competitor signals, origin country, target markets, logistics route, and platform route.
+   - Run a route-specific admission-risk screen before benchmark conclusions: ecommerce prioritizes platform/category/listing/fulfillment; physical trade prioritizes export/import/customs/responsible party/offline channel; hybrid separates both.
+   - Separate commercial assumptions from verified facts: product positioning, benchmark product signals, price band, competitor signals, origin country, target markets, logistics route, platform route, importer/distributor route, and retail/offline channel route.
    - For each origin/destination pair, generate source candidates and research tasks before relying on any market rule or commercial signal.
    - For current benchmark products, competitor pricing, platform requirements, freight costs, or regulatory facts, verify current sources and cite checked dates.
 
@@ -199,7 +211,7 @@ python3 scripts/qualification_audit_schema.py review-skeleton --platform amazon 
 python3 scripts/qualification_audit_schema.py benchmark-template --market US --category food --product "chili sauce" --platform amazon
 python3 scripts/qualification_audit_schema.py benchmark-validate examples/benchmark-worksheet.json
 python3 scripts/qualification_audit_schema.py benchmark-summarize examples/benchmark-worksheet.json
-python3 scripts/qualification_audit_schema.py bundle-template --platform amazon --market US --category food --product "chili sauce" --origin-country China --destination-market US --destination-market EU
+python3 scripts/qualification_audit_schema.py bundle-template --platform amazon --market US --category food --product "chili sauce" --origin-country China --go-to-market-model cross_border_ecommerce --destination-market US --destination-market EU
 python3 scripts/qualification_audit_schema.py bundle-validate examples/offline-launch-case.json
 python3 scripts/qualification_audit_schema.py launch-report examples/offline-launch-case.json
 python3 scripts/qualification_audit_schema.py launch-report-markdown examples/offline-launch-report.json
@@ -236,7 +248,7 @@ Command routing:
 | Check Skill health | `quality-gate` |
 | Inspect coverage | `coverage-report` |
 
-The script is dependency-free for JSON/Markdown/HTML generation so it can run in constrained environments; PNG/PDF export uses local Chrome/Chromium when available. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. `review-skeleton` creates a JSON-contract-compliant intake review with requirements, attached official sources where available, target-market benchmark slots, findings, missing materials, remediation wording, and an audit log; it defaults to `request_more_info` because applicant documents and evidence matching are still required before approval. `benchmark-template` creates a target-market benchmark worksheet for direct competitors, substitutes, adjacent references, category leaders, local niche brands, platform best sellers, offline retail shelf products, and DTC/social commerce products. `benchmark-summarize` turns rows into price bands, channel maps, packaging conventions, claims/proof, review signals, and copy / avoid / improve actions. `launch-report` turns a case bundle into a full launch-readiness JSON report covering documents, target-market benchmarks, packaging/claims, logistics, platform admission, missing materials, remediation, and per-destination research routing. New bundles require product origin and destination markets; generated reports include `market_reviews`, `source_candidates`, and `research_tasks` so live search, registry APIs, browser checks, user-provided search channels, or human review can fill the same evidence model. `launch-report-markdown` renders the same JSON as a seller-facing memo. `launch-report-card` renders the core overview card to HTML or PNG; `launch-report-detail` renders the detailed review to HTML or PDF. Bundle facts are not external verification: user-provided documents and screenshots are T4 evidence, competitor rows remain `user_provided` unless marked `current_checked`, and unresolved official checks remain `needs_external_verification`. OCR, live search/scraping, registry checks, user platform links, supplier channels, industry databases, and freight quotes are enhancement inputs that should populate `user_search_channels` or `external_checks`, not hard dependencies. All indexed rule-pack requirements have source IDs; the deepest source-backed high-frequency routes are Amazon US food, TikTok Shop Malaysia/ASEAN cosmetics, and Temu electronics. `golden-replay` checks all produced review fixtures and declared example fixtures against expectations under `cases/`. `quality-gate` runs rulepack validation, source freshness, golden replay, benchmark worksheet validation, bundle fixture validation, and coverage generation together. Pack maturity is still `seed`, so use sources for intake and routing until more golden cases and real-case replay support promotion to `validated` or `production`.
+The script is dependency-free for JSON/Markdown/HTML generation so it can run in constrained environments; PNG/PDF export uses local Chrome/Chromium when available. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. `review-skeleton` creates a JSON-contract-compliant intake review with requirements, attached official sources where available, target-market benchmark slots, findings, missing materials, remediation wording, and an audit log; it defaults to `request_more_info` because applicant documents and evidence matching are still required before approval. `benchmark-template` creates a target-market benchmark worksheet for direct competitors, substitutes, adjacent references, category leaders, local niche brands, platform best sellers, offline retail shelf products, and DTC/social commerce products. `benchmark-summarize` turns rows into price bands, channel maps, packaging conventions, claims/proof, review signals, and copy / avoid / improve actions. `bundle-template` accepts `--go-to-market-model` so ecommerce, physical trade, hybrid, and unknown routes do not share one review path. `launch-report` turns a case bundle into a full launch-readiness JSON report covering go-to-market route, documents, target-market benchmarks, packaging/claims, logistics, platform or offline channel admission, missing materials, remediation, and per-destination research routing. New bundles require product origin and destination markets; generated reports include `go_to_market_route`, `market_reviews`, `source_candidates`, and `research_tasks` so live search, registry APIs, browser checks, user-provided search channels, or human review can fill the same evidence model. `launch-report-markdown` renders the same JSON as a seller-facing memo. `launch-report-card` renders the core overview card to HTML or PNG; `launch-report-detail` renders the detailed review to HTML or PDF. Bundle facts are not external verification: user-provided documents and screenshots are T4 evidence, competitor rows remain `user_provided` unless marked `current_checked`, and unresolved official checks remain `needs_external_verification`. OCR, live search/scraping, registry checks, user platform links, supplier channels, industry databases, and freight quotes are enhancement inputs that should populate `user_search_channels` or `external_checks`, not hard dependencies. All indexed rule-pack requirements have source IDs; the deepest source-backed high-frequency routes are Amazon US food, TikTok Shop Malaysia/ASEAN cosmetics, and Temu electronics. `golden-replay` checks all produced review fixtures and declared example fixtures against expectations under `cases/`. `quality-gate` runs rulepack validation, source freshness, golden replay, benchmark worksheet validation, bundle fixture validation, and coverage generation together. Pack maturity is still `seed`, so use sources for intake and routing until more golden cases and real-case replay support promotion to `validated` or `production`.
 
 ## Common Mistakes
 

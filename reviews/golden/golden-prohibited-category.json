@@ -9,6 +9,7 @@
     "marketplace_site": "US",
     "destination_market": "United States",
     "destination_markets": ["United States"],
+    "go_to_market_model": "cross_border_ecommerce",
     "business_model": "marketplace_seller",
     "product_category": "prohibited product",
     "subcategory": "recalled consumer product",

@@ -2,7 +2,7 @@
 
 # LaunchFit AI
 
-**Find the right local benchmarks, then check launch risks before your cross-border product goes live.**
+**Check whether it can sell, then learn how it should sell before your cross-border product goes live.**
 
 [中文](./README.md)
 
@@ -17,7 +17,7 @@
 
 The expensive mistake in cross-border commerce is often not choosing the wrong product. It is **stocking the product first, then discovering that the marketplace needs more documents, the authorization does not cover the channel, the label must be reprinted, or the category cannot be sold**.
 
-LaunchFit AI turns "Can my product go overseas?" into a practical AI checkup report. Give it a product, origin country, one or more destination markets, marketplace, packaging label, certificate report, brand document, or a few local benchmark screenshots. It first shows which official channels, user channels, and benchmark signals should be checked for each destination market; then it tells you what can move forward, what needs remediation, where margin may disappear, and what should stop for human review.
+LaunchFit AI turns "Can my product go overseas?" into a practical AI checkup report. Give it a product, origin country, one or more destination markets, go-to-market route, marketplace or offline channel, packaging label, certificate report, brand document, or a few local benchmark screenshots. It first classifies the route as cross-border ecommerce, physical trade, or hybrid; then it runs an admission-risk screen, shows which official channels, user channels, and benchmark signals should be checked for each destination market; finally it tells you what can move forward, what needs remediation, where margin may disappear, and what should stop for human review.
 
 ## What You Provide
 
@@ -25,7 +25,7 @@ Minimum inputs:
 
 - **Origin country**: where the product is manufactured, assembled, or exported from.
 - **Destination markets**: where you want to sell; multiple countries or regions are supported.
-- **Marketplace and category**: for example Amazon US food, Temu EU electronics, or TikTok Shop ASEAN cosmetics.
+- **Go-to-market route and category**: cross-border ecommerce, physical export/import distribution, or hybrid; for example Amazon US food, Temu EU electronics, TikTok Shop ASEAN cosmetics, or export to a US importer/distributor.
 - **Product details**: name, specification, ingredients/materials, claims, brand, and packaging copy.
 
 If available, add certificates, test reports, brand authorization, packaging images, competitor links/screenshots, logistics quotes, supplier details, marketplace search links, industry databases, or internal review records.
@@ -33,6 +33,7 @@ If available, add certificates, test reports, brand authorization, packaging ima
 ## What It Outputs
 
 - **Per-destination review path**: US, EU, and Japan are not merged into one checklist.
+- **Go-to-market route split**: ecommerce prioritizes platform admission, category gating, listings, and fulfillment; physical trade prioritizes export, import, customs, responsible parties, and distributor/retail channels; hybrid runs both tracks separately.
 - **Best information channels**: platform policy, regulator, customs/import, brand/IP, company registry, certification/lab, standards, logistics/warehouse, origin/export controls, and user-provided search channels.
 - **Actionable research tasks**: what to verify, why it matters, priority, evidence fields, freshness window, and source tier.
 - **Target-market benchmarks**: local prices, pack sizes, packaging, claims, channels, certifications, and review signals.
@@ -41,7 +42,7 @@ If available, add certificates, test reports, brand authorization, packaging ima
 
 ## Why It Is More Than Generic Advice
 
-- It establishes origin country, destination markets, platform, category, business model, applicant role, brand/IP, and material scope before judging.
+- It establishes origin country, destination markets, go-to-market route, marketplace or offline channel, category, business model, applicant role, brand/IP, and material scope before judging.
 - It does not pretend offline data knows the latest policy; facts needing current confirmation remain `needs_external_verification`.
 - User-provided screenshots, certificates, quotes, platform links, and industry databases feed `user_search_channels`, `source_candidates`, `research_tasks`, or `external_checks`, but are not treated as official truth by default.
 - Every issue is tied to severity, evidence, source, impact, and required action so humans can review it.
@@ -50,6 +51,7 @@ If available, add certificates, test reports, brand authorization, packaging ima
 ## Core Problems It Solves
 
 - **Pre-listing uncertainty**: can this product sell on Amazon, TikTok Shop, Shopee, Temu, Lazada, AliExpress, or Tmall Global?
+- **Unclear sales route**: is this marketplace ecommerce, traditional export/import distribution, or both?
 - **Marketplace review blocks**: is the real gap brand authorization, a test report, a label issue, an expired certificate, or a scope mismatch?
 - **No local benchmark**: how do similar products in the target market price, package, claim, certify, and sell?
 - **Packaging and claims risk**: what needs to change in ingredients, allergens, warnings, marks, responsible party, language, or product claims?
@@ -61,6 +63,7 @@ If available, add certificates, test reports, brand authorization, packaging ima
 | Report module | What users get |
 | --- | --- |
 | Launch checkup verdict | go / caution / stop / unknown, so you can decide whether to keep pushing |
+| Go-to-market route | Which checks come first for ecommerce, physical trade, or hybrid launch paths |
 | Target-market benchmark | How similar local products handle price, pack size, packaging, claims, channels, certifications, and review signals |
 | Listing risk map | Where platform, market, category, brand, label, certificate, and logistics risks sit |
 | Qualification gap table | Which document is missing, expired, mismatched, or unverifiable |

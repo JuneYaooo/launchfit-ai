@@ -10,6 +10,12 @@ from launchfit.benchmarking import validate_benchmark_worksheet
 
 ALLOWED_TIERS = {"T1", "T2", "T3", "T4", "T5"}
 ALLOWED_CONFIDENCE = {"high", "medium", "low"}
+ALLOWED_GO_TO_MARKET_MODELS = {
+    "cross_border_ecommerce",
+    "physical_trade",
+    "hybrid",
+    "unknown",
+}
 
 
 def _text(value: Any) -> str:
@@ -57,6 +63,19 @@ def normalize_destination_markets(case: dict[str, Any], allow_legacy: bool = Tru
     return destinations
 
 
+def normalize_go_to_market_model(case: dict[str, Any]) -> str:
+    model = _text(case.get("go_to_market_model")).lower()
+    if model in ALLOWED_GO_TO_MARKET_MODELS:
+        return model
+    business_model = _text(case.get("business_model")).lower()
+    platform = _text(case.get("platform"))
+    if platform or any(token in business_model for token in ("marketplace", "fba", "fbm", "seller", "shop")):
+        return "cross_border_ecommerce"
+    if any(token in business_model for token in ("export", "import", "distributor", "wholesale", "retail")):
+        return "physical_trade"
+    return "unknown"
+
+
 def bundle_template(
     platform: str,
     market: str,
@@ -64,6 +83,7 @@ def bundle_template(
     product: str = "",
     origin_country: str = "",
     destination_markets: list[str] | None = None,
+    go_to_market_model: str = "unknown",
 ) -> dict[str, Any]:
     destinations = destination_markets if destination_markets is not None else [market]
     return {
@@ -77,6 +97,7 @@ def bundle_template(
             "marketplace_site": market,
             "destination_market": market,
             "destination_markets": destinations,
+            "go_to_market_model": go_to_market_model,
             "business_model": "",
             "product_category": category,
             "subcategory": product,
@@ -122,9 +143,17 @@ def validate_case_bundle(data: dict[str, Any]) -> tuple[list[str], list[str]]:
     if not isinstance(case, dict):
         errors.append("case must be an object")
         case = {}
-    for field in ("origin_country", "platform", "product_category", "review_purpose"):
+    model = normalize_go_to_market_model(case)
+    if _text(case.get("go_to_market_model")) and _text(case.get("go_to_market_model")).lower() not in ALLOWED_GO_TO_MARKET_MODELS:
+        errors.append("case.go_to_market_model is invalid")
+    if model == "unknown":
+        warnings.append("case.go_to_market_model is unknown; ask whether this is cross-border ecommerce, physical trade, or hybrid")
+
+    for field in ("origin_country", "product_category", "review_purpose"):
         if not _text(case.get(field)):
             errors.append(f"case.{field} is required")
+    if model in {"cross_border_ecommerce", "hybrid"} and not _text(case.get("platform")):
+        errors.append("case.platform is required")
     destination_markets = normalize_destination_markets(case, allow_legacy=False)
     if not destination_markets:
         errors.append("case.destination_markets must be a non-empty list")

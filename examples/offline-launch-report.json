@@ -18,7 +18,8 @@
     "destination_markets": [
       "US",
       "EU"
-    ]
+    ],
+    "go_to_market_model": "cross_border_ecommerce"
   },
   "decision": {
     "status": "request_more_info",
@@ -4707,6 +4708,24 @@
       "status": "needs_external_verification"
     }
   ],
+  "go_to_market_route": {
+    "model": "cross_border_ecommerce",
+    "label": "cross border ecommerce",
+    "primary_checks": [
+      "marketplace listing and category gating",
+      "platform restricted-products policy",
+      "brand authorization and IP coverage",
+      "listing claims, packaging, and label readiness",
+      "fulfillment, warehouse, and return route"
+    ],
+    "benchmark_focus": [
+      "marketplace search results",
+      "platform best sellers",
+      "listing copy and claims",
+      "visible trust signals",
+      "review themes and price bands"
+    ]
+  },
   "offline_logistics": [
     {
       "route_id": "log-air-001",

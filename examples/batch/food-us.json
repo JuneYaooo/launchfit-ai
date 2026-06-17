@@ -9,6 +9,7 @@
     "marketplace_site": "US",
     "destination_market": "US",
     "destination_markets": ["US"],
+    "go_to_market_model": "cross_border_ecommerce",
     "business_model": "marketplace_seller",
     "product_category": "food",
     "subcategory": "chili crisp",

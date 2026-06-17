@@ -9,10 +9,11 @@ This is a commercial and operational review layer. It does not replace official 
 For seller-facing launch questions, answer in this order:
 
 1. **Go / caution / stop**: one-line launch-readiness view.
-2. **Top blockers**: the 3-5 issues most likely to waste inventory, cash, listing time, or review cycles.
-3. **What to fix next**: concrete actions by owner.
-4. **Evidence and assumptions**: separate verified facts from assumptions.
-5. **Deep sections** as relevant: target-market benchmarking, competitor/pricing, packaging/label, platform admission, logistics, qualification gaps.
+2. **Go-to-market path**: cross-border ecommerce, physical trade, hybrid, or unknown.
+3. **Admission-risk screen**: the 3-5 issues most likely to block platform listing, export/import, customs, labeling, channel admission, inventory, cash, or review cycles.
+4. **What to fix next**: concrete actions by owner.
+5. **Evidence and assumptions**: separate verified facts from assumptions.
+6. **Deep sections** as relevant: target-market benchmarking, competitor/pricing, packaging/label, platform admission, import/export, logistics, qualification gaps.
 
 Do not start with a legalistic qualification memo unless the user specifically asks for a final approve/reject review.
 
@@ -35,7 +36,9 @@ Map findings to the seller loss they prevent:
 
 Cover:
 
-- target market and platform route
+- target market and go-to-market route
+- ecommerce path: platform, category gating, listing, fulfillment, return, warehouse, and advertising constraints
+- physical trade path: origin export, destination import/customs, importer or responsible party, Incoterms, local distributor/retail channel, tax/duty, and insurance constraints
 - category and regulated attributes
 - prohibited/restricted signals
 - required local entity, importer, responsible person, or agent
@@ -55,7 +58,7 @@ Use outcome language:
 
 Use this section whenever the user asks "有没有对标", "目标市场类似商品怎么做", "怎么定价/包装/卖点", "值不值得卖", or provides competitor screenshots, marketplace links, retail shelf photos, product names, or rough prices.
 
-Benchmarking is the core seller-facing workflow, not an appendix to compliance. It is broader than competitor pricing and should answer:
+Benchmarking is a core seller-facing workflow, but it comes after route classification and the first admission-risk screen. It is broader than competitor pricing and should answer:
 
 - Which similar products already educate the market?
 - What pack sizes, flavors/formulas/materials, claims, certifications, and visual language are common?

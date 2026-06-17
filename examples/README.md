@@ -26,6 +26,7 @@ python3 scripts/qualification_audit_schema.py bundle-template \
   --category food \
   --product "chili sauce" \
   --origin-country China \
+  --go-to-market-model cross_border_ecommerce \
   --destination-market US \
   --destination-market EU \
   > /tmp/launchfit-bundle-template.json

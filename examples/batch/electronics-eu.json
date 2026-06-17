@@ -9,6 +9,7 @@
     "marketplace_site": "EU",
     "destination_market": "EU",
     "destination_markets": ["EU"],
+    "go_to_market_model": "cross_border_ecommerce",
     "business_model": "marketplace_seller",
     "product_category": "electronics",
     "subcategory": "wireless charger",
