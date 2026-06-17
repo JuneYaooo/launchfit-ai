@@ -2081,6 +2081,101 @@ def _priority_badge(value: Any) -> str:
     return text if text in {"P0", "P1", "P2"} else "P1"
 
 
+def _zh_benchmark_role(value: Any) -> str:
+    labels = {
+        "search_marketplace": "平台搜索",
+        "social_commerce": "社交电商",
+        "mass_retail": "大众零售",
+        "club_store": "会员店/仓储",
+        "specialty": "垂直专门店",
+        "pharmacy": "药妆/药房",
+        "dtc": "品牌 DTC",
+        "offline_shelf": "线下零售",
+        "other": "其他渠道",
+    }
+    key = _plain_label(value).replace(" ", "_")
+    return labels.get(key, _plain_label(value) or "待补渠道")
+
+
+def _zh_data_basis(value: Any) -> str:
+    labels = {
+        "current_checked": "已实时核验",
+        "user_provided": "用户提供",
+        "assumption": "假设/待核验",
+        "not_checked": "未核验",
+    }
+    return labels.get(_plain_label(value), _plain_label(value) or "未核验")
+
+
+def _zh_positioning(value: Any) -> str:
+    labels = {
+        "mass": "大众价位",
+        "mainstream": "主流价位",
+        "premium": "高端价位",
+        "specialty": "特色/专业",
+        "luxury": "奢侈/礼品",
+        "unknown": "待判断",
+    }
+    return labels.get(_plain_label(value), _plain_label(value) or "待判断")
+
+
+def _benchmark_research_plan_rows(route: dict[str, Any], destinations: list[Any], case: dict[str, Any]) -> str:
+    destination_label = "、".join(_zh_country(item) for item in destinations if _text(item)) or _zh_country(case.get("destination_market"))
+    route_label = _plain_label(route.get("label"))
+    if "physical trade" in route_label:
+        rows = [
+            ("直接竞品", "线下零售 / 进口商 / 电商搜索", "同品类、同规格或同原产地的进口商品", "价格/规格/单位价、包装/标签信号、进口商/责任方、认证/中文标签、陈列渠道"),
+            ("进口替代品", "商超 / 经销 / 批发", "目标市场已流通的进口替代商品", "到岸后零售价、渠道层级、原产地表达、中文背标、买方文件要求"),
+            ("本地替代品", "本地零售 / 垂直渠道", "本地品牌或主流替代品", "本地价格锚点、包装容量、卖点表述、消费者预期"),
+            ("线下零售", "商超 / 精品店 / 批发市场", "货架上实际出现的同类商品", "货架价、促销、包装尺寸、标签语言、认证标识、陈列位置"),
+            ("平台搜索", "天猫/京东/抖音/小红书等用户指定渠道", "线上同类 Listing 和内容种草样本", "成交/评论信号、标题卖点、价格带、信任背书、差评主题"),
+        ]
+    else:
+        rows = [
+            ("直接竞品", "平台搜索", "同平台、同关键词、同价格带的直接竞品", "价格/规格/单位价、标题卖点、主图包装、认证标识、评论/口碑信号"),
+            ("平台热销", "平台榜单 / 搜索结果", "类目热销或高评论商品", "转化型卖点、价格锚点、评论主题、物流/退货信号"),
+            ("DTC/社交电商", "品牌站 / TikTok / 小红书 / Reddit", "品牌自营和内容驱动样本", "人群定位、内容钩子、购买触发点、争议点"),
+            ("线下零售", "商超 / 药妆 / 专门店", "线下货架参照", "包装尺寸、货架价、标签语言、认证标识、使用场景"),
+            ("进口替代品", "跨境平台 / 本地零售", "同产地或相邻产地的进口替代品", "进口溢价、原产地叙事、清关/责任方可见信号"),
+        ]
+    return "".join(
+        f"<tr><td>{_html(kind)}</td><td>{_html(destination_label)}</td><td>{_html(channel)}</td><td>{_html(scope)}</td><td>{_html(fields)}</td></tr>"
+        for kind, channel, scope, fields in rows
+    )
+
+
+def _benchmark_analysis_matrix_rows(report: dict[str, Any]) -> str:
+    rows: list[str] = []
+    for item in (report.get("market_benchmarks") or [])[:10]:
+        if not isinstance(item, dict):
+            continue
+        price_parts = [
+            _text(item.get("pack_size")),
+            _text(item.get("price")),
+            _text(item.get("unit_price")),
+        ]
+        sample_meta = " · ".join(
+            [
+                _zh_benchmark_role(item.get("channel_role")),
+                _zh_positioning(item.get("positioning")),
+                _zh_data_basis(item.get("data_basis")),
+            ]
+        )
+        rows.append(
+            "<tr>"
+            f"<td>{_html(_short_text(item.get('product_name'), 54))}<br><span class='muted'>{_html(sample_meta)}</span></td>"
+            f"<td>{_html(item.get('channel'))}</td>"
+            f"<td>{_html(_short_text(' / '.join(part for part in price_parts if part), 64) or '待补')}</td>"
+            f"<td>{_html(_short_text(_joined_text(item.get('packaging_signals')), 86) or '待补')}</td>"
+            f"<td>{_html(_short_text(_joined_text(item.get('visible_claims')), 86) or '待补')}</td>"
+            f"<td>{_html(_short_text(_joined_text(item.get('certification_signals')), 72) or '待补')}</td>"
+            f"<td>{_html(_short_text(_joined_text(item.get('review_signals')), 72) or '待补')}</td>"
+            f"<td>{_html(_short_text(_zh_case_text(item.get('takeaway')), 100))}</td>"
+            "</tr>"
+        )
+    return "".join(rows)
+
+
 def render_overview_card_html(report: dict[str, Any]) -> str:
     case = report.get("case") if isinstance(report.get("case"), dict) else {}
     decision = report.get("decision") if isinstance(report.get("decision"), dict) else {}
@@ -2234,6 +2329,8 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
         for item in (report.get("market_benchmarks") or [])[:10]
         if isinstance(item, dict)
     )
+    benchmark_matrix_rows = _benchmark_analysis_matrix_rows(report)
+    benchmark_plan_rows = _benchmark_research_plan_rows(route, destinations, case)
     logistics_rows = "".join(
         f"<tr><td>{_html(item.get('route'))}</td><td>{_html(item.get('mode'))}</td><td>{_html(item.get('time') or '待报价')}</td><td>{_html(_short_text(item.get('cost_basis') or '待报价', 60))}</td><td>{_html(_short_text(_joined_text(item.get('risks') or item.get('constraints')), 74))}</td></tr>"
         for item in (report.get("offline_logistics") or [])[:8]
@@ -2360,8 +2457,15 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
   <h2>目标市场对标</h2>
   <table><tr><th>竞品/参照</th><th>渠道</th><th>价格</th><th>宣称/卖点</th><th>数据基础</th></tr>{_table_or_empty(benchmark_rows, 5, '未提供目标市场竞品；需补 5-10 个当前平台、零售、DTC 或用户搜索渠道样本')}</table>
 
+  <h2>对标调研设计</h2>
+  <div class="note">当前不生成虚构竞品结论；没有实时或用户提供样本时，本节只定义最合适的采集渠道、样本类型和字段。采集完成后再更新价格带、包装惯例、评论主题和 Copy / Avoid / Improve。</div>
+  <table><tr><th>样本类型</th><th>目标市场</th><th>优先渠道</th><th>样本边界</th><th>必须采集字段</th></tr>{benchmark_plan_rows}</table>
+
+  <h2>对标分析矩阵</h2>
+  <table><tr><th>样本</th><th>渠道</th><th>价格/规格/单位价</th><th>包装/标签信号</th><th>宣称/卖点</th><th>信任/认证信号</th><th>评论/口碑信号</th><th>启发</th></tr>{_table_or_empty(benchmark_matrix_rows, 8, '暂无可分析竞品样本；请按上方“对标调研设计”补齐当前样本')}</table>
+
   <h2>对标摘要</h2>
-  <table><tr><th>价格带</th><th>渠道图谱</th><th>宣称/证据</th><th>仍需核验</th></tr><tr><td>{_html(_zh_case_text(benchmark_summary.get('reference_price_band')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('channel_map')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('claims_and_proof')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('verification_needed')))}</td></tr></table>
+  <table><tr><th>价格带</th><th>渠道图谱</th><th>包装惯例</th><th>宣称/证据</th><th>信任/认证</th><th>评论主题</th><th>Copy / Avoid / Improve</th><th>仍需核验</th></tr><tr><td>{_html(_zh_case_text(benchmark_summary.get('reference_price_band')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('channel_map')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('packaging_conventions')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('claims_and_proof')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('visible_trust_signals')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('review_themes')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('copy_avoid_improve')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('verification_needed')))}</td></tr></table>
 
   <h2 class="engine engine3">Engine 3：全链路落地</h2>
   <h2>渠道与落地路径</h2>

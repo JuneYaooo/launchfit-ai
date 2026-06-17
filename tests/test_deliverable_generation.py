@@ -88,6 +88,34 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("待查证项", html)
         self.assertIn("三引擎综合建议", html)
 
+    def test_detailed_pdf_html_contains_full_benchmark_analysis_when_rows_exist(self):
+        html = render_detailed_pdf_html(self.report())
+
+        self.assertIn("对标分析矩阵", html)
+        self.assertIn("价格/规格/单位价", html)
+        self.assertIn("包装/标签信号", html)
+        self.assertIn("信任/认证信号", html)
+        self.assertIn("评论/口碑信号", html)
+        self.assertIn("Copy / Avoid / Improve", html)
+        self.assertIn("Fly By Jing Sichuan Chili Crisp", html)
+        self.assertIn("USD 2.17/oz", html)
+        self.assertIn("English front label", html)
+        self.assertIn("flavor praise", html)
+
+    def test_real_run_without_benchmarks_outputs_benchmark_research_plan(self):
+        report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
+        html = render_detailed_pdf_html(report)
+
+        self.assertIn("对标调研设计", html)
+        self.assertIn("当前不生成虚构竞品结论", html)
+        self.assertIn("直接竞品", html)
+        self.assertIn("进口替代品", html)
+        self.assertIn("平台搜索", html)
+        self.assertIn("线下零售", html)
+        self.assertIn("价格/规格/单位价", html)
+        self.assertIn("包装/标签信号", html)
+        self.assertIn("评论/口碑信号", html)
+
     def test_real_run_card_is_compact_for_readme_preview(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
         html = render_overview_card_html(report)

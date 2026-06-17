@@ -58,16 +58,20 @@ Recommended sections:
 1. Executive snapshot.
 2. Scope: product, origin, destinations, platform, category, applicant, business model.
 3. Per-destination market reviews.
-4. Target-market benchmark table and summary.
-5. Source candidates and research tasks.
-6. Platform/category admission requirements.
-7. Documents, evidence, source tiers, and freshness.
-8. Findings and decision effects.
-9. Missing materials and acceptable replacements.
-10. Packaging/label fixes.
-11. Logistics/budget route review.
-12. Applicant-facing remediation wording.
-13. Audit log and disclaimer.
+4. Target-market benchmark research design: sample types, priority channels, sample boundaries, and required fields.
+5. Benchmark analysis matrix when benchmark rows exist: price/pack/unit price, packaging/label signals, claims, trust/certification signals, review themes, and takeaway.
+6. Benchmark summary: reference price band, channel map, packaging conventions, claims and proof, visible trust signals, review themes, gap opportunity, Copy / Avoid / Improve, and verification needed.
+7. Source candidates and research tasks.
+8. Platform/category admission requirements.
+9. Documents, evidence, source tiers, and freshness.
+10. Findings and decision effects.
+11. Missing materials and acceptable replacements.
+12. Packaging/label fixes.
+13. Logistics/budget route review.
+14. Applicant-facing remediation wording.
+15. Audit log and disclaimer.
+
+If no benchmark rows are supplied, do not invent competitor names, prices, reviews, or live market facts. Output a benchmark research design and mark the analysis matrix as missing until current marketplace, retail, DTC, social, distributor, or user-provided samples are checked.
 
 If generated as HTML, save the HTML source and PDF export.
 
