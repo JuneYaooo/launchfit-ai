@@ -10,6 +10,12 @@ Commands:
   checklist --platform PLATFORM --market MARKET --category CATEGORY
   review-skeleton --platform PLATFORM --market MARKET --category CATEGORY
   benchmark-template --market MARKET --category CATEGORY
+  benchmark-validate <worksheet-json-file>
+  benchmark-summarize <worksheet-json-file>
+  bundle-template --platform PLATFORM --market MARKET --category CATEGORY
+  bundle-validate <bundle-json-file>
+  batch-launch-report <input-dir> <output-dir>
+  coverage-report
   launch-report <bundle-json-file>
   launch-report-markdown <review-json-file>
   rulepack-new --country-code CODE --country-name NAME
@@ -27,6 +33,19 @@ import re
 import sys
 from pathlib import Path
 from typing import Any
+
+SCRIPT_ROOT = Path(__file__).resolve().parent.parent
+if str(SCRIPT_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_ROOT))
+
+from launchfit.benchmarking import (
+    benchmark_template as benchmark_worksheet_template,
+    summarize_benchmark_worksheet,
+    validate_benchmark_worksheet,
+)
+from launchfit.bundles import bundle_template as offline_bundle_template
+from launchfit.bundles import validate_case_bundle
+from launchfit.coverage import coverage_report
 
 
 ALLOWED_DECISIONS = {
@@ -809,7 +828,10 @@ def build_market_benchmarks(
     case = bundle.get("case") if isinstance(bundle.get("case"), dict) else {}
     rows: list[dict[str, Any]] = []
     assumptions: list[dict[str, Any]] = []
-    for idx, raw in enumerate(bundle.get("competitors") or [], start=1):
+    benchmark_inputs = bundle.get("benchmarks")
+    if not isinstance(benchmark_inputs, list):
+        benchmark_inputs = bundle.get("competitors") or []
+    for idx, raw in enumerate(benchmark_inputs, start=1):
         if not isinstance(raw, dict):
             continue
         data_basis = _text(raw.get("data_basis")) or "user_provided"
@@ -1506,6 +1528,24 @@ def check_case(case: dict[str, Any], review: dict[str, Any]) -> list[str]:
     return errors
 
 
+def check_benchmark_case(case: dict[str, Any], worksheet: dict[str, Any]) -> list[str]:
+    errors = validate_benchmark_worksheet(worksheet)
+    if errors:
+        return errors
+    expected = case.get("expected") if isinstance(case.get("expected"), dict) else {}
+    summary = summarize_benchmark_worksheet(worksheet)
+    source_types = set(summary.get("source_types_covered", []))
+    for source_type in expected.get("source_types") or []:
+        if source_type not in source_types:
+            errors.append(f"expected benchmark source type '{source_type}'")
+    min_rows = expected.get("min_rows")
+    if isinstance(min_rows, int) and summary.get("row_count", 0) < min_rows:
+        errors.append(f"expected at least {min_rows} benchmark rows")
+    if expected.get("requires_verification_warning") and not summary.get("verification_needed"):
+        errors.append("expected verification warning for non-current benchmark rows")
+    return errors
+
+
 def replay_golden_cases(cases_dir: Path, reviews_dir: Path) -> tuple[list[str], list[str]]:
     passes: list[str] = []
     errors: list[str] = []
@@ -1523,6 +1563,26 @@ def replay_golden_cases(cases_dir: Path, reviews_dir: Path) -> tuple[list[str], 
             errors.append(f"{case_path}: top-level case JSON must be an object")
             continue
         case_id = str(case.get("case_id") or case_path.stem)
+        benchmark_fixture = case.get("benchmark_fixture")
+        if isinstance(benchmark_fixture, str) and benchmark_fixture.strip():
+            benchmark_path = SKILL_ROOT / benchmark_fixture.strip()
+            if not benchmark_path.exists():
+                errors.append(f"{case_id}: missing benchmark fixture {benchmark_path}")
+                continue
+            try:
+                worksheet = json.loads(benchmark_path.read_text(encoding="utf-8"))
+            except Exception as exc:
+                errors.append(f"{case_id}: failed to read benchmark fixture JSON: {exc}")
+                continue
+            if not isinstance(worksheet, dict):
+                errors.append(f"{case_id}: benchmark fixture JSON must be an object")
+                continue
+            case_errors = check_benchmark_case(case, worksheet)
+            if case_errors:
+                errors.extend(f"{case_id}: {error}" for error in case_errors)
+            else:
+                passes.append(case_id)
+            continue
         review_fixture = case.get("review_fixture")
         if isinstance(review_fixture, str) and review_fixture.strip():
             review_path = SKILL_ROOT / review_fixture.strip()
@@ -1891,7 +1951,7 @@ def cmd_review_skeleton(args: argparse.Namespace) -> int:
 
 
 def cmd_benchmark_template(args: argparse.Namespace) -> int:
-    payload = benchmark_template(
+    payload = benchmark_worksheet_template(
         market=args.market,
         category=args.category,
         product=args.product or "",
@@ -1899,6 +1959,98 @@ def cmd_benchmark_template(args: argparse.Namespace) -> int:
         count=args.count,
     )
     print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_benchmark_validate(args: argparse.Namespace) -> int:
+    data = _load_json_object(args.file, "benchmark worksheet")
+    if data is None:
+        return 2
+    errors = validate_benchmark_worksheet(data)
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    print("OK")
+    return 0
+
+
+def cmd_benchmark_summarize(args: argparse.Namespace) -> int:
+    data = _load_json_object(args.file, "benchmark worksheet")
+    if data is None:
+        return 2
+    errors = validate_benchmark_worksheet(data)
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    print(json.dumps(summarize_benchmark_worksheet(data), ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_bundle_template(args: argparse.Namespace) -> int:
+    payload = offline_bundle_template(
+        platform=args.platform,
+        market=args.market,
+        category=args.category,
+        product=args.product or "",
+    )
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_bundle_validate(args: argparse.Namespace) -> int:
+    data = _load_json_object(args.file, "case bundle")
+    if data is None:
+        return 2
+    errors, warnings = validate_case_bundle(data)
+    for warning in warnings:
+        print(f"WARNING: {warning}", file=sys.stderr)
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    print("OK")
+    return 0
+
+
+def cmd_batch_launch_report(args: argparse.Namespace) -> int:
+    input_dir = Path(args.input_dir)
+    output_dir = Path(args.output_dir)
+    if not input_dir.is_dir():
+        print(f"ERROR: input directory not found: {input_dir}", file=sys.stderr)
+        return 2
+    output_dir.mkdir(parents=True, exist_ok=True)
+    generated: list[str] = []
+    errors: list[str] = []
+    for bundle_path in sorted(input_dir.glob("*.json")):
+        data = _load_json_object(str(bundle_path), "case bundle")
+        if data is None:
+            errors.append(f"{bundle_path}: failed to load bundle")
+            continue
+        bundle_errors, bundle_warnings = validate_case_bundle(data)
+        for warning in bundle_warnings:
+            print(f"WARNING: {bundle_path.name}: {warning}", file=sys.stderr)
+        if bundle_errors:
+            errors.extend(f"{bundle_path}: {error}" for error in bundle_errors)
+            continue
+        report = launch_report_from_bundle(data)
+        case_id = str((report.get("case") or {}).get("case_id") or bundle_path.stem)
+        json_path = output_dir / f"{case_id}.json"
+        md_path = output_dir / f"{case_id}.md"
+        json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        md_path.write_text(render_launch_markdown(report), encoding="utf-8")
+        generated.extend([str(json_path), str(md_path)])
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    print(json.dumps({"generated": generated}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_coverage_report(_: argparse.Namespace) -> int:
+    print(json.dumps(coverage_report(SKILL_ROOT), ensure_ascii=False, indent=2))
     return 0
 
 
@@ -2006,6 +2158,40 @@ def cmd_quality_gate(_: argparse.Namespace) -> int:
     passes, replay_errors = replay_golden_cases(SKILL_ROOT / "cases", SKILL_ROOT / "reviews" / "golden")
     errors.extend(f"golden-replay: {error}" for error in replay_errors)
 
+    benchmark_paths = sorted((SKILL_ROOT / "examples").glob("*benchmark*.json"))
+    for benchmark_path in benchmark_paths:
+        try:
+            benchmark_data = json.loads(benchmark_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            errors.append(f"benchmark-validate {benchmark_path}: {exc}")
+            continue
+        if isinstance(benchmark_data, dict):
+            errors.extend(f"benchmark-validate {benchmark_path}: {error}" for error in validate_benchmark_worksheet(benchmark_data))
+        else:
+            errors.append(f"benchmark-validate {benchmark_path}: top-level JSON must be an object")
+
+    bundle_paths = [SKILL_ROOT / "examples" / "offline-launch-case.json"]
+    bundle_paths.extend(sorted((SKILL_ROOT / "examples" / "batch").glob("*.json")))
+    for bundle_path in bundle_paths:
+        if not bundle_path.exists():
+            errors.append(f"bundle-validate missing fixture: {bundle_path}")
+            continue
+        try:
+            bundle_data = json.loads(bundle_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            errors.append(f"bundle-validate {bundle_path}: {exc}")
+            continue
+        if isinstance(bundle_data, dict):
+            bundle_errors, _ = validate_case_bundle(bundle_data)
+            errors.extend(f"bundle-validate {bundle_path}: {error}" for error in bundle_errors)
+        else:
+            errors.append(f"bundle-validate {bundle_path}: top-level JSON must be an object")
+
+    try:
+        coverage_report(SKILL_ROOT)
+    except Exception as exc:
+        errors.append(f"coverage-report: {exc}")
+
     if errors:
         for error in errors:
             print(f"FAIL: {error}", file=sys.stderr)
@@ -2015,6 +2201,9 @@ def cmd_quality_gate(_: argparse.Namespace) -> int:
     print("OK: rulepack index valid")
     print(f"OK: source freshness clean ({checked_links} checked source links)")
     print(f"OK: {len(passes)} golden cases replayed")
+    print(f"OK: {len(benchmark_paths)} benchmark worksheet fixtures valid")
+    print(f"OK: {len(bundle_paths)} bundle fixtures valid")
+    print("OK: coverage report generated")
     return 0
 
 
@@ -2095,6 +2284,33 @@ def build_parser() -> argparse.ArgumentParser:
     p_benchmark_template.add_argument("--platform", default="")
     p_benchmark_template.add_argument("--count", type=int, default=8)
     p_benchmark_template.set_defaults(func=cmd_benchmark_template)
+
+    p_benchmark_validate = sub.add_parser("benchmark-validate", help="validate a benchmark worksheet JSON file")
+    p_benchmark_validate.add_argument("file")
+    p_benchmark_validate.set_defaults(func=cmd_benchmark_validate)
+
+    p_benchmark_summarize = sub.add_parser("benchmark-summarize", help="summarize a benchmark worksheet JSON file")
+    p_benchmark_summarize.add_argument("file")
+    p_benchmark_summarize.set_defaults(func=cmd_benchmark_summarize)
+
+    p_bundle_template = sub.add_parser("bundle-template", help="print an offline launch case bundle template")
+    p_bundle_template.add_argument("--platform", required=True)
+    p_bundle_template.add_argument("--market", required=True)
+    p_bundle_template.add_argument("--category", required=True)
+    p_bundle_template.add_argument("--product", default="")
+    p_bundle_template.set_defaults(func=cmd_bundle_template)
+
+    p_bundle_validate = sub.add_parser("bundle-validate", help="validate an offline launch case bundle JSON file")
+    p_bundle_validate.add_argument("file")
+    p_bundle_validate.set_defaults(func=cmd_bundle_validate)
+
+    p_batch_launch_report = sub.add_parser("batch-launch-report", help="generate launch reports for all bundle JSON files in a directory")
+    p_batch_launch_report.add_argument("input_dir")
+    p_batch_launch_report.add_argument("output_dir")
+    p_batch_launch_report.set_defaults(func=cmd_batch_launch_report)
+
+    p_coverage_report = sub.add_parser("coverage-report", help="print rulepack, source, golden, and benchmark coverage")
+    p_coverage_report.set_defaults(func=cmd_coverage_report)
 
     p_launch_report = sub.add_parser("launch-report", help="generate launch-readiness review JSON from an offline case bundle")
     p_launch_report.add_argument("bundle_file")

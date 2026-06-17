@@ -8,6 +8,7 @@ Use this reference when converting the skill into a product workflow or integrat
 |---|---|
 | Case intake | Create review case, define applicant/platform/market/category/purpose |
 | Document center | Upload, OCR, classify, extract fields, tag privacy level |
+| Benchmark center | Collect competitor screenshots/links/rows, normalize price/pack/channel/review signals, summarize copy/avoid/improve |
 | Requirement engine | Generate platform/market/category checklist and rule version |
 | Evidence matcher | Match submitted documents and verified sources to requirements |
 | Decision engine | Apply severity/blocker logic and produce final status |
@@ -78,11 +79,14 @@ GET    /api/review-cases/{id}/audit-log
 For streaming apps, reuse the existing SSE pattern:
 
 1. `case_intake`
-2. `document_extraction`
-3. `rule_mapping`
-4. `source_verification`
-5. `decision`
-6. `remediation`
+2. `benchmark_collection`
+3. `document_extraction`
+4. `rule_mapping`
+5. `source_verification`
+6. `decision`
+7. `remediation`
+
+OCR, live marketplace search/scraping, certificate or trademark registries, company registries, and logistics quote APIs are enhancement inputs. They should feed the same document, benchmark, source, evidence, and logistics structures used by the Skill. Do not create a separate path that treats external tool output as automatically authoritative; record source tier, checked date, confidence, and whether it directly confirms the point.
 
 ## Prompt Changes
 
@@ -101,6 +105,7 @@ Replace generic compliance-report prompting with this contract:
 |---|---|
 | Case list | Status, platform, category, risk, deadline |
 | Intake form | Applicant, platform, market, category, brand, purpose |
+| Benchmark worksheet | Source type, channel, pack/price/unit price, claims, trust markers, review themes, copy/avoid/improve |
 | Document table | Type, holder, expiry, extraction confidence, privacy flag |
 | Requirement coverage | Satisfied/partial/missing/invalid/not applicable |
 | Findings | Severity, issue, evidence, required action |

@@ -147,8 +147,14 @@ python3 scripts/qualification_audit_schema.py sample
 python3 scripts/qualification_audit_schema.py checklist --platform amazon --market US --category food
 python3 scripts/qualification_audit_schema.py review-skeleton --platform amazon --market US --category food --applicant-name "Example Trading Co., Ltd." --applicant-role distributor --business-model marketplace_seller --brand-name "Example Brand"
 python3 scripts/qualification_audit_schema.py benchmark-template --market US --category food --product "chili sauce" --platform amazon
+python3 scripts/qualification_audit_schema.py benchmark-validate examples/benchmark-worksheet.json
+python3 scripts/qualification_audit_schema.py benchmark-summarize examples/benchmark-worksheet.json
+python3 scripts/qualification_audit_schema.py bundle-template --platform amazon --market US --category food --product "chili sauce"
+python3 scripts/qualification_audit_schema.py bundle-validate examples/offline-launch-case.json
 python3 scripts/qualification_audit_schema.py launch-report examples/offline-launch-case.json
 python3 scripts/qualification_audit_schema.py launch-report-markdown examples/offline-launch-report.json
+python3 scripts/qualification_audit_schema.py batch-launch-report examples/batch /tmp/launchfit-batch
+python3 scripts/qualification_audit_schema.py coverage-report
 python3 scripts/qualification_audit_schema.py validate path/to/review.json
 python3 scripts/qualification_audit_schema.py case-check cases/golden-expired-certificate.json path/to/review.json
 python3 scripts/qualification_audit_schema.py golden-replay
@@ -159,7 +165,22 @@ python3 scripts/qualification_audit_schema.py rulepack-index-validate
 python3 scripts/qualification_audit_schema.py source-freshness
 ```
 
-The script is intentionally dependency-free so it can run in constrained environments. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. `review-skeleton` creates a JSON-contract-compliant intake review with requirements, attached official sources where available, target-market benchmark slots, findings, missing materials, remediation wording, and an audit log; it defaults to `request_more_info` because applicant documents and evidence matching are still required before approval. `benchmark-template` creates a target-market benchmark worksheet for collecting comparable local products, channels, pack sizes, prices, claims, packaging signals, certifications, review signals, and takeaways. `launch-report` turns an offline case bundle into a full launch-readiness JSON report covering documents, target-market benchmarks, packaging/claims, logistics, platform admission, missing materials, and remediation. `launch-report-markdown` renders the same JSON as a seller-facing memo. Offline bundle facts are not external verification: user-provided documents and screenshots are T4 evidence, competitor rows remain `user_provided` unless marked `current_checked`, and unresolved official checks remain `needs_external_verification`. All indexed rule-pack requirements have source IDs; the deepest source-backed high-frequency routes are Amazon US food, TikTok Shop Malaysia/ASEAN cosmetics, and Temu electronics. `golden-replay` checks all produced review fixtures and declared example fixtures against expectations under `cases/`. `quality-gate` runs rulepack validation, source freshness, and golden replay together. Pack maturity is still `seed`, so use sources for intake and routing until more golden cases and real-case replay support promotion to `validated` or `production`.
+Command routing:
+
+| User intent | Command |
+|---|---|
+| Need benchmark worksheet | `benchmark-template` |
+| Validate benchmark rows | `benchmark-validate` |
+| Summarize benchmark rows | `benchmark-summarize` |
+| Create launch bundle | `bundle-template` |
+| Validate bundle | `bundle-validate` |
+| Generate launch report | `launch-report` |
+| Render Markdown memo | `launch-report-markdown` |
+| Batch reports | `batch-launch-report` |
+| Check Skill health | `quality-gate` |
+| Inspect coverage | `coverage-report` |
+
+The script is intentionally dependency-free so it can run in constrained environments. `checklist` builds its output from the rule packs in `data/rulepacks/`, includes matching `priority_combinations`, and warns when no platform/category/market pack matched. `review-skeleton` creates a JSON-contract-compliant intake review with requirements, attached official sources where available, target-market benchmark slots, findings, missing materials, remediation wording, and an audit log; it defaults to `request_more_info` because applicant documents and evidence matching are still required before approval. `benchmark-template` creates a target-market benchmark worksheet for direct competitors, substitutes, adjacent references, category leaders, local niche brands, platform best sellers, offline retail shelf products, and DTC/social commerce products. `benchmark-summarize` turns rows into price bands, channel maps, packaging conventions, claims/proof, review signals, and copy / avoid / improve actions. `launch-report` turns an offline case bundle into a full launch-readiness JSON report covering documents, target-market benchmarks, packaging/claims, logistics, platform admission, missing materials, and remediation. `launch-report-markdown` renders the same JSON as a seller-facing memo. Offline bundle facts are not external verification: user-provided documents and screenshots are T4 evidence, competitor rows remain `user_provided` unless marked `current_checked`, and unresolved official checks remain `needs_external_verification`. OCR, live search/scraping, registry checks, and freight quotes are enhancement inputs, not hard dependencies. All indexed rule-pack requirements have source IDs; the deepest source-backed high-frequency routes are Amazon US food, TikTok Shop Malaysia/ASEAN cosmetics, and Temu electronics. `golden-replay` checks all produced review fixtures and declared example fixtures against expectations under `cases/`. `quality-gate` runs rulepack validation, source freshness, golden replay, benchmark worksheet validation, bundle fixture validation, and coverage generation together. Pack maturity is still `seed`, so use sources for intake and routing until more golden cases and real-case replay support promotion to `validated` or `production`.
 
 ## Reference Map
 

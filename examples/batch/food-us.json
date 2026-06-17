@@ -1,0 +1,94 @@
+{
+  "bundle_type": "launchfit_offline_case",
+  "case": {
+    "case_id": "batch-food-us",
+    "applicant_name": "Batch Food Trading Co., Ltd.",
+    "applicant_role": "distributor",
+    "platform": "Amazon",
+    "marketplace_site": "US",
+    "destination_market": "US",
+    "business_model": "marketplace_seller",
+    "product_category": "food",
+    "subcategory": "chili crisp",
+    "product_name": "Batch Chili Crisp",
+    "brand_name": "Batch Pantry",
+    "review_purpose": "launch readiness and qualification intake",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-17"
+  },
+  "documents": [
+    {
+      "document_id": "doc-food-label",
+      "document_type": "packaging label text",
+      "file_reference": "batch/food-label.txt",
+      "holder": "Batch Food Trading Co., Ltd.",
+      "issuer": "applicant",
+      "number_redacted": "",
+      "issue_date": "",
+      "expiry_date": "",
+      "scope": "US chili crisp launch label",
+      "extraction_confidence": "medium",
+      "privacy_level": "public"
+    }
+  ],
+  "packaging": {
+    "front_label": "Batch Chili Crisp",
+    "back_label": "Ingredients: chili, soybean oil, sesame, peanut, salt.",
+    "claims": ["spicy"],
+    "ingredients_or_materials": ["chili", "soybean oil", "sesame", "peanut", "salt"],
+    "warnings": ["contains sesame and peanut"],
+    "languages": ["English"],
+    "units": ["oz"],
+    "visible_certification_marks": [],
+    "data_basis": "user_provided"
+  },
+  "benchmarks": [
+    {
+      "benchmark_id": "BM-BATCH-FOOD-001",
+      "benchmark_source_type": "direct_competitor",
+      "product_name": "Reference Chili Crisp",
+      "brand": "Reference",
+      "channel": "Amazon US",
+      "channel_role": "search_marketplace",
+      "market": "US",
+      "checked_at": "",
+      "pack_size": "6 oz",
+      "price": "USD 9.99",
+      "unit_price": "USD 1.67/oz",
+      "positioning": "mainstream",
+      "packaging_structure": ["glass jar"],
+      "visual_hierarchy": ["flavor cue"],
+      "visible_claims": ["spicy"],
+      "proof_points": [],
+      "certification_signals": [],
+      "platform_trust_markers": ["reviews"],
+      "review_praise": ["flavor"],
+      "review_objections": ["shipping damage"],
+      "purchase_triggers": ["pantry upgrade"],
+      "fulfillment_signals": ["marketplace"],
+      "data_basis": "user_provided",
+      "source_ids": [],
+      "evidence_ids": [],
+      "takeaway": "Mainstream price anchor needs current verification.",
+      "copy_action": "Show flavor and use case.",
+      "avoid_action": "Avoid unverified health claims.",
+      "improve_action": "Add shipping-safe packaging."
+    }
+  ],
+  "logistics": [
+    {
+      "route_id": "batch-food-logistics",
+      "route": "air freight to prep center",
+      "mode": "air",
+      "time": "7-12 days",
+      "cost_basis": "user estimate",
+      "best_for": "test batch",
+      "constraints": ["glass jar", "food"],
+      "risks": ["breakage"],
+      "preparation": ["drop test"],
+      "data_basis": "user_provided"
+    }
+  ],
+  "sources": [],
+  "external_checks": []
+}

@@ -2,6 +2,35 @@
 
 These examples show what the skill can do without a product UI.
 
+## Benchmark-First Workflow
+
+Validate and summarize a broad target-market benchmark worksheet:
+
+```bash
+python3 scripts/qualification_audit_schema.py benchmark-validate \
+  examples/benchmark-worksheet.json
+
+python3 scripts/qualification_audit_schema.py benchmark-summarize \
+  examples/benchmark-worksheet.json \
+  > /tmp/launchfit-benchmark-summary.json
+```
+
+The worksheet covers direct competitors, substitutes, adjacent references, category leaders, local niche brands, platform best sellers, offline retail shelf products, and DTC/social commerce products. The summary produces price bands, channel maps, packaging conventions, claims/proof, review themes, and copy / avoid / improve actions.
+
+Create and validate a launch bundle:
+
+```bash
+python3 scripts/qualification_audit_schema.py bundle-template \
+  --platform amazon \
+  --market US \
+  --category food \
+  --product "chili sauce" \
+  > /tmp/launchfit-bundle-template.json
+
+python3 scripts/qualification_audit_schema.py bundle-validate \
+  examples/offline-launch-case.json
+```
+
 ## Offline Launch Readiness MVP
 
 Generate a full launch-readiness report from a local case bundle containing product scope, applicant documents, packaging text, competitor rows, and logistics rows:
@@ -92,6 +121,7 @@ Expected result:
 
 ```text
 PASS: golden-brand-authorization-territory
+PASS: golden-benchmark-summary
 PASS: golden-complete-low-risk
 PASS: golden-expired-certificate
 PASS: golden-missing-scope
@@ -99,7 +129,7 @@ PASS: offline-launch-readiness
 PASS: golden-prohibited-category
 PASS: golden-suspected-forged-document
 PASS: golden-unverified-applicant-docs
-OK: 8 golden cases replayed
+OK: 9 golden cases replayed
 ```
 
 ## Target-Market Benchmark Template
@@ -116,6 +146,22 @@ python3 scripts/qualification_audit_schema.py benchmark-template \
 
 Use the rows to capture local benchmark products, channel role, pack size, price/unit, claims, packaging signals, visible certifications, review signals, and the takeaway for the launch decision.
 
+## Batch Reports And Coverage
+
+Generate JSON and Markdown reports for every bundle in a directory:
+
+```bash
+python3 scripts/qualification_audit_schema.py batch-launch-report \
+  examples/batch \
+  /tmp/launchfit-batch
+```
+
+Inspect Skill coverage:
+
+```bash
+python3 scripts/qualification_audit_schema.py coverage-report
+```
+
 Run the full publication gate:
 
 ```bash
@@ -127,7 +173,10 @@ Expected result:
 ```text
 OK: rulepack index valid
 OK: source freshness clean (116 checked source links)
-OK: 8 golden cases replayed
+OK: 9 golden cases replayed
+OK: 1 benchmark worksheet fixtures valid
+OK: 3 bundle fixtures valid
+OK: coverage report generated
 ```
 
 ## Source Freshness

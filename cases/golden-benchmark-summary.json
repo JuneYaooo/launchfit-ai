@@ -1,0 +1,19 @@
+{
+  "case_id": "golden-benchmark-summary",
+  "benchmark_fixture": "examples/benchmark-worksheet.json",
+  "description": "Benchmark summary should cover broad source types and preserve user-provided verification warnings.",
+  "expected": {
+    "source_types": [
+      "direct_competitor",
+      "substitute",
+      "adjacent_reference",
+      "category_leader",
+      "local_niche_brand",
+      "platform_best_seller",
+      "offline_retail_shelf",
+      "dtc_social_commerce"
+    ],
+    "min_rows": 8,
+    "requires_verification_warning": true
+  }
+}

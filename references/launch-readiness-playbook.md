@@ -55,7 +55,7 @@ Use outcome language:
 
 Use this section whenever the user asks "有没有对标", "目标市场类似商品怎么做", "怎么定价/包装/卖点", "值不值得卖", or provides competitor screenshots, marketplace links, retail shelf photos, product names, or rough prices.
 
-Benchmarking is broader than competitor pricing. It should answer:
+Benchmarking is the core seller-facing workflow, not an appendix to compliance. It is broader than competitor pricing and should answer:
 
 - Which similar products already educate the market?
 - What pack sizes, flavors/formulas/materials, claims, certifications, and visual language are common?
@@ -63,6 +63,21 @@ Benchmarking is broader than competitor pricing. It should answer:
 - What review themes or consumer objections appear repeatedly?
 - Which compliance signals are visible on pack or listing: local language, importer/responsible party, nutrition/ingredient panels, warnings, CE/FCC/FDA/organic/halal/dermatology/testing marks, or platform category badges?
 - Where can the user's product win: lower price, premium origin, cleaner formula, better pack size, clearer label, stronger proof, better logistics, or different channel?
+
+Use a broad benchmark set when possible:
+
+| Source type | Why it matters |
+|---|---|
+| Direct competitor | Shows immediate substitute price, pack, claims, and listing conventions |
+| Substitute | Shows the buyer's alternative solution and price anchor |
+| Adjacent reference | Teaches packaging, use case, or proof patterns from a nearby category |
+| Category leader | Shows what the market already recognizes and trusts |
+| Local niche brand | Reveals localization and specialty positioning patterns |
+| Platform best seller | Shows search, image, coupon, review, and listing mechanics |
+| Offline retail shelf | Shows label completeness, shelf hierarchy, and mass/specialty retail cues |
+| DTC/social commerce | Shows storytelling, bundles, creator proof, and premium positioning |
+
+For each row, capture product, brand, channel, source type, source basis, checked date, pack size, price, unit price, positioning, formula/material/flavor, packaging hierarchy, claims, proof points, trust markers, review praise, review objections, purchase triggers, fulfillment signals, and copy / avoid / improve actions.
 
 When current web/search access or user-provided screenshots are available:
 
@@ -72,6 +87,7 @@ When current web/search access or user-provided screenshots are available:
 4. Separate channel type and channel role: search marketplace, social commerce, mass retail, club store, specialty, pharmacy, DTC, or offline shelf.
 5. Extract packaging and listing patterns: front-label hierarchy, claims, proof points, certifications, warnings, image style, bundle/size strategy, review count/rating signals.
 6. Mark data as `current_checked`, `user_provided`, `assumption`, or `not_checked` so the user knows what is verified.
+7. If external OCR/search/scraping tools are available, use them as enhancement inputs into the same benchmark worksheet. If not, use user-provided screenshots, links, or copied rows and label the basis honestly.
 
 Output table:
 

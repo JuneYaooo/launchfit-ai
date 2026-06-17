@@ -1,0 +1,94 @@
+{
+  "bundle_type": "launchfit_offline_case",
+  "case": {
+    "case_id": "batch-electronics-eu",
+    "applicant_name": "Batch Electronics Ltd.",
+    "applicant_role": "manufacturer",
+    "platform": "Temu",
+    "marketplace_site": "EU",
+    "destination_market": "EU",
+    "business_model": "marketplace_seller",
+    "product_category": "electronics",
+    "subcategory": "wireless charger",
+    "product_name": "Batch Wireless Charger",
+    "brand_name": "Batch Tech",
+    "review_purpose": "launch readiness and qualification intake",
+    "requested_decision_deadline": "",
+    "review_date": "2026-06-17"
+  },
+  "documents": [
+    {
+      "document_id": "doc-electronics-report",
+      "document_type": "test report",
+      "file_reference": "batch/electronics-report.pdf",
+      "holder": "Batch Electronics Ltd.",
+      "issuer": "applicant",
+      "number_redacted": "TR-****-2026",
+      "issue_date": "2026-01-10",
+      "expiry_date": "",
+      "scope": "wireless charger safety and EMC",
+      "extraction_confidence": "medium",
+      "privacy_level": "business_confidential"
+    }
+  ],
+  "packaging": {
+    "front_label": "Batch Wireless Charger CE FCC",
+    "back_label": "Input/output and manufacturer information provided by applicant.",
+    "claims": ["fast charging"],
+    "ingredients_or_materials": ["electronics", "battery accessory"],
+    "warnings": [],
+    "languages": ["English"],
+    "units": [],
+    "visible_certification_marks": ["CE", "FCC"],
+    "data_basis": "user_provided"
+  },
+  "benchmarks": [
+    {
+      "benchmark_id": "BM-BATCH-ELEC-001",
+      "benchmark_source_type": "platform_best_seller",
+      "product_name": "Reference Wireless Charger",
+      "brand": "Reference Tech",
+      "channel": "Temu EU",
+      "channel_role": "search_marketplace",
+      "market": "EU",
+      "checked_at": "",
+      "pack_size": "1 unit",
+      "price": "EUR 12.99",
+      "unit_price": "EUR 12.99/unit",
+      "positioning": "mass",
+      "packaging_structure": ["small box"],
+      "visual_hierarchy": ["feature badge"],
+      "visible_claims": ["fast charge"],
+      "proof_points": [],
+      "certification_signals": ["CE"],
+      "platform_trust_markers": ["marketplace reviews"],
+      "review_praise": ["price"],
+      "review_objections": ["heat"],
+      "purchase_triggers": ["low price"],
+      "fulfillment_signals": ["marketplace"],
+      "data_basis": "user_provided",
+      "source_ids": [],
+      "evidence_ids": [],
+      "takeaway": "Electronics benchmarks require proof for marks and safety claims.",
+      "copy_action": "Show exact compatibility.",
+      "avoid_action": "Avoid unsupported CE/FCC marks.",
+      "improve_action": "Match report scope to model/SKU."
+    }
+  ],
+  "logistics": [
+    {
+      "route_id": "batch-electronics-logistics",
+      "route": "air freight to EU warehouse",
+      "mode": "air",
+      "time": "10-15 days",
+      "cost_basis": "user estimate",
+      "best_for": "small electronics test batch",
+      "constraints": ["electronics", "battery", "dangerous goods check"],
+      "risks": ["battery transport review"],
+      "preparation": ["confirm battery transport classification"],
+      "data_basis": "user_provided"
+    }
+  ],
+  "sources": [],
+  "external_checks": []
+}
