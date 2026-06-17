@@ -107,29 +107,6 @@
 
 规则来源连接到 Amazon Seller Central、TikTok Shop Seller Center、FDA、CBP、European Commission、FCC、CPSC、ASEAN、Singapore HSA、Malaysia NPRA、GOV.UK、MHLW、METI、GACC、SAMR、NMPA、WIPO、EUIPO、USPTO 等官方或权威入口。
 
-## 开发者快速开始
-
-这个 repo 包含一个不依赖外部服务的轻量 Skill 执行层，可以把 benchmark worksheet 和 case bundle 生成结构化 JSON 体检报告与 Markdown 备忘录。
-
-```bash
-python3 scripts/qualification_audit_schema.py benchmark-validate examples/benchmark-worksheet.json
-python3 scripts/qualification_audit_schema.py benchmark-summarize examples/benchmark-worksheet.json
-
-python3 scripts/qualification_audit_schema.py bundle-validate examples/offline-launch-case.json
-
-python3 scripts/qualification_audit_schema.py launch-report \
-  examples/offline-launch-case.json \
-  > /tmp/launchfit-offline-report.json
-
-python3 scripts/qualification_audit_schema.py validate /tmp/launchfit-offline-report.json
-
-python3 scripts/qualification_audit_schema.py launch-report-markdown \
-  /tmp/launchfit-offline-report.json \
-  > /tmp/launchfit-offline-report.md
-```
-
-更多可运行示例见 [examples/README.md](./examples/README.md)。
-
 ## 它怎么判断
 
 ![跨境商品出海上架评估整体逻辑图](./assets/project-logic-diagram-zh.png)

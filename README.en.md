@@ -107,29 +107,6 @@ If available, add certificates, test reports, brand authorization, packaging ima
 
 Review routes connect to official or authoritative source entry points such as Amazon Seller Central, TikTok Shop Seller Center, FDA, CBP, European Commission, FCC, CPSC, ASEAN, Singapore HSA, Malaysia NPRA, GOV.UK, MHLW, METI, GACC, SAMR, NMPA, WIPO, EUIPO, and USPTO.
 
-## Developer Quick Start
-
-This repo includes a dependency-free lightweight Skill execution layer. It turns a benchmark worksheet and case bundle into a structured JSON checkup report and a Markdown memo.
-
-```bash
-python3 scripts/qualification_audit_schema.py benchmark-validate examples/benchmark-worksheet.json
-python3 scripts/qualification_audit_schema.py benchmark-summarize examples/benchmark-worksheet.json
-
-python3 scripts/qualification_audit_schema.py bundle-validate examples/offline-launch-case.json
-
-python3 scripts/qualification_audit_schema.py launch-report \
-  examples/offline-launch-case.json \
-  > /tmp/launchfit-offline-report.json
-
-python3 scripts/qualification_audit_schema.py validate /tmp/launchfit-offline-report.json
-
-python3 scripts/qualification_audit_schema.py launch-report-markdown \
-  /tmp/launchfit-offline-report.json \
-  > /tmp/launchfit-offline-report.md
-```
-
-See [examples/README.md](./examples/README.md) for more runnable examples.
-
 ## How It Decides
 
 ![CBEC Product Launch Review project logic diagram](./assets/project-logic-diagram-en.png)
