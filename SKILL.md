@@ -34,6 +34,24 @@ Follow this loop for every real case:
 4. **Separate facts by source tier:** T1/T2 can support decisions; T4 user material can only show what was submitted unless externally verified.
 5. **Give the seller next actions first:** launch view, blockers, research tasks, missing materials, then deeper evidence tables.
 
+## Final Deliverables
+
+For a complete LaunchFit review, produce two user-facing deliverables:
+
+1. **Core overview card**
+   - Purpose: one-screen decision aid for founders, sellers, clients, and operators.
+   - Format: image card when image generation or screenshot tooling is available; otherwise HTML card that can be screenshot.
+   - Contents: product and route, origin and destinations, launch view, top 3 blockers, must-check channels, next actions, and confidence/evidence status.
+   - Rule: no dense legal explanation, no long tables, no unsupported pass/fail claim.
+
+2. **Detailed PDF**
+   - Purpose: auditable working document for compliance, operations, suppliers, service providers, and internal handoff.
+   - Format: PDF generated from structured HTML/Markdown or an equivalent document export.
+   - Contents: scope, per-destination market reviews, benchmark table, source candidates, research tasks, evidence table, findings, missing materials, packaging/label fixes, logistics review, remediation wording, audit log, and disclaimer.
+   - Rule: every important conclusion links to evidence/source tier or stays `needs_external_verification`.
+
+Use the chat response to summarize the deliverables and next actions. Do not make the chat transcript the main artifact when the user asked for a review output.
+
 ## Hard Gates
 
 - No origin country → no final decision.

@@ -4,6 +4,72 @@ Use these templates for final outputs.
 
 The JSON contract below is the single source of truth for output field names and structure. `scripts/qualification_audit_schema.py validate` enforces it. Other references describe usage and must not redefine these fields.
 
+## Core Overview Card
+
+Use this as the one-screen customer-facing artifact. It should fit a mobile-friendly image card or screenshot.
+
+```markdown
+# [Product / Route]
+
+Launch view: go | caution | stop | unknown
+
+Origin:
+Destinations:
+Platform/category:
+
+Top blockers:
+1. ...
+2. ...
+3. ...
+
+Must-check channels:
+- Platform policy
+- Destination regulator
+- Customs/import
+- Brand/IP
+- Certification/lab
+- Logistics/warehouse
+- Origin/export
+- User-provided channels
+
+Next actions:
+- Owner / action / evidence needed
+
+Evidence status:
+- T1/T2 confirmed:
+- T4 user-provided only:
+- Needs external verification:
+```
+
+Design rules:
+
+- Keep it readable at social-card size.
+- Use at most 3 top blockers and 3 next actions.
+- Do not include long legal explanations or dense tables.
+- If generated as HTML, save the HTML source and a PNG screenshot.
+
+## Detailed PDF
+
+Use this as the full working document.
+
+Recommended sections:
+
+1. Executive snapshot.
+2. Scope: product, origin, destinations, platform, category, applicant, business model.
+3. Per-destination market reviews.
+4. Target-market benchmark table and summary.
+5. Source candidates and research tasks.
+6. Platform/category admission requirements.
+7. Documents, evidence, source tiers, and freshness.
+8. Findings and decision effects.
+9. Missing materials and acceptable replacements.
+10. Packaging/label fixes.
+11. Logistics/budget route review.
+12. Applicant-facing remediation wording.
+13. Audit log and disclaimer.
+
+If generated as HTML, save the HTML source and PDF export.
+
 ## Executive Markdown Memo
 
 ```markdown
