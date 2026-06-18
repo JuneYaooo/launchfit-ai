@@ -57,7 +57,7 @@ For a complete LaunchFit review, produce two user-facing deliverables:
    - Purpose: auditable working document for compliance, operations, suppliers, service providers, and internal handoff.
    - Format: PDF generated from structured HTML/Markdown or an equivalent document export.
    - Contents: scope, per-destination market reviews, benchmark table, source candidates, research tasks, evidence table, findings, missing materials, packaging/label fixes, logistics review, remediation wording, audit log, and disclaimer.
-   - Rule: every important conclusion links to evidence/source tier or stays `needs_external_verification`. Include generation metadata so readers know whether the report used user materials, rule packs, agent active search, commercial benchmark search, official-source candidates, or other declared channels.
+   - Rule: every important conclusion links to evidence/source tier or stays `needs_external_verification`. Include generation metadata so readers know whether the report used user materials, rule packs, agent active search, commercial benchmark search, official-source candidates, or other declared channels. Keep long source/search URLs in an appendix or attachment instead of the main body.
 
 Use the chat response to summarize the deliverables and next actions. Do not make the chat transcript the main artifact when the user asked for a review output.
 

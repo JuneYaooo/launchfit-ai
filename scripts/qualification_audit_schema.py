@@ -2277,10 +2277,28 @@ def _benchmark_source_rows(report: dict[str, Any]) -> str:
         rows.append(
             "<tr>"
             f"<td>{_html(_short_text(_zh_source_title(source.get('title')), 70))}</td>"
-            f"<td>{_html(_short_text(source.get('url'), 96))}</td>"
             f"<td>{_html(source.get('tier'))}</td>"
             f"<td>{_html(source.get('checked_at'))}</td>"
             f"<td>{_html(_short_text(_zh_case_text(source.get('confirms')), 110))}<br><span class='muted'>商业市场信号；不能替代官方、进口、标签或平台最终核验。</span></td>"
+            "</tr>"
+        )
+    return "".join(rows)
+
+
+def _source_appendix_rows(report: dict[str, Any]) -> str:
+    rows: list[str] = []
+    for source in report.get("sources") or []:
+        if not isinstance(source, dict) or not _text(source.get("url")):
+            continue
+        source_id = _text(source.get("source_id"))
+        source_kind = "agent 搜索" if source_id.startswith("src-agent-") else ("用户材料" if source_id.startswith("src-user-") else "规则/官方候选")
+        rows.append(
+            "<tr>"
+            f"<td>{_html(source_kind)}</td>"
+            f"<td>{_html(_short_text(_zh_source_title(source.get('title')), 72))}</td>"
+            f"<td>{_html(source.get('tier'))}</td>"
+            f"<td>{_html(source.get('checked_at'))}</td>"
+            f"<td>{_html(source.get('url'))}</td>"
             "</tr>"
         )
     return "".join(rows)
@@ -2447,6 +2465,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     benchmark_matrix_rows = _benchmark_analysis_matrix_rows(report)
     benchmark_plan_rows = _benchmark_research_plan_rows(route, destinations, case)
     benchmark_source_rows = _benchmark_source_rows(report)
+    source_appendix_rows = _source_appendix_rows(report)
     logistics_rows = "".join(
         f"<tr><td>{_html(item.get('route'))}</td><td>{_html(item.get('mode'))}</td><td>{_html(item.get('time') or '待报价')}</td><td>{_html(_short_text(item.get('cost_basis') or '待报价', 60))}</td><td>{_html(_short_text(_joined_text(item.get('risks') or item.get('constraints')), 74))}</td></tr>"
         for item in (report.get("offline_logistics") or [])[:8]
@@ -2584,7 +2603,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
   <table><tr><th>样本</th><th>渠道</th><th>价格/规格/单位价</th><th>包装/标签信号</th><th>宣称/卖点</th><th>信任/认证信号</th><th>评论/口碑信号</th><th>启发</th></tr>{_table_or_empty(benchmark_matrix_rows, 8, '暂无可分析竞品样本；请按上方“对标调研设计”补齐当前样本')}</table>
 
   <h2>对标来源与核验边界</h2>
-  <table><tr><th>来源</th><th>URL</th><th>层级</th><th>检查日期</th><th>可用边界</th></tr>{_table_or_empty(benchmark_source_rows, 5, '暂无 agent 主动检索的对标来源')}</table>
+  <table><tr><th>来源</th><th>层级</th><th>检查日期</th><th>可用边界</th></tr>{_table_or_empty(benchmark_source_rows, 4, '暂无 agent 主动检索的对标来源')}</table>
 
   <h2>对标摘要</h2>
   <table><tr><th>价格带</th><th>渠道图谱</th><th>包装惯例</th><th>宣称/证据</th><th>信任/认证</th><th>评论主题</th><th>Copy / Avoid / Improve</th><th>仍需核验</th></tr><tr><td>{_html(_zh_case_text(benchmark_summary.get('reference_price_band')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('channel_map')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('packaging_conventions')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('claims_and_proof')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('visible_trust_signals')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('review_themes')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('copy_avoid_improve')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('verification_needed')))}</td></tr></table>
@@ -2628,6 +2647,10 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
 
   <h2>审计摘要 <span class="compat">Audit log</span></h2>
   <table><tr><th>时间</th><th>动作</th><th>说明</th></tr>{audit_rows}</table>
+
+  <h2>附件 A：来源链接清单</h2>
+  <p class="muted">正文仅保留来源摘要和核验边界；长链接集中放在本附件，便于复核但不打断主体阅读。</p>
+  <table><tr><th>类型</th><th>来源</th><th>层级</th><th>检查日期</th><th>链接/引用</th></tr>{_table_or_empty(source_appendix_rows, 5, '暂无来源链接')}</table>
 
   <h2>Source candidates</h2>
   <p class="muted">上方“必须核验渠道”已列出来源候选；本标题保留用于机器读取和版本兼容。</p>
@@ -2689,6 +2712,7 @@ def _write_html_or_export(output_file: str, html_text: str, mode: str) -> int:
                 "--headless=new",
                 "--disable-gpu",
                 "--no-first-run",
+                "--print-to-pdf-no-header",
                 f"--print-to-pdf={output_path}",
                 html_path.resolve().as_uri(),
             ]

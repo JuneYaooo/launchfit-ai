@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scripts.qualification_audit_schema import (
+    _write_html_or_export,
     launch_report_from_bundle,
     render_detailed_pdf_html,
     render_overview_card_html,
@@ -135,6 +136,16 @@ class DeliverableGenerationTests(unittest.TestCase):
             self.assertIn("未声明", html)
             self.assertIn("搜索途径", html)
 
+    def test_pdf_export_suppresses_browser_header_footer_file_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_path = Path(tmp) / "detail.pdf"
+            with patch("scripts.qualification_audit_schema._chrome_path", return_value="/bin/echo"):
+                with patch("scripts.qualification_audit_schema.subprocess.run") as run:
+                    self.assertEqual(0, _write_html_or_export(str(output_path), "<html></html>", "detail"))
+
+            command = run.call_args.args[0]
+            self.assertIn("--print-to-pdf-no-header", command)
+
     def test_real_run_without_benchmarks_outputs_benchmark_research_plan(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
         html = render_detailed_pdf_html(report)
@@ -163,7 +174,10 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("京东自营", html)
         self.assertIn("保真橄榄油", html)
         self.assertIn("对标来源与核验边界", html)
-        self.assertIn("https://search.jd.com", html)
+        self.assertIn("附件 A：来源链接清单", html)
+        main_report, source_appendix = html.split("附件 A：来源链接清单", 1)
+        self.assertNotIn("https://search.jd.com", main_report)
+        self.assertIn("https://search.jd.com", source_appendix)
         self.assertIn("商业市场信号", html)
         self.assertIn("2026-06-18", html)
 
