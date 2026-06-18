@@ -639,6 +639,8 @@ def benchmark_template(
                 "channel": "",
                 "channel_role": "other",
                 "market": market,
+                "image_url": "",
+                "image_alt": "",
                 "pack_size": "",
                 "price": "",
                 "unit_price": "",
@@ -1277,6 +1279,8 @@ def build_market_benchmarks(
                 "data_basis": data_basis,
                 "source_ids": [sid for sid in _as_list(raw.get("source_ids")) if _text(sid)] or source_ids,
                 "evidence_ids": [],
+                "image_url": _text(raw.get("image_url") or raw.get("product_image_url") or raw.get("image_path") or raw.get("screenshot_path")),
+                "image_alt": _text(raw.get("image_alt")) or _text(raw.get("product_name")) or f"Benchmark product {idx}",
                 "takeaway": _text(raw.get("takeaway")) or "Use as a directional offline benchmark; verify current price and listing details before final action.",
             }
         )
@@ -2259,6 +2263,29 @@ def _benchmark_analysis_matrix_rows(report: dict[str, Any]) -> str:
     return "".join(rows)
 
 
+def _benchmark_visual_cards(report: dict[str, Any]) -> str:
+    cards: list[str] = []
+    for item in (report.get("market_benchmarks") or [])[:8]:
+        if not isinstance(item, dict):
+            continue
+        image_src = _text(item.get("image_url") or item.get("image_path") or item.get("screenshot_path"))
+        if not image_src:
+            continue
+        caption_parts = [
+            _short_text(item.get("product_name"), 42),
+            _short_text(item.get("channel"), 28),
+            _short_text(item.get("price") or item.get("unit_price") or item.get("pack_size"), 28),
+        ]
+        caption = " · ".join(part for part in caption_parts if part)
+        cards.append(
+            "<figure class='visual-card'>"
+            f"<img src='{_html(image_src)}' alt='{_html(item.get('image_alt') or item.get('product_name') or 'benchmark product image')}'>"
+            f"<figcaption>{_html(caption)}</figcaption>"
+            "</figure>"
+        )
+    return "".join(cards)
+
+
 def _benchmark_source_rows(report: dict[str, Any]) -> str:
     benchmark_source_ids = {
         _text(source_id)
@@ -2463,6 +2490,12 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
         if isinstance(item, dict)
     )
     benchmark_matrix_rows = _benchmark_analysis_matrix_rows(report)
+    benchmark_visual_cards = _benchmark_visual_cards(report)
+    benchmark_visual_section = (
+        f'<h2>对标商品图</h2><div class="visual-grid">{benchmark_visual_cards}</div>'
+        if benchmark_visual_cards
+        else ""
+    )
     benchmark_plan_rows = _benchmark_research_plan_rows(route, destinations, case)
     benchmark_source_rows = _benchmark_source_rows(report)
     source_appendix_rows = _source_appendix_rows(report)
@@ -2538,6 +2571,10 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     .engine3 {{ border-color: #7b6b47; }}
     .note {{ border: 1px solid #d6dde5; background: #fbfcfd; padding: 8px 10px; margin: 6px 0 10px; }}
     .provenance {{ border: 1px solid #d6dde5; background: #f7f4eb; color: #5e6a78; padding: 6px 8px; margin: 7px 0 10px; font-size: 10.5px; text-align: right; }}
+    .visual-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 12px; }}
+    .visual-card {{ border: 1px solid #d6dde5; background: #fffdf8; margin: 0; padding: 6px; break-inside: avoid; }}
+    .visual-card img {{ width: 100%; height: 96px; object-fit: contain; background: #f6f8fa; display: block; }}
+    .visual-card figcaption {{ color: #5e6a78; font-size: 9.5px; line-height: 1.25; margin-top: 5px; }}
     .compat {{ display: none; }}
     ul {{ margin: 4px 0 0; padding-left: 18px; }}
     li {{ margin-bottom: 4px; }}
@@ -2594,6 +2631,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
 
   <h2>目标市场对标</h2>
   <table><tr><th>竞品/参照</th><th>渠道</th><th>价格</th><th>宣称/卖点</th><th>数据基础</th></tr>{_table_or_empty(benchmark_rows, 5, '未提供目标市场竞品；需补 5-10 个当前平台、零售、DTC 或用户搜索渠道样本')}</table>
+{benchmark_visual_section}
 
   <h2>对标调研设计</h2>
   <div class="note">当前不生成虚构竞品结论；没有实时或用户提供样本时，本节只定义最合适的采集渠道、样本类型和字段。采集完成后再更新价格带、包装惯例、评论主题和 Copy / Avoid / Improve。</div>
@@ -2601,9 +2639,6 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
 
   <h2>对标分析矩阵</h2>
   <table><tr><th>样本</th><th>渠道</th><th>价格/规格/单位价</th><th>包装/标签信号</th><th>宣称/卖点</th><th>信任/认证信号</th><th>评论/口碑信号</th><th>启发</th></tr>{_table_or_empty(benchmark_matrix_rows, 8, '暂无可分析竞品样本；请按上方“对标调研设计”补齐当前样本')}</table>
-
-  <h2>对标来源与核验边界</h2>
-  <table><tr><th>来源</th><th>层级</th><th>检查日期</th><th>可用边界</th></tr>{_table_or_empty(benchmark_source_rows, 4, '暂无 agent 主动检索的对标来源')}</table>
 
   <h2>对标摘要</h2>
   <table><tr><th>价格带</th><th>渠道图谱</th><th>包装惯例</th><th>宣称/证据</th><th>信任/认证</th><th>评论主题</th><th>Copy / Avoid / Improve</th><th>仍需核验</th></tr><tr><td>{_html(_zh_case_text(benchmark_summary.get('reference_price_band')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('channel_map')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('packaging_conventions')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('claims_and_proof')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('visible_trust_signals')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('review_themes')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('copy_avoid_improve')))}</td><td>{_html(_zh_case_text(benchmark_summary.get('verification_needed')))}</td></tr></table>
@@ -2651,6 +2686,9 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
   <h2>附件 A：来源链接清单</h2>
   <p class="muted">正文仅保留来源摘要和核验边界；长链接集中放在本附件，便于复核但不打断主体阅读。</p>
   <table><tr><th>类型</th><th>来源</th><th>层级</th><th>检查日期</th><th>链接/引用</th></tr>{_table_or_empty(source_appendix_rows, 5, '暂无来源链接')}</table>
+
+  <h2>附件 B：对标来源与核验边界</h2>
+  <table><tr><th>来源</th><th>层级</th><th>检查日期</th><th>可用边界</th></tr>{_table_or_empty(benchmark_source_rows, 4, '暂无 agent 主动检索的对标来源')}</table>
 
   <h2>Source candidates</h2>
   <p class="muted">上方“必须核验渠道”已列出来源候选；本标题保留用于机器读取和版本兼容。</p>

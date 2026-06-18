@@ -64,18 +64,19 @@ Recommended sections:
 3. Per-destination market reviews.
 4. Target-market benchmark research design: sample types, priority channels, sample boundaries, and required fields.
 5. Benchmark analysis matrix when benchmark rows exist: price/pack/unit price, packaging/label signals, claims, trust/certification signals, review themes, and takeaway.
-6. Benchmark summary: reference price band, channel map, packaging conventions, claims and proof, visible trust signals, review themes, gap opportunity, Copy / Avoid / Improve, and verification needed.
-7. Source candidates and research tasks. Keep long URLs out of the main narrative tables.
-8. Platform/category admission requirements.
-9. Documents, evidence, source tiers, and freshness.
-10. Findings and decision effects.
-11. Missing materials and acceptable replacements.
-12. Packaging/label fixes.
-13. Logistics/budget route review.
-14. Applicant-facing remediation wording.
-15. Generation note: agent, model if declared, search/information routes used, and generated date.
-16. Source-link appendix or attachment: full URLs, source type, tier, checked date, and boundary.
-17. Audit log and disclaimer.
+6. Benchmark visual evidence when available: render a compact product-image gallery from `image_url`, `image_path`, or screenshot fields; do not invent images.
+7. Benchmark summary: reference price band, channel map, packaging conventions, claims and proof, visible trust signals, review themes, gap opportunity, Copy / Avoid / Improve, and verification needed.
+8. Source candidates and research tasks. Keep long URLs and benchmark-source boundary tables out of the main narrative tables.
+9. Platform/category admission requirements.
+10. Documents, evidence, source tiers, and freshness.
+11. Findings and decision effects.
+12. Missing materials and acceptable replacements.
+13. Packaging/label fixes.
+14. Logistics/budget route review.
+15. Applicant-facing remediation wording.
+16. Generation note: agent, model if declared, search/information routes used, and generated date.
+17. Source-link appendix or attachment: full URLs, source type, tier, checked date, and boundary.
+18. Audit log and disclaimer.
 
 If no benchmark rows are supplied, do not invent competitor names, prices, reviews, or live market facts. Output a benchmark research design and mark the analysis matrix as missing until current marketplace, retail, DTC, social, distributor, or user-provided samples are checked.
 
@@ -256,6 +257,8 @@ Operational launch-readiness review only; not legal advice. Verify current platf
       "pack_size": "",
       "price": "",
       "unit_price": "",
+      "image_url": "",
+      "image_alt": "",
       "positioning": "mass|mainstream|premium|specialty|luxury|unknown",
       "visible_claims": [],
       "packaging_signals": [],

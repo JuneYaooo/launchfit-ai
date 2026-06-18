@@ -25,6 +25,22 @@ class ReadmeExampleTests(unittest.TestCase):
         self.assertIn("用户提供的搜索渠道只能作为补充", skill)
         self.assertIn("不能把找对标的责任推给用户", skill)
 
+    def test_skill_requires_benchmark_images_and_appendix_sources(self):
+        skill = Path("SKILL.md").read_text(encoding="utf-8")
+
+        self.assertIn("image_url", skill)
+        self.assertIn("对标商品图", skill)
+        self.assertIn("appendix", skill)
+
+    def test_benchmark_template_includes_visual_evidence_fields(self):
+        from launchfit.benchmarking import benchmark_template
+
+        worksheet = benchmark_template(market="China", category="food", product="olive oil")
+        first_row = worksheet["benchmarks"][0]
+
+        self.assertIn("image_url", first_row)
+        self.assertIn("image_alt", first_row)
+
 
 if __name__ == "__main__":
     unittest.main()

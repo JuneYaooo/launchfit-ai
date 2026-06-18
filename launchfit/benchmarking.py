@@ -84,6 +84,8 @@ def benchmark_template(
                 "channel_role": "other",
                 "market": market,
                 "source_url": "",
+                "image_url": "",
+                "image_alt": "",
                 "checked_at": "",
                 "pack_size": "",
                 "price": "",
@@ -241,4 +243,3 @@ def summarize_benchmark_worksheet(data: dict[str, Any]) -> dict[str, Any]:
         if unchecked_count
         else [],
     }
-

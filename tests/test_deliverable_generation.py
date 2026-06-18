@@ -181,6 +181,27 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("商业市场信号", html)
         self.assertIn("2026-06-18", html)
 
+    def test_benchmark_source_boundary_is_appendix_only(self):
+        report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
+        html = render_detailed_pdf_html(report)
+
+        main_report, source_appendix = html.split("附件 A：来源链接清单", 1)
+        self.assertNotIn("对标来源与核验边界", main_report)
+        self.assertIn("对标来源与核验边界", source_appendix)
+
+    def test_detailed_report_renders_benchmark_product_images_when_supplied(self):
+        bundle = json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8"))
+        bundle["benchmarks"][0]["image_url"] = "https://img.example.test/olivoila-250ml.jpg"
+        bundle["benchmarks"][0]["image_alt"] = "Olivoila 250ml bottle front pack"
+
+        report = launch_report_from_bundle(bundle)
+        html = render_detailed_pdf_html(report)
+
+        self.assertEqual("https://img.example.test/olivoila-250ml.jpg", report["market_benchmarks"][0]["image_url"])
+        self.assertIn("对标商品图", html)
+        self.assertIn("https://img.example.test/olivoila-250ml.jpg", html)
+        self.assertIn("Olivoila 250ml bottle front pack", html)
+
     def test_real_run_generation_metadata_names_search_routes(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
         html = render_detailed_pdf_html(report)
