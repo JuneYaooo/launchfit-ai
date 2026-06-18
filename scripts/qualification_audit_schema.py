@@ -2277,13 +2277,67 @@ def _benchmark_visual_cards(report: dict[str, Any]) -> str:
             _short_text(item.get("price") or item.get("unit_price") or item.get("pack_size"), 28),
         ]
         caption = " · ".join(part for part in caption_parts if part)
+        packaging = _short_text(_joined_text(_as_list(item.get("packaging_signals"))[:3]), 48)
         cards.append(
             "<figure class='visual-card'>"
             f"<img src='{_html(image_src)}' alt='{_html(item.get('image_alt') or item.get('product_name') or 'benchmark product image')}'>"
             f"<figcaption>{_html(caption)}</figcaption>"
+            f"<div class='visual-pack'><b>包装观察</b>{_html(packaging or '待补包装信号')}</div>"
             "</figure>"
         )
     return "".join(cards)
+
+
+def _benchmark_packaging_observation_rows(report: dict[str, Any]) -> str:
+    benchmarks = [item for item in (report.get("market_benchmarks") or []) if isinstance(item, dict)]
+    signals = {_plain_label(signal) for item in benchmarks for signal in _as_list(item.get("packaging_signals")) if _text(signal)}
+    observations: list[tuple[str, str, str]] = []
+
+    if any("250ml" in signal or "125ml" in signal for signal in signals):
+        observations.append(
+            (
+                "250ml/小规格是入门试用锚点",
+                "Mantova 250ml 可以主打试用、礼赠或精品小瓶，但不能直接拿 1L/3L 家庭装单位价做定价依据。",
+                "核当前 250ml 价格带、单位价、起订量和渠道毛利，再决定单瓶、双瓶或整箱组合。",
+            )
+        )
+    if any(term in signal for signal in signals for term in ("玻璃瓶", "瓶装", "罐装", "红标")):
+        observations.append(
+            (
+                "玻璃瓶/罐装会影响货架识别和运输风险",
+                "目标市场样本同时出现玻璃瓶、红标、罐装和瓶装；Mantova 需要确认瓶身强度、漏油风险、中文背标贴附面积和外箱保护。",
+                "出货前做中文标签版面、跌落/漏液、外箱和条码位置检查；不要只看正面英文/意大利文包装。",
+            )
+        )
+    if any(term in signal for signal in signals for term in ("礼盒", "组合", "整箱", "企业福利", "礼赠")):
+        observations.append(
+            (
+                "组合装/礼盒是放大客单的常见做法",
+                "250ml 单瓶适合低门槛试用，双瓶/多瓶/礼盒更适合经销、企业福利和节日销售。",
+                "先用单瓶验证准入和复购，再设计双瓶礼盒或多瓶箱规；礼盒外包装同样要纳入标签和进口主体审核。",
+            )
+        )
+    if any(term in signal for signal in signals for term in ("500ml", "750ml", "1l", "3l", "家庭", "大容量", "会员店")):
+        observations.append(
+            (
+                "大规格构成单位价锚点",
+                "500ml/750ml/1L/3L 会压低消费者对单位价的预期；250ml 小瓶需要用产地、风味、礼赠或场景价值解释溢价。",
+                "对比时分开看小规格试用价、家庭装复购价和会员店囤货价，避免把不同规格混成一个价格带。",
+            )
+        )
+
+    if not observations and benchmarks:
+        observations.append(
+            (
+                "包装信号不足",
+                "现有对标样本没有提供足够包装/标签字段，无法判断本地化改版优先级。",
+                "补拍竞品主图、背标、外箱、中文标签和条码位置，再更新本节。",
+            )
+        )
+    return "".join(
+        f"<tr><td>{_html(observation)}</td><td>{_html(meaning)}</td><td>{_html(action)}</td></tr>"
+        for observation, meaning, action in observations[:5]
+    )
 
 
 def _benchmark_source_rows(report: dict[str, Any]) -> str:
@@ -2661,6 +2715,12 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
         if benchmark_visual_cards
         else ""
     )
+    benchmark_packaging_rows = _benchmark_packaging_observation_rows(report)
+    benchmark_packaging_section = (
+        f'<h2>对标包装观察</h2><table><tr><th>观察</th><th>对本品含义</th><th>下一步</th></tr>{benchmark_packaging_rows}</table>'
+        if benchmark_packaging_rows
+        else ""
+    )
     benchmark_plan_rows = _benchmark_research_plan_rows(route, destinations, case)
     benchmark_source_rows = _benchmark_source_rows(report)
     source_appendix_rows = _source_appendix_rows(report)
@@ -2740,6 +2800,8 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     .visual-card {{ border: 1px solid #d6dde5; background: #fffdf8; margin: 0; padding: 6px; break-inside: avoid; }}
     .visual-card img {{ width: 100%; height: 96px; object-fit: contain; background: #f6f8fa; display: block; }}
     .visual-card figcaption {{ color: #5e6a78; font-size: 9.5px; line-height: 1.25; margin-top: 5px; }}
+    .visual-pack {{ margin-top: 5px; padding: 5px 6px; background: #eef6f3; border-left: 3px solid #2f8f7a; color: #23343a; font-size: 9.5px; line-height: 1.25; }}
+    .visual-pack b {{ display: block; color: #1f6f60; font-size: 9px; margin-bottom: 2px; }}
     .compat {{ display: none; }}
     ul {{ margin: 4px 0 0; padding-left: 18px; }}
     li {{ margin-bottom: 4px; }}
@@ -2797,6 +2859,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
   <h2>目标市场对标</h2>
   <table><tr><th>竞品/参照</th><th>渠道</th><th>价格</th><th>宣称/卖点</th><th>数据基础</th></tr>{_table_or_empty(benchmark_rows, 5, '未提供目标市场竞品；需补 5-10 个当前平台、零售、DTC 或用户搜索渠道样本')}</table>
 {benchmark_visual_section}
+{benchmark_packaging_section}
 
   <h2>对标调研设计</h2>
   <div class="note">当前不生成虚构竞品结论；没有实时或用户提供样本时，本节只定义最合适的采集渠道、样本类型和字段。采集完成后再更新价格带、包装惯例、评论主题和 Copy / Avoid / Improve。</div>

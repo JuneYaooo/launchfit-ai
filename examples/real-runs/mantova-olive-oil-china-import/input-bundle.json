@@ -87,7 +87,9 @@
       "review_signals": ["高评论量", "大众家庭烹饪", "小瓶试用", "礼赠/团购规格"],
       "data_basis": "current_checked",
       "checked_at": "2026-06-18",
-      "source_ids": ["src-agent-jd-olivoila-250ml", "src-agent-jd-olive-oil-250ml"],
+      "source_ids": ["src-agent-jd-olivoila-250ml", "src-agent-jd-olivoila-image", "src-agent-jd-olive-oil-250ml"],
+      "image_url": "https://img14.360buyimg.com/n7/jfs/t1/394048/11/16981/116939/699e9de6F218ed786/008332032047c134.jpg",
+      "image_alt": "京东页面中的欧丽薇兰 Olivoila 特级初榨橄榄油红标 250ml 商品图",
       "takeaway": "欧丽薇兰是中国线上橄榄油的强势大众锚点；Mantova 250ml 若进入中国，需要用中文背标、进口主体和原产地口径与其对齐，但不能只靠意大利风格包装定价。"
     },
     {
@@ -105,7 +107,9 @@
       "review_signals": ["小瓶低门槛", "进口品牌认知", "多规格覆盖"],
       "data_basis": "current_checked",
       "checked_at": "2026-06-18",
-      "source_ids": ["src-agent-jd-borges-250ml", "src-agent-jd-borges-brand"],
+      "source_ids": ["src-agent-jd-borges-250ml", "src-agent-jd-borges-image", "src-agent-jd-borges-brand"],
+      "image_url": "https://img14.360buyimg.com/n7/jfs/t1/383716/25/14156/101009/695dc49aF0bd8cfb6/b0a5a2a542d96127.jpg",
+      "image_alt": "京东页面中的伯爵 BORGES 特级初榨橄榄油 250ml 商品图",
       "takeaway": "BORGES 是 Mantova 的直接进口品牌对标；250ml 小规格更接近 Mantova 当前包装，但需要进一步核价和确认是否有中文标签/进口商展示。"
     },
     {
@@ -123,7 +127,9 @@
       "review_signals": ["轻食", "健身", "冷榨", "小规格试用"],
       "data_basis": "current_checked",
       "checked_at": "2026-06-18",
-      "source_ids": ["src-agent-jd-sanmark-250ml", "src-agent-smzdm-sanmark-250ml"],
+      "source_ids": ["src-agent-jd-sanmark-250ml", "src-agent-jd-sanmark-image", "src-agent-smzdm-sanmark-250ml"],
+      "image_url": "https://img14.360buyimg.com/n7/jfs/t1/338298/12/2504/102986/68aeb6f0F170dabc6/29226067d72c5e23.jpg",
+      "image_alt": "京东页面中的晟麦 sanmark 特级初榨橄榄油 250ml 商品图",
       "takeaway": "晟麦把 250ml 规格与轻食、健身、0反式绑定，说明 Mantova 若做 250ml 小瓶，不能只讲产地，也要明确使用场景和中文卖点。"
     },
     {
@@ -141,7 +147,9 @@
       "review_signals": ["囤货", "礼盒", "企业福利", "多瓶组合"],
       "data_basis": "current_checked",
       "checked_at": "2026-06-18",
-      "source_ids": ["src-agent-jd-betis-250ml", "src-agent-jd-betis-brand"],
+      "source_ids": ["src-agent-jd-betis-250ml", "src-agent-jd-betis-image", "src-agent-jd-betis-brand"],
+      "image_url": "https://img14.360buyimg.com/n7/jfs/t1/443560/31/20619/167929/6a2fb02fF742b740e/0083320320b280d3.png",
+      "image_alt": "京东页面中的贝蒂斯 BETIS 特级初榨橄榄油 250ml 罐装商品图",
       "takeaway": "贝蒂斯显示中国市场对 250ml 小瓶有组合装和礼赠需求；Mantova 可评估 250ml 单瓶试用、双瓶礼盒或整箱经销，而不是只按单瓶进口。"
     },
     {
@@ -159,7 +167,9 @@
       "review_signals": ["送礼", "高客单", "进口礼盒"],
       "data_basis": "current_checked",
       "checked_at": "2026-06-18",
-      "source_ids": ["src-agent-suning-betis-750ml", "src-agent-baidu-betis-prices"],
+      "source_ids": ["src-agent-suning-betis-750ml", "src-agent-jd-betis-image", "src-agent-baidu-betis-prices"],
+      "image_url": "https://img14.360buyimg.com/n7/jfs/t1/449456/3/14491/177426/6a2fb02bF448aa987/0083320320fdf739.png",
+      "image_alt": "京东页面中的贝蒂斯 BETIS 特级初榨橄榄油 750ml 商品图",
       "takeaway": "750ml 礼盒价格显著高于 250ml 小瓶价格带，可作为 Mantova 后续礼盒/团购线的高端参照，但不能直接替代 250ml 单瓶定价。"
     },
     {
@@ -297,12 +307,28 @@
       "confirms": "Agent-found commercial listing/search signals for Olivoila 250ml: mainstream small-bottle benchmark, JD/self-operated trust cues, high review-count entry."
     },
     {
+      "source_id": "src-agent-jd-olivoila-image",
+      "title": "Agent check: JD product aggregation page image for Olivoila 250ml",
+      "url": "https://www.jd.com/chanpin/2640183.html",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "JD aggregation HTML placed the product image URL next to the title 欧丽薇兰（Olivoila）特级初榨橄榄油红标 250ml; commercial image signal only."
+    },
+    {
       "source_id": "src-agent-jd-borges-250ml",
       "title": "Agent search: BORGES extra virgin olive oil 250ml China listing signals",
       "url": "https://search.jd.com/Search?keyword=BORGES%20%E4%BC%AF%E7%88%B5%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20250ml",
       "tier": "T4",
       "checked_at": "2026-06-18",
       "confirms": "Agent-found commercial listing/search signals for BORGES 250ml imported olive oil in China."
+    },
+    {
+      "source_id": "src-agent-jd-borges-image",
+      "title": "Agent check: JD product aggregation page image for BORGES 250ml",
+      "url": "https://www.jd.com/chanpin/440003.html",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "JD aggregation HTML placed the product image URL next to BORGES 250ml extra virgin olive oil titles; commercial image signal only."
     },
     {
       "source_id": "src-agent-jd-borges-brand",
@@ -321,6 +347,14 @@
       "confirms": "Agent-found commercial listing/search signals for sanmark 250ml extra virgin olive oil."
     },
     {
+      "source_id": "src-agent-jd-sanmark-image",
+      "title": "Agent check: JD product aggregation page image for sanmark 250ml",
+      "url": "https://www.jd.com/chanpin/2662737.html",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "JD aggregation HTML placed the product image URL next to 晟麦（sanmark）特级初榨橄榄油250ml; commercial image signal only."
+    },
+    {
       "source_id": "src-agent-smzdm-sanmark-250ml",
       "title": "Agent search: sanmark 250ml price snapshot from public shopping/deal result",
       "url": "https://search.smzdm.com/?c=faxian&s=%E6%99%9F%E9%BA%A6%20%E7%89%B9%E7%BA%A7%E5%88%9D%E6%A6%A8%E6%A9%84%E6%A6%84%E6%B2%B9%20250ml",
@@ -335,6 +369,14 @@
       "tier": "T4",
       "checked_at": "2026-06-18",
       "confirms": "Agent-found commercial listing/search signals for BETIS 250ml and multi-pack imported olive oil."
+    },
+    {
+      "source_id": "src-agent-jd-betis-image",
+      "title": "Agent check: JD product aggregation page image for BETIS 250ml/750ml",
+      "url": "https://www.jd.com/chanpin/640874.html",
+      "tier": "T4",
+      "checked_at": "2026-06-18",
+      "confirms": "JD aggregation HTML placed product image URLs next to BETIS 250ml and 750ml extra virgin olive oil titles; commercial image signal only."
     },
     {
       "source_id": "src-agent-jd-betis-brand",

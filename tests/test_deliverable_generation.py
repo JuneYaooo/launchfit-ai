@@ -205,6 +205,22 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("https://img.example.test/olivoila-250ml.jpg", html)
         self.assertIn("Olivoila 250ml bottle front pack", html)
 
+    def test_real_run_benchmark_visuals_include_verified_images_and_packaging_observations(self):
+        report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
+        html = render_detailed_pdf_html(report)
+
+        image_rows = [row for row in report["market_benchmarks"] if row.get("image_url")]
+        self.assertGreaterEqual(len(image_rows), 5)
+        self.assertIn("对标商品图", html)
+        self.assertIn("包装观察", html)
+        self.assertIn("对标包装观察", html)
+        self.assertIn("250ml/小规格是入门试用锚点", html)
+        self.assertIn("玻璃瓶/罐装", html)
+        self.assertIn("250ml小瓶", html)
+        self.assertIn("250ml罐装", html)
+        self.assertIn("https://img14.360buyimg.com/n7/jfs/t1/394048/11/16981/116939/699e9de6F218ed786/008332032047c134.jpg", html)
+        self.assertIn("https://img14.360buyimg.com/n7/jfs/t1/338298/12/2504/102986/68aeb6f0F170dabc6/29226067d72c5e23.jpg", html)
+
     def test_real_run_generation_metadata_names_search_routes(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
         html = render_detailed_pdf_html(report)
