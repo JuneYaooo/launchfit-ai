@@ -11,6 +11,8 @@
 
 2nd place project at an International Food Expo hackathon, now open sourced.
 
+This is an **Agent Skill** for Codex, Claude Code, OpenClaw, Hermes, and other agents that support Skills. After installation, you can ask your agent in natural language to generate a detailed pre-launch checkup report for a cross-border product.
+
 ![International Food Expo hackathon 2nd place project photo](./assets/photo.jpg)
 
 </div>
@@ -74,6 +76,89 @@ If available, add certificates, test reports, brand authorization, packaging ima
 - **Pricing and logistics without evidence**: who are the competitors, where is the price band, and will freight or warehousing destroy margin?
 - **Inconsistent team review**: reviewers rely on experience, but supplement requests, evidence records, and audit trails are hard to standardize.
 
+## Installation
+
+### Option 1: Ask Your Agent To Install It
+
+Send this prompt to Codex, Claude Code, OpenClaw, Hermes Agent, or another agent that supports Skills:
+
+```text
+Install the LaunchFit AI Skill for me:
+https://github.com/JuneYaooo/launchfit-ai
+```
+
+The agent should clone the repository and place it in its local skills directory. Restart the agent or refresh its skills list after installation.
+
+### Option 2: Install Manually For Codex
+
+```bash
+mkdir -p ~/.codex/skills
+git clone git@github.com:JuneYaooo/launchfit-ai.git ~/.codex/skills/launchfit-ai
+```
+
+### Option 3: Install Manually For Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+git clone git@github.com:JuneYaooo/launchfit-ai.git ~/.claude/skills/launchfit-ai
+```
+
+If you already cloned this repository locally, you can install it with a symlink so local edits are picked up:
+
+```bash
+ln -s /path/to/launchfit-ai ~/.codex/skills/launchfit-ai
+# or
+ln -s /path/to/launchfit-ai ~/.claude/skills/launchfit-ai
+```
+
+## How To Use
+
+After installation, talk to your agent naturally. For example:
+
+```text
+Use LaunchFit AI to evaluate whether this product can sell on Amazon US:
+Origin country: China
+Destination market: United States
+Go-to-market route: Amazon US cross-border ecommerce
+Category: food
+Product: chili sauce, with ingredient list and packaging copy
+Please generate a detailed checkup report covering admission risks, target-market benchmarks, localization recommendations, packaging and label issues, qualification gaps, and next actions.
+```
+
+You can also provide certificates, package photos, competitor screenshots, platform links, logistics quotes, or supplier details. LaunchFit AI treats user-provided material as T4 evidence and marks policy, price, qualification, logistics, and regulatory facts that still need current confirmation as `needs_external_verification`.
+
+### CLI Helper
+
+The repository also includes a lightweight local CLI for templates, validation, examples, and repeatable report generation:
+
+```bash
+python3 scripts/qualification_audit_schema.py benchmark-template \
+  --market US \
+  --category food \
+  --product "chili sauce" \
+  --platform amazon
+
+python3 scripts/qualification_audit_schema.py bundle-template \
+  --platform amazon \
+  --market US \
+  --category food \
+  --product "chili sauce" \
+  --origin-country China \
+  --go-to-market-model cross_border_ecommerce \
+  --destination-market US \
+  > /tmp/launchfit-case.json
+
+python3 scripts/qualification_audit_schema.py launch-report \
+  examples/offline-launch-case.json \
+  > /tmp/launchfit-report.json
+
+python3 scripts/qualification_audit_schema.py launch-report-markdown \
+  /tmp/launchfit-report.json \
+  > /tmp/launchfit-report.md
+```
+
+See [examples/README.md](./examples/README.md) and [SKILL.md](./SKILL.md) for more commands.
+
 ## Real Run Example
 
 - Product: Fratelli Mantova Equilibrato Extra Virgin Olive Oil 250ml
@@ -106,3 +191,7 @@ Review routes connect to official or authoritative source entry points such as A
 - [tobin](https://github.com/TobinZuo) ![GitHub](https://img.shields.io/badge/GitHub-TobinZuo-181717?logo=github&logoColor=white)
 - [梁馨匀](https://github.com/halobaby0917-maker) ![GitHub](https://img.shields.io/badge/GitHub-halobaby0917--maker-181717?logo=github&logoColor=white)
 - [June](https://github.com/JuneYaooo) ![GitHub](https://img.shields.io/badge/GitHub-JuneYaooo-181717?logo=github&logoColor=white)
+
+### Community
+
+- [LINUX DO — Chinese developer community](https://linux.do/)

@@ -11,6 +11,8 @@
 
 国际食品展黑客松第二名项目，现已开源。
 
+这是一个可安装到 Codex / Claude Code / OpenClaw / Hermes 等支持 Skills 的 agent 里的 **Agent Skill**。装好后，你可以直接用自然语言让 agent 为跨境商品生成卖前详细体检报告。
+
 ![国际食品展黑客松第二名现场照片](./assets/photo.jpg)
 
 </div>
@@ -74,6 +76,89 @@
 - **定价和物流没依据**：竞品是谁、价格带在哪、空运/海运/海外仓会不会吃掉利润？
 - **团队审核口径不一致**：每个人都凭经验判断，补件话术、证据记录和复核链路难统一。
 
+## 安装
+
+### 方式一：让 AI 助手自己装
+
+把下面这段发给你的 Codex / Claude Code / OpenClaw / Hermes Agent，或其他支持 Skills 的 agent：
+
+```text
+帮我安装 LaunchFit AI / 出海体检官 这个 Skill：
+https://github.com/JuneYaooo/launchfit-ai
+```
+
+agent 会把仓库克隆到本地，并放到它自己的 skills 目录。安装后重启 agent 或刷新 skills 列表即可使用。
+
+### 方式二：手动安装到 Codex
+
+```bash
+mkdir -p ~/.codex/skills
+git clone git@github.com:JuneYaooo/launchfit-ai.git ~/.codex/skills/launchfit-ai
+```
+
+### 方式三：手动安装到 Claude Code
+
+```bash
+mkdir -p ~/.claude/skills
+git clone git@github.com:JuneYaooo/launchfit-ai.git ~/.claude/skills/launchfit-ai
+```
+
+如果你已经在本机 clone 了仓库，也可以用软链接安装，方便持续开发：
+
+```bash
+ln -s /path/to/launchfit-ai ~/.codex/skills/launchfit-ai
+# 或
+ln -s /path/to/launchfit-ai ~/.claude/skills/launchfit-ai
+```
+
+## 怎么使用
+
+装好后，直接对 agent 说自然语言即可。比如：
+
+```text
+用 LaunchFit AI 帮我评估这个商品能不能卖到美国 Amazon：
+原产地：中国
+目标市场：美国
+销售路径：Amazon US 跨境电商
+类目：food
+商品：辣椒酱，含配料表和包装文案
+请输出详细体检报告，重点看准入风险、目标市场对标、本地化建议、包装标签、资质缺口和下一步动作。
+```
+
+也可以把证书、包装图、竞品截图、平台链接、物流报价、供应商信息一起给 agent。它会把用户材料标成 T4 证据，把需要实时确认的政策、价格、资质、物流和监管信息标成 `needs_external_verification`，不会把截图或供应商说法直接当成官方事实。
+
+### CLI 辅助命令
+
+这个仓库也带有一个依赖少、可复现的本地 CLI，适合生成模板、校验样例和批量跑报告：
+
+```bash
+python3 scripts/qualification_audit_schema.py benchmark-template \
+  --market US \
+  --category food \
+  --product "chili sauce" \
+  --platform amazon
+
+python3 scripts/qualification_audit_schema.py bundle-template \
+  --platform amazon \
+  --market US \
+  --category food \
+  --product "chili sauce" \
+  --origin-country China \
+  --go-to-market-model cross_border_ecommerce \
+  --destination-market US \
+  > /tmp/launchfit-case.json
+
+python3 scripts/qualification_audit_schema.py launch-report \
+  examples/offline-launch-case.json \
+  > /tmp/launchfit-report.json
+
+python3 scripts/qualification_audit_schema.py launch-report-markdown \
+  /tmp/launchfit-report.json \
+  > /tmp/launchfit-report.md
+```
+
+更多命令见 [examples/README.md](./examples/README.md) 和 [SKILL.md](./SKILL.md)。
+
 ## 真实运行示例
 
 ### 示例 1：Mantova 橄榄油进口到中国
@@ -108,3 +193,7 @@
 - [tobin](https://github.com/TobinZuo) ![GitHub](https://img.shields.io/badge/GitHub-TobinZuo-181717?logo=github&logoColor=white)
 - [梁馨匀](https://github.com/halobaby0917-maker) ![GitHub](https://img.shields.io/badge/GitHub-halobaby0917--maker-181717?logo=github&logoColor=white)
 - [June](https://github.com/JuneYaooo) ![GitHub](https://img.shields.io/badge/GitHub-JuneYaooo-181717?logo=github&logoColor=white)
+
+### 社区
+
+- [LINUX DO — 中文开发者社区](https://linux.do/)
