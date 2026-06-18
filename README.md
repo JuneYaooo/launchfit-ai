@@ -121,6 +121,12 @@ agent 会把仓库克隆到本地，并放到它自己的 skills 目录。安装
 - 销售路径：`physical_trade`
 - 输入依据：3 张商品实拍图，属于 T4；同时由 agent 主动检索公开商业渠道，补入 10 条中国市场橄榄油对标样本。对标只作为市场信号，不伪装成监管、进口或标签核验结果。
 
+输入图片：
+
+| 正面标签 | 背面营养标签 | 侧面原产地标签 |
+| --- | --- | --- |
+| ![Mantova 橄榄油正面标签](./examples/real-runs/mantova-olive-oil-china-import/inputs/front-label.png) | ![Mantova 橄榄油背面营养标签](./examples/real-runs/mantova-olive-oil-china-import/inputs/back-label-nutrition.png) | ![Mantova 橄榄油侧面原产地标签](./examples/real-runs/mantova-olive-oil-china-import/inputs/side-label-origin.png) |
+
 核心速览卡片：
 
 ![Mantova 橄榄油进口中国核心速览卡片](./examples/real-runs/mantova-olive-oil-china-import/outputs/core-card.png)
