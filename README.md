@@ -75,7 +75,7 @@
 
 ## 真实运行示例
 
-下面的示例不是手工 mock。输入 bundle、结构化报告和详细 PDF 都保存在仓库里，可以复现。
+下面的示例不是手工 mock。核心卡片来自真实运行结果，完整内容见详细 PDF。
 
 ### 示例 1：Mantova 橄榄油进口到中国
 
@@ -88,7 +88,7 @@
 
 ![Mantova 橄榄油进口中国核心速览卡片](./examples/real-runs/mantova-olive-oil-china-import/outputs/core-card.png)
 
-- 产物：[输入 bundle](./examples/real-runs/mantova-olive-oil-china-import/input-bundle.json)、[结构化报告 JSON](./examples/real-runs/mantova-olive-oil-china-import/outputs/report.json)、[详细 PDF](./examples/real-runs/mantova-olive-oil-china-import/outputs/detailed-report.pdf)
+- 产物：[详细 PDF](./examples/real-runs/mantova-olive-oil-china-import/outputs/detailed-report.pdf)
 
 ## 适合谁
 

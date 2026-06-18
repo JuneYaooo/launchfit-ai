@@ -22,10 +22,11 @@ class ReadmeExampleTests(unittest.TestCase):
         readme = Path("README.md").read_text(encoding="utf-8")
 
         card_index = readme.index("![Mantova 橄榄油进口中国核心速览卡片]")
-        outputs_index = readme.index("- 产物：[输入 bundle]")
+        outputs_index = readme.index("- 产物：[详细 PDF]")
         self.assertLess(card_index, outputs_index)
-        self.assertIn("[结构化报告 JSON](./examples/real-runs/mantova-olive-oil-china-import/outputs/report.json)", readme)
         self.assertIn("[详细 PDF](./examples/real-runs/mantova-olive-oil-china-import/outputs/detailed-report.pdf)", readme)
+        self.assertNotIn("input-bundle.json", readme)
+        self.assertNotIn("outputs/report.json", readme)
         self.assertNotIn("detailed-report.html", readme)
         self.assertNotIn("core-card.html", readme)
 
