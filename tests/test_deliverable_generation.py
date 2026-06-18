@@ -128,13 +128,15 @@ class DeliverableGenerationTests(unittest.TestCase):
         card_html = render_overview_card_html(report)
         detail_html = render_detailed_pdf_html(report)
 
-        for html in (card_html, detail_html):
-            self.assertIn("生成说明", html)
-            self.assertIn("Agent", html)
-            self.assertIn("Codex", html)
-            self.assertIn("模型", html)
-            self.assertIn("未声明", html)
-            self.assertIn("搜索途径", html)
+        self.assertNotIn("生成说明", card_html)
+        self.assertNotIn("Agent", card_html)
+        self.assertNotIn("搜索途径", card_html)
+        self.assertIn("生成说明", detail_html)
+        self.assertIn("Agent", detail_html)
+        self.assertIn("Codex", detail_html)
+        self.assertIn("模型", detail_html)
+        self.assertIn("未声明", detail_html)
+        self.assertIn("搜索途径", detail_html)
 
     def test_pdf_export_suppresses_browser_header_footer_file_path(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -250,6 +252,12 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("2. 本地化缺口", html)
         self.assertIn("3. 市场对标", html)
         self.assertIn("4. 落地条件", html)
+        self.assertIn("进口主体", html)
+        self.assertIn("清关文件", html)
+        self.assertIn("标签审核", html)
+        self.assertIn("物流预算", html)
+        self.assertNotIn(">目标国监管</span>", html)
+        self.assertNotIn(">海关进口</span>", html)
         self.assertIn("优先级", html)
         self.assertIn("风险债务", html)
         self.assertIn("不是产品问题", html)

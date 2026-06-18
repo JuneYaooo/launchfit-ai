@@ -23,31 +23,25 @@ Top blockers:
 2. ...
 3. ...
 
-Must-check channels:
-- Platform policy
-- Destination regulator
-- Customs/import
-- Brand/IP
-- Certification/lab
-- Logistics/warehouse
-- Origin/export
-- User-provided channels
+Product checkups:
+- Admission risk:
+- Localization gap:
+- Market benchmark:
+- Landing condition:
 
 Next actions:
 - Owner / action / evidence needed
 
-Benchmark signals:
-- Price anchor:
-- Channel anchor:
-- Trust / packaging signal:
+Benchmark checkups:
+- Price checkup:
+- Channel checkup:
+- Packaging / claim checkup:
 
 Evidence status:
 - T1/T2 confirmed:
 - T4 user-provided only:
 - Needs external verification:
 
-Generation note:
-- Agent / model / search methods / generated date
 ```
 
 Design rules:
@@ -55,9 +49,10 @@ Design rules:
 - Keep it readable at social-card size.
 - Generate the detailed report/PDF first; derive this card from the detailed report's executive snapshot, blocker table, missing-material table, benchmark summary, and evidence counts.
 - Use at most 3 top blockers and 3 next actions.
-- Include at most 3 benchmark signals. Prefer price anchor, channel anchor, and trust/packaging signal; never include long source URLs or benchmark-source boundary text on the card.
+- Include only benchmark sentences that tell the user what the signal means or what to do next. Prefer price checkup, channel checkup, and packaging/claim checkup; avoid vague labels such as "trust signal" or raw review-count dumps.
+- Landing conditions must be actionable, such as importer/responsible party, customs file set, label review, logistics/budget, platform admission, fulfillment path, listing materials, or cost check. Do not use bare channel tags as the landing-condition content.
 - Do not include long legal explanations or dense tables.
-- Include a small unobtrusive generation note in a corner or footer: agent, model if declared, search/information routes used, and generated date.
+- Do not include generation metadata on the one-page card. Agent, model, generated date, search/information routes, long source links, and benchmark-source boundary text belong in the detailed PDF or appendix.
 - If generated as HTML, save the HTML source and a PNG screenshot.
 
 ## Detailed PDF

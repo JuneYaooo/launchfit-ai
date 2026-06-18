@@ -49,6 +49,10 @@
     .signal { background: #fffdf8; border: 1px solid #b8abd8; padding: 9px 10px; }
     .signal span { display: block; color: #6755a2; font-size: 14px; font-weight: 850; margin-bottom: 3px; }
     .signal b { display: block; font-size: 17px; line-height: 1.18; }
+    .condition-list { display: grid; gap: 8px; }
+    .condition { background: #fffdf8; border: 1px solid #98c4ad; padding: 8px 10px; }
+    .condition b { display: block; color: #23634a; font-size: 15px; margin-bottom: 3px; }
+    .condition span { display: block; font-size: 15px; line-height: 1.22; font-weight: 760; }
     .side { padding: 20px 18px; background: #f7f4eb; }
     .side-box { border: 1px solid #1b2430; border-radius: 4px; background: #fffdf8; padding: 14px 14px 10px; margin-bottom: 14px; }
     .side-box h2 { font-size: 22px; margin: 0 0 10px; }
@@ -61,7 +65,6 @@
     .metric b { display: inline-block; font-size: 27px; margin-right: 8px; }
     .metric span { color: #687381; font-size: 16px; font-weight: 750; }
     .footer { padding: 12px 26px; color: #5e6a78; font-size: 16px; line-height: 1.25; display: flex; justify-content: space-between; gap: 18px; }
-    .provenance { color: #667587; font-size: 12px; line-height: 1.25; margin-top: 10px; font-weight: 650; }
     .compat { display: none; }
   </style>
 </head>
@@ -101,13 +104,12 @@
           <div class="section blocker"><h2><span class="mark"></span>1. 准入风险</h2><ul><li>缺少中国进口食品中文标签依据；现有包装语言不足以直接用于境内销售。</li><li>中国食品进口路径未核验；进口商、海关、商检、标签审核和产品文件集未确认。</li><li>文件持有人与待确认进口商/经销商不一致，需要确认进口主体和授权链。</li></ul></div>
           <div class="section verify"><h2><span class="mark"></span>2. 本地化缺口</h2><ul><li>中国合规中文标签稿与标签审核</li><li>原产地证与来源宣称支持文件</li><li>主体关系与授权链证明</li></ul></div>
           <div class="section benchmark"><h2><span class="mark"></span>3. 市场对标</h2><div class="signal-grid"><div class='signal'><span>价格体检</span><b>约¥0.109-0.128/ml；先按同规格核价，不要只按进口溢价定价。</b></div><div class='signal'><span>渠道体检</span><b>京东自营/会员仓储可作线上对标；先核同规格价格、进口主体和渠道要求。</b></div><div class='signal'><span>包装/卖点体检</span><b>250ml小瓶有市场参照；可评估多瓶/礼盒组合；中文背标和进口责任方先补齐。</b></div></div></div>
-          <div class="section action"><h2><span class="mark"></span>4. 落地条件</h2><div class="chips"><span class='chip'>目标国监管</span><span class='chip'>海关进口</span><span class='chip'>品牌/IP</span><span class='chip'>主体注册</span><span class='chip'>证书/实验室</span><span class='chip'>标准依据</span></div></div>
+          <div class="section action"><h2><span class="mark"></span>4. 落地条件</h2><div class="condition-list"><div class='condition'><b>进口主体</b><span>明确中国进口商/经销商，文件持有人、授权链和责任方要一致。</span></div><div class='condition'><b>清关文件</b><span>补合同、发票、装箱单、原产地证、产品资料和清关/商检口径。</span></div><div class='condition'><b>标签审核</b><span>出中文标签稿，核品名、配料、净含量、原产地、日期批号。</span></div><div class='condition'><b>物流预算</b><span>拿货代/报关/仓储报价，确认时效、抽检、破损和保质期损耗。</span></div></div></div>
         </div>
       </div>
       <aside class="side">
         <div class="side-box priority"><h2>优先级</h2><ul><li>中国合规中文标签稿与标签审核: 缺少中国进口食品中文标签依据；现有包装语言不足以直接用于境内销售。</li><li>原产地证与来源宣称支持文件: 欧盟与非欧盟橄榄油来源表述需原产地证和中文标签口径支持。</li><li>中国食品进口文件集与进口商/清关路径确认: 中国食品进口路径未核验；进口商、海关、商检、标签审核和产品文件...</li></ul></div>
         <div class="side-box debt"><h2>风险债务</h2><ul><li>缺少中国进口食品中文标签依据；现有包装语言不足以直接用于境内销售。</li><li>中国食品进口路径未核验；进口商、海关、商检、标签审核和产品文件集未确认。</li><li>对标只是商业信号，不是监管、进口或标签通过依据。</li></ul></div>
-        <div class="provenance">生成说明：Agent Codex · 模型 未声明 · 搜索途径 用户材料/输入包、规则包与待核验渠道规划、规则包官方来源候选、agent 主动检索、公开商业搜索/对标检索 · 生成日期 2026-06-18</div>
       </aside>
     </section>
     <section class="evidence-strip" aria-label="证据状态">

@@ -2416,6 +2416,23 @@ def _risk_debt_items(blockers: list[str]) -> list[str]:
     return debts[:3]
 
 
+def _landing_condition_items(route: dict[str, Any]) -> list[tuple[str, str]]:
+    route_label = _plain_label(route.get("label"))
+    if "physical trade" in route_label:
+        return [
+            ("进口主体", "明确中国进口商/经销商，文件持有人、授权链和责任方要一致。"),
+            ("清关文件", "补合同、发票、装箱单、原产地证、产品资料和清关/商检口径。"),
+            ("标签审核", "出中文标签稿，核品名、配料、净含量、原产地、日期批号。"),
+            ("物流预算", "拿货代/报关/仓储报价，确认时效、抽检、破损和保质期损耗。"),
+        ]
+    return [
+        ("平台准入", "确认目标平台类目、禁限售、品牌授权和上架材料要求。"),
+        ("履约路径", "确认发货、仓储、退货、清关或本地责任方是否能承接。"),
+        ("Listing 素材", "先改标题、主图、标签、警示和宣称，避免触发平台审核。"),
+        ("成本校验", "用对标价格倒推平台费、物流费、税费和可接受毛利。"),
+    ]
+
+
 def _source_appendix_rows(report: dict[str, Any]) -> str:
     rows: list[str] = []
     for source in report.get("sources") or []:
@@ -2447,14 +2464,18 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
     action_items = distilled["actions"]
     localization_items = _localization_focus_items(report)
     risk_debts = _risk_debt_items(blocker_items)
+    landing_items = _landing_condition_items(route)
     channel_items = [_zh_channel(channel) for channel in channels[:8]]
     destination_text = "、".join(_zh_country(item) for item in destinations if _text(item))
     scope_text = f"{_zh_country(case.get('origin_country'))} → {destination_text} · {_zh_route_label(route.get('label'))}"
     current_action = _launch_action_label(decision)
-    provenance = _generation_provenance_html(report, limit=92)
     benchmark_cards = "".join(
         f"<div class='signal'><span>{_html(label)}</span><b>{_html(value)}</b></div>"
         for label, value in distilled["benchmark_signals"]
+    )
+    landing_cards = "".join(
+        f"<div class='condition'><b>{_html(label)}</b><span>{_html(text)}</span></div>"
+        for label, text in landing_items
     )
     evidence = distilled["evidence"]
     return f"""<!doctype html>
@@ -2508,6 +2529,10 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
     .signal {{ background: #fffdf8; border: 1px solid #b8abd8; padding: 9px 10px; }}
     .signal span {{ display: block; color: #6755a2; font-size: 14px; font-weight: 850; margin-bottom: 3px; }}
     .signal b {{ display: block; font-size: 17px; line-height: 1.18; }}
+    .condition-list {{ display: grid; gap: 8px; }}
+    .condition {{ background: #fffdf8; border: 1px solid #98c4ad; padding: 8px 10px; }}
+    .condition b {{ display: block; color: #23634a; font-size: 15px; margin-bottom: 3px; }}
+    .condition span {{ display: block; font-size: 15px; line-height: 1.22; font-weight: 760; }}
     .side {{ padding: 20px 18px; background: #f7f4eb; }}
     .side-box {{ border: 1px solid #1b2430; border-radius: 4px; background: #fffdf8; padding: 14px 14px 10px; margin-bottom: 14px; }}
     .side-box h2 {{ font-size: 22px; margin: 0 0 10px; }}
@@ -2520,7 +2545,6 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
     .metric b {{ display: inline-block; font-size: 27px; margin-right: 8px; }}
     .metric span {{ color: #687381; font-size: 16px; font-weight: 750; }}
     .footer {{ padding: 12px 26px; color: #5e6a78; font-size: 16px; line-height: 1.25; display: flex; justify-content: space-between; gap: 18px; }}
-    .provenance {{ color: #667587; font-size: 12px; line-height: 1.25; margin-top: 10px; font-weight: 650; }}
     .compat {{ display: none; }}
   </style>
 </head>
@@ -2560,13 +2584,12 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
           <div class="section blocker"><h2><span class="mark"></span>1. 准入风险</h2><ul>{_html_bullets(blocker_items, limit=72)}</ul></div>
           <div class="section verify"><h2><span class="mark"></span>2. 本地化缺口</h2><ul>{_html_bullets(localization_items, "中文标签与本地责任方待确认", limit=58)}</ul></div>
           <div class="section benchmark"><h2><span class="mark"></span>3. 市场对标</h2><div class="signal-grid">{benchmark_cards}</div></div>
-          <div class="section action"><h2><span class="mark"></span>4. 落地条件</h2><div class="chips">{"".join(f"<span class='chip'>{_html(channel)}</span>" for channel in channel_items[:6]) or "<span class='chip'>待补渠道</span>"}</div></div>
+          <div class="section action"><h2><span class="mark"></span>4. 落地条件</h2><div class="condition-list">{landing_cards}</div></div>
         </div>
       </div>
       <aside class="side">
         <div class="side-box priority"><h2>优先级</h2><ul>{_html_bullets(action_items, "完成 P0/P1 核验任务", limit=54)}</ul></div>
         <div class="side-box debt"><h2>风险债务</h2><ul>{_html_bullets(risk_debts, "暂无高风险债务", limit=54)}</ul></div>
-        <div class="provenance">{provenance}</div>
       </aside>
     </section>
     <section class="evidence-strip" aria-label="证据状态">
