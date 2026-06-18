@@ -32,6 +32,7 @@ import argparse
 import datetime as _dt
 import html
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -152,6 +153,82 @@ def today() -> str:
     return _dt.date.today().isoformat()
 
 
+def _unique_texts(values: list[Any]) -> list[str]:
+    seen: set[str] = set()
+    output: list[str] = []
+    for value in values:
+        text = str(value).strip() if value is not None else ""
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        output.append(text)
+    return output
+
+
+def _split_generation_methods(value: str) -> list[str]:
+    return _unique_texts(re.split(r"[,;；，、\n]+", value) if value else [])
+
+
+def build_generation_metadata(report: dict[str, Any], source_bundle: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Record who generated the report and which information routes fed it."""
+    methods: list[Any] = _split_generation_methods(os.environ.get("LAUNCHFIT_SEARCH_METHODS", ""))
+    bundle = source_bundle if isinstance(source_bundle, dict) else {}
+    sources = [item for item in report.get("sources") or [] if isinstance(item, dict)]
+    benchmarks = [item for item in report.get("market_benchmarks") or [] if isinstance(item, dict)]
+
+    if report.get("documents") or any(str(source.get("source_id", "")).startswith("src-user-") for source in sources):
+        methods.append("用户材料/输入包")
+    if bundle.get("user_search_channels"):
+        methods.append("用户指定搜索渠道")
+    if bundle.get("external_checks"):
+        methods.append("外部核验记录")
+    if report.get("source_candidates") or report.get("research_tasks"):
+        methods.append("规则包与待核验渠道规划")
+    if any(str(source.get("tier")) in AUTHORITATIVE_TIERS for source in sources):
+        methods.append("规则包官方来源候选")
+    if any(str(source.get("source_id", "")).startswith("src-agent-") for source in sources):
+        methods.append("agent 主动检索")
+    if any(item.get("data_basis") == "current_checked" for item in benchmarks) or any(
+        source_id.startswith("src-agent-")
+        for item in benchmarks
+        for source_id in [str(value) for value in item.get("source_ids") or []]
+    ):
+        methods.append("公开商业搜索/对标检索")
+    if not methods:
+        methods.append("用户材料/输入包")
+
+    return {
+        "agent": os.environ.get("LAUNCHFIT_AGENT_NAME", "Codex").strip() or "Codex",
+        "model": os.environ.get("LAUNCHFIT_MODEL_NAME", "").strip() or "未声明",
+        "search_methods": _unique_texts(methods),
+        "generated_at": today(),
+    }
+
+
+def _generation_metadata(report: dict[str, Any]) -> dict[str, Any]:
+    metadata = report.get("generation_metadata") if isinstance(report.get("generation_metadata"), dict) else {}
+    normalized = {
+        "agent": str(metadata.get("agent") or os.environ.get("LAUNCHFIT_AGENT_NAME", "Codex")).strip() or "Codex",
+        "model": str(metadata.get("model") or os.environ.get("LAUNCHFIT_MODEL_NAME", "") or "未声明").strip() or "未声明",
+        "search_methods": _unique_texts(metadata.get("search_methods") if isinstance(metadata.get("search_methods"), list) else []),
+        "generated_at": str(metadata.get("generated_at") or today()).strip() or today(),
+    }
+    if not normalized["search_methods"]:
+        normalized["search_methods"] = build_generation_metadata(report)["search_methods"]
+    return normalized
+
+
+def _generation_provenance_html(report: dict[str, Any], limit: int = 120) -> str:
+    metadata = _generation_metadata(report)
+    methods = "、".join(str(item) for item in metadata.get("search_methods") or [])
+    return (
+        f"生成说明：Agent {_html(metadata.get('agent'))} · "
+        f"模型 {_html(metadata.get('model'))} · "
+        f"搜索途径 {_html(_short_text(methods, limit))} · "
+        f"生成日期 {_html(metadata.get('generated_at'))}"
+    )
+
+
 def parse_date(value: Any) -> _dt.date | None:
     if not isinstance(value, str) or not value:
         return None
@@ -206,7 +283,7 @@ def matching_rulepacks(platform: str, market: str, category: str) -> list[dict[s
 
 
 def sample() -> dict[str, Any]:
-    return {
+    payload = {
         "review_type": "cross_border_ecommerce_qualification",
         "case": {
             "case_id": "case-demo-001",
@@ -259,6 +336,8 @@ def sample() -> dict[str, Any]:
         ],
         "disclaimer": "Operational qualification review only; not legal advice.",
     }
+    payload["generation_metadata"] = build_generation_metadata(payload)
+    return payload
 
 
 def checklist(platform: str, market: str, category: str) -> dict[str, Any]:
@@ -485,7 +564,7 @@ def review_skeleton(
         }
     )
 
-    return {
+    payload = {
         "review_type": "cross_border_ecommerce_qualification",
         "case": {
             "case_id": case_id,
@@ -538,6 +617,8 @@ def review_skeleton(
         "audit_log": audit_log,
         "disclaimer": "Operational qualification review only; not legal advice.",
     }
+    payload["generation_metadata"] = build_generation_metadata(payload)
+    return payload
 
 
 def benchmark_template(
@@ -1739,6 +1820,7 @@ def launch_report_from_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     )
     report["go_to_market_route"] = go_to_market_route_profile(go_to_market_model)
     report["offline_logistics"] = logistics_rows
+    report["generation_metadata"] = build_generation_metadata(report, bundle)
     return report
 
 
@@ -2221,6 +2303,7 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
     ]
     channel_items = [_zh_channel(channel) for channel in channels[:8]]
     destination_text = "、".join(_zh_country(item) for item in destinations if _text(item))
+    provenance = _generation_provenance_html(report, limit=92)
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -2267,6 +2350,7 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
     .metric b {{ display: block; font-size: 28px; margin-bottom: 4px; }}
     .metric span {{ color: #687381; font-size: 16px; font-weight: 750; }}
     .footer {{ padding: 20px 34px; color: #5e6a78; font-size: 19px; line-height: 1.35; }}
+    .verdict .provenance {{ color: #aebfcd; font-size: 12px; line-height: 1.35; margin-top: 12px; font-weight: 650; }}
     .compat {{ display: none; }}
   </style>
 </head>
@@ -2285,7 +2369,10 @@ def render_overview_card_html(report: dict[str, Any]) -> str:
           <div class="big">{_html(_zh_status(decision.get("status")))}</div>
           <div class="risk">风险：{_html(_zh_risk(decision.get("risk_level")))}</div>
         </div>
-        <div class="small">{_html(_short_text(_zh_case_text(decision.get("summary")), 88))}</div>
+        <div>
+          <div class="small">{_html(_short_text(_zh_case_text(decision.get("summary")), 88))}</div>
+          <div class="provenance">{provenance}</div>
+        </div>
       </div>
     </section>
     <section class="meta">
@@ -2399,6 +2486,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     channel_list = "".join(f"<span>{_html(_zh_channel(channel))}</span>" for channel in channels)
     primary_checks = _html_bullets([_zh_channel(item) if "_" in _text(item) else _text(item) for item in route.get("primary_checks") or []], "确认销售路径")
     compat_route_checks = _joined_text(route.get("primary_checks")) if "cross border" in _plain_label(route.get("label")) else ""
+    provenance = _generation_provenance_html(report, limit=180)
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -2430,6 +2518,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
     .engine2 {{ border-color: #2f7d5b; }}
     .engine3 {{ border-color: #7b6b47; }}
     .note {{ border: 1px solid #d6dde5; background: #fbfcfd; padding: 8px 10px; margin: 6px 0 10px; }}
+    .provenance {{ border: 1px solid #d6dde5; background: #f7f4eb; color: #5e6a78; padding: 6px 8px; margin: 7px 0 10px; font-size: 10.5px; text-align: right; }}
     .compat {{ display: none; }}
     ul {{ margin: 4px 0 0; padding-left: 18px; }}
     li {{ margin-bottom: 4px; }}
@@ -2438,6 +2527,7 @@ def render_detailed_pdf_html(report: dict[str, Any]) -> str:
 <body>
   <h1>LaunchFit 结构化审核简报</h1>
   <p class="muted">结论只基于已提交材料和规则路由；未完成官方外部核验前，不作为最终准入意见。<span class="compat">Detailed LaunchFit Review Go-to-market path {_html(_plain_label(route.get("label")))} {_html(compat_route_checks)}</span></p>
+  <div class="provenance">{provenance}</div>
 
   <h2>一页摘要</h2>
   <div class="summary">
@@ -2622,6 +2712,8 @@ def render_launch_markdown(report: dict[str, Any]) -> str:
     decision = report.get("decision") if isinstance(report.get("decision"), dict) else {}
     route = report.get("go_to_market_route") if isinstance(report.get("go_to_market_route"), dict) else go_to_market_route_profile(_text(case.get("go_to_market_model")) or "unknown")
     summary = report.get("market_benchmark_summary") if isinstance(report.get("market_benchmark_summary"), dict) else {}
+    metadata = _generation_metadata(report)
+    method_text = _md_list(metadata.get("search_methods"))
     lines: list[str] = [
         "# Cross-Border Product Launch Review",
         "",
@@ -2633,6 +2725,7 @@ def render_launch_markdown(report: dict[str, Any]) -> str:
         f"- Launch view: {_md_cell(decision.get('status'))}",
         f"- Biggest risk: {_md_cell(decision.get('summary'))}",
         "- Next action: Complete P0/P1 research tasks, resolve missing materials, and verify current official/source data before ordering, printing, or listing.",
+        f"- Generation note: Agent {_md_cell(metadata.get('agent'))}; model {_md_cell(metadata.get('model'))}; search routes {_md_cell(method_text)}; generated {_md_cell(metadata.get('generated_at'))}.",
         "",
         "## Top Risks Before Listing",
         "| Risk | Impact | Owner | Fix |",
@@ -3066,6 +3159,15 @@ def validate_payload(data: dict[str, Any]) -> list[str]:
     _require(isinstance(data.get("case"), dict), "case must be an object", errors)
     _require(isinstance(data.get("decision"), dict), "decision must be an object", errors)
     _require(isinstance(data.get("market_benchmark_summary"), dict), "market_benchmark_summary must be an object", errors)
+    if "generation_metadata" in data:
+        metadata = data.get("generation_metadata")
+        if not isinstance(metadata, dict):
+            errors.append("generation_metadata must be an object")
+        else:
+            _require(bool(metadata.get("agent")), "generation_metadata.agent is required", errors)
+            _require(bool(metadata.get("model")), "generation_metadata.model is required", errors)
+            _require(isinstance(metadata.get("search_methods"), list), "generation_metadata.search_methods must be a list", errors)
+            _require(bool(metadata.get("generated_at")), "generation_metadata.generated_at is required", errors)
 
     decision = data.get("decision") if isinstance(data.get("decision"), dict) else {}
     status = decision.get("status")

@@ -2,6 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts.qualification_audit_schema import (
     launch_report_from_bundle,
@@ -102,6 +103,38 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("English front label", html)
         self.assertIn("flavor praise", html)
 
+    def test_launch_report_records_generation_metadata(self):
+        with patch.dict(
+            "os.environ",
+            {
+                "LAUNCHFIT_AGENT_NAME": "Hermes",
+                "LAUNCHFIT_MODEL_NAME": "test-model",
+                "LAUNCHFIT_SEARCH_METHODS": "browser search, customs registry",
+            },
+        ):
+            report = self.report()
+
+        metadata = report["generation_metadata"]
+        self.assertEqual("Hermes", metadata["agent"])
+        self.assertEqual("test-model", metadata["model"])
+        self.assertIn("browser search", metadata["search_methods"])
+        self.assertIn("customs registry", metadata["search_methods"])
+        self.assertIn("generated_at", metadata)
+
+    def test_report_renderers_include_generation_provenance(self):
+        report = self.report()
+
+        card_html = render_overview_card_html(report)
+        detail_html = render_detailed_pdf_html(report)
+
+        for html in (card_html, detail_html):
+            self.assertIn("生成说明", html)
+            self.assertIn("Agent", html)
+            self.assertIn("Codex", html)
+            self.assertIn("模型", html)
+            self.assertIn("未声明", html)
+            self.assertIn("搜索途径", html)
+
     def test_real_run_without_benchmarks_outputs_benchmark_research_plan(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
         html = render_detailed_pdf_html(report)
@@ -133,6 +166,15 @@ class DeliverableGenerationTests(unittest.TestCase):
         self.assertIn("https://search.jd.com", html)
         self.assertIn("商业市场信号", html)
         self.assertIn("2026-06-18", html)
+
+    def test_real_run_generation_metadata_names_search_routes(self):
+        report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))
+        html = render_detailed_pdf_html(report)
+
+        self.assertIn("agent 主动检索", report["generation_metadata"]["search_methods"])
+        self.assertIn("公开商业搜索/对标检索", report["generation_metadata"]["search_methods"])
+        self.assertIn("agent 主动检索", html)
+        self.assertIn("公开商业搜索/对标检索", html)
 
     def test_real_run_card_is_compact_for_readme_preview(self):
         report = launch_report_from_bundle(json.loads(REAL_RUN_FIXTURE.read_text(encoding="utf-8")))

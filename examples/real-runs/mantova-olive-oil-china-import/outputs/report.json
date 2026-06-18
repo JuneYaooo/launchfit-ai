@@ -2132,6 +2132,18 @@
     }
   ],
   "disclaimer": "Operational qualification review only; not legal advice.",
+  "generation_metadata": {
+    "agent": "Codex",
+    "model": "未声明",
+    "search_methods": [
+      "用户材料/输入包",
+      "规则包与待核验渠道规划",
+      "规则包官方来源候选",
+      "agent 主动检索",
+      "公开商业搜索/对标检索"
+    ],
+    "generated_at": "2026-06-18"
+  },
   "market_reviews": [
     {
       "destination_market": "China",

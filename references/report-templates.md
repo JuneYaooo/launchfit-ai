@@ -40,6 +40,9 @@ Evidence status:
 - T1/T2 confirmed:
 - T4 user-provided only:
 - Needs external verification:
+
+Generation note:
+- Agent / model / search methods / generated date
 ```
 
 Design rules:
@@ -47,6 +50,7 @@ Design rules:
 - Keep it readable at social-card size.
 - Use at most 3 top blockers and 3 next actions.
 - Do not include long legal explanations or dense tables.
+- Include a small unobtrusive generation note in a corner or footer: agent, model if declared, search/information routes used, and generated date.
 - If generated as HTML, save the HTML source and a PNG screenshot.
 
 ## Detailed PDF
@@ -69,7 +73,8 @@ Recommended sections:
 12. Packaging/label fixes.
 13. Logistics/budget route review.
 14. Applicant-facing remediation wording.
-15. Audit log and disclaimer.
+15. Generation note: agent, model if declared, search/information routes used, and generated date.
+16. Audit log and disclaimer.
 
 If no benchmark rows are supplied, do not invent competitor names, prices, reviews, or live market facts. Output a benchmark research design and mark the analysis matrix as missing until current marketplace, retail, DTC, social, distributor, or user-provided samples are checked.
 
@@ -218,6 +223,12 @@ Operational launch-readiness review only; not legal advice. Verify current platf
     "label": "",
     "primary_checks": [],
     "benchmark_focus": []
+  },
+  "generation_metadata": {
+    "agent": "Codex|Hermes|Claude Code|other",
+    "model": "declared model name or 未声明",
+    "search_methods": [],
+    "generated_at": "YYYY-MM-DD"
   },
   "documents": [
     {
