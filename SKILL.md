@@ -26,7 +26,7 @@ The useful outcome is not generic advice. The useful outcome is a next-action pa
 7. **Actions:** who must provide which material, which source to check, and what evidence field to capture.
 8. **Generation note:** which agent generated the report, which model was declared, which search/information routes were used, and the generated date.
 
-Target-market benchmarking and localization synthesis are agent responsibilities. The agent 主动检索 marketplace, retail, DTC, social, distributor, and public shopping surfaces before asking for user screenshots. 用户提供的搜索渠道只能作为补充 evidence or a preferred route to check; do not treat it as a prerequisite, and 不能把找对标和本地化判断的责任推给用户.
+Target-market benchmarking and localization synthesis are agent responsibilities. The agent 主动检索 marketplace, retail, DTC, social, distributor, and public shopping surfaces before asking for user screenshots. 用户提供的搜索渠道只能作为补充 evidence or a preferred route to check; do not treat it as a prerequisite, and 不能把找对标的责任推给用户，也不能把本地化判断的责任推给用户.
 
 If the user has not provided origin country and destination markets, ask for exactly those two missing inputs first. If they gave only one destination, continue with one. If they gave multiple destinations, split the work by destination.
 

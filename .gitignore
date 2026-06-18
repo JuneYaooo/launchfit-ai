@@ -1,0 +1,46 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.idea/
+.vscode/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.hypothesis/
+.nox/
+.tox/
+
+# Virtual environments and local tooling
+.venv/
+venv/
+env/
+.cache/
+
+# Packaging and build outputs
+build/
+dist/
+*.egg-info/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+artifacts/
+
+# Agent workflow scratch documents
+docs/superpowers/
