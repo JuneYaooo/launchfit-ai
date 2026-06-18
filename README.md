@@ -162,3 +162,9 @@ agent 会把仓库克隆到本地，并放到它自己的 skills 目录。安装
 本项目采用 [PolyForm Noncommercial License 1.0.0](./LICENSE) 授权，**禁止商用**。
 
 商业使用或者商务合作请联系 <juneyaooo@gmail.com>。
+
+## 微信交流群
+
+如果你想交流 Skills 使用经验、申请产品试用、一起共创出海体检官，或反馈使用中的问题和建议，欢迎扫码加入微信交流群。
+
+<img src="./assets/wechat-skills-community.jpg" alt="出海体检官微信交流群二维码" width="260">
