@@ -90,9 +90,10 @@ OCR, live marketplace search/scraping, certificate or trademark registries, comp
 
 ## Prompt Changes
 
-Replace generic compliance-report prompting with this contract:
+Replace generic compliance-report prompting with this broader launch-readiness contract:
 
-- The model must output a qualification review JSON, not a market-entry report.
+- The model must output a detailed launch checkup JSON, not generic market-entry advice.
+- The output should cover admission/qualification risks, target-market benchmarks, localization recommendations, logistics, remediation, and evidence gaps when those areas are relevant.
 - The model must choose one of the fixed decision statuses.
 - Findings must be tied to requirements and evidence.
 - T4 applicant documents cannot be treated as externally verified.

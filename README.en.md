@@ -2,7 +2,7 @@
 
 # LaunchFit AI
 
-**Check whether it can sell, then learn how it should sell before your cross-border product goes live.**
+**Check whether it can sell, then generate a detailed pre-launch checkup report for your cross-border product.**
 
 [中文](./README.md)
 
@@ -11,13 +11,22 @@
 
 2nd place project at an International Food Expo hackathon, now open sourced.
 
+![International Food Expo hackathon 2nd place project photo](./assets/photo.jpg)
+
 </div>
 
 ---
 
 The expensive mistake in cross-border commerce is often not choosing the wrong product. It is **stocking the product first, then discovering that the marketplace needs more documents, the authorization does not cover the channel, the label must be reprinted, or the category cannot be sold**.
 
-LaunchFit AI turns "Can my product go overseas?" into a practical AI checkup report. Give it a product, origin country, one or more destination markets, go-to-market route, marketplace or offline channel, packaging label, certificate report, brand document, or a few local benchmark screenshots. It first classifies the route as cross-border ecommerce, physical trade, or hybrid; then it runs an admission-risk screen, shows which official channels, user channels, and benchmark signals should be checked for each destination market; finally it tells you what can move forward, what needs remediation, where margin may disappear, and what should stop for human review.
+LaunchFit AI turns "Can my product go overseas?" into a practical detailed checkup report. Give it a product, origin country, one or more destination markets, go-to-market route, marketplace or offline channel, packaging label, certificate report, brand document, or a few local benchmark screenshots. It answers three things at once: **admission checkup** for export, import, marketplace, qualification, label, and logistics blockers; **target-market benchmarking** for how comparable local products price, package, claim, sell, and build trust; and **localization recommendations** for how to adjust packaging, copy, channel, price, fulfillment, and remediation before launch. The report then tells you what can move forward, what needs more evidence, where margin may disappear, and what should stop for human review.
+
+## Who It Is For
+
+- **Cross-border sellers and brands**: know whether the product is worth continuing before sampling, stocking, advertising, or booking inventory.
+- **Product and operations teams**: evaluate admission, packaging, logistics, localization, and compliance cost alongside sales potential.
+- **Compliance and qualification teams**: turn review judgment into fixed statuses, evidence tables, gap lists, and auditable records.
+- **Agencies and service providers**: identify which client materials can be used, which must be reissued, and how to ask clearly.
 
 ## What You Provide
 
@@ -30,13 +39,19 @@ Minimum inputs:
 
 If available, add certificates, test reports, brand authorization, packaging images, competitor links/screenshots, logistics quotes, supplier details, marketplace search links, industry databases, or internal review records.
 
-## What It Outputs
+## What You Get
+
+- **Detailed checkup report**: a reviewable full report covering destination markets, go-to-market route, export/import/marketplace admission risks, benchmark samples, localization recommendations, packaging and label issues, qualification gaps, logistics budget, remediation wording, and next actions.
+- **Core overview card**: a one-screen decision card distilled from the detailed report, useful for founders, clients, suppliers, operators, and compliance reviewers.
+
+## What The Detailed Checkup Report Outputs
 
 - **Per-destination review path**: US, EU, and Japan are not merged into one checklist.
 - **Go-to-market route split**: ecommerce prioritizes platform admission, category gating, listings, and fulfillment; physical trade prioritizes export, import, customs, responsible parties, and distributor/retail channels; hybrid runs both tracks separately.
 - **Best information channels**: platform policy, regulator, customs/import, brand/IP, company registry, certification/lab, standards, logistics/warehouse, origin/export controls, and user-provided search channels.
 - **Actionable research tasks**: what to verify, why it matters, priority, evidence fields, freshness window, and source tier.
 - **Target-market benchmarks**: local prices, pack sizes, packaging, claims, channels, certifications, and review signals.
+- **Localization recommendations**: packaging hierarchy, label language, claims wording, channel strategy, price band, fulfillment path, and differentiation opportunities.
 - **Listing risks and qualification gaps**: where platform, market, category, brand, label, certificate, and logistics risks sit.
 - **Remediation wording and review trail**: usable with suppliers, clients, service providers, or internal reviewers.
 
@@ -54,6 +69,7 @@ If available, add certificates, test reports, brand authorization, packaging ima
 - **Unclear sales route**: is this marketplace ecommerce, traditional export/import distribution, or both?
 - **Marketplace review blocks**: is the real gap brand authorization, a test report, a label issue, an expired certificate, or a scope mismatch?
 - **No local benchmark**: how do similar products in the target market price, package, claim, certify, and sell?
+- **Localization uncertainty**: how should front/back labels, language, pack size, claims, visual hierarchy, trust marks, responsible party, and channel expression adapt to local buyers?
 - **Packaging and claims risk**: what needs to change in ingredients, allergens, warnings, marks, responsible party, language, or product claims?
 - **Pricing and logistics without evidence**: who are the competitors, where is the price band, and will freight or warehousing destroy margin?
 - **Inconsistent team review**: reviewers rely on experience, but supplement requests, evidence records, and audit trails are hard to standardize.
@@ -68,6 +84,7 @@ If available, add certificates, test reports, brand authorization, packaging ima
 | Listing risk map | Where platform, market, category, brand, label, certificate, and logistics risks sit |
 | Qualification gap table | Which document is missing, expired, mismatched, or unverifiable |
 | Packaging and label fixes | What to change in front/back label, ingredients, allergens, warnings, marks, language, and claims |
+| Localization recommendations | How packaging visuals, pack strategy, claims, channel play, price band, and fulfillment should adapt to the destination market |
 | Price and positioning | Price bands, unit prices, channel tiers, packaging angles, and differentiation opportunities |
 | Logistics budget view | Cost, speed, and risk tradeoffs across air, sea, warehouse, and local delivery |
 | Remediation wording | Clear requests for suppliers, clients, or service providers |
@@ -75,14 +92,18 @@ If available, add certificates, test reports, brand authorization, packaging ima
 
 ## Real Run Example
 
-English real-run examples will be added separately. The current repository includes a Chinese Mantova olive oil import example under `examples/real-runs/`.
+- Product: Fratelli Mantova Equilibrato Extra Virgin Olive Oil 250ml
+- Target: import from Italy to China
+- Go-to-market route: `physical_trade`
+- Input basis: 3 product photos treated as T4 evidence; the agent also searched public commercial channels and added 10 China-market olive-oil benchmark samples. Benchmarks are used as market signals, not as regulatory, import, or label verification.
 
-## Who It Is For
+Core overview card:
 
-- **Cross-border sellers and brands**: know whether the product is worth continuing before sampling, stocking, advertising, or booking inventory.
-- **Product and operations teams**: evaluate admission, packaging, logistics, and compliance cost alongside sales potential.
-- **Compliance and qualification teams**: turn review judgment into fixed statuses, evidence tables, gap lists, and auditable records.
-- **Agencies and service providers**: identify which client materials can be used, which must be reissued, and how to ask clearly.
+![Mantova olive oil import-to-China core overview card](./examples/real-runs/mantova-olive-oil-china-import/outputs/core-card.png)
+
+**Detailed checkup report:**
+
+- [View detailed checkup report PDF](./examples/real-runs/mantova-olive-oil-china-import/outputs/detailed-report.pdf)
 
 ## Coverage
 
@@ -94,14 +115,15 @@ Review routes connect to official or authoritative source entry points such as A
 
 ## How It Decides
 
-The current workflow does not start with benchmarking. It classifies the sales route first, screens admission risk, then uses benchmarks for commercial judgment:
+The most useful workflow is neither "benchmarking first and only" nor "compliance review only." It first locks scope and route, then finds hard blockers that could stop listing, import, customs, authorization, labeling, or logistics. After those blockers are visible, target-market benchmarking and localization recommendations become the core commercial judgment layer: price, packaging, channel, claims, trust signals, fulfillment, and differentiation.
 
 1. **Lock scope**: origin, destination markets, go-to-market route, marketplace or offline channel, category, product, and applicant role.
 2. **Split by route**: ecommerce prioritizes platform admission, category gating, listing, and fulfillment; physical trade prioritizes export, import, customs, responsible party, and distributor/retail channels; hybrid runs both.
 3. **Run admission-risk screen**: prohibited/restricted product, registration, label, claims, brand authorization, certificates, customs, logistics, and responsible party.
 4. **Plan source channels**: regulator, customs, standards, certification, brand/IP, company registry, logistics/warehouse, and user-provided channels.
-5. **Benchmark target market**: after core sellability risks are visible, compare local products for price, packaging, channel, claims, and review signals.
-6. **Deliver artifacts**: core overview card plus detailed PDF, with source tier and external-verification status for every important conclusion.
+5. **Benchmark target market**: after core sellability risks are visible, compare local products for price, pack size, packaging, channel, claims, certification, review, and fulfillment signals.
+6. **Generate localization recommendations**: convert admission findings and benchmark signals into concrete packaging, label, copy, channel, price, logistics, and remediation changes.
+7. **Deliver artifacts**: core overview card plus detailed checkup report, with source tier and external-verification status for every important conclusion.
 
 <details>
 <summary>Structured Decision Statuses</summary>

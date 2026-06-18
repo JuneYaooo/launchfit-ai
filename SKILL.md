@@ -7,24 +7,26 @@ metadata:
 
 # LaunchFit AI / 出海体检官
 
-Use this skill as LaunchFit AI / 出海体检官: turn a cross-border product idea or messy launch package into an AI checkup report that shows whether it can sell, where it may get blocked, what to fix, what to prepare, and whether it can move forward.
+Use this skill as LaunchFit AI / 出海体检官: turn a cross-border product idea or messy launch package into a detailed AI checkup report that shows whether it can sell, how comparable products win locally, how packaging/channel/claims should be localized, where it may get blocked, what to fix, what to prepare, and whether it can move forward.
 
-This skill is not only for low-frequency compliance review. It supports high-frequency seller workflows before and during launch: product feasibility, target-market benchmarking, competitor and pricing checks, packaging and label readiness, logistics planning, platform admission, qualification review, and applicant-facing remediation.
+This skill is not only for low-frequency compliance review. It supports high-frequency seller workflows before and during launch: export/import/marketplace admission checkups, target-market benchmarking, localization recommendations, competitor and pricing checks, packaging and label readiness, logistics planning, qualification review, and applicant-facing remediation.
 
 When the user asks for a final qualification decision, the output must remain auditable: approve, conditionally approve, request more information, reject, or escalate to human review.
 
 ## Start Here
 
-The useful outcome is not generic advice. The useful outcome is a next-action package:
+The useful outcome is not generic advice. The useful outcome is a next-action package built from three core lenses: admission checkup, target-market benchmarking, and localization recommendations.
 
 1. **Scope:** origin country, destination markets, go-to-market model, platform/offline channel, category, product, applicant role, business model.
 2. **Route split:** decide whether this is `cross_border_ecommerce`, `physical_trade`, `hybrid`, or still `unknown`.
 3. **Admission-risk screen:** what can block platform listing, import, export, label, brand/IP, logistics, or margin.
-4. **Market evidence plan:** where to get current information and benchmark signals for each destination.
-5. **Actions:** who must provide which material, which source to check, and what evidence field to capture.
-6. **Generation note:** which agent generated the report, which model was declared, which search/information routes were used, and the generated date.
+4. **Market benchmark:** how similar local products price, package, claim, sell, fulfill, and build trust.
+5. **Localization actions:** what to change in packaging hierarchy, label language, claims wording, channel plan, price band, logistics route, or evidence pack.
+6. **Market evidence plan:** where to get current information and benchmark signals for each destination.
+7. **Actions:** who must provide which material, which source to check, and what evidence field to capture.
+8. **Generation note:** which agent generated the report, which model was declared, which search/information routes were used, and the generated date.
 
-Target-market benchmarking is an agent responsibility. The agent 主动检索 marketplace, retail, DTC, social, distributor, and public shopping surfaces before asking for user screenshots. 用户提供的搜索渠道只能作为补充 evidence or a preferred route to check; do not treat it as a prerequisite, and 不能把找对标的责任推给用户.
+Target-market benchmarking and localization synthesis are agent responsibilities. The agent 主动检索 marketplace, retail, DTC, social, distributor, and public shopping surfaces before asking for user screenshots. 用户提供的搜索渠道只能作为补充 evidence or a preferred route to check; do not treat it as a prerequisite, and 不能把找对标和本地化判断的责任推给用户.
 
 If the user has not provided origin country and destination markets, ask for exactly those two missing inputs first. If they gave only one destination, continue with one. If they gave multiple destinations, split the work by destination.
 
@@ -40,8 +42,9 @@ Follow this loop for every real case:
 4. **Route each destination** through rule packs and source candidates. Never merge `US, EU` into one market.
 5. **Generate research tasks** before conclusions: platform policy when relevant, destination regulator, customs/import, brand/IP, business registry, certification/lab, standards, logistics/warehouse, origin/export, offline/retail/distributor channels when relevant, agent-found benchmark channels, and user search channels.
 6. **Actively gather benchmark rows:** for each destination, look for direct competitors, imported substitutes, local substitutes, platform best sellers, offline shelf references, DTC/social examples, and large-pack/unit-price anchors. Record product, channel, pack size, price/unit price if visible, positioning, packaging signals, claims, trust signals, review themes, source URL, checked date, data basis, and visual evidence fields (`image_url`, `image_alt`) when product images or screenshots are available.
-7. **Separate facts by source tier:** T1/T2 can support decisions; T4 user material and commercial listing/search signals can only support market evidence unless externally verified.
-8. **Give the seller next actions first:** launch view, go-to-market path, blockers, research tasks, missing materials, then deeper evidence tables.
+7. **Turn evidence into localization recommendations:** translate admission findings and benchmark signals into packaging, label, claim, channel, price, fulfillment, and remediation changes.
+8. **Separate facts by source tier:** T1/T2 can support decisions; T4 user material and commercial listing/search signals can only support market evidence unless externally verified.
+9. **Give the seller next actions first:** launch view, go-to-market path, blockers, benchmark/localization takeaways, research tasks, missing materials, then deeper evidence tables.
 
 ## Final Deliverables
 
@@ -54,10 +57,10 @@ For a complete LaunchFit review, produce two user-facing deliverables:
    - Generation rule: treat the detailed PDF/report as the source of truth first, then distill the card from its structured sections. Do not run the card as a parallel standalone summary.
    - Rule: no dense legal explanation, no long tables, no unsupported pass/fail claim, and no generation metadata. Every sentence on the card must tell the user what the finding means or what to do next; keep agent/model/search-route metadata in the detailed PDF or appendix.
 
-2. **Detailed PDF**
+2. **Detailed checkup report**
    - Purpose: auditable working document for compliance, operations, suppliers, service providers, and internal handoff.
-   - Format: PDF generated from structured HTML/Markdown or an equivalent document export.
-   - Contents: scope, per-destination market reviews, benchmark table, source candidates, research tasks, evidence table, findings, missing materials, packaging/label fixes, logistics review, remediation wording, audit log, and disclaimer.
+   - Format: structured Markdown/HTML/PDF depending on available tooling.
+   - Contents: scope, per-destination market reviews, benchmark table, localization recommendations, source candidates, research tasks, evidence table, findings, missing materials, packaging/label fixes, logistics review, remediation wording, audit log, and disclaimer.
    - Rule: every important conclusion links to evidence/source tier or stays `needs_external_verification`. Include generation metadata so readers know whether the report used user materials, rule packs, agent active search, commercial benchmark search, official-source candidates, or other declared channels. Keep long source/search URLs and “对标来源与核验边界” in an appendix or attachment instead of the main body. When benchmark rows include `image_url`, render a compact “对标商品图” section so product packaging and listing visuals are easy to compare.
 
 Use the chat response to summarize the deliverables and next actions. Do not make the chat transcript the main artifact when the user asked for a review output.
@@ -82,6 +85,7 @@ Use the chat response to summarize the deliverables and next actions. Do not mak
 | Product feasibility | User asks whether a product can or should be sold in a market | Opportunity/risk view, obvious blockers, verification plan, next actions |
 | Go-to-market route triage | User has not clarified whether this is cross-border ecommerce, physical trade, or hybrid | Route classification, P0 checks by route, assumptions to confirm |
 | Target-market benchmarking | User asks how similar products are sold in the destination market, or provides competitor screenshots/links | Benchmark product table plus summary of price band, channel map, packaging conventions, trust signals, review themes, and copy/avoid/improve actions |
+| Localization recommendations | User asks how to adapt packaging, copy, claims, channel, price, or fulfillment for a target market | Concrete changes tied to benchmark signals, admission constraints, and evidence gaps |
 | Competitor/pricing review | User provides competitor screenshots, product links, channel info, or pricing questions | Competitor table, unit price normalization, channel/price bands, positioning and differentiation notes |
 | Packaging/label readiness | User provides packaging, label text, claims, ingredients/materials, or listing copy | Label/claim risks, localization notes, required changes, evidence needed |
 | Logistics/budget review | User asks about air/sea/rail/warehouse/local delivery routes | Cost/time/risk comparison, route constraints, preparation checklist |
@@ -123,7 +127,7 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
    - Run a route-specific admission-risk screen before benchmark conclusions: ecommerce prioritizes platform/category/listing/fulfillment; physical trade prioritizes export/import/customs/responsible party/offline channel; hybrid separates both.
    - Separate commercial assumptions from verified facts: product positioning, benchmark product signals, price band, competitor signals, origin country, target markets, logistics route, platform route, importer/distributor route, and retail/offline channel route.
    - For each origin/destination pair, generate source candidates and research tasks before relying on any market rule or commercial signal.
-   - For current benchmark products, competitor pricing, platform requirements, freight costs, or regulatory facts, verify current sources and cite checked dates.
+   - For current benchmark products, competitor pricing, platform requirements, freight costs, localization claims, or regulatory facts, verify current sources and cite checked dates.
 
 3. **Build the document inventory**
    - Load `references/document-taxonomy.md` when reviewing documents or creating required-material lists.
@@ -152,7 +156,7 @@ If any blocker is missing, ask only the minimum necessary question. Otherwise pr
 
 8. **Output the result**
    - Load `references/report-templates.md`.
-   - For launch-readiness work, provide a practical "can sell / can list / what to fix next" answer first, then target-market benchmark, competitor/pricing/logistics/packaging notes as relevant.
+   - For launch-readiness work, provide a practical "can sell / can list / what to fix next" answer first, then target-market benchmark, localization recommendations, competitor/pricing/logistics/packaging notes as relevant.
    - For target-market benchmarks, do not stop at a product list. Organize the final answer into benchmark rows, what the market teaches us, what to copy, what to avoid, what to improve, and what must be verified before ordering, printing, or listing.
    - For qualification decisions, provide a concise executive decision first, then detailed findings, evidence table, missing materials, remediation, and audit log.
 

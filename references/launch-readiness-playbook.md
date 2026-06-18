@@ -1,6 +1,6 @@
 # Launch Readiness Playbook
 
-Use this reference when the user asks whether a product can sell, is worth launching, what similar products in the target market are doing, what to prepare before listing, how to price, how to position packaging, or how to choose logistics.
+Use this reference when the user asks whether a product can sell, is worth launching, what similar products in the target market are doing, how to localize packaging/copy/channel/price, what to prepare before listing, how to price, how to position packaging, or how to choose logistics.
 
 This is a commercial and operational review layer. It does not replace official platform, regulator, customs, tax, or legal verification.
 
@@ -13,7 +13,7 @@ For seller-facing launch questions, answer in this order:
 3. **Admission-risk screen**: the 3-5 issues most likely to block platform listing, export/import, customs, labeling, channel admission, inventory, cash, or review cycles.
 4. **What to fix next**: concrete actions by owner.
 5. **Evidence and assumptions**: separate verified facts from assumptions.
-6. **Deep sections** as relevant: target-market benchmarking, competitor/pricing, packaging/label, platform admission, import/export, logistics, qualification gaps.
+6. **Deep sections** as relevant: target-market benchmarking, localization recommendations, competitor/pricing, packaging/label, platform admission, import/export, logistics, qualification gaps.
 
 Do not start with a legalistic qualification memo unless the user specifically asks for a final approve/reject review.
 
@@ -29,6 +29,7 @@ Map findings to the seller loss they prevent:
 | Packaging has to be reprinted | label language, warnings, claims, nutrition/ingredient, certification marks, importer/responsible party |
 | Pricing is guesswork | target-market benchmark, competitor price band, channel tier, pack size normalization, premium vs mass positioning |
 | Product feels disconnected from local market | benchmark local claims, packaging language, pack size, certifications, consumer review themes, and channel merchandising |
+| Product is not localized enough | packaging hierarchy, label language, claims wording, pack strategy, channel fit, price band, and fulfillment expectations |
 | Service providers oversell tasks | distinguish mandatory requirements, useful optional improvements, and unverified advice |
 | Teams cannot act | owner, material, acceptable replacement, priority, next checkpoint |
 
@@ -46,6 +47,7 @@ Cover:
 - label and claims sensitivity
 - logistics constraints: liquid, battery, aerosol, chemical, food, cold chain, dangerous goods, fragile, high value
 - brand/IP and authorization route
+- localization fit: packaging hierarchy, local language, pack size, claims wording, channel expectations, price band, and fulfillment model
 
 Use outcome language:
 
@@ -106,6 +108,7 @@ Then summarize:
 - **Visible trust signals**: certifications, local language, responsible party, review count/rating, badges, testing marks, or retail shelf cues.
 - **Review themes**: repeated praise, objections, complaints, use cases, and buying triggers.
 - **Gap opportunity**: what the user's product can copy, avoid, or improve.
+- **Localization recommendations**: what to change in packaging, label language, claims, channel plan, price band, fulfillment route, and evidence pack.
 - **Listing preparation**: photos, label, bullets, certifications, and materials to prepare before launch.
 - **Verification needed**: which prices, claims, certifications, or rules need current official/source checks before final action.
 
@@ -145,6 +148,22 @@ Output:
 |---|---|---|---|---|
 
 Use clear wording: `safe to keep`, `revise before print`, `needs official verification`, `human review`.
+
+## Localization Recommendations
+
+Turn admission findings and benchmark signals into concrete market-entry changes:
+
+- packaging: front-label hierarchy, pack size, local language, required marks, warning placement, responsible-party visibility
+- copy and claims: buyer promise, proof points, restricted wording, certification language, usage occasions, local search terms
+- channel fit: marketplace, social commerce, mass retail, specialty retail, distributor, DTC, or offline shelf expectations
+- price and bundle: reference price band, unit price, trial pack, multi-pack, premium/mass positioning
+- fulfillment: local warehouse, FBA/FBT/FBM, distributor inventory, cold chain, fragile/liquid handling, return risk
+- evidence pack: which certificates, labels, photos, test reports, authorization letters, or registry checks support the localized launch path
+
+Output:
+
+| Area | Local market signal | Recommendation | Evidence or check needed |
+|---|---|---|---|
 
 ## Logistics And Budget Comparison
 
@@ -214,6 +233,10 @@ Use this skeleton for seller-facing outputs:
 | Claims and proof | Which claims are common and which need substantiation | ... |
 | Review themes | Repeated praise, objections, complaints, or usage contexts | ... |
 | Gap opportunity | What we can copy, avoid, or improve | ... |
+
+## Localization Recommendations
+| Area | Change | Why it matters | Evidence/check |
+|---|---|---|---|
 
 ## Competitor / Pricing
 | Signal | What it means | Action |
